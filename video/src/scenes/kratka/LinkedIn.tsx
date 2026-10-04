@@ -1736,7 +1736,7 @@ const F3_46_VIEWS: FootView[] = (() => {
     { t: F3_46_CESTU - 0.1, ...detail }, // "cestu k polozke": drobcek a hlavicka ZL_03
     { t: F3_46_AJ - 0.6, ...detail },
     { t: F3_46_AJ + 0.4, ...match }, // "aj vsetky vycitane udaje": posun stranky k zhode v metadatach
-    { t: 99, ...match },
+    { t: F3_46_SECONDS + 0.3, x: 510, y: 280, w: 940 }, // kolo 45 (Samuel: v 0:38 sa to zasekne): zaznam je od zhody staticky, vyrez ide pomaly dalej az do prelinacky
   ];
 })();
 const F3_46_STEPS: Step[] = [
@@ -1791,8 +1791,9 @@ const KtoCard: React.FC<{ kind: OfferIconKind; title: string; sub: string; at: n
 };
 const LI_Kto: React.FC = () => (
   <AbsoluteFill style={{ background: '#fff' }}>
-    <KtoCard kind="app" title="Vlastnými silami" sub="s našou aplikáciou" at={KTO_L0 + KTO_W.sami * 1000 - 150} left={60} />
-    <KtoCard kind="catalog" title="Služba na kľúč" sub="archív spracujeme my" at={KTO_L0 + KTO_W.archiv * 1000 - 150} left={560} dark />
+    {/* kolo 45 (simulovani divaci z malych firiem: "je to pre velke sklady"): podtitulky s rozsahom od par sanonov po cely sklad */}
+    <KtoCard kind="app" title="Vlastnými silami" sub="s našou aplikáciou, od pár šanónov" at={KTO_L0 + KTO_W.sami * 1000 - 150} left={60} />
+    <KtoCard kind="catalog" title="Služba na kľúč" sub="archív spracujeme my, aj celý sklad" at={KTO_L0 + KTO_W.archiv * 1000 - 150} left={560} dark />
   </AbsoluteFill>
 );
 const LI_C8_46: React.FC = () => (
@@ -1892,7 +1893,7 @@ const LI_LIST_46: LiDef[] = [
   // kolo 34: skutocny zaznam fotenia (F1) vypadol, fotenie ukazuje hacik aj C5 (blesk), F24 sa prelinie z mobilu na konci C5
   { def: paced(F24_46_CLIP, { scene: LI_F24_46, seconds: F24_46_END, stills: [], ...noSubs }), tone: () => 'light', steps: F24_46_STEPS, phase: phases.app, xfadeIn: F1_XFADE },
   { def: paced(F3_46_CLIP, { scene: LI_F3_46, seconds: F3_46_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: F3_46_STEPS, phase: phases.search }, // kolo 43: vlastny klip hlasu
-  { def: paced(VYS_CLIP, { scene: LI_Vysledok, seconds: VYS_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: VYS_STEPS, phase: offer.kicker }, // kolo 36: bez prelinacky z hladania (nic sa neprekryva)
+  { def: paced(VYS_CLIP, { scene: LI_Vysledok, seconds: VYS_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: VYS_STEPS, phase: offer.kicker, xfadeIn: F1_XFADE }, // kolo 45: prelinacka z hladania (tvrdy strih z okna na prazdnu bielu preblesol; v kole 36 bola prec)
   { def: paced(KTO_CLIP, { scene: LI_Kto, seconds: KTO_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Vlastnými silami, alebo na kľúč' }], phase: offer.kicker, xfadeIn: C8_XFADE }, // kolo 40
   { def: paced(C8_46_CLIP, { scene: LI_C8_46, seconds: clipEndSeconds(C8_46_CLIP, 0.2), stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Prvý krok' }], phase: offer.kicker, subsOut: [0, 1e9], xfadeIn: C8_XFADE },
   { def: paced('K-C9-Outro', { scene: LI_C9, seconds: 2.2, stills: [], ...noSubs }), tone: () => 'dark', chrome: false, subs: false }, // kolo 43: 2,2 s, aby akord doznel pod logom

@@ -11,19 +11,19 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
 - Dĺžka: okolo 75 s a k tomu 30 s teaser. Ponuku (C8) nechal na mňa.
 - Pôvodnú verziu nechytať, je to vstup. Hlas a hudbu negenerovať znova (existujúce nahrávky sa len strihajú).
 
-## Kde sme skončili (4. 10. 2026, kolo 44)
+## Kde sme skončili (4. 10. 2026, kolo 45)
 
 - Dve hotové videá, obe LinkedIn 4:5 (1080 x 1350), obe sa renderujú z toho istého projektu:
   - `video/out/kratka/K-LinkedIn_1080p.mp4` (76,8 s, kolo 31, kompozícia `K-LinkedIn`): plná krátka verzia, od kola 31 bez zmeny.
-  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (59,4 s, kolo 44, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
+  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (59,0 s, kolo 45, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
     otázka v kancelárii a prestrih do skladu, "Hľadanie môže trvať hodiny.", logo ("Predstavujeme Assetin Archives."), háčik
     "Naskenovať celý archív môže byť drahé. Náš prístup katalogizácie je hospodárnejší: naša aplikácia fotí len identifikačnú
     stranu." (logo z predstavenia ostáva ako hlavička háčika, 328 strán proti 1 identifikačnej strane), QR kód a "Stačí bežný
     mobil." s bleskom, aplikácia (záznam od celého okna s plynulým priblížením, karta v strede pásma, potvrdí alebo upraví),
     hľadanie (slovo, cesta k položke, od "aj všetky vyčítané údaje" karta položky a posun k žltej zhode), výsledok "Výsledok:
     spoľahlivo viete, čo presne máte a kde to je." a "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať."
-    (tmavomodré karty), "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč.", výzva, logo 2,2 s s doznievajúcim
-    akordom; podrobnosti v kole 44 nižšie. Kolá 32 až 43 sú v `out/kratka/verzie/`.
+    (tmavomodré karty), "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč." (karty "od pár šanónov" / "aj celý
+    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 a 45 nižšie. Kolá 32 až 44 sú v `out/kratka/verzie/`.
     Náhľady `*_preview_540p.mp4` vedľa. Staršie kolá 14 až 30 sú v `out/kratka/verzie/`. Pôvodná dlhá verzia (145 s, 16:9) sa nemenila.
 - Zdroj: kompozície `K-LinkedIn` a `K-LinkedIn-46` (zoznam klipov `LI_LIST_46` na konci súboru) v `src/scenes/kratka/LinkedIn.tsx` (spoločné dáta `Kratka.tsx`, klipy `src/kratkaList.ts`),
   scenár `src/copy/vo_kratka.json`, hlas `public/vo-kratka/`, hudba `src/copy/music_kratka.json` (variant `K`: hudba
@@ -48,6 +48,37 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
 - Gemini API (hlas aj hudba) naposledy vracalo 402, vyčerpaný predplatený kredit; nové vety čakajú na jeho dobitie.
 - Review stránka experimentu (odkaz hore) je súkromná, ostatní ju uvidia, až keď ju vlastník zdieľa cez Share.
 
+## Kolo 45 (4. 10. 2026): plynulý koniec hľadania, karty Kto s rozsahom, simulácia divákov (malé archívy)
+
+Samuel (ku kolu 44): v 0:38 sa to zasekne a preblesne, má byť plynulé; inak super; nasimulovať divákov s dôrazom na to, či
+chápu, že to nie je len pre veľké archívy.
+
+- 0:38: záznam v okne hľadania bol od zvýraznenia zhody statický (posledný segment zostrihu drží 2,2 s; zdroj `search2.mp4` má
+  po 13,2 s ďalšie 2 s bez pohybu), po konci vety 0,8 s ticha s nehybným obrazom a tvrdý strih na prázdnu bielu stránku Výsledku.
+  Oprava: výrez v okne ide od zhody pomaly ďalej až do konca klipu (`F3_46_VIEWS`, posledný kľúč x 510, y 280, w 940, zvýraznený
+  text ostáva vnútri) a Výsledok sa z hľadania prelína 400 ms (`xfadeIn: F1_XFADE`; prelínačka vypadla v kole 36), riadky Čo
+  presne máte / Kde to je nabiehajú už počas nej. Film -0,4 s.
+- Simulácia 6 divákov (Gemini, náhľad kola 44; konateľ malej projekcie, office manažérka strednej stavebnej firmy, vedúci
+  registratúry veľkej firmy, advokát, tajomník mestského úradu, finančný riaditeľ bez zvuku): princíp pochopili všetci (len
+  identifikačná strana, aplikácia prečíta a človek skontroluje, kľúčové slovo a cesta polica > krabica > zložka, jedna krabica
+  zadarmo); bez zvuku funguje porovnanie 328 strán €€€ proti 1 strane €. Malé archívy: nie je to dosť jasné, malá projekcia
+  a advokát si myslia, že je to pre veľké sklady (sklad s regálmi 0:02 až 0:05, hierarchia polica > krabica), zachraňuje to až
+  "Začnime jednou krabicou" (0:53). Najsilnejšie: 0:10 až 0:19 (porovnanie nákladov), 0:31 až 0:37 (hľadanie "vodovod"), 0:53
+  (nízka bariéra). Najslabšie: 0:01 až 0:03 (rýchly útek z kancelárie do obrieho skladu), 0:27 až 0:29 (dva podobné zábery
+  formulára), 0:48 až 0:52 (statické karty). Chýbalo: cena, bezpečnosť a GDPR (advokát), registratúrne znaky a lehoty (úrad),
+  kto QR nálepky dodá. Návrhy bez predĺženia: do kariet Kto rozsah (zapracované), nadpis pri QR "v skrini aj v sklade", úvod
+  dlhšie v kancelárii, cesta aj ako "Skriňa A > Šanón" (námety, nezapracované).
+- Karty Kto (0:48): podtitulky "s našou aplikáciou, od pár šanónov" a "archív spracujeme my, aj celý sklad".
+- Hudba: tie isté takty, delay 0,34 s, tempo 1,0218 podľa skutočných začiatkov (nástup kapely 0,8 s pred zeleným prechodom 6,17 s,
+  pokojná časť na začiatku scény Kto 47,87 s, akord 0,05 s po začiatku loga 56,77 s).
+- Začiatky klipov: C2 0, C4 6,17, háčik 9,8, C5 19,4, aplikácia 24,43, hľadanie 30,67, výsledok 38,3, Kto 47,87, výzva 52,37, logo
+  56,77; film 58,97 s (1769 snímok). K-LinkedIn 2302 snímok bez zmeny.
+- Kontroly: mriežka 10 fps 36,4 až 39,0 s (výrez ide pomaly ďalej až do prelínačky, počas nej už nabieha nadpis Výsledok
+  katalogizácie a riadok Čo presne máte), still Kto (dva riadky podtitulkov v kartách), prepis mixu cez Gemini: všetkých 15 viet
+  celých a bez chýb, hudba hrá do konca, akord doznie, bez skoku, tempo prirodzené; -16,1 LUFS, true peak -1,4 dBFS; K-LinkedIn
+  2302 snímok.
+- Kolo 44 je uložené v `out/kratka/verzie/K-LinkedIn-46_kolo44_59s_*.mp4` a v commite `36926b1`.
+
 ## Kolo 44 (4. 10. 2026): bez duplicity o fotení, karta položky skôr a dlhšie, tmavá karta bez preblikania, pod minútu
 
 Samuel (ku kolu 43): v 0:17 (háčik) a v 0:27 (C5) sa dvakrát za pár sekúnd hovorí, že sa fotí len identifikačná strana; v 0:43
@@ -71,13 +102,15 @@ drobné strihy (háčik, logo, aplikácia o 0,2 až 0,3 s skôr).
   položky je na obraze 3,1 s (bolo 1,25 s), klip 8,05 s (bolo 7,74 s).
 - Kto: tmavá karta Služba na kľúč je tmavomodrá od prvej snímky (predtým sa objavila biela s obrysom a o 120 ms skokom sčernela),
   svetlá karta mení pri slove len obrys; karty pri "sami" a "archív".
-- Hudba (variant `K46`): úvod 2,25 taktu (-13:3-4, -12, -1), delay 0,10 s, nástup kapely 0,5 s pred zeleným prechodom (5,67 s),
-  groove 19 taktov 0 až 18 (skok 18 -> 44 podobnosť 0,997), tempo 1,0139, pokojná časť takty 44 až 47 od scény Kto (48,0 s), akord
-  (51) v 57,0 s na začiatku záverečného loga (56,9 s), doznie do konca. Čas vo filme = čas v zostrihu / tempo + delay.
+- Hudba (variant `K46`): úvod 2,25 taktu (-13:3-4, -12, -1; skok -12 -> -1 podobnosť 0,992), delay 0,10 s, groove 19 taktov 0 až 18
+  (skok 18 -> 44 podobnosť 0,997), tempo 1,0139, pokojná časť takty 44 až 47, akord (51) tesne pred logom, doznie do konca. Čas vo
+  filme = čas v zostrihu / tempo + delay.
 - Drobné strihy: háčik od 0,4 s (bolo 0,7), logo od 0,4 s a klip končí 300 ms po vete, aplikácia od 0,6 s (bolo 0,8), Kto 0,2 s
   po vete.
-- Začiatky klipov: C2 0, C4 5,67, háčik 9,3, C5 18,9, aplikácia 24,17, hľadanie 30,4, výsledok 38,43, Kto 48,0, výzva 52,5, logo
-  56,9; film 59,37 s (1781 snímok; bolo 65,67 s). K-LinkedIn 2302 snímok bez zmeny.
+- Začiatky klipov (opravené v kole 45; pôvodný zápis bol z merania pred posunom vety o hodinách na 4,4 s): C2 0, C4 6,17, háčik
+  9,8, C5 19,4, aplikácia 24,67, hľadanie 30,9, výsledok 38,93, Kto 48,5, výzva 53,0, logo 57,17; film 59,37 s (1781 snímok; bolo
+  65,67 s). K-LinkedIn 2302 snímok bez zmeny. Hudba bola preto o 0,5 s pred obrazom (nástup kapely 1,0 s pred zeleným prechodom,
+  pokojná časť 0,5 s pred scénou Kto), nepočuteľné; v kole 45 doladené.
 - Kontroly: prepis mixu cez Gemini zachytí všetkých 15 viet celých a bez chýb výslovnosti, hudba hrá od začiatku do úplného
   konca, akord na konci doznie, bez počuteľného skoku, nič sa nehovorí dvakrát; -16,1 LUFS, true peak -1,6 dBFS; K-LinkedIn 2302
   snímok; snímky v plnom rozlíšení (úvod, C5 s bleskom pri "mobil", hľadanie: cesta odíde pred "aj všetky", karta položky drží
