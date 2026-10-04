@@ -11,17 +11,18 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
 - Dĺžka: okolo 75 s a k tomu 30 s teaser. Ponuku (C8) nechal na mňa.
 - Pôvodnú verziu nechytať, je to vstup. Hlas a hudbu negenerovať znova (existujúce nahrávky sa len strihajú).
 
-## Kde sme skončili (2. 10. 2026, kolo 42)
+## Kde sme skončili (4. 10. 2026, kolo 43)
 
 - Dve hotové videá, obe LinkedIn 4:5 (1080 x 1350), obe sa renderujú z toho istého projektu:
   - `video/out/kratka/K-LinkedIn_1080p.mp4` (76,8 s, kolo 31, kompozícia `K-LinkedIn`): plná krátka verzia, od kola 31 bez zmeny.
-  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (61,9 s, kolo 42, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
+  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (65,8 s, kolo 43, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
     problém, vycentrované logo ("Predstavujeme softvérové riešenie Assetin Archives."), háčik "Naskenovať celý archív môže byť
-    drahé. Náš prístup katalogizácie archívu je hospodárnejší." (logo z predstavenia ostáva ako hlavička háčika, 328 strán proti
-    1 identifikačnej strane), QR kód a "Mobilom sa odfotí len identifikačná strana." s bleskom, aplikácia (záznam od celého okna
-    s plynulým priblížením, karta v strede pásma, potvrdí alebo upraví), hľadanie s detailom položky, výsledok "spoľahlivo viete, čo presne máte a kde to je" a rozhodnutie uchovať /
-    skartovať / plnohodnotne skenovať, "Buď katalogizujete vlastnými silami, alebo to spravíme ako službu na kľúč.", výzva;
-    podrobnosti v kole 42 nižšie. Kolá 32 až 41 sú v `out/kratka/verzie/`.
+    drahé. Náš prístup katalogizácie je hospodárnejší: naša aplikácia fotí len identifikačnú stranu." (logo z predstavenia ostáva
+    ako hlavička háčika, 328 strán proti 1 identifikačnej strane), QR kód a "Mobilom sa odfotí len identifikačná strana." s bleskom,
+    aplikácia (záznam od celého okna s plynulým priblížením, karta v strede pásma, potvrdí alebo upraví), hľadanie (slovo, cesta
+    k položke, posun k vyčítaným údajom), výsledok "spoľahlivo viete, čo presne máte a kde to je" a rozhodnutie uchovať /
+    skartovať / plnohodnotne skenovať (tmavomodré karty), "Buď katalogizujete vlastnými silami, alebo vám archív spracujeme ako
+    službu na kľúč.", výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kole 43 nižšie. Kolá 32 až 42 sú v `out/kratka/verzie/`.
     Náhľady `*_preview_540p.mp4` vedľa. Staršie kolá 14 až 30 sú v `out/kratka/verzie/`. Pôvodná dlhá verzia (145 s, 16:9) sa nemenila.
 - Zdroj: kompozície `K-LinkedIn` a `K-LinkedIn-46` (zoznam klipov `LI_LIST_46` na konci súboru) v `src/scenes/kratka/LinkedIn.tsx` (spoločné dáta `Kratka.tsx`, klipy `src/kratkaList.ts`),
   scenár `src/copy/vo_kratka.json`, hlas `public/vo-kratka/`, hudba `src/copy/music_kratka.json` (variant `K`: hudba
@@ -45,6 +46,34 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
   - Krabica alebo box: posúdené v kole 24, odporúčanie nechať "krabica".
 - Gemini API (hlas aj hudba) naposledy vracalo 402, vyčerpaný predplatený kredit; nové vety čakajú na jeho dobitie.
 - Review stránka experimentu (odkaz hore) je súkromná, ostatní ju uvidia, až keď ju vlastník zdieľa cez Share.
+
+## Kolo 43 (4. 10. 2026): hudba do konca, "naša aplikácia fotí len identifikačnú stranu", hľadanie cesta -> údaje, tmavomodré závery
+
+Samuel (ku kolu 42): hudba na konci predčasne skončí; v 0:17 povedať aj hlasom, že fotíme len identifikačnú stranu (naša
+aplikácia; a aby zaznela katalogizácia); v 0:35 najprv cesta k položke, potom pri posune dole vyčítané údaje; v 0:55 obchodnejšie
+("alebo vám archív spracujeme ako službu na kľúč"); závery sú plané, zapracovať tmavomodrú, minimalizmus ostáva.
+
+- Hlas (3 nové nahrávky Gemini, prepis bez chýb): háčik "Náš prístup katalogizácie je hospodárnejší: naša aplikácia fotí len
+  identifikačnú stranu." (6,1 s; TTS dalo pri dvojbodke pauzu 1,4 s, ticho skrátené na 0,3 s rezom v tichu 2,98 až 3,09 s; prvý
+  pokus s rezom podľa najtichšieho okna odsekol koniec slova "hospodárnejší", odhalil to prepis mixu, opravené z raw nahrávky);
+  hľadanie má vlastný klip `K46-F3-Vyhladavanie` "Potom stačí napísať kľúčové slovo. Aplikácia ukáže cestu k položke aj všetky
+  vyčítané údaje." (6,8 s; `K-F3-Vyhladavanie` ostáva pre K); Kto "Buď katalogizujete vlastnými silami, alebo vám archív spracujeme
+  ako službu na kľúč." (5,7 s). "Katalogizácia" zaznie v háčiku aj v scéne Kto. Spolu 16 viet, 123 slov.
+- Háčik: rámik a blesk pri "fotí", zelená cenovka a "1 strana" pri "identifikačnú" (`HOOK_W`); háčik 10,3 s.
+- Hľadanie (nová scéna `LI_F3_46`, nie `LI_F3Base`): okno celé -> pole Hľadať počas písania -> detail s drobčekom a hlavičkou ZL_03
+  pri "cestu" -> posun stránky (zdroj 7,4 až 12,8 s, 4x) počas "aj všetky vyčítané" k žltej zhode pri "údaje"; karty pod oknom:
+  Hľadané slovo, Cesta k položke (`DocPath`) pri "cestu", Nájdená položka (`ItemCard`) pri "údaje"; nadpisy Napísať kľúčové slovo /
+  Cesta k položke / Vyčítané údaje; zostrih `k46-f3-search` 7,74 s.
+- Závery: riadky Čo presne máte / Kde to je po fajke tmavomodré (NAVY 800) s bielym textom a zeleným kruhom; dlaždice biele
+  s tmavomodrým nadpisom a ikonou v zelenom kruhu, obrys tmavomodrý; Kto: Vlastnými silami biela s tmavomodrým obrysom, Služba
+  na kľúč tmavomodrá vyplnená ("archív spracujeme my"); výzva bez zmeny.
+- Hudba (variant `K46`): groove 20 taktov 0 až 19, tempo 1,0058, delay 0,3 s, pokojná časť takty 44 až 47 a dve doby taktu 48
+  od scény Kto (53,13 s), akord (51) v 63,36 s tesne pred logom (63,47 s), logo 2,2 s (bolo 1,8), akord doznie do konca. Gemini:
+  akord doznieva až do úplného konca.
+- Kontroly: prepis mixu cez Gemini zachytí všetkých 16 viet celých, bez odseknutia; -16,3 LUFS, true peak -1,5 dBFS; K-LinkedIn
+  2302 snímok; stills háčika, hľadania (cesta pri "cestu", žltá zhoda a karta položky pri "údaje"), záverov. Film 65,67 s (1970
+  snímok): háčik +2,8 s, Kto +1,2 s, logo +0,4 s.
+- Kolo 42 je uložené v `out/kratka/verzie/K-LinkedIn-46_kolo42_62s_*.mp4` a v commite `962e235`.
 
 ## Kolo 42 (2. 10. 2026): pohľady na záznam nanovo podľa skutočného obsahu, overené v plnom rozlíšení a simulovanými divákmi
 

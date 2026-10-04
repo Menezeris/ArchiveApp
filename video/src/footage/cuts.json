@@ -258,19 +258,19 @@
       {
         "from": 6.2,
         "to": 7.4,
-        "after": 0.9,
+        "after": 1.85,
         "note": "vysledok ZL_03 a detail v pokoji (drobcek PL_01 / KR_01 / ZL_03, Priloha, zaciatok tabulky metadat)"
       },
       {
         "from": 7.4,
         "to": 12.8,
-        "speed": 3,
-        "note": "posun stranky k zhode v metadatach (pocas \"o konkretnej polozke\")"
+        "speed": 4,
+        "note": "posun stranky k zhode v metadatach (4x, pocas \"aj vsetky vycitane\")"
       },
       {
         "from": 12.8,
         "to": 13.2,
-        "after": 1.15,
+        "after": 0.59,
         "note": "automaticky zvyraznena zhoda v metadatach (Popis zmeny: Doplnenie vodovodnej pripojky...), drzi do konca klipu"
       }
     ]

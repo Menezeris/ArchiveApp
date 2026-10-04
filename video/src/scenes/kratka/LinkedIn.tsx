@@ -1498,7 +1498,7 @@ const C4Top46: React.FC = () => <C4TopBase clip={C4_46_CLIP} h={K_C4_H46} promis
  * dokumenty, pri "az to" sa jeden zvyrazni s ikonou skenu, ostatne zblednu, pri "potrebujete" fajka.
  */
 const HOOK_CLIP = 'K46-Hook';
-const HOOK_W = { drahe: 2.32, archivu: 1.78, hospodarnejsi: 2.58 }; // s od zaciatku viet (K46-Hook-0 a -1 words)
+const HOOK_W = { drahe: 2.32, foti: 4.06, identifikacnu: 4.54 }; // s od zaciatku viet (K46-Hook-0 a -1 words); kolo 43: ramik pri "foti", zelena cenovka pri "identifikacnu"
 const HOOK_SECONDS = (voAt(HOOK_CLIP, 1) + (voLines(HOOK_CLIP)[1].dur ?? 3840)) / 1000 + 0.25;
 const HOOK_LOGO = { h0: 168, h1: 64, y1: 44, right: 48, ms: 600 }; // kolo 40: logo z C4 sa zmensi a vysunie vpravo hore ako hlavicka hacika
 const HOOK_STEPS: Step[] = [
@@ -1530,9 +1530,9 @@ const LI_Hook: React.FC = () => {
   const count = tween(frame, scanFrom, HOOK_W.drahe * 1000 + 300, easeInOut);
   const tag = pop(frame, L0 + HOOK_W.drahe * 1000 - 120, { damping: 15 });
   const split = tween(frame, L1 + 100, 650, easeInOut); // stoh dolava, list doprava
-  const frameT = settle(frame, L1 + HOOK_W.archivu * 1000 - 250);
-  const flash = tween(frame, L1 + HOOK_W.archivu * 1000 - 50, 420);
-  const cheapAt = L1 + HOOK_W.hospodarnejsi * 1000 - 150;
+  const frameT = settle(frame, L1 + HOOK_W.foti * 1000 - 250);
+  const flash = tween(frame, L1 + HOOK_W.foti * 1000 - 50, 420);
+  const cheapAt = L1 + HOOK_W.identifikacnu * 1000 - 150;
   const tagOut = tween(frame, cheapAt, 350);
   const cheap = pop(frame, cheapAt + 120, { damping: 15 });
   const one = settle(frame, cheapAt + 200);
@@ -1700,29 +1700,54 @@ const LI_F24_46: React.FC = () => <LI_F24Base src={`footage/${KF24_46}.mp4`} vie
 /** F3: ten isty zostrih, len karta a cesta drzia o 1,3 s kratsie (k46-f3-search). */
 const KF3_46 = 'k46-f3-search';
 const F3_46_SECONDS = cutDuration(KF3_46);
-/** Kolo 40: tesnejsie vyrezy; kolo 41 (Samuel): zacina cele okno, plynule priblizenie na riadok s hladanym slovom, po vysledku posun
- * na detail polozky vpravo (ZL_03, Zlozka, nazov, priloha), pri "aj cestu k nej" na drobcek. */
+/** Kolo 43 (Samuel: najprv cesta k polozke, potom pri posune stranky vycitane udaje): vlastny klip hlasu K46-F3-Vyhladavanie
+ * ("Potom staci napisat klucove slovo. Aplikacia ukaze cestu k polozke aj vsetky vycitane udaje."), vlastna scena: okno (cele
+ * okno -> pole Hladat -> detail s drobcekom pri "cestu" -> posun stranky k zltej zhode pri "udaje"), karty pod oknom: hladane
+ * slovo, cesta (DocPath) pri "cestu", najdena polozka (ItemCard) pri "udaje". Klip K-F3-Vyhladavanie ostava pre K. */
+const F3_46_CLIP = 'K46-F3-Vyhladavanie';
+const F3_46_W = { cestu: 3.82, udaje: 6.14 }; // s od zaciatku vety (K46-F3-Vyhladavanie-0 words)
+const F3_46_L0 = voAt(F3_46_CLIP, 0) / 1000;
+const F3_46_CESTU = F3_46_L0 + F3_46_W.cestu;
+const F3_46_UDAJE = F3_46_L0 + F3_46_W.udaje;
 const F3_46_VIEWS: FootView[] = (() => {
-  // kolo 42: pole Hladat (vysledok sa objavi vnutri pohladu), detail s drobcekom, ZL_03, Prilohou a zaciatkom tabulky metadat,
-  // pri posune stranky pohlad hore, aby zlta zhoda (y 490) a riadky okolo boli v strede; pohlad na drobcek vypadol (cestu
-  // ukazuje karta pod oknom)
   const full = { x: 70, y: 0, w: 1625 },
     search = { x: 60, y: 300, w: 1000 },
     detail = { x: 480, y: 440, w: 820 },
     match = { x: 480, y: 220, w: 1000 }; // sirsi, aby cely zvyrazneny text (x 908 az 1393) bol vnutri
-  const v1 = voAt(F3_CLIP, 0, 1) / 1000;
   return [
     { t: 0, ...full },
     { t: 0.5, ...full },
     { t: 1.3, ...search }, // priblizenie pocas pisania slova
-    { t: v1 + 0.4, ...search },
-    { t: v1 + 1.3, ...detail }, // "ukaze udaje o konkretnej polozke"
-    { t: 5.5, ...detail },
-    { t: 6.4, ...match }, // posun stranky k zhode v metadatach
+    { t: F3_46_CESTU - 0.9, ...search },
+    { t: F3_46_CESTU - 0.1, ...detail }, // "cestu k polozke": drobcek a hlavicka ZL_03
+    { t: F3_46_UDAJE - 1.1, ...detail },
+    { t: F3_46_UDAJE + 0.2, ...match }, // "vycitane udaje": posun stranky k zhode v metadatach
     { t: 99, ...match },
   ];
 })();
-const LI_F3_46: React.FC = () => <LI_F3Base src={`footage/${KF3_46}.mp4`} seconds={F3_46_SECONDS} marks={f3Marks(F3_CLIP, F3_46_SECONDS).slice(0, 1)} middle views={F3_46_VIEWS} />; // kolo 36 (Samuel: divne sa to prekryva): karta a cesta pod oknom ako v K
+const F3_46_STEPS: Step[] = [
+  { from: 0, title: 'Napísať kľúčové slovo' },
+  { from: F3_46_CESTU * 1000 - 150, title: 'Cesta k položke' },
+  { from: F3_46_UDAJE * 1000 - 150, title: 'Vyčítané údaje' },
+];
+const F3_46_MARKS: Mark[] = [
+  markAt(KF3_46, 0.3, 1.9, 190, 578, 1638, 62, { spot: true }), // pole vyhladavania (pisanie slova)
+  markAt(KF3_46, F3_46_CESTU - 0.05, F3_46_UDAJE - 0.5, 596, 783, 246, 28, { spot: true }), // drobcek PL_01 / KR_01 / ZL_03: "cestu k polozke"
+];
+const LI_F3_46: React.FC = () => (
+  <AbsoluteFill>
+    <LiFootage src={`footage/${KF3_46}.mp4`} views={F3_46_VIEWS} marks={F3_46_MARKS} />
+    <Panel from={0.25} to={F3_46_CESTU - 0.2} label="Hľadané slovo" width={WIN.w} middle>
+      <SearchField typeFrom={0.5} typeTo={1.7} />
+    </Panel>
+    <Panel from={F3_46_CESTU - 0.15} to={F3_46_UDAJE - 0.1} label="Cesta k položke" width={WIN.w} middle>
+      <DocPath lineAt={F3_46_CESTU - F3_WORDS.cestu} />
+    </Panel>
+    <Panel from={F3_46_UDAJE - 0.05} to={F3_46_SECONDS + 1} label="Nájdená položka" width={WIN.w} middle>
+      <ItemCard />
+    </Panel>
+  </AbsoluteFill>
+);
 /* Kolo 33 mala tu scenu Dve fazy (dve karty, LI_Fazy); v kole 34 ju nahradil hacik na zaciatku a Vysledok (tri body), kod je v commite 63756e0. */
 /** C8: len slide "Prvy krok" (veta "Zacnime jednou krabicou, zadarmo a nezavazne."), prelinacka z Dve fazy. */
 const C8_46_CLIP = 'K46-C8-Ponuka';
@@ -1731,25 +1756,28 @@ const C8_46_CLIP = 'K46-C8-Ponuka';
  * sluzbu na kluc." s dvoma kartami (Vlastnymi silami / Sluzba na kluc) pri slovach, pred vyzvou.
  */
 const KTO_CLIP = 'K46-Kto';
-const KTO_W = { vlastnymi: 1.24, sluzbu: 3.52 }; // s od zaciatku vety (K46-Kto-0 words)
+const KTO_W = { vlastnymi: 1.32, archiv: 3.22 }; // s od zaciatku vety (K46-Kto-0 words); kolo 43: druha karta pri "archiv" // s od zaciatku vety (K46-Kto-0 words)
 const KTO_L0 = voAt(KTO_CLIP, 0);
 const KTO_SECONDS = (KTO_L0 + (voLines(KTO_CLIP)[0].dur ?? 4500)) / 1000 + 0.3;
-const KtoCard: React.FC<{ kind: OfferIconKind; title: string; sub: string; at: number; left: number }> = ({ kind, title, sub, at, left }) => {
+/** Kolo 43 (Samuel: zavery su plane, zapracovat tmavomodru): karta Vlastnymi silami biela s tmavomodrym obrysom, karta Sluzba na
+ * kluc tmavomodra vyplnena (nasa ponuka vynikne), ikona v zelenom kruhu. */
+const KtoCard: React.FC<{ kind: OfferIconKind; title: string; sub: string; at: number; left: number; dark?: boolean }> = ({ kind, title, sub, at, left, dark = false }) => {
   const frame = useCurrentFrame();
   const t = settle(frame, at);
   const on = pop(frame, at + 120, { damping: 16 });
+  const lit = on > 0.5;
   return (
-    <div style={{ position: 'absolute', left, top: 300, width: 460, height: 440, boxSizing: 'border-box', borderRadius: 28, background: '#fff', border: `3px solid ${on > 0.5 ? BRAND[500] : INK[200]}`, boxShadow: '0 14px 36px rgba(15,23,42,0.08)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18, padding: '0 28px', textAlign: 'center', opacity: t, transform: `translateY(${(1 - t) * 24}px)` }}>
-      <OfferIcon kind={kind} on={on > 0.5} size={150} />
-      <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 46, lineHeight: 1.05, letterSpacing: '-0.02em', color: INK[900] }}>{title}</div>
-      <div style={{ fontFamily: FONT.body, fontWeight: 500, fontSize: 30, lineHeight: 1.2, color: INK[600] }}>{sub}</div>
+    <div style={{ position: 'absolute', left, top: 300, width: 460, height: 440, boxSizing: 'border-box', borderRadius: 28, background: dark && lit ? NAVY[800] : '#fff', border: `3px solid ${dark ? (lit ? NAVY[800] : NAVY[200]) : lit ? NAVY[700] : NAVY[200]}`, boxShadow: dark && lit ? '0 18px 40px rgba(8,17,31,0.28)' : '0 14px 36px rgba(15,23,42,0.08)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18, padding: '0 28px', textAlign: 'center', opacity: t, transform: `translateY(${(1 - t) * 24}px)` }}>
+      <OfferIcon kind={kind} on={lit} size={150} />
+      <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 46, lineHeight: 1.05, letterSpacing: '-0.02em', color: dark && lit ? '#fff' : NAVY[800] }}>{title}</div>
+      <div style={{ fontFamily: FONT.body, fontWeight: 500, fontSize: 30, lineHeight: 1.2, color: dark && lit ? NAVY[200] : INK[600] }}>{sub}</div>
     </div>
   );
 };
 const LI_Kto: React.FC = () => (
   <AbsoluteFill style={{ background: '#fff' }}>
     <KtoCard kind="app" title="Vlastnými silami" sub="s našou aplikáciou" at={KTO_L0 + KTO_W.vlastnymi * 1000 - 150} left={60} />
-    <KtoCard kind="catalog" title="Služba na kľúč" sub="spracujeme my" at={KTO_L0 + KTO_W.sluzbu * 1000 - 150} left={560} />
+    <KtoCard kind="catalog" title="Služba na kľúč" sub="archív spracujeme my" at={KTO_L0 + KTO_W.archiv * 1000 - 150} left={560} dark />
   </AbsoluteFill>
 );
 const LI_C8_46: React.FC = () => (
@@ -1778,10 +1806,10 @@ const VysRow: React.FC<{ text: string; at: number; top: number; showAt?: number 
   const t = settle(frame, showAt ?? at); // kolo 36: riadky su v obrysoch od zaciatku vety (3 s bielej pred "co mate"), zelene pri slovach
   const tick = pop(frame, at + 60);
   return (
-    <div style={{ position: 'absolute', left: C8X, top, width: C8W, height: 130, boxSizing: 'border-box', borderRadius: 24, background: tick > 0.5 ? BRAND[600] : '#fff', border: `2px solid ${tick > 0.5 ? BRAND[600] : INK[200]}`, boxShadow: tick > 0.5 ? '0 14px 34px rgba(31,122,51,0.28)' : '0 12px 30px rgba(15,23,42,0.06)', display: 'flex', alignItems: 'center', gap: 30, padding: '0 40px', opacity: t, transform: `translateY(${(1 - t) * 24}px)` }}>
-      {/* kolo 35 (publikum: zaber Co mate / Kde to je je vizualne chudobny): riadok sa pri fajke vyplni zelenou */}
-      <div style={{ width: 76, height: 76, borderRadius: 38, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none', opacity: Math.min(1, tick * 1.4), transform: `scale(${0.4 + 0.6 * tick})` }}>
-        <svg width={44} height={44} viewBox="0 0 24 24" fill="none" stroke={BRAND[600]} strokeWidth={3.4} strokeLinecap="round" strokeLinejoin="round">
+    <div style={{ position: 'absolute', left: C8X, top, width: C8W, height: 130, boxSizing: 'border-box', borderRadius: 24, background: tick > 0.5 ? NAVY[800] : '#fff', border: `2px solid ${tick > 0.5 ? NAVY[800] : NAVY[200]}`, boxShadow: tick > 0.5 ? '0 16px 36px rgba(8,17,31,0.26)' : '0 12px 30px rgba(15,23,42,0.06)', display: 'flex', alignItems: 'center', gap: 30, padding: '0 40px', opacity: t, transform: `translateY(${(1 - t) * 24}px)` }}>
+      {/* kolo 35: riadok sa pri fajke vyplni; kolo 43 (Samuel: zavery su plane): tmavomodra vyplna, zeleny kruh s fajkou */}
+      <div style={{ width: 76, height: 76, borderRadius: 38, background: BRAND[500], display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none', opacity: Math.min(1, tick * 1.4), transform: `scale(${0.4 + 0.6 * tick})`, boxShadow: '0 6px 16px rgba(31,122,51,0.35)' }}>
+        <svg width={44} height={44} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={3.4} strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 12.5 L10 17 L19 7" />
         </svg>
       </div>
@@ -1790,8 +1818,8 @@ const VysRow: React.FC<{ text: string; at: number; top: number; showAt?: number 
   );
 };
 type VysKind = 'keep' | 'shred' | 'scan';
-const VysIcon: React.FC<{ kind: VysKind }> = ({ kind }) => (
-  <svg width={64} height={64} viewBox="0 0 24 24" fill="none" stroke={BRAND[700]} strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round">
+const VysIcon: React.FC<{ kind: VysKind; light?: boolean }> = ({ kind, light = false }) => (
+  <svg width={64} height={64} viewBox="0 0 24 24" fill="none" stroke={light ? '#fff' : NAVY[700]} strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round">
     {kind === 'keep' ? (
       <>
         <path d="M3 7h18v3H3zM5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9" />
@@ -1822,11 +1850,11 @@ const VysTile: React.FC<{ kind: VysKind; label: string; sub: string; at: number;
   const t = settle(frame, showAt); // dlazdice su v obrysoch od zaciatku vety, rozsvietia sa pri slovach
   const on = pop(frame, at, { damping: 16 });
   return (
-    <div style={{ position: 'absolute', left, top: 650, width: 300, height: 320, boxSizing: 'border-box', borderRadius: 26, background: '#fff', border: `3px solid ${on > 0.5 ? BRAND[500] : INK[200]}`, boxShadow: '0 12px 30px rgba(15,23,42,0.06)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, padding: '0 14px', textAlign: 'center', opacity: t * (0.55 + 0.45 * Math.min(1, on)), transform: `translateY(${(1 - t) * 24}px)` }}>
-      <div style={{ width: 104, height: 104, borderRadius: 52, background: on > 0.5 ? BRAND[50] : '#fff', border: `2px solid ${on > 0.5 ? BRAND[300] : INK[200]}`, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${0.8 + 0.2 * Math.min(1, on)})` }}>
-        <VysIcon kind={kind} />
+    <div style={{ position: 'absolute', left, top: 650, width: 300, height: 320, boxSizing: 'border-box', borderRadius: 26, background: '#fff', border: `3px solid ${on > 0.5 ? NAVY[800] : NAVY[200]}`, boxShadow: on > 0.5 ? '0 14px 34px rgba(8,17,31,0.14)' : '0 12px 30px rgba(15,23,42,0.06)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, padding: '0 14px', textAlign: 'center', opacity: t * (0.55 + 0.45 * Math.min(1, on)), transform: `translateY(${(1 - t) * 24}px)` }}>
+      <div style={{ width: 104, height: 104, borderRadius: 52, background: on > 0.5 ? BRAND[500] : '#fff', border: `2px solid ${on > 0.5 ? BRAND[500] : NAVY[200]}`, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${0.8 + 0.2 * Math.min(1, on)})`, boxShadow: on > 0.5 ? '0 8px 18px rgba(31,122,51,0.3)' : 'none' }}>
+        <VysIcon kind={kind} light={on > 0.5} />
       </div>
-      <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 36, lineHeight: 1.05, letterSpacing: '-0.02em', color: INK[900] }}>{label}</div>
+      <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 36, lineHeight: 1.05, letterSpacing: '-0.02em', color: NAVY[800] }}>{label}</div>
       <div style={{ fontFamily: FONT.body, fontWeight: 500, fontSize: 25, lineHeight: 1.15, color: INK[600] }}>{sub}</div>
     </div>
   );
@@ -1848,11 +1876,11 @@ const LI_LIST_46: LiDef[] = [
   { def: paced(C5_46_CLIP, { scene: C5_46_Scene, seconds: C5_46_SECONDS, stills: [], ...noSubs }), band: true, tone: () => 'light', steps: C5_46_STEPS, phase: PHASE_ARCHIV, shift: c5Shift, win: { top: 138, bottom: 1030, feather: 18 }, overflow: true, overlay: C5Hierarchy46, xfadeIn: 400 },
   // kolo 34: skutocny zaznam fotenia (F1) vypadol, fotenie ukazuje hacik aj C5 (blesk), F24 sa prelinie z mobilu na konci C5
   { def: paced(F24_46_CLIP, { scene: LI_F24_46, seconds: F24_46_END, stills: [], ...noSubs }), tone: () => 'light', steps: F24_46_STEPS, phase: phases.app, xfadeIn: F1_XFADE },
-  { def: paced('K-F3-Vyhladavanie', { scene: LI_F3_46, seconds: F3_46_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: f3Steps(F3_CLIP), phase: phases.search },
+  { def: paced(F3_46_CLIP, { scene: LI_F3_46, seconds: F3_46_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: F3_46_STEPS, phase: phases.search }, // kolo 43: vlastny klip hlasu
   { def: paced(VYS_CLIP, { scene: LI_Vysledok, seconds: VYS_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: VYS_STEPS, phase: offer.kicker }, // kolo 36: bez prelinacky z hladania (nic sa neprekryva)
   { def: paced(KTO_CLIP, { scene: LI_Kto, seconds: KTO_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Vlastnými silami, alebo na kľúč' }], phase: offer.kicker, xfadeIn: C8_XFADE }, // kolo 40
   { def: paced(C8_46_CLIP, { scene: LI_C8_46, seconds: clipEndSeconds(C8_46_CLIP, 0.2), stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Prvý krok' }], phase: offer.kicker, subsOut: [0, 1e9], xfadeIn: C8_XFADE },
-  { def: paced('K-C9-Outro', { scene: LI_C9, seconds: 1.8, stills: [], ...noSubs }), tone: () => 'dark', chrome: false, subs: false },
+  { def: paced('K-C9-Outro', { scene: LI_C9, seconds: 2.2, stills: [], ...noSubs }), tone: () => 'dark', chrome: false, subs: false }, // kolo 43: 2,2 s, aby akord doznel pod logom
 ];
 export const liFrames46 = () => liFramesOf(LI_LIST_46);
 export const liStarts46 = () => liStartsOf(LI_LIST_46);
