@@ -66,6 +66,10 @@ za najsilnejšie miesto. Rozhodnuté: vetu vypustiť, "katalogizácia" do nadpis
   pri "identifikačnú", nadpis nezasahuje do loga), prepis mixu cez Gemini: všetkých 14 viet celých, vystrihnutá veta "Naša
   aplikácia fotí len identifikačnú stranu." znie ako samostatná veta bez artefaktu, hudba do konca, akord doznie, bez skoku;
   -16,1 LUFS, true peak -1,5 dBFS; K-LinkedIn 2302 snímok.
+- Chyba na review stránke (Samuel: kolo 46 vyzerá ako návrat na začiatok): riadok Kolo 46 dostal kľúč `L46`, ktorý už od kola 32
+  patrí riadku "Kolo 32 (56 s)" (vtedy "verzia okolo 46 s"); pri duplicitnom kľúči v zozname videí vyhral starší záznam a riadok
+  Kolo 46 prehrával kolo 32 (zhodou okolností tiež 56 s). Render kola 46 bol v poriadku. Oprava: kľúč `K46`, kontrola jedinečnosti
+  kľúčov pri každom pridaní riadku.
 - Kolo 45 je uložené v `out/kratka/verzie/K-LinkedIn-46_kolo45_59s_*.mp4` a v commitoch `30e0634` a `93ad372`.
 
 ## Kolo 45 (4. 10. 2026): plynulý koniec hľadania, karty Kto s rozsahom, simulácia divákov (malé archívy)
