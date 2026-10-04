@@ -1504,10 +1504,10 @@ const C4Top46: React.FC = () => <C4TopBase clip={C4_46_CLIP} h={K_C4_H46} promis
 const HOOK_CLIP = 'K46-Hook';
 const HOOK_W = { drahe: 2.32, foti: 1.0, identifikacnu: 1.5 }; // s od zaciatku viet (K46-Hook-0 a -1 words); kolo 43: ramik pri "foti", zelena cenovka pri "identifikacnu"; kolo 46 (Samuel: veta "Nas pristup katalogizacie je hospodarnejsi:" zdvojena s grafikou): druha veta je len "Nasa aplikacia foti len identifikacnu stranu." (strih z nahravky kola 43), katalogizacia v nadpise kroku
 const HOOK_SECONDS = (voAt(HOOK_CLIP, 1) + (voLines(HOOK_CLIP)[1].dur ?? 3840)) / 1000 + 0.25;
-const HOOK_LOGO = { h0: 168, h1: 64, y1: 44, right: 48, ms: 600 }; // kolo 40: logo z C4 sa zmensi a vysunie vpravo hore ako hlavicka hacika
+const HOOK_LOGO = { h0: 168, h1: BRAND_H, right: 48, ms: 450 }; // kolo 47: 450 ms, logo je v rohu skor, nez pride prvy titulok (600 ms), inak by cez neho preslo // kolo 40: logo z C4 sa zmensi a vysunie ako hlavicka; kolo 47 (Samuel): do praveho dolneho rohu, presne na miesto rohoveho loga ostatnych zaberov (BrandRow)
 const HOOK_STEPS: Step[] = [
   { from: 0, title: 'Skenovať všetko je drahé' },
-  { from: voAt(HOOK_CLIP, 1) - 100, title: 'Katalogizácia: len 1 strana' }, // kolo 46: kratsie, dlhsi nadpis isiel pod logo v hlavicke
+  { from: voAt(HOOK_CLIP, 1) - 100, title: 'Katalogizácia: len identifikačná strana' }, // kolo 46: kratsie (nadpis isiel pod logo v hlavicke); kolo 47: logo je v rohu dole, nadpis cely
 ];
 const HOOK_PAGES = 328; // pocitadlo stran pri skenovani celeho archivu (kolo 37: 328 namiesto 1 240)
 const fmtPages = (n: number) => `${Math.round(n).toLocaleString('sk-SK').replace(/\u00a0/g, ' ')} strán`;
@@ -1523,12 +1523,13 @@ const LI_Hook: React.FC = () => {
   const ms = (frame / FPS) * 1000;
   const L0 = voAt(HOOK_CLIP, 0),
     L1 = voAt(HOOK_CLIP, 1);
-  const logoT = tween(frame, 120, HOOK_LOGO.ms, easeInOut); // 0 = logo v strede ako na konci C4, 1 = hlavicka vpravo hore
+  const logoT = tween(frame, 100, HOOK_LOGO.ms, easeInOut); // 0 = logo v strede ako na konci C4, 1 = hlavicka vpravo hore
   const [LVW, LVH] = ARCHIVES_LOGO.two.view;
   const lh = HOOK_LOGO.h0 + (HOOK_LOGO.h1 - HOOK_LOGO.h0) * logoT;
   const lw = (lh * LVW) / LVH;
   const lx = (LI.w - (HOOK_LOGO.h0 * LVW) / LVH) / 2 + (LI.w - HOOK_LOGO.right - (HOOK_LOGO.h1 * LVW) / LVH - (LI.w - (HOOK_LOGO.h0 * LVW) / LVH) / 2) * logoT;
-  const ly = C4_Y46.logo + (HOOK_LOGO.y1 - C4_Y46.logo) * logoT;
+  const ly1 = LI.h - (BRAND_BASE - 0.6 * (BRAND_H / LVH)) - HOOK_LOGO.h1; // vrch rohoveho loga (BrandRow: right 48, bottom BRAND_BASE - 0.6 k)
+  const ly = C4_Y46.logo + (ly1 - C4_Y46.logo) * logoT;
   const stackIn = settle(frame, 450);
   const scanFrom = L0 + 150;
   const count = tween(frame, scanFrom, HOOK_W.drahe * 1000 + 300, easeInOut);
@@ -1726,17 +1727,15 @@ const F3_46_AJ = F3_46_L0 + (voLines(F3_46_CLIP)[0].partAt?.[2] ?? 4600) / 1000;
 const F3_46_VIEWS: FootView[] = (() => {
   const full = { x: 70, y: 0, w: 1625 },
     search = { x: 60, y: 300, w: 1000 },
-    detail = { x: 480, y: 440, w: 820 },
-    match = { x: 480, y: 220, w: 1000 }; // sirsi, aby cely zvyrazneny text (x 908 az 1393) bol vnutri
+    detail = { x: 480, y: 330, w: 1000 }; // kolo 47 (Samuel: hladanie neiste a sekave): jeden vyrez pre drobcek (y 783) aj zhodu po posune (y ~490, x 908 az 1393), kamera pocas posunu stranky stoji
   return [
     { t: 0, ...full },
     { t: 0.5, ...full },
     { t: 1.3, ...search }, // priblizenie pocas pisania slova
     { t: F3_46_CESTU - 0.9, ...search },
-    { t: F3_46_CESTU - 0.1, ...detail }, // "cestu k polozke": drobcek a hlavicka ZL_03
-    { t: F3_46_AJ - 0.6, ...detail },
-    { t: F3_46_AJ + 0.4, ...match }, // "aj vsetky vycitane udaje": posun stranky k zhode v metadatach
-    { t: F3_46_SECONDS + 0.3, x: 510, y: 280, w: 940 }, // kolo 45 (Samuel: v 0:38 sa to zasekne): zaznam je od zhody staticky, vyrez ide pomaly dalej az do prelinacky
+    { t: F3_46_CESTU - 0.1, ...detail }, // "cestu k polozke": drobcek a hlavicka ZL_03; posun stranky (3x) ide pod stojacou kamerou
+    { t: F3_46_AJ + 1.4, ...detail },
+    { t: F3_46_SECONDS + 0.3, x: 500, y: 350, w: 960 }, // kolo 45 (Samuel: v 0:38 sa to zasekne): od zhody vyrez ide pomaly dalej az do prelinacky
   ];
 })();
 const F3_46_STEPS: Step[] = [

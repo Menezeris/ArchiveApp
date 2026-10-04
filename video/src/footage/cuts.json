@@ -241,7 +241,7 @@
   "k46-f3-search": {
     "src": "src/search2.mp4",
     "vf": "crop=1764:882:96:150",
-    "note": "Kolo 34 (K46): ako k-f3-search; kolo 42 (Samuel: v zazname nie je vidiet udaje o polozke): doplneny posun k zhode v metadatach (7,4 az 12,8 s, 3x) a zlta zhoda (12,8 az 13,2 s), karta drzi kratsie. Kolo 44: posun k zhode skor (od \"aj vsetky\"), zhoda drzi dlhsie (8,05 s).",
+    "note": "Kolo 34 (K46): ako k-f3-search; kolo 42 (Samuel: v zazname nie je vidiet udaje o polozke): doplneny posun k zhode v metadatach (7,4 az 12,8 s, 3x) a zlta zhoda (12,8 az 13,2 s), karta drzi kratsie. Kolo 44: posun k zhode skor (od \"aj vsetky\"), zhoda drzi dlhsie (8,05 s). Kolo 47 (Samuel: hladanie neiste a sekave, preblikuje mys): cakanie 1x, posun 3x, po zostrihu scripts/hide-cursor.py zakryje kurzor (delogo podla stopy).",
     "segs": [
       {
         "from": 3.5,
@@ -252,26 +252,25 @@
       {
         "from": 5.1,
         "to": 6.2,
-        "speed": 2,
-        "note": "cakanie, vysledok 6,05 s"
+        "note": "cakanie, vysledok 6,05 s (kolo 47: 1x, predtym 2x; vysledok pride pri \"Aplikacia ukaze\")"
       },
       {
         "from": 6.2,
         "to": 7.4,
-        "after": 0.95,
-        "note": "vysledok ZL_03 a detail v pokoji (drobcek PL_01 / KR_01 / ZL_03, Priloha, zaciatok tabulky metadat); kolo 44: kratsie, posun od 4,5 s"
+        "after": 0.7,
+        "note": "vysledok ZL_03 a detail v pokoji (drobcek PL_01 / KR_01 / ZL_03, Priloha, zaciatok tabulky metadat); kolo 47: posun od 4,8 s"
       },
       {
         "from": 7.4,
         "to": 12.8,
-        "speed": 4,
-        "note": "posun stranky k zhode v metadatach (4x, pocas \"aj vsetky vycitane\")"
+        "speed": 3,
+        "note": "posun stranky k zhode v metadatach (kolo 47: 3x namiesto 4x, 1,8 s pocas \"aj vsetky vycitane\", kamera stoji)"
       },
       {
         "from": 12.8,
         "to": 13.2,
-        "after": 1.8,
-        "note": "automaticky zvyraznena zhoda v metadatach (Popis zmeny: Doplnenie vodovodnej pripojky...), drzi do konca klipu (kolo 44: ~2,2 s, karta polozky drzi od \"aj vsetky\")"
+        "after": 1.3,
+        "note": "automaticky zvyraznena zhoda v metadatach (Popis zmeny: Doplnenie vodovodnej pripojky...), drzi do konca klipu"
       }
     ]
   }

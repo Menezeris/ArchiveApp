@@ -154,6 +154,18 @@
       <h2>LinkedIn verzia</h2>
       <p>Hore je kolo 34 (52 s), pod ním kolo 33 (50 s), kolo 32 (56 s), plná LinkedIn verzia 77 s (kolo 31, bez zmeny) a na porovnanie kolo 15. Staršie kolá sú nižšie v zbalenej časti.</p>
     </div>
+    <article class="film tallfilm" id="film-K47">
+      <div data-video="K47" data-shape="v45"></div>
+      <div class="info">
+        <div class="head"><h3>Kolo 47: logo do pravého dolného rohu, hľadanie bez myši a s pokojnou kamerou (56 s)</h3><span class="len" data-len="K47"></span></div>
+        <ul>
+          <li>Po predstavení (0:09) sa logo zmenší presne na rohové logo ostatných záberov vpravo dole a tam ostane; pri strihu na QR scénu ho prevezme riadok značky bez skoku. Nadpis háčika znova celý "Katalogizácia: len identifikačná strana".</li>
+          <li>Hľadanie (0:28 až 0:36): myš v zázname je zakrytá (stopa kurzora v každej snímke, dopočet z okolia), čakanie na výsledok ide 1x, posun stránky 3x namiesto 4x a kamera počas neho stojí (jeden výrez od "cestu" po koniec, drobček aj žltá zhoda sú v ňom).</li>
+          <li>Dĺžka 56,4 s (titulky háčika o 0,2 s neskôr, aby logo stihlo do rohu), hudba doladená.</li>
+        </ul>
+        <div class="composer"><button type="button" data-role="compose" disabled>Pridať pripomienku</button><span class="result" aria-live="polite"></span></div>
+      </div>
+    </article>
     <article class="film tallfilm" id="film-K46">
       <div data-video="K46" data-shape="v45"></div>
       <div class="info">
@@ -607,9 +619,10 @@
 <div class="tip" id="tip" hidden></div>
 
 <script>
-  const BUILD = { renderedAt: "2026-10-04T19:40:00Z" };
+  const BUILD = { renderedAt: "2026-10-04T21:10:00Z" };
   // id assetov (videa a plagaty); prazdne = este sa nahrava
   const VIDEOS = {
+    K47: { cap: "5e37ae86d584abedeef42c6d46723993", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 56.4 },
     K46: { cap: "86d59b650b8049c8cf5eb0ae04dd9c6d", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 55.9 }, // kolo 46 (kluc L46 patri kolu 32, "verzia okolo 46 s"; v prvom publishi kola 46 bol duplicitny a riadok prehraval kolo 32)
     L45: { cap: "b3951b9a7bcd7513b72fdcca639fa401", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 59.0 },
     L44: { cap: "9fa8cfd1b1e3d8370860b8148c88a843", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 59.4 },
@@ -667,7 +680,8 @@
     "Kolo 43 (66 s)": [9.19, 13.01, 12.88, 7.73, 22.86],
     "Kolo 44 (59 s)": [7.19, 12.41, 11.91, 8.03, 19.83],
     "Kolo 45 (59 s)": [7.19, 12.41, 11.91, 7.63, 19.83],
-    "Kolo 46 (56 s)": [7.19, 9.33, 11.91, 7.63, 19.87]
+    "Kolo 46 (56 s)": [7.19, 9.33, 11.91, 7.63, 19.87],
+    "Kolo 47 (56 s)": [7.19, 9.53, 11.91, 7.9, 19.87]
   };
   const SCRIPT = [
     ["C2", "Kedy ste naposledy nevedeli nájsť nejaký dokument?", "old", "C2, prvá veta"],
@@ -727,16 +741,16 @@
   ];
   const ASKS = [
     [
-        "Háčik",
-        "Bez vety o hospodárnejšom prístupe: \"Naskenovať celý archív môže byť drahé. Naša aplikácia fotí len identifikačnú stranu.\" Nadpis \"Katalogizácia: len 1 strana\" (dlhší išiel pod logo). Sedí?"
+        "Logo",
+        "Z predstavenia ide do pravého dolného rohu a ostáva ako rohové logo. Sedí?"
     ],
     [
-        "Dĺžka 55,9 s",
-        "Je rezerva 4 s. Nechať, alebo niečo z námetov simulácie (úvod dlhšie v kancelárii +0,5 s)?"
+        "Hľadanie",
+        "Bez myši, čakanie 1x, posun 3x pod stojacou kamerou. Je to už plynulé?"
     ],
     [
         "Simulácia (kolo 45)",
-        "Námety: nadpis pri QR \"v skrini aj v sklade\", 0:24 až 0:26 dva podobné zábery formulára. Cena a bezpečnosť ostávajú na web."
+        "Námety: nadpis pri QR \"v skrini aj v sklade\", úvod dlhšie v kancelárii, 0:24 až 0:26 dva podobné zábery formulára."
     ]
   ];
   const blob = (id) => '/_blob/' + id;

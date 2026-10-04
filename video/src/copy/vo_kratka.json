@@ -275,13 +275,13 @@
   ],
   "K46-Hook": [
     {
-      "at": 400,
+      "at": 600,
       "text": "Naskenovať celý archív môže byť drahé.",
       "styleExtra": "Calm, matter-of-fact statement; a gentle emphasis on drahé (expensive); falling intonation at the end.",
       "dur": 3120
     },
     {
-      "at": 3700,
+      "at": 3900,
       "text": "Naša aplikácia fotí len identifikačnú stranu.",
       "src": {
         "file": "public/vo-kratka/lines/K46-Hook-1.full.wav",
