@@ -154,6 +154,17 @@
       <h2>LinkedIn verzia</h2>
       <p>Hore je kolo 34 (52 s), pod ním kolo 33 (50 s), kolo 32 (56 s), plná LinkedIn verzia 77 s (kolo 31, bez zmeny) a na porovnanie kolo 15. Staršie kolá sú nižšie v zbalenej časti.</p>
     </div>
+    <article class="film tallfilm" id="film-L46">
+      <div data-video="L46" data-shape="v45"></div>
+      <div class="info">
+        <div class="head"><h3>Kolo 46: háčik bez vety o hospodárnejšom prístupe (56 s)</h3><span class="len" data-len="L46"></span></div>
+        <ul>
+          <li>Háčik (0:10 až 0:16): "Naskenovať celý archív môže byť drahé. Naša aplikácia fotí len identifikačnú stranu." Veta "Náš prístup katalogizácie je hospodárnejší:" vypadla (grafika €€€ proti € to hovorí sama), slovo katalogizácia nesie nadpis kroku "Katalogizácia: len 1 strana" (dlhší nadpis išiel pod logo). Druhá veta je strih z existujúcej nahrávky, bez nového hlasu.</li>
+          <li>Háčik 6,6 s namiesto 9,6 s, video 55,9 s. Hudba poskladaná nanovo (17 taktov groove), pokojná časť od scény Kto, akord pod logom.</li>
+        </ul>
+        <div class="composer"><button type="button" data-role="compose" disabled>Pridať pripomienku</button><span class="result" aria-live="polite"></span></div>
+      </div>
+    </article>
     <article class="film tallfilm" id="film-L45">
       <div data-video="L45" data-shape="v45"></div>
       <div class="info">
@@ -596,9 +607,10 @@
 <div class="tip" id="tip" hidden></div>
 
 <script>
-  const BUILD = { renderedAt: "2026-10-04T19:05:00Z" };
+  const BUILD = { renderedAt: "2026-10-04T19:40:00Z" };
   // id assetov (videa a plagaty); prazdne = este sa nahrava
   const VIDEOS = {
+    L46: { cap: "86d59b650b8049c8cf5eb0ae04dd9c6d", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 55.9 },
     L45: { cap: "b3951b9a7bcd7513b72fdcca639fa401", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 59.0 },
     L44: { cap: "9fa8cfd1b1e3d8370860b8148c88a843", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 59.4 },
     L43: { cap: "a31d114f08440d7cdb508378ed8acb09", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 65.8 },
@@ -654,7 +666,8 @@
     "Kolo 42 (62 s)": [9.19, 10.44, 12.72, 7.8, 21.68],
     "Kolo 43 (66 s)": [9.19, 13.01, 12.88, 7.73, 22.86],
     "Kolo 44 (59 s)": [7.19, 12.41, 11.91, 8.03, 19.83],
-    "Kolo 45 (59 s)": [7.19, 12.41, 11.91, 7.63, 19.83]
+    "Kolo 45 (59 s)": [7.19, 12.41, 11.91, 7.63, 19.83],
+    "Kolo 46 (56 s)": [7.19, 9.33, 11.91, 7.63, 19.87]
   };
   const SCRIPT = [
     ["C2", "Kedy ste naposledy nevedeli nájsť nejaký dokument?", "old", "C2, prvá veta"],
@@ -714,20 +727,16 @@
   ];
   const ASKS = [
     [
-        "0:38",
-        "Výrez v okne ide pomaly ďalej, potom prelínačka do Výsledku. Je to už plynulé?"
+        "Háčik",
+        "Bez vety o hospodárnejšom prístupe: \"Naskenovať celý archív môže byť drahé. Naša aplikácia fotí len identifikačnú stranu.\" Nadpis \"Katalogizácia: len 1 strana\" (dlhší išiel pod logo). Sedí?"
     ],
     [
-        "Karty Kto",
-        "\"od pár šanónov\" / \"aj celý sklad\" ako signál pre malé archívy. Sedí znenie?"
+        "Dĺžka 55,9 s",
+        "Je rezerva 4 s. Nechať, alebo niečo z námetov simulácie (úvod dlhšie v kancelárii +0,5 s)?"
     ],
     [
-        "Simulácia",
-        "Zapracovať ešte niečo z námetov (nadpis pri QR \"v skrini aj v sklade\", úvod dlhšie v kancelárii, 0:27 až 0:29)? Cena a bezpečnosť ostávajú na web."
-    ],
-    [
-        "Dĺžka 59,0 s",
-        "Stačí?"
+        "Simulácia (kolo 45)",
+        "Námety: nadpis pri QR \"v skrini aj v sklade\", 0:24 až 0:26 dva podobné zábery formulára. Cena a bezpečnosť ostávajú na web."
     ]
   ];
   const blob = (id) => '/_blob/' + id;

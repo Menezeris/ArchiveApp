@@ -1502,12 +1502,12 @@ const C4Top46: React.FC = () => <C4TopBase clip={C4_46_CLIP} h={K_C4_H46} promis
  * dokumenty, pri "az to" sa jeden zvyrazni s ikonou skenu, ostatne zblednu, pri "potrebujete" fajka.
  */
 const HOOK_CLIP = 'K46-Hook';
-const HOOK_W = { drahe: 2.32, foti: 4.06, identifikacnu: 4.54 }; // s od zaciatku viet (K46-Hook-0 a -1 words); kolo 43: ramik pri "foti", zelena cenovka pri "identifikacnu"
+const HOOK_W = { drahe: 2.32, foti: 1.0, identifikacnu: 1.5 }; // s od zaciatku viet (K46-Hook-0 a -1 words); kolo 43: ramik pri "foti", zelena cenovka pri "identifikacnu"; kolo 46 (Samuel: veta "Nas pristup katalogizacie je hospodarnejsi:" zdvojena s grafikou): druha veta je len "Nasa aplikacia foti len identifikacnu stranu." (strih z nahravky kola 43), katalogizacia v nadpise kroku
 const HOOK_SECONDS = (voAt(HOOK_CLIP, 1) + (voLines(HOOK_CLIP)[1].dur ?? 3840)) / 1000 + 0.25;
 const HOOK_LOGO = { h0: 168, h1: 64, y1: 44, right: 48, ms: 600 }; // kolo 40: logo z C4 sa zmensi a vysunie vpravo hore ako hlavicka hacika
 const HOOK_STEPS: Step[] = [
   { from: 0, title: 'Skenovať všetko je drahé' },
-  { from: voAt(HOOK_CLIP, 1) - 100, title: 'Len identifikačná strana' },
+  { from: voAt(HOOK_CLIP, 1) - 100, title: 'Katalogizácia: len 1 strana' }, // kolo 46: kratsie, dlhsi nadpis isiel pod logo v hlavicke
 ];
 const HOOK_PAGES = 328; // pocitadlo stran pri skenovani celeho archivu (kolo 37: 328 namiesto 1 240)
 const fmtPages = (n: number) => `${Math.round(n).toLocaleString('sk-SK').replace(/\u00a0/g, ' ')} strán`;

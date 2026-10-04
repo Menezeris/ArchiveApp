@@ -11,19 +11,19 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
 - Dĺžka: okolo 75 s a k tomu 30 s teaser. Ponuku (C8) nechal na mňa.
 - Pôvodnú verziu nechytať, je to vstup. Hlas a hudbu negenerovať znova (existujúce nahrávky sa len strihajú).
 
-## Kde sme skončili (4. 10. 2026, kolo 45)
+## Kde sme skončili (4. 10. 2026, kolo 46)
 
 - Dve hotové videá, obe LinkedIn 4:5 (1080 x 1350), obe sa renderujú z toho istého projektu:
   - `video/out/kratka/K-LinkedIn_1080p.mp4` (76,8 s, kolo 31, kompozícia `K-LinkedIn`): plná krátka verzia, od kola 31 bez zmeny.
-  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (59,0 s, kolo 45, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
+  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (55,9 s, kolo 46, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
     otázka v kancelárii a prestrih do skladu, "Hľadanie môže trvať hodiny.", logo ("Predstavujeme Assetin Archives."), háčik
-    "Naskenovať celý archív môže byť drahé. Náš prístup katalogizácie je hospodárnejší: naša aplikácia fotí len identifikačnú
-    stranu." (logo z predstavenia ostáva ako hlavička háčika, 328 strán proti 1 identifikačnej strane), QR kód a "Stačí bežný
+    "Naskenovať celý archív môže byť drahé. Naša aplikácia fotí len identifikačnú stranu." (logo z predstavenia ostáva ako
+    hlavička háčika, 328 strán proti 1 identifikačnej strane, nadpis "Katalogizácia: len 1 strana"), QR kód a "Stačí bežný
     mobil." s bleskom, aplikácia (záznam od celého okna s plynulým priblížením, karta v strede pásma, potvrdí alebo upraví),
     hľadanie (slovo, cesta k položke, od "aj všetky vyčítané údaje" karta položky a posun k žltej zhode), výsledok "Výsledok:
     spoľahlivo viete, čo presne máte a kde to je." a "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať."
     (tmavomodré karty), "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč." (karty "od pár šanónov" / "aj celý
-    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 a 45 nižšie. Kolá 32 až 44 sú v `out/kratka/verzie/`.
+    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 až 46 nižšie. Kolá 32 až 45 sú v `out/kratka/verzie/`.
     Náhľady `*_preview_540p.mp4` vedľa. Staršie kolá 14 až 30 sú v `out/kratka/verzie/`. Pôvodná dlhá verzia (145 s, 16:9) sa nemenila.
 - Zdroj: kompozície `K-LinkedIn` a `K-LinkedIn-46` (zoznam klipov `LI_LIST_46` na konci súboru) v `src/scenes/kratka/LinkedIn.tsx` (spoločné dáta `Kratka.tsx`, klipy `src/kratkaList.ts`),
   scenár `src/copy/vo_kratka.json`, hlas `public/vo-kratka/`, hudba `src/copy/music_kratka.json` (variant `K`: hudba
@@ -47,6 +47,26 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
   - Krabica alebo box: posúdené v kole 24, odporúčanie nechať "krabica".
 - Gemini API (hlas aj hudba) naposledy vracalo 402, vyčerpaný predplatený kredit; nové vety čakajú na jeho dobitie.
 - Review stránka experimentu (odkaz hore) je súkromná, ostatní ju uvidia, až keď ju vlastník zdieľa cez Share.
+
+## Kolo 46 (4. 10. 2026): háčik bez vety "Náš prístup katalogizácie je hospodárnejší:"
+
+Samuel (ku kolu 45): tá veta asi nemá zmysel, na grafike háčika sme dlho. Posudok: jej prvá polovica (3,1 s) ide na obraz, kde
+sa len odsúva stoh a dvíha list, a "hospodárnejší" už hovorí grafika (€€€ proti €, "1 strana"), ktorú simulovaní diváci označili
+za najsilnejšie miesto. Rozhodnuté: vetu vypustiť, "katalogizácia" do nadpisu kroku.
+
+- Hlas háčika: "Naskenovať celý archív môže byť drahé. Naša aplikácia fotí len identifikačnú stranu." Druhá veta je strih
+  z nahrávky kola 43 (`K46-Hook-1.full.wav`, od 3,05 s v tichu pred "Naša", `src` v `vo_kratka.json`, `kratka_lines.py`), bez
+  novej nahrávky; 3,0 s. Rámik a blesk pri "fotí" (1,0 s), zelená cenovka a "1 strana" pri "identifikačnú" (1,5 s). Nadpis kroku
+  "Katalogizácia: len 1 strana" (dlhší nadpis "...len identifikačná strana" išiel pod logo v hlavičke). Háčik 6,6 s (bolo 9,6 s). Spolu 14 viet.
+- Hudba: groove 17 taktov 0 až 16 (skok 16 -> 44 podobnosť 0,997), delay 0,374 s, tempo 0,9897; nástup kapely 0,6 s pred zeleným
+  prechodom (6,17 s), pokojná časť na začiatku scény Kto (44,83 s), akord 0,34 s po začiatku loga (53,73 s), doznie do konca.
+- Začiatky klipov: C2 0, C4 6,17, háčik 9,8, C5 16,37, aplikácia 21,4, hľadanie 27,63, výsledok 35,27, Kto 44,83, výzva 49,33,
+  logo 53,73; film 55,93 s (1678 snímok). K-LinkedIn 2302 snímok bez zmeny.
+- Kontroly: mriežka 5 fps 12,9 až 16,5 s (list sa dvíha hneď po prvej vete, rámik a blesk pri "fotí", zelená cenovka a "1 strana"
+  pri "identifikačnú", nadpis nezasahuje do loga), prepis mixu cez Gemini: všetkých 14 viet celých, vystrihnutá veta "Naša
+  aplikácia fotí len identifikačnú stranu." znie ako samostatná veta bez artefaktu, hudba do konca, akord doznie, bez skoku;
+  -16,1 LUFS, true peak -1,5 dBFS; K-LinkedIn 2302 snímok.
+- Kolo 45 je uložené v `out/kratka/verzie/K-LinkedIn-46_kolo45_59s_*.mp4` a v commitoch `30e0634` a `93ad372`.
 
 ## Kolo 45 (4. 10. 2026): plynulý koniec hľadania, karty Kto s rozsahom, simulácia divákov (malé archívy)
 
