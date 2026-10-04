@@ -1070,18 +1070,20 @@ const whDist = (param: number) => WH_SEG.reduce((d, len, i) => d + len * Math.mi
 const whTime = (param: number) => 4300 + 2200 * invert01(easeInOut, param); // cas skladu, ked je panacik na parametri
 /** Kancelaria: panacik prejde z iso(200, 260) ku skrini iso(210, 110) za 800 ms ease-in-out, mierka 1920 / 980. */
 const OFFICE_WALK_PX = Math.hypot(160, -70) * (1920 / 980);
-const C2_WALK_AT = C2_PAN_AT + 650; // chodza v sklade od konca prestrihu (sklad uz takmer cely v obraze)
+// chodza v sklade zacina 650 ms po prestrihu (kolo 44: `walkAt` v c2Geo, K46 ma vlastny prestrih)
 const C2_UP = 7820; // cas skladu: zlozky v oboch krabiciach su hore
 /**
  * Kolo 34: geometria chodze v sklade ako funkcia startu `p0` (parameter cesty WH_PATH): K 0,32 (kolo 11, Samuel: panacik nech
  * ide o 0,5-1 s dlhsie; ~684 px, ~1,75 s), K46 0,5 (ako v kole 10, ~411 px, ~1,05 s; bez zvuku bol sklad 4-8 s prazdny).
  * Rovnaka rychlost na obrazovke ako v kancelarii; z nej prichod k regalu, zdvihnutie zloziek, prechod na policu a pomaly najazd.
  */
-type C2Geo = { p0: number; d: number; walkMs: number; arr: number; upAt: number; push: [number, number]; slowZoom: (t: number) => number };
-const c2Geo = (p0: number): C2Geo => {
+type C2Geo = { p0: number; d: number; panAt: number; walkAt: number; walkMs: number; arr: number; upAt: number; push: [number, number]; slowZoom: (t: number) => number };
+/** Kolo 44 (K46 bez vety "V kancelarii ci v archive."): `panAt` = ms klipu prestrihu dole do skladu (K: C2_PAN_AT), chodza 650 ms po nom. */
+const c2Geo = (p0: number, panAt = C2_PAN_AT): C2Geo => {
   const d = whDist(1) - whDist(p0);
   const walkMs = (800 * d * WH_K) / OFFICE_WALK_PX;
-  const arr = C2_WALK_AT + walkMs; // panacik pri regali (cas skladu 6500)
+  const walkAt = panAt + 650;
+  const arr = walkAt + walkMs; // panacik pri regali (cas skladu 6500)
   const upAt = arr + (C2_UP - 6500); // ms klipu: zlozky hore
   const push: [number, number] = [arr + 500, 600]; // prechod na policu (cas skladu 7000-7600), sklad uz takmer vybledol
   // kolo 15: pomaly najazd na policu, 300 ms pred koncom prechodu sa rozbehne (900 ms) na +3,5 % za sekundu okolo C2_Q
@@ -1090,7 +1092,7 @@ const c2Geo = (p0: number): C2Geo => {
     const u = Math.max(0, t - slow.at);
     return 1 + slow.rate * (u < slow.ramp ? (u * u) / (2 * slow.ramp) : u - slow.ramp / 2);
   };
-  return { p0, d, walkMs, arr, upAt, push, slowZoom };
+  return { p0, d, panAt, walkAt, walkMs, arr, upAt, push, slowZoom };
 };
 const C2_GEO = c2Geo(0.32);
 const WH_P0 = C2_GEO.p0;
@@ -1117,10 +1119,10 @@ const c2Plan = (backAt: number, endMs: number, g: C2Geo = C2_GEO, backSpeed = 1)
   const back = 1120 / backSpeed; // kolo 34 (K46): navrat zloziek, viek a krabic 1,25x
   const wmap: [number, number][] = [
     [0, whTime(g.p0)],
-    [C2_WALK_AT, whTime(g.p0)],
+    [g.walkAt, whTime(g.p0)],
     ...Array.from({ length: 20 }, (_, i): [number, number] => {
       const e = (i + 1) / 20;
-      return [C2_WALK_AT + g.walkMs * e, whTime(invert01(whDist, whDist(g.p0) + g.d * easeInOut(e)))];
+      return [g.walkAt + g.walkMs * e, whTime(invert01(whDist, whDist(g.p0) + g.d * easeInOut(e)))];
     }),
     [g.upAt, C2_UP], // 1:1: vyblednutie skladu, krabice, veka a zlozky hore
     [backAt, 8500], // staticka chvila so zlozkami hore
@@ -1193,11 +1195,11 @@ const WH_PAD = 70; // zadny roh podlahy skladu je nad jeho platnou (kolo 31: 58 
  * 1021 px (s hranou 1034, titulky od 1060), zadny 68 px. Cesta panacika, priblizenie na policu aj C4 bez zmeny.
  */
 const WH_FLOOR_DX = 60;
-const LI_C2Base: React.FC<{ wmap: [number, number][] }> = ({ wmap }) => {
+const LI_C2Base: React.FC<{ wmap: [number, number][]; panAt?: number }> = ({ wmap, panAt = C2_PAN_AT }) => {
   const frame = useCurrentFrame();
-  const pan = tween(frame, C2_PAN_AT, C2_PAN_MS);
-  const offA = 1 - tween(frame, C2_PAN_AT + 100, 450); // kolo 30: kancelaria pri posune nahor zmizne
-  const whA = tween(frame, C2_PAN_AT + 350, 450); // sklad sa zospodu vynori
+  const pan = tween(frame, panAt, C2_PAN_MS);
+  const offA = 1 - tween(frame, panAt + 100, 450); // kolo 30: kancelaria pri posune nahor zmizne
+  const whA = tween(frame, panAt + 350, 450); // sklad sa zospodu vynori
   const w = mapMs(wmap, (frame / FPS) * 1000);
   const fw = (w / 1000) * FPS;
   const un = simInv(whCam(w)); // zrusi vnutornu kameru skladu
@@ -1471,11 +1473,13 @@ export const K_LinkedIn = filmOf(LI_LIST);
 /** C2: otazky "V skrini?" "V sklade?" pocas chodze v sklade; veta o hodinach ~100 ms pred zdvihnutim zloziek (C2_UP_AT),
  * navrat zloziek 100 ms po zdvihnuti. `at` vety 3 v vo_kratka.json (7070) je C2_UP_AT - ~100; pri zmene chodze upravit aj tam. */
 const C2_46_CLIP = 'K46-C2-Hladanie';
-const C2_46_LINE = voAt(C2_46_CLIP, 2); // kolo 35: "V skrini alebo v archive?" je jedna veta, "Hladanie..." je tretia
-/** Kolo 34: kratsia chodza (start 0,5 ako v kole 10, ~1,05 s) a navrat zloziek 1,25x; `at` vety o hodinach v JSON = upAt - ~100. */
-const C2_46_GEO = c2Geo(0.5);
-const C2_46 = c2Plan(Math.max(C2_46_LINE + 150, C2_46_GEO.upAt + 100), C2_46_LINE + (voLines(C2_46_CLIP)[2].dur ?? 1780), C2_46_GEO, 1.25);
-const LI_C2_46: React.FC = () => <LI_C2Base wmap={C2_46.wmap} />;
+const C2_46_LINE = voAt(C2_46_CLIP, 1); // kolo 44 (Samuel: skratit pod minutu): veta "V kancelarii ci v archive." vypadla, "Hladanie..." je druha
+/** Kolo 34: kratsia chodza (start 0,5 ako v kole 10, ~1,05 s) a navrat zloziek 1,25x; `at` vety o hodinach v JSON = upAt - ~100.
+ * Kolo 44: prestrih dole do skladu uz pocas otazky (1500 ms klipu, K 3450), zlozky hore ~4,5 s, veta o hodinach hned po otazke. */
+const C2_46_PAN_AT = 1500;
+const C2_46_GEO = c2Geo(0.5, C2_46_PAN_AT);
+const C2_46 = c2Plan(Math.max(C2_46_LINE + 150, C2_46_GEO.upAt + 100), C2_46_LINE + (voLines(C2_46_CLIP)[1].dur ?? 1780), C2_46_GEO, 1.25);
+const LI_C2_46: React.FC = () => <LI_C2Base wmap={C2_46.wmap} panAt={C2_46_PAN_AT} />;
 /** C4: len "Predstavujeme vam Assetin Archives." (bez vety o katalogu), logo s pilulkou odide 0,6 s po vete (5,7 s klipu), bez ikon archiv -> katalog. */
 const C4_46_CLIP = 'K46-C4-Cena';
 /** Kolo 34: len jedna veta pri logu (most vypadol, hacik ho nahradza), bez pilulky (ostava pri vyzve). Kolo 35 (Samuel: vela
@@ -1486,7 +1490,7 @@ const C4_46_CLIP = 'K46-C4-Cena';
  * prelinie 250 ms (logo a stoh sa neprekryvaju). */
 const C4_46_LINE_END = voAt(C4_46_CLIP, 0) + (voLines(C4_46_CLIP)[0].dur ?? 3840);
 const K_C4_H46 = C4_46_LINE_END + 5000 - (7900 + K_C4_D - C4_SKIP - 50); // kolo 40: logo neodchadza (brandOut az za koncom klipu), hacik ho prevezme ako hlavicku
-const C4_46_SECONDS = (C4_46_LINE_END + 400) / 1000; // kolo 40: klip konci 400 ms po vete s logom na obraze
+const C4_46_SECONDS = (C4_46_LINE_END + 300) / 1000; // kolo 40: klip konci 400 ms po vete s logom na obraze; kolo 44: 300 ms
 const K_C4_LI46 = k4LiFor(K_C4For(K_C4_H46, false));
 const C4Top46: React.FC = () => <C4TopBase clip={C4_46_CLIP} h={K_C4_H46} promise={false} pill={false} center />; // kolo 36 (Samuel): riadok "Na kluc..." prec, bude az na webe
 /**
@@ -1634,11 +1638,17 @@ const C5_46_CLIP = 'K46-C5-Teren';
 const C5_46_SPEED = 1.4;
 /** Kolo 35: ikony a QR 1,15x. Kolo 36 (Samuel): tretia veta "Skenuje sa az to, co naozaj potrebujete." a dokumenty cez mobil vypadli,
  * po najazde na mobil scena stoji (8400) len do konca vety o identifikacnej strane, hned nasleduje aplikacia. */
-const C5_46_END = voAt(C5_46_CLIP, 1) + (voLines(C5_46_CLIP)[1].dur ?? 3280) + 200; // kolo 37: veta "Mobilom sa odfoti..." zacina tak, aby "odfoti" (0,9 s) sadlo na blesk (scena 4900 = klip 3843)
+/** Kolo 44 (Samuel: "fotime len identifikacnu stranu" znelo v haciku aj tu): druha veta "Staci bezny mobil." (netreba skener);
+ * mobil prichadza 1:1 tak, aby blesk (scena 4900) sadol na slovo "mobil", dosadnutie (4900 -> 8400) 2x, klip konci 250 ms po vete. */
+const C5_46_W1 = { mobil: 0.88 }; // s od zaciatku vety "Staci bezny mobil." (words)
+const C5_46_FLASH = voAt(C5_46_CLIP, 1) + C5_46_W1.mobil * 1000 - 100; // ms klipu: blesk
+const C5_46_LAND = C5_46_FLASH + 3500 / 2.2; // mobil dosadol (scena 8400), dosadnutie 2,2x
+const C5_46_END = Math.max(voAt(C5_46_CLIP, 1) + (voLines(C5_46_CLIP)[1].dur ?? 1500) + 250, C5_46_LAND + 200);
 const C5_46_MAP: [number, number][] = [
   [0, 300],
-  [3200, 4000],
-  [3200 + 4400 / C5_46_SPEED, 8400],
+  [C5_46_FLASH - 900, 4000],
+  [C5_46_FLASH, 4900],
+  [C5_46_LAND, 8400],
   [C5_46_END, 8400],
 ];
 const C5_46_SECONDS = C5_46_END / 1000;
@@ -1656,7 +1666,7 @@ const C5_46_STEPS: C5Step[] = [
   { from: 300, title: 'Prilepiť QR kód' },
   { from: voAt(C5_46_CLIP, 1) - 100, title: 'Mobilom odfotiť identifikačnú stranu' },
 ];
-const C5Hierarchy46: React.FC = () => <C5HierarchyBase clip={C5_46_CLIP} outAt={voAt(C5_46_CLIP, 1) - 100} iconsAt={[0, 1, 2, 3].map((i) => voAt(C5_46_CLIP, 0) + 150 + i * 90)} qrAt={voAt(C5_46_CLIP, 0) + C5_46_W0.kod * 1000 - 150} arrange={false} />;
+const C5Hierarchy46: React.FC = () => <C5HierarchyBase clip={C5_46_CLIP} outAt={voAt(C5_46_CLIP, 1)} iconsAt={[0, 1, 2, 3].map((i) => voAt(C5_46_CLIP, 0) + 150 + i * 90)} qrAt={voAt(C5_46_CLIP, 0) + C5_46_W0.kod * 1000 - 150} arrange={false} />;
 /** F24: zostrih k46-f24-review (pokoj na fotke 2,4 s, lupa 1,6x, prijatie hned), veta "Aplikacia z fotky sama vycita udaje a clovek ich len potvrdi.", klik 0,3 s po "potvrdi". */
 const KF24_46 = 'k46-f24-review';
 const F24_46_CLIP = 'K46-F24-Aplikacia';
@@ -1708,7 +1718,11 @@ const F3_46_CLIP = 'K46-F3-Vyhladavanie';
 const F3_46_W = { cestu: 3.82, udaje: 6.14 }; // s od zaciatku vety (K46-F3-Vyhladavanie-0 words)
 const F3_46_L0 = voAt(F3_46_CLIP, 0) / 1000;
 const F3_46_CESTU = F3_46_L0 + F3_46_W.cestu;
-const F3_46_UDAJE = F3_46_L0 + F3_46_W.udaje;
+const F3_46_UDAJE = F3_46_L0 + F3_46_W.udaje; // len na kontrolu (koniec vety)
+/** Kolo 44 (Samuel: karta udajov je na obraze prilis kratko a cesta drzi pocas "aj vsetky vycitane udaje"): cesta odide a karta
+ * polozky pride uz na zaciatku casti "aj vsetky vycitane udaje" (partAt[2]), posun stranky k zhode v zostrihu od AJ - 0,5 s, karta drzi
+ * do konca klipu (~3 s). */
+const F3_46_AJ = F3_46_L0 + (voLines(F3_46_CLIP)[0].partAt?.[2] ?? 4600) / 1000;
 const F3_46_VIEWS: FootView[] = (() => {
   const full = { x: 70, y: 0, w: 1625 },
     search = { x: 60, y: 300, w: 1000 },
@@ -1720,19 +1734,19 @@ const F3_46_VIEWS: FootView[] = (() => {
     { t: 1.3, ...search }, // priblizenie pocas pisania slova
     { t: F3_46_CESTU - 0.9, ...search },
     { t: F3_46_CESTU - 0.1, ...detail }, // "cestu k polozke": drobcek a hlavicka ZL_03
-    { t: F3_46_UDAJE - 1.1, ...detail },
-    { t: F3_46_UDAJE + 0.2, ...match }, // "vycitane udaje": posun stranky k zhode v metadatach
+    { t: F3_46_AJ - 0.6, ...detail },
+    { t: F3_46_AJ + 0.4, ...match }, // "aj vsetky vycitane udaje": posun stranky k zhode v metadatach
     { t: 99, ...match },
   ];
 })();
 const F3_46_STEPS: Step[] = [
   { from: 0, title: 'Napísať kľúčové slovo' },
   { from: F3_46_CESTU * 1000 - 150, title: 'Cesta k položke' },
-  { from: F3_46_UDAJE * 1000 - 150, title: 'Vyčítané údaje' },
+  { from: F3_46_AJ * 1000 - 150, title: 'Vyčítané údaje' },
 ];
 const F3_46_MARKS: Mark[] = [
   markAt(KF3_46, 0.3, 1.9, 190, 578, 1638, 62, { spot: true }), // pole vyhladavania (pisanie slova)
-  markAt(KF3_46, F3_46_CESTU - 0.05, F3_46_UDAJE - 0.5, 596, 783, 246, 28, { spot: true }), // drobcek PL_01 / KR_01 / ZL_03: "cestu k polozke"
+  markAt(KF3_46, F3_46_CESTU - 0.05, F3_46_AJ - 0.5, 596, 783, 246, 28, { spot: true }), // drobcek PL_01 / KR_01 / ZL_03: "cestu k polozke"
 ];
 const LI_F3_46: React.FC = () => (
   <AbsoluteFill>
@@ -1740,10 +1754,10 @@ const LI_F3_46: React.FC = () => (
     <Panel from={0.25} to={F3_46_CESTU - 0.2} label="Hľadané slovo" width={WIN.w} middle>
       <SearchField typeFrom={0.5} typeTo={1.7} />
     </Panel>
-    <Panel from={F3_46_CESTU - 0.15} to={F3_46_UDAJE - 0.1} label="Cesta k položke" width={WIN.w} middle>
+    <Panel from={F3_46_CESTU - 0.15} to={F3_46_AJ - 0.1} label="Cesta k položke" width={WIN.w} middle>
       <DocPath lineAt={F3_46_CESTU - F3_WORDS.cestu} />
     </Panel>
-    <Panel from={F3_46_UDAJE - 0.05} to={F3_46_SECONDS + 1} label="Nájdená položka" width={WIN.w} middle>
+    <Panel from={F3_46_AJ - 0.05} to={F3_46_SECONDS + 1} label="Nájdená položka" width={WIN.w} middle>
       <ItemCard />
     </Panel>
   </AbsoluteFill>
@@ -1756,27 +1770,28 @@ const C8_46_CLIP = 'K46-C8-Ponuka';
  * sluzbu na kluc." s dvoma kartami (Vlastnymi silami / Sluzba na kluc) pri slovach, pred vyzvou.
  */
 const KTO_CLIP = 'K46-Kto';
-const KTO_W = { vlastnymi: 1.32, archiv: 3.22 }; // s od zaciatku vety (K46-Kto-0 words); kolo 43: druha karta pri "archiv" // s od zaciatku vety (K46-Kto-0 words)
+const KTO_W = { sami: 1.3, archiv: 2.62 }; // s od zaciatku vety "Bud katalogizujete sami, alebo vam archiv spracujeme na kluc." (K46-Kto-0 words); kolo 44 kratsia veta
 const KTO_L0 = voAt(KTO_CLIP, 0);
-const KTO_SECONDS = (KTO_L0 + (voLines(KTO_CLIP)[0].dur ?? 4500)) / 1000 + 0.3;
+const KTO_SECONDS = (KTO_L0 + (voLines(KTO_CLIP)[0].dur ?? 4500)) / 1000 + 0.2; // kolo 44: 0,2 s po vete
 /** Kolo 43 (Samuel: zavery su plane, zapracovat tmavomodru): karta Vlastnymi silami biela s tmavomodrym obrysom, karta Sluzba na
- * kluc tmavomodra vyplnena (nasa ponuka vynikne), ikona v zelenom kruhu. */
+ * kluc tmavomodra vyplnena (nasa ponuka vynikne), ikona v zelenom kruhu. Kolo 44 (Samuel: tmava karta divne preblikne): tmava karta
+ * je tmavomodra od prvej snimky (predtym sa objavila biela a o 120 ms skokom sčernela), svetla karta meni len obrys pri `lit`. */
 const KtoCard: React.FC<{ kind: OfferIconKind; title: string; sub: string; at: number; left: number; dark?: boolean }> = ({ kind, title, sub, at, left, dark = false }) => {
   const frame = useCurrentFrame();
   const t = settle(frame, at);
   const on = pop(frame, at + 120, { damping: 16 });
   const lit = on > 0.5;
   return (
-    <div style={{ position: 'absolute', left, top: 300, width: 460, height: 440, boxSizing: 'border-box', borderRadius: 28, background: dark && lit ? NAVY[800] : '#fff', border: `3px solid ${dark ? (lit ? NAVY[800] : NAVY[200]) : lit ? NAVY[700] : NAVY[200]}`, boxShadow: dark && lit ? '0 18px 40px rgba(8,17,31,0.28)' : '0 14px 36px rgba(15,23,42,0.08)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18, padding: '0 28px', textAlign: 'center', opacity: t, transform: `translateY(${(1 - t) * 24}px)` }}>
+    <div style={{ position: 'absolute', left, top: 300, width: 460, height: 440, boxSizing: 'border-box', borderRadius: 28, background: dark ? NAVY[800] : '#fff', border: `3px solid ${dark ? NAVY[800] : lit ? NAVY[700] : NAVY[200]}`, boxShadow: dark ? '0 18px 40px rgba(8,17,31,0.28)' : '0 14px 36px rgba(15,23,42,0.08)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18, padding: '0 28px', textAlign: 'center', opacity: t, transform: `translateY(${(1 - t) * 24}px)` }}>
       <OfferIcon kind={kind} on={lit} size={150} />
-      <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 46, lineHeight: 1.05, letterSpacing: '-0.02em', color: dark && lit ? '#fff' : NAVY[800] }}>{title}</div>
-      <div style={{ fontFamily: FONT.body, fontWeight: 500, fontSize: 30, lineHeight: 1.2, color: dark && lit ? NAVY[200] : INK[600] }}>{sub}</div>
+      <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 46, lineHeight: 1.05, letterSpacing: '-0.02em', color: dark ? '#fff' : NAVY[800] }}>{title}</div>
+      <div style={{ fontFamily: FONT.body, fontWeight: 500, fontSize: 30, lineHeight: 1.2, color: dark ? NAVY[200] : INK[600] }}>{sub}</div>
     </div>
   );
 };
 const LI_Kto: React.FC = () => (
   <AbsoluteFill style={{ background: '#fff' }}>
-    <KtoCard kind="app" title="Vlastnými silami" sub="s našou aplikáciou" at={KTO_L0 + KTO_W.vlastnymi * 1000 - 150} left={60} />
+    <KtoCard kind="app" title="Vlastnými silami" sub="s našou aplikáciou" at={KTO_L0 + KTO_W.sami * 1000 - 150} left={60} />
     <KtoCard kind="catalog" title="Služba na kľúč" sub="archív spracujeme my" at={KTO_L0 + KTO_W.archiv * 1000 - 150} left={560} dark />
   </AbsoluteFill>
 );
@@ -1793,7 +1808,7 @@ const VYS_CLIP = 'K46-Vysledok';
 /** Kolo 36 (Samuel): "Vysledok katalogizacie je, ze viete, co mate, kde to je a ako s tym dalej nalozit." (tri zelene riadky pri
  * slovach); kolo 38: "Vysledok je, ze spolahlivo viete, co presne mate a kde to je." (dva riadky) a "Na zaklade toho viete rozhodnut, napriklad co uchovat, skartovat alebo plnohodnotne skenovat." (dlazdice v obrysoch
  * od zaciatku vety, rozsvietia sa pri slovach). Casy slov z K46-Vysledok-0 a -1 words. */
-const VYS_W = { co: 2.4, kde: 3.48, uchovat: 2.8, skartovat: 3.58, skenovat: 4.64 }; // kolo 38: prva veta "Vysledok je, ze spolahlivo viete, co presne mate a kde to je." (words)
+const VYS_W = { co: 2.3, kde: 3.62, uchovat: 1.48, skartovat: 2.2, skenovat: 3.86 }; // kolo 44: "Vysledok: spolahlivo viete, co presne mate a kde to je." a "Potom viete rozhodnut, co uchovat, skartovat alebo plnohodnotne skenovat." (words)
 const VYS_L0 = voAt(VYS_CLIP, 0);
 const VYS_L1 = voAt(VYS_CLIP, 1);
 const VYS_SECONDS = (VYS_L1 + (voLines(VYS_CLIP)[1].dur ?? 6240)) / 1000 + 0.3;

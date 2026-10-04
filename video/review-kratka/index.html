@@ -154,6 +154,20 @@
       <h2>LinkedIn verzia</h2>
       <p>Hore je kolo 34 (52 s), pod ním kolo 33 (50 s), kolo 32 (56 s), plná LinkedIn verzia 77 s (kolo 31, bez zmeny) a na porovnanie kolo 15. Staršie kolá sú nižšie v zbalenej časti.</p>
     </div>
+    <article class="film tallfilm" id="film-L44">
+      <div data-video="L44" data-shape="v45"></div>
+      <div class="info">
+        <div class="head"><h3>Kolo 44: bez duplicity o fotení, karta položky skôr a dlhšie, tmavá karta bez preblikania, 59 s</h3><span class="len" data-len="L44"></span></div>
+        <ul>
+          <li>Pod minútu (59,4 s, bolo 65,8 s): úvod bez "V kancelárii či v archíve." (prestrih do skladu príde počas otázky, "Hľadanie môže trvať hodiny." hneď po nej), záver "Výsledok: spoľahlivo viete, čo presne máte a kde to je." a "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať.", Kto "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč.", háčik, logo a aplikácia o 0,2 až 0,3 s skôr.</li>
+          <li>Duplicita 0:17 / 0:27 preč: v C5 namiesto "Mobilom sa odfotí len identifikačná strana." znie "Stačí bežný mobil." (netreba skener), blesk sadne na slovo "mobil", mobil dosadne rýchlejšie. Nadpis kroku "Mobilom odfotiť identifikačnú stranu" ostáva.</li>
+          <li>Hľadanie (0:30 až 0:38): cesta k položke odíde a karta položky príde už na začiatku časti "aj všetky vyčítané údaje", posun stránky k žltej zhode ide s ňou; karta je na obraze 3 s (bolo 1,25 s).</li>
+          <li>Kto (0:48): karta Služba na kľúč je tmavomodrá od prvej snímky (predtým sa objavila biela a skokom sčernela). Hudba: nástup kapely 0,5 s pred logom, pokojná časť od scény Kto, akord na začiatku záverečného loga, doznie do konca.</li>
+          <li>Nové nahrávky (4 vety, 3 kandidáti na každú, výber cez Gemini). Prepis mixu: všetkých 15 viet celých, hudba do konca, nič sa nehovorí dvakrát.</li>
+        </ul>
+        <div class="composer"><button type="button" data-role="compose" disabled>Pridať pripomienku</button><span class="result" aria-live="polite"></span></div>
+      </div>
+    </article>
     <article class="film tallfilm" id="film-L43">
       <div data-video="L43" data-shape="v45"></div>
       <div class="info">
@@ -568,9 +582,10 @@
 <div class="tip" id="tip" hidden></div>
 
 <script>
-  const BUILD = { renderedAt: "2026-10-04T10:30:00Z" };
+  const BUILD = { renderedAt: "2026-10-04T18:15:00Z" };
   // id assetov (videa a plagaty); prazdne = este sa nahrava
   const VIDEOS = {
+    L44: { cap: "9fa8cfd1b1e3d8370860b8148c88a843", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 59.4 },
     L43: { cap: "a31d114f08440d7cdb508378ed8acb09", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 65.8 },
     L42: { cap: "53c0c25176d8eb8143230f9edf485134", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 61.9 },
     L41: { cap: "dee1e9ff4a276e17acb2ffd1dc995ef1", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 61.9 },
@@ -622,7 +637,8 @@
     "Kolo 40 (62 s)": [9.19, 10.44, 12.72, 7.8, 21.68],
     "Kolo 41 (62 s)": [9.19, 10.44, 12.72, 7.8, 21.68],
     "Kolo 42 (62 s)": [9.19, 10.44, 12.72, 7.8, 21.68],
-    "Kolo 43 (66 s)": [9.19, 13.01, 12.88, 7.73, 22.86]
+    "Kolo 43 (66 s)": [9.19, 13.01, 12.88, 7.73, 22.86],
+    "Kolo 44 (59 s)": [6.69, 12.41, 11.91, 8.03, 20.33]
   };
   const SCRIPT = [
     ["C2", "Kedy ste naposledy nevedeli nájsť nejaký dokument?", "old", "C2, prvá veta"],
@@ -682,24 +698,24 @@
   ];
   const ASKS = [
     [
-        "Dĺžka 66 s",
-        "Háčik má teraz dve vety (10 s), scéna Kto 6,4 s. Rezervy: úvodná veta \"V kancelárii či v archíve.\" preč (-2,5 s), kratšia druhá veta záveru (-1,5 s), logo bez vety (-2 s). Alebo 66 s stačí?"
+        "Dĺžka 59,4 s",
+        "Pod minútou. Stačí, alebo ešte niečo ubrať (napr. logo bez vety -2 s)?"
     ],
     [
-        "Háčik",
-        "\"Náš prístup katalogizácie je hospodárnejší: naša aplikácia fotí len identifikačnú stranu.\" Pauza pri dvojbodke 0,3 s. Sedí znenie aj obraz (rámik pri fotí, 1 strana pri identifikačnú)?"
+        "C5: \"Stačí bežný mobil.\"",
+        "Namiesto opakovania identifikačnej strany. Sedí znenie aj blesk pri slove mobil?"
+    ],
+    [
+        "Úvod",
+        "Prestrih do skladu príde už počas otázky, veta o hodinách hneď po nej (zelený prechod v 5,7 s). Nie je to prirýchle?"
     ],
     [
         "Hľadanie",
-        "Cesta k položke pri \"cestu\" (drobček v okne, karta polica / krabica / zložka), potom posun k vyčítaným údajom so žltou zhodou. Sedí poradie a tempo?"
-    ],
-    [
-        "Farby záverov",
-        "Tmavomodré riadky a karta Služba na kľúč, zelené fajky a ikony. Dosť živé, alebo ešte niečo?"
+        "Karta položky od \"aj všetky vyčítané údaje\", drží 3 s. Sedí?"
     ],
     [
         "Hudba",
-        "Akord tesne pred logom, doznie do konca (logo 2,2 s). Sedí?"
+        "Akord na začiatku záverečného loga (0,1 s po ňom), doznie do konca. Sedí?"
     ]
   ];
   const blob = (id) => '/_blob/' + id;

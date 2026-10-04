@@ -241,7 +241,7 @@
   "k46-f3-search": {
     "src": "src/search2.mp4",
     "vf": "crop=1764:882:96:150",
-    "note": "Kolo 34 (K46): ako k-f3-search; kolo 42 (Samuel: v zazname nie je vidiet udaje o polozke): doplneny posun k zhode v metadatach (7,4 az 12,8 s, 3x) a zlta zhoda (12,8 az 13,2 s), karta drzi kratsie.",
+    "note": "Kolo 34 (K46): ako k-f3-search; kolo 42 (Samuel: v zazname nie je vidiet udaje o polozke): doplneny posun k zhode v metadatach (7,4 az 12,8 s, 3x) a zlta zhoda (12,8 az 13,2 s), karta drzi kratsie. Kolo 44: posun k zhode skor (od \"aj vsetky\"), zhoda drzi dlhsie (8,05 s).",
     "segs": [
       {
         "from": 3.5,
@@ -258,8 +258,8 @@
       {
         "from": 6.2,
         "to": 7.4,
-        "after": 1.85,
-        "note": "vysledok ZL_03 a detail v pokoji (drobcek PL_01 / KR_01 / ZL_03, Priloha, zaciatok tabulky metadat)"
+        "after": 0.95,
+        "note": "vysledok ZL_03 a detail v pokoji (drobcek PL_01 / KR_01 / ZL_03, Priloha, zaciatok tabulky metadat); kolo 44: kratsie, posun od 4,5 s"
       },
       {
         "from": 7.4,
@@ -270,8 +270,8 @@
       {
         "from": 12.8,
         "to": 13.2,
-        "after": 0.59,
-        "note": "automaticky zvyraznena zhoda v metadatach (Popis zmeny: Doplnenie vodovodnej pripojky...), drzi do konca klipu"
+        "after": 1.8,
+        "note": "automaticky zvyraznena zhoda v metadatach (Popis zmeny: Doplnenie vodovodnej pripojky...), drzi do konca klipu (kolo 44: ~2,2 s, karta polozky drzi od \"aj vsetky\")"
       }
     ]
   }

@@ -11,18 +11,19 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
 - Dĺžka: okolo 75 s a k tomu 30 s teaser. Ponuku (C8) nechal na mňa.
 - Pôvodnú verziu nechytať, je to vstup. Hlas a hudbu negenerovať znova (existujúce nahrávky sa len strihajú).
 
-## Kde sme skončili (4. 10. 2026, kolo 43)
+## Kde sme skončili (4. 10. 2026, kolo 44)
 
 - Dve hotové videá, obe LinkedIn 4:5 (1080 x 1350), obe sa renderujú z toho istého projektu:
   - `video/out/kratka/K-LinkedIn_1080p.mp4` (76,8 s, kolo 31, kompozícia `K-LinkedIn`): plná krátka verzia, od kola 31 bez zmeny.
-  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (65,8 s, kolo 43, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
-    problém, vycentrované logo ("Predstavujeme softvérové riešenie Assetin Archives."), háčik "Naskenovať celý archív môže byť
-    drahé. Náš prístup katalogizácie je hospodárnejší: naša aplikácia fotí len identifikačnú stranu." (logo z predstavenia ostáva
-    ako hlavička háčika, 328 strán proti 1 identifikačnej strane), QR kód a "Mobilom sa odfotí len identifikačná strana." s bleskom,
-    aplikácia (záznam od celého okna s plynulým priblížením, karta v strede pásma, potvrdí alebo upraví), hľadanie (slovo, cesta
-    k položke, posun k vyčítaným údajom), výsledok "spoľahlivo viete, čo presne máte a kde to je" a rozhodnutie uchovať /
-    skartovať / plnohodnotne skenovať (tmavomodré karty), "Buď katalogizujete vlastnými silami, alebo vám archív spracujeme ako
-    službu na kľúč.", výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kole 43 nižšie. Kolá 32 až 42 sú v `out/kratka/verzie/`.
+  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (59,4 s, kolo 44, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
+    otázka v kancelárii a prestrih do skladu, "Hľadanie môže trvať hodiny.", logo ("Predstavujeme Assetin Archives."), háčik
+    "Naskenovať celý archív môže byť drahé. Náš prístup katalogizácie je hospodárnejší: naša aplikácia fotí len identifikačnú
+    stranu." (logo z predstavenia ostáva ako hlavička háčika, 328 strán proti 1 identifikačnej strane), QR kód a "Stačí bežný
+    mobil." s bleskom, aplikácia (záznam od celého okna s plynulým priblížením, karta v strede pásma, potvrdí alebo upraví),
+    hľadanie (slovo, cesta k položke, od "aj všetky vyčítané údaje" karta položky a posun k žltej zhode), výsledok "Výsledok:
+    spoľahlivo viete, čo presne máte a kde to je." a "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať."
+    (tmavomodré karty), "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč.", výzva, logo 2,2 s s doznievajúcim
+    akordom; podrobnosti v kole 44 nižšie. Kolá 32 až 43 sú v `out/kratka/verzie/`.
     Náhľady `*_preview_540p.mp4` vedľa. Staršie kolá 14 až 30 sú v `out/kratka/verzie/`. Pôvodná dlhá verzia (145 s, 16:9) sa nemenila.
 - Zdroj: kompozície `K-LinkedIn` a `K-LinkedIn-46` (zoznam klipov `LI_LIST_46` na konci súboru) v `src/scenes/kratka/LinkedIn.tsx` (spoločné dáta `Kratka.tsx`, klipy `src/kratkaList.ts`),
   scenár `src/copy/vo_kratka.json`, hlas `public/vo-kratka/`, hudba `src/copy/music_kratka.json` (variant `K`: hudba
@@ -46,6 +47,42 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
   - Krabica alebo box: posúdené v kole 24, odporúčanie nechať "krabica".
 - Gemini API (hlas aj hudba) naposledy vracalo 402, vyčerpaný predplatený kredit; nové vety čakajú na jeho dobitie.
 - Review stránka experimentu (odkaz hore) je súkromná, ostatní ju uvidia, až keď ju vlastník zdieľa cez Share.
+
+## Kolo 44 (4. 10. 2026): bez duplicity o fotení, karta položky skôr a dlhšie, tmavá karta bez preblikania, pod minútu
+
+Samuel (ku kolu 43): v 0:17 (háčik) a v 0:27 (C5) sa dvakrát za pár sekúnd hovorí, že sa fotí len identifikačná strana; v 0:43
+je karta vyčítaných údajov na obraze príliš krátko a pred ňou ešte drží rámik cesty; karta Služba na kľúč na konci divne
+preblikne; stále nad minútou, navrhnúť, čo skrátiť. Rozhodnuté: C5 "Stačí bežný mobil." (iná informácia: netreba skener);
+škrty: úvod bez "V kancelárii či v archíve.", záver "Výsledok: spoľahlivo viete, čo presne máte a kde to je." a "Potom viete
+rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať.", Kto "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč.",
+drobné strihy (háčik, logo, aplikácia o 0,2 až 0,3 s skôr).
+
+- Hlas (4 nové nahrávky Gemini, pre každú 3 kandidáti, výber a prepis cez Gemini, všetky celé a bez chýb): "Stačí bežný mobil."
+  (1,6 s), "Výsledok: spoľahlivo viete, čo presne máte a kde to je." (4,4 s), "Potom viete rozhodnúť, čo uchovať, skartovať alebo
+  plnohodnotne skenovať." (4,8 s), "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč." (4,4 s). Veta "V kancelárii
+  či v archíve." vypadla, "Hľadanie môže trvať hodiny." je druhá veta úvodu (kópia zo `src`, `at` = zložky hore - 100 ms).
+  "Identifikačná strana" zaznie už len v háčiku, "mobil" len v C5. Spolu 15 viet.
+- Úvod: `c2Geo(p0, panAt)` a `LI_C2Base` prop `panAt` (K má ďalej `C2_PAN_AT` 3450, K46 1500): prestrih dole do skladu príde
+  počas otázky, zložky hore v 4,5 s, "Hľadanie môže trvať hodiny." od 4,4 s, zelený prechod do loga v 5,67 s (bolo 8,17 s).
+- C5: "Stačí bežný mobil." 250 ms po vete o QR, mobil prichádza 1:1 tak, aby blesk sadol na slovo "mobil", dosadnutie 2,2x,
+  klip 5,4 s (bolo 6,4 s); nadpis kroku "Mobilom odfotiť identifikačnú stranu" ostáva.
+- Hľadanie: cesta (DocPath) odíde a karta položky príde už na začiatku časti "aj všetky vyčítané údaje" (`F3_46_AJ`, 5,0 s klipu),
+  posun stránky k zhode v zostrihu od 4,5 s (3. segment `after` 0,95), zhoda drží do 8,05 s (5. segment `after` 1,8), karta
+  položky je na obraze 3,1 s (bolo 1,25 s), klip 8,05 s (bolo 7,74 s).
+- Kto: tmavá karta Služba na kľúč je tmavomodrá od prvej snímky (predtým sa objavila biela s obrysom a o 120 ms skokom sčernela),
+  svetlá karta mení pri slove len obrys; karty pri "sami" a "archív".
+- Hudba (variant `K46`): úvod 2,25 taktu (-13:3-4, -12, -1), delay 0,10 s, nástup kapely 0,5 s pred zeleným prechodom (5,67 s),
+  groove 19 taktov 0 až 18 (skok 18 -> 44 podobnosť 0,997), tempo 1,0139, pokojná časť takty 44 až 47 od scény Kto (48,0 s), akord
+  (51) v 57,0 s na začiatku záverečného loga (56,9 s), doznie do konca. Čas vo filme = čas v zostrihu / tempo + delay.
+- Drobné strihy: háčik od 0,4 s (bolo 0,7), logo od 0,4 s a klip končí 300 ms po vete, aplikácia od 0,6 s (bolo 0,8), Kto 0,2 s
+  po vete.
+- Začiatky klipov: C2 0, C4 5,67, háčik 9,3, C5 18,9, aplikácia 24,17, hľadanie 30,4, výsledok 38,43, Kto 48,0, výzva 52,5, logo
+  56,9; film 59,37 s (1781 snímok; bolo 65,67 s). K-LinkedIn 2302 snímok bez zmeny.
+- Kontroly: prepis mixu cez Gemini zachytí všetkých 15 viet celých a bez chýb výslovnosti, hudba hrá od začiatku do úplného
+  konca, akord na konci doznie, bez počuteľného skoku, nič sa nehovorí dvakrát; -16,1 LUFS, true peak -1,6 dBFS; K-LinkedIn 2302
+  snímok; snímky v plnom rozlíšení (úvod, C5 s bleskom pri "mobil", hľadanie: cesta odíde pred "aj všetky", karta položky drží
+  3 s, závery, Kto mriežka 10 fps: tmavá karta len bledne, bez bieleho medzistavu).
+- Kolo 43 je uložené v `out/kratka/verzie/K-LinkedIn-46_kolo43_66s_*.mp4` a v commite `5268b92`.
 
 ## Kolo 43 (4. 10. 2026): hudba do konca, "naša aplikácia fotí len identifikačnú stranu", hľadanie cesta -> údaje, tmavomodré závery
 
