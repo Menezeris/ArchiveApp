@@ -154,6 +154,16 @@
       <h2>LinkedIn verzia</h2>
       <p>Hore je kolo 34 (52 s), pod ním kolo 33 (50 s), kolo 32 (56 s), plná LinkedIn verzia 77 s (kolo 31, bez zmeny) a na porovnanie kolo 15. Staršie kolá sú nižšie v zbalenej časti.</p>
     </div>
+    <article class="film tallfilm" id="film-K55">
+      <div data-video="K55" data-shape="v45"></div>
+      <div class="info">
+        <div class="head"><h3>Kolo 55: hlas výsledku ako riadky v obraze (56 s)</h3><span class="len" data-len="K55"></span></div>
+        <ul>
+          <li>0:35: hlas hovorí "Výsledok: spoľahlivo viete, aké dokumenty máte a kde sa nachádzajú.", rovnako ako riadky v obraze. Riadky sa rozsvietia pri slovách "aké" a "kde". Dĺžka 56,3 s, hudba doladená.</li>
+        </ul>
+        <div class="composer"><button type="button" data-role="compose" disabled>Pridať pripomienku</button><span class="result" aria-live="polite"></span></div>
+      </div>
+    </article>
     <article class="film tallfilm" id="film-K54">
       <div data-video="K54" data-shape="v45"></div>
       <div class="info">
@@ -695,9 +705,10 @@
 <div class="tip" id="tip" hidden></div>
 
 <script>
-  const BUILD = { renderedAt: "2026-10-05T13:00:00Z" };
+  const BUILD = { renderedAt: "2026-10-05T18:40:00Z" };
   // id assetov (videa a plagaty); prazdne = este sa nahrava
   const VIDEOS = {
+    K55: { cap: "4335cfb720c51f9d97eba74ea0a3f928", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 56.3 },
     K54: { cap: "cd9758ece467a97dba7999872086d8b3", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 55.6 },
     K53: { cap: "24fe13a63694b12a1a9ff1919fe1aab7", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 57.5 },
     K52: { cap: "f5271e3da3c59688132ef381f6a21e9e", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 57.5 },
@@ -771,7 +782,8 @@
     "Kolo 51 (57 s)": [8.62, 9.26, 10.77, 8.2, 20.6],
     "Kolo 52 (57 s)": [8.62, 9.26, 10.77, 8.2, 20.6],
     "Kolo 53 (57 s)": [8.62, 9.26, 10.77, 8.2, 20.6],
-    "Kolo 54 (56 s)": [7.45, 9.26, 10.77, 7.8, 20.3]
+    "Kolo 54 (56 s)": [7.45, 9.26, 10.77, 7.8, 20.3],
+    "Kolo 55 (56 s)": [7.45, 9.26, 10.77, 7.8, 21.0]
   };
   const SCRIPT = [
     ["C2", "Kedy ste naposledy nevedeli nájsť nejaký dokument?", "old", "C2, prvá veta"],
@@ -831,8 +843,8 @@
   ];
   const ASKS = [
     [
-        "Tempo po opravách",
-        "Úvod bez dlhého ticha, karty v Kto hneď, nadpisy bez prekrytia. Sedí?"
+        "Výsledok 0:35",
+        "Hlas \"aké dokumenty máte a kde sa nachádzajú\" ako riadky v obraze. Sedí?"
     ],
     [
         "Obsah mimo videa",
@@ -840,7 +852,7 @@
     ],
     [
         "Zlúčenie",
-        "Kolá 47 až 54 sú na vetve, do main po odsúhlasení."
+        "Kolá 32 až 54 sú v main (PR #23 a #24), kolo 55 na vetve."
     ]
   ];
   const blob = (id) => '/_blob/' + id;
