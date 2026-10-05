@@ -44,7 +44,7 @@ const paced = (id: string, d: PacedDef): [string, SceneDef] => {
  */
 export const SCENE_LIST: [string, SceneDef][] = [
   ['C1-Intro', { component: C1_Intro, seconds: 3.6, stills: [30, 55, 95] }],
-  paced('C2-Hladanie', { scene: C2_Hladanie, seconds: C2_SECONDS, vo: true, dark: true, brand: { dark: true }, stills: [80, 150, 260, 380] }), // kolo 55: bez zastavenia obrazu (predtym holds 1700/2420 a 3600/500)
+  paced('C2-Hladanie', { scene: C2_Hladanie, seconds: C2_SECONDS, vo: true, dark: true, brand: { dark: true }, stills: [80, 150, 260, 340] }), // kolo 55: bez zastavenia obrazu (predtym holds 1700/2420 a 3600/500)
   // kolo 54: logo s tvrdym t "Predstavujeme Assetin Archives." + veta o katalogu, logo ostava a prevezme ho hacik (bez krabice);
   // klip konci 0,3 s po vete (vystup 19,55 s = scena 15,28 s + pauzy 4,27 s)
   paced('C4-Cena', { scene: C4_CenaMain, seconds: 15.28, vo: true, darkUntil: 11400, brand: { darkUntil: C4_WIPE_AT, hide: [C4_WIPE_AT, 1e9] }, holds: [{ at: 3000, hold: 2500 }, { at: 4390, hold: 1770 }], stills: [80, 170, 280, 370, 500] }),
@@ -56,17 +56,17 @@ export const SCENE_LIST: [string, SceneDef][] = [
   // kolo 41: C7-Hierarchia vypadlo (Samuel: navyse; hierarchiu povie F1 "zaradime ju do hierarchie" a ukaze F3 cesta v hierarchii)
   paced('C6-Spracovanie', { scene: C6_Spracovanie, seconds: 2, vo: false, // kolo 52: 2 s (predtym 3 s bez hlasu)
     // kolo 51: bez vety (F2 hned "Aplikacia z fotky sama precita text...")
-    brand: {}, stills: [20, 45, 85] }),
+    brand: {}, stills: [10, 30, 55] }),
   paced('F2-Metadata', { scene: F2_Metadata, seconds: F2_SECONDS, vo: true, // kolo 56: bez zastavenia obrazu (predtym hold 7400/900), spracovanie pomalsie v zostrihu
     // kolo 51: veta z kratkej verzie je o 0,3 s dlhsia
     brand: {}, stills: [10, 100, 240] }),
   paced('F4-Kontrola', { scene: F4_Kontrola, seconds: F4_SECONDS, vo: true, brand: {}, stills: [10, 150, 400] }),
   // kolo 53 (Samuel: export a analyzu vyhodit, hned klucove slovo a vyhladavanie): C10-Databaza vypadol, F3 ide hned po F4
-  paced('F3-Vyhladavanie', { scene: F3_Vyhladavanie, seconds: F3_SECONDS, vo: true, brand: {}, stills: [30, 170, 330, 440] }),
+  paced('F3-Vyhladavanie', { scene: F3_Vyhladavanie, seconds: F3_SECONDS, vo: true, brand: {}, stills: [30, 120, 220, 320] }),
   // kolo 54: Vysledok katalogizacie z kratkej K46 (dva riadky, tri dlazdice)
   paced('C8a-Vysledok', { scene: C8a_Vysledok, seconds: C8A_SECONDS, vo: true, brand: {}, stills: [40, 120, 200, 280] }),
   // kolo 42: dve ponuky, kolo 45: riadok rozsahu nasadenia; kolo 54: veta kratkej "Bud katalogizujete sami, alebo..." + rozsah
-  paced('C8-Pilot', { scene: C8_Pilot, seconds: C8_SECONDS, vo: true, brand: {}, stills: [40, 100, 250, 330, 400] }),
+  paced('C8-Pilot', { scene: C8_Pilot, seconds: C8_SECONDS, vo: true, brand: {}, stills: [40, 70, 100, 135, 165] }),
   paced('C8b-Technika', { scene: C8b_Technika, seconds: C8B_SECONDS, vo: true, brand: {}, stills: [40, 160, 220] }), // kolo 52: slide Technicke riesenie z kratkej verzie
   // kolo 54: vyzva z kratkej K46 "Zacnime jednou krabicou, zadarmo a nezavazne."
   paced('C8c-Vyzva', { scene: C8c_Vyzva, seconds: C8C_SECONDS, vo: true, brand: {}, stills: [20, 60, 100] }),
