@@ -91,6 +91,7 @@ type LiDef = {
   top?: React.FC; // kolo 6: vrstva nad znackou a webom, pod titulkami (C4: prechod do bielej a nastup loga)
   subsOut?: [number, number]; // kolo 6: titulky v useku [od, do) ms vyblednu a nie su (C4: pocas prechodu na logo)
   rowOut?: [number, number]; // kolo 6: riadok znacky hore v useku [od, do) ms nie je, potom sa vrati (C4: pocas velkeho loga)
+  stepsAfterXfade?: boolean; // kolo 54 (K46): nadpis kroku prichadzajuceho klipu sa ukaze az po prelinacke (inak sa dva nadpisy prekryju)
   labelOut?: boolean; // nazov kroku na konci klipu vybledne s obrazom (F3 -> C8, kde uz ziadny krok nie je)
   xfadeIn?: number; // kolo 13: ms, o ktore sa klip prekryje s predchadzajucim a cely sa v nich prelinie (F3 -> C8 bez bielej)
   subInk?: (ms: number) => number; // kolo 15: farba titulkov 0 = biela, 1 = tmava (C4: titulok mosta pocas zeleneho prechodu)
@@ -1077,22 +1078,23 @@ const C2_UP = 7820; // cas skladu: zlozky v oboch krabiciach su hore
  * ide o 0,5-1 s dlhsie; ~684 px, ~1,75 s), K46 0,5 (ako v kole 10, ~411 px, ~1,05 s; bez zvuku bol sklad 4-8 s prazdny).
  * Rovnaka rychlost na obrazovke ako v kancelarii; z nej prichod k regalu, zdvihnutie zloziek, prechod na policu a pomaly najazd.
  */
-type C2Geo = { p0: number; d: number; panAt: number; walkAt: number; walkMs: number; arr: number; upAt: number; push: [number, number]; slowZoom: (t: number) => number };
+type C2Geo = { p0: number; d: number; panAt: number; walkAt: number; upSpeed: number; walkMs: number; arr: number; upAt: number; push: [number, number]; slowZoom: (t: number) => number };
 /** Kolo 44 (K46 bez vety "V kancelarii ci v archive."): `panAt` = ms klipu prestrihu dole do skladu (K: C2_PAN_AT), chodza 650 ms po nom. */
-const c2Geo = (p0: number, panAt = C2_PAN_AT): C2Geo => {
+/** Kolo 54: `upSpeed` = zrychlenie useku od prichodu panacika po zlozky hore (cas skladu 6500 az 7820; K 1). */
+const c2Geo = (p0: number, panAt = C2_PAN_AT, upSpeed = 1): C2Geo => {
   const d = whDist(1) - whDist(p0);
   const walkMs = (800 * d * WH_K) / OFFICE_WALK_PX;
   const walkAt = panAt + 650;
   const arr = walkAt + walkMs; // panacik pri regali (cas skladu 6500)
-  const upAt = arr + (C2_UP - 6500); // ms klipu: zlozky hore
-  const push: [number, number] = [arr + 500, 600]; // prechod na policu (cas skladu 7000-7600), sklad uz takmer vybledol
+  const upAt = arr + (C2_UP - 6500) / upSpeed; // ms klipu: zlozky hore
+  const push: [number, number] = [arr + 500 / upSpeed, 600 / upSpeed]; // prechod na policu (cas skladu 7000-7600), sklad uz takmer vybledol
   // kolo 15: pomaly najazd na policu, 300 ms pred koncom prechodu sa rozbehne (900 ms) na +3,5 % za sekundu okolo C2_Q
   const slow = { at: push[0] + push[1] - 300, ramp: 900, rate: 0.035 / 1000 };
   const slowZoom = (t: number) => {
     const u = Math.max(0, t - slow.at);
     return 1 + slow.rate * (u < slow.ramp ? (u * u) / (2 * slow.ramp) : u - slow.ramp / 2);
   };
-  return { p0, d, panAt, walkAt, walkMs, arr, upAt, push, slowZoom };
+  return { p0, d, panAt, walkAt, upSpeed, walkMs, arr, upAt, push, slowZoom };
 };
 const C2_GEO = c2Geo(0.32);
 const WH_P0 = C2_GEO.p0;
@@ -1409,7 +1411,7 @@ const LiFrame: React.FC<{ d: LiDef }> = ({ d }) => {
         </div>
       ) : null}
       {d.steps ? (
-        <div style={{ position: 'absolute', inset: 0, opacity: d.labelOut ? 1 - tween(frame, s.seconds * 1000 - 500, 400) : 1 }}>
+        <div style={{ position: 'absolute', inset: 0, opacity: (d.labelOut ? 1 - tween(frame, s.seconds * 1000 - 500, 400) : 1) * (d.stepsAfterXfade && d.xfadeIn ? tween(frame, d.xfadeIn - 50, 200) : 1) }}>
           <StepLabel steps={d.steps} frame={frame} />
         </div>
       ) : null}
@@ -1476,8 +1478,9 @@ const C2_46_CLIP = 'K46-C2-Hladanie';
 const C2_46_LINE = voAt(C2_46_CLIP, 1); // kolo 44 (Samuel: skratit pod minutu): veta "V kancelarii ci v archive." vypadla, "Hladanie..." je druha
 /** Kolo 34: kratsia chodza (start 0,5 ako v kole 10, ~1,05 s) a navrat zloziek 1,25x; `at` vety o hodinach v JSON = upAt - ~100.
  * Kolo 44: prestrih dole do skladu uz pocas otazky (1500 ms klipu, K 3450), zlozky hore ~4,5 s, veta o hodinach hned po otazke. */
-const C2_46_PAN_AT = 3300; // kolo 48: 1900; kolo 50 (Samuel: kancelaria prikratka, nestihne povyhadzovat): prestrih az po dopade tretej veci (3 200 ms) a otazniku
-const C2_46_GEO = c2Geo(0.6, C2_46_PAN_AT); // kolo 50: kratsia chodza v sklade (p0 0,6, ~0,7 s), aby uvod nenarastol o celu kancelariu
+const C2_46_PAN_AT = 3100; // kolo 54: 3300 -> 3100 (tretia vec dopadne v 3200 este pri plnej kancelarii, otaznik od 3000)
+// povodne: const C2_46_PAN_AT = 3300; // kolo 48: 1900; kolo 50 (Samuel: kancelaria prikratka, nestihne povyhadzovat): prestrih az po dopade tretej veci (3 200 ms) a otazniku
+const C2_46_GEO = c2Geo(0.68, C2_46_PAN_AT, 1.5); // kolo 54 (ticho 2,2 s po otazke): kratsia chodza (0,68) a zlozky hore 1,5x // kolo 50: kratsia chodza v sklade (p0 0,6, ~0,7 s), aby uvod nenarastol o celu kancelariu
 const C2_46 = c2Plan(Math.max(C2_46_LINE + 150, C2_46_GEO.upAt + 100), C2_46_LINE + (voLines(C2_46_CLIP)[1].dur ?? 1780), C2_46_GEO, 1.25);
 const LI_C2_46: React.FC = () => <LI_C2Base wmap={C2_46.wmap} panAt={C2_46_PAN_AT} />;
 /** C4: len "Predstavujeme vam Assetin Archives." (bez vety o katalogu), logo s pilulkou odide 0,6 s po vete (5,7 s klipu), bez ikon archiv -> katalog. */
@@ -1704,7 +1707,7 @@ const F24_46_VIEWS: FootView[] = (() => {
 })();
 const F24_46_STEPS: Step[] = [
   { from: 0, title: 'Prečítať text' },
-  { from: F24_46_UDAJE * 1000, title: 'Návrh údajov' },
+  { from: (F24_46_L0 + 1.58) * 1000 - 100, title: 'Návrh údajov' }, // kolo 54: od "vycita" (1,6 s namiesto 1 s)
   { from: F24_46_POTVRDI * 1000 - 150, title: 'Človek potvrdí alebo upraví' },
 ];
 /** Kolo 34: okno zbledlo a karta sa vysunula na jeho miesto. Kolo 36 (Samuel: rychlo to preblikne, karta ma byt rovno pod oknom):
@@ -1743,7 +1746,7 @@ const F3_46_VIEWS: FootView[] = (() => {
 })();
 const F3_46_STEPS: Step[] = [
   { from: 0, title: 'Napísať kľúčové slovo' },
-  { from: F3_46_CESTU * 1000 - 150, title: 'Cesta k položke' },
+  { from: F3_46_APLIKACIA * 1000 + 350, title: 'Cesta k položke' }, // kolo 54: spolu s kartou cesty (predtym ~1 s po nej)
   { from: F3_46_UDAJE * 1000 - 450, title: 'Vyčítané údaje' },
 ];
 const F3_46_MARKS: Mark[] = [
@@ -1772,7 +1775,7 @@ const C8_46_CLIP = 'K46-C8-Ponuka';
  * sluzbu na kluc." s dvoma kartami (Vlastnymi silami / Sluzba na kluc) pri slovach, pred vyzvou.
  */
 const KTO_CLIP = 'K46-Kto';
-const KTO_W = { sami: 1.3, archiv: 2.62 }; // s od zaciatku vety "Bud katalogizujete sami, alebo vam archiv spracujeme na kluc." (K46-Kto-0 words); kolo 44 kratsia veta
+const KTO_W = { sami: 1.3, alebo: 2.0, archiv: 2.62 }; // s od zaciatku vety "Bud katalogizujete sami, alebo vam archiv spracujeme na kluc." (K46-Kto-0 words); kolo 44 kratsia veta
 const KTO_L0 = voAt(KTO_CLIP, 0);
 const KTO_SECONDS = (KTO_L0 + (voLines(KTO_CLIP)[0].dur ?? 4500)) / 1000 + 0.2; // kolo 44: 0,2 s po vete
 /** Kolo 43 (Samuel: zavery su plane, zapracovat tmavomodru): karta Vlastnymi silami biela s tmavomodrym obrysom, karta Sluzba na
@@ -1794,8 +1797,9 @@ const KtoCard: React.FC<{ kind: OfferIconKind; title: string; sub: string; at: n
 const LI_Kto: React.FC = () => (
   <AbsoluteFill style={{ background: '#fff' }}>
     {/* kolo 45 (simulovani divaci z malych firiem: "je to pre velke sklady"): podtitulky s rozsahom od par sanonov po cely sklad */}
-    <KtoCard kind="app" title="Vlastnými silami" sub="s našou aplikáciou, od pár šanónov" at={KTO_L0 + KTO_W.sami * 1000 - 150} left={60} />
-    <KtoCard kind="catalog" title="Služba na kľúč" sub="archív spracujeme my, aj celý sklad" at={KTO_L0 + KTO_W.archiv * 1000 - 150} left={560} dark />
+    {/* kolo 54 (prehliadka: 1,3 s prazdnej bielej): prva karta hned so zaciatkom vety, druha pri "alebo" */}
+    <KtoCard kind="app" title="Vlastnými silami" sub="s našou aplikáciou, od pár šanónov" at={KTO_L0 - 150} left={60} />
+    <KtoCard kind="catalog" title="Služba na kľúč" sub="archív spracujeme my, aj celý sklad" at={KTO_L0 + KTO_W.alebo * 1000 - 150} left={560} dark />
   </AbsoluteFill>
 );
 const LI_C8_46: React.FC = () => (
@@ -1811,7 +1815,7 @@ const VYS_CLIP = 'K46-Vysledok';
 /** Kolo 36 (Samuel): "Vysledok katalogizacie je, ze viete, co mate, kde to je a ako s tym dalej nalozit." (tri zelene riadky pri
  * slovach); kolo 38: "Vysledok je, ze spolahlivo viete, co presne mate a kde to je." (dva riadky) a "Na zaklade toho viete rozhodnut, napriklad co uchovat, skartovat alebo plnohodnotne skenovat." (dlazdice v obrysoch
  * od zaciatku vety, rozsvietia sa pri slovach). Casy slov z K46-Vysledok-0 a -1 words. */
-const VYS_W = { co: 2.3, kde: 3.62, uchovat: 1.48, skartovat: 2.2, skenovat: 3.86 }; // kolo 44: "Vysledok: spolahlivo viete, co presne mate a kde to je." a "Potom viete rozhodnut, co uchovat, skartovat alebo plnohodnotne skenovat." (words)
+const VYS_W = { co: 2.05, kde: 3.37, uchovat: 1.48, skartovat: 2.2, skenovat: 3.86 }; // kolo 54: prva veta o 0,25 s kratsia (pauza po "Vysledok:") // kolo 44: "Vysledok: spolahlivo viete, co presne mate a kde to je." a "Potom viete rozhodnut, co uchovat, skartovat alebo plnohodnotne skenovat." (words)
 const VYS_L0 = voAt(VYS_CLIP, 0);
 const VYS_L1 = voAt(VYS_CLIP, 1);
 const VYS_SECONDS = (VYS_L1 + (voLines(VYS_CLIP)[1].dur ?? 6240)) / 1000 + 0.3;
@@ -1894,12 +1898,12 @@ const LI_LIST_46: LiDef[] = [
   { def: paced(HOOK_CLIP, { scene: LI_Hook, seconds: HOOK_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: HOOK_STEPS, phase: PHASE_ARCHIV, chrome: false }, // kolo 40: logo je v hlavicke, bez prelinacky (rovnaky obraz ako koniec C4)
   { def: paced(C5_46_CLIP, { scene: C5_46_Scene, seconds: C5_46_SECONDS, stills: [], ...noSubs }), band: true, tone: () => 'light', steps: C5_46_STEPS, phase: PHASE_ARCHIV, shift: c5Shift, win: { top: 138, bottom: 1030, feather: 18 }, overflow: true, overlay: C5Hierarchy46, xfadeIn: 400 },
   // kolo 34: skutocny zaznam fotenia (F1) vypadol, fotenie ukazuje hacik aj C5 (blesk), F24 sa prelinie z mobilu na konci C5
-  { def: paced(F24_46_CLIP, { scene: LI_F24_46, seconds: F24_46_END, stills: [], ...noSubs }), tone: () => 'light', steps: F24_46_STEPS, phase: phases.app, xfadeIn: F1_XFADE },
+  { def: paced(F24_46_CLIP, { scene: LI_F24_46, seconds: F24_46_END, stills: [], ...noSubs }), tone: () => 'light', steps: F24_46_STEPS, phase: phases.app, xfadeIn: F1_XFADE, stepsAfterXfade: true },
   { def: paced(F3_46_CLIP, { scene: LI_F3_46, seconds: F3_46_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: F3_46_STEPS, phase: phases.search }, // kolo 43: vlastny klip hlasu
-  { def: paced(VYS_CLIP, { scene: LI_Vysledok, seconds: VYS_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: VYS_STEPS, phase: offer.kicker, xfadeIn: F1_XFADE }, // kolo 45: prelinacka z hladania (tvrdy strih z okna na prazdnu bielu preblesol; v kole 36 bola prec)
-  { def: paced(KTO_CLIP, { scene: LI_Kto, seconds: KTO_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Vlastnými silami, alebo na kľúč' }], phase: offer.kicker, xfadeIn: C8_XFADE }, // kolo 40
+  { def: paced(VYS_CLIP, { scene: LI_Vysledok, seconds: VYS_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: VYS_STEPS, phase: offer.kicker, xfadeIn: F1_XFADE, stepsAfterXfade: true }, // kolo 45: prelinacka z hladania (tvrdy strih z okna na prazdnu bielu preblesol; v kole 36 bola prec)
+  { def: paced(KTO_CLIP, { scene: LI_Kto, seconds: KTO_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Vlastnými silami, alebo na kľúč' }], phase: offer.kicker, xfadeIn: C8_XFADE, stepsAfterXfade: true }, // kolo 40
   // kolo 48: dobeh vyzvy 0,5 s (bolo 0,2)
-  { def: paced(C8_46_CLIP, { scene: LI_C8_46, seconds: clipEndSeconds(C8_46_CLIP, 0.5), stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Prvý krok' }], phase: offer.kicker, subsOut: [0, 1e9], xfadeIn: C8_XFADE },
+  { def: paced(C8_46_CLIP, { scene: LI_C8_46, seconds: clipEndSeconds(C8_46_CLIP, 0.5), stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Prvý krok' }], phase: offer.kicker, subsOut: [0, 1e9], xfadeIn: C8_XFADE, stepsAfterXfade: true },
   { def: paced('K-C9-Outro', { scene: LI_C9, seconds: 2.2, stills: [], ...noSubs }), tone: () => 'dark', chrome: false, subs: false }, // kolo 43: 2,2 s, aby akord doznel pod logom
 ];
 export const liFrames46 = () => liFramesOf(LI_LIST_46);
