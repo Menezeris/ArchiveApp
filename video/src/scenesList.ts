@@ -7,10 +7,12 @@ import { C4_Cena } from './scenes/C4_Cena';
 import { C5_Teren } from './scenes/C5_Teren';
 import { F1_SECONDS, F1_Sken } from './scenes/F1_Sken';
 import { C6_Spracovanie } from './scenes/C6_Spracovanie';
+import { C7_Hierarchia } from './scenes/C7_Hierarchia';
+import { F4_Navrh, F4_NAVRH_SECONDS } from './scenes/F4_Navrh';
 import { C10_Databaza } from './scenes/C10_Databaza';
 import { F2_Metadata } from './scenes/F2_Metadata';
-import { F3_Vyhladavanie } from './scenes/F3_Vyhladavanie';
-import { F4_Kontrola } from './scenes/F4_Kontrola';
+import { F3_Vyhladavanie, F3_VyhladavanieWeb } from './scenes/F3_Vyhladavanie';
+import { F4_Kontrola, F4_KontrolaWeb, F4_WEB_SKIP } from './scenes/F4_Kontrola';
 import { C8_Pilot } from './scenes/C8_Pilot';
 import { C9_Outro } from './scenes/C9_Outro';
 import { S04_Pokusy } from './scenes/optional/S04_Pokusy';
@@ -48,6 +50,20 @@ export const SCENE_LIST: [string, SceneDef][] = [
   paced('F3-Vyhladavanie', { scene: F3_Vyhladavanie, seconds: F3_SECONDS, vo: true, stills: [30, 170, 330, 440] }),
   paced('C8-Pilot', { scene: C8_Pilot, seconds: 21, vo: true, stills: [60, 170, 330, 500, 625] }), // kolo 42: dve ponuky (sluzba na kluc / softver), kolo 45: riadok rozsahu nasadenia
   paced('C9-Outro', { scene: C9_Outro, seconds: 7.3, vo: true, dark: true, stills: [40, 150] }),
+];
+
+/**
+ * Klipy len pre web (nie su vo Full): C7-Hierarchia vypadlo z videa v kole 41,
+ * ale produktova stranka ho pouziva ako ilustraciu kroku "Zaradenie do
+ * hierarchie" (strom polica - krabica - zlozka - dokument); F4-Navrh je prvy
+ * usek kontroly (navrh udajov vedla fotky) pre krok 3. export-web.mjs
+ * ho berie ako kazdy iny klip (musi stat pred zoznamom verzie 1).
+ */
+export const WEB_EXTRA_LIST: [string, SceneDef][] = [
+  paced('C7-Hierarchia', { scene: C7_Hierarchia, seconds: 5.6, vo: true, stills: [15, 75, 165] }),
+  paced('F4-Navrh', { scene: F4_Navrh, seconds: F4_NAVRH_SECONDS, stills: [5, 60, 150] }),
+  paced('F4-Kontrola-Web', { scene: F4_KontrolaWeb, seconds: F4_SECONDS, skip: F4_WEB_SKIP, stills: [10, 150, 400] }),
+  paced('F3-Vyhladavanie-Web', { scene: F3_VyhladavanieWeb, seconds: F3_SECONDS, stills: [30, 170, 330, 440] }),
 ];
 
 /** Verzia 1 (dlha): samostatna kancelaria a sklad, nahradene klipom C2-Hladanie. */

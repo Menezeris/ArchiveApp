@@ -273,5 +273,18 @@
         "note": "automaticky zvyraznena zhoda v metadatach (Popis zmeny: Doplnenie vodovodnej pripojky...), drzi do konca klipu (kolo 48: 2,0 s; kolo 54: 1,6 s, kratsie ticho pred Vysledkom, karta polozky od \"udaje\")"
       }
     ]
+  },
+  "f4-navrh": {
+    "src": "src/review2.mp4",
+    "vf": "crop=1764:882:98:150",
+    "segs": [
+      {
+        "from": 0.5,
+        "to": 2.5,
+        "before": 0.3,
+        "after": 3.5,
+        "note": "web, krok 3: fotka stitku a navrh udajov (kamera: najprv fotka, potom hodnoty), bez kontroly"
+      }
+    ]
   }
 }
