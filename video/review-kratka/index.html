@@ -154,6 +154,16 @@
       <h2>LinkedIn verzia</h2>
       <p>Hore je kolo 34 (52 s), pod ním kolo 33 (50 s), kolo 32 (56 s), plná LinkedIn verzia 77 s (kolo 31, bez zmeny) a na porovnanie kolo 15. Staršie kolá sú nižšie v zbalenej časti.</p>
     </div>
+    <article class="film tallfilm" id="film-K52">
+      <div data-video="K52" data-shape="v45"></div>
+      <div class="info">
+        <div class="head"><h3>Kolo 52: QR mimo pečiatky, ikony hierarchie dlhšie (57 s)</h3><span class="len" data-len="K52"></span></div>
+        <ul>
+          <li>0:16: QR kód na identifikačnej strane je vľavo dole vedľa pečiatky, nie cez ňu. 0:20: ikony Polica, Krabica, Šanón, Zložka ostávajú aj počas príletu mobilu, do chvíle po blesku (o 1,1 s dlhšie). Inak bez zmeny.</li>
+        </ul>
+        <div class="composer"><button type="button" data-role="compose" disabled>Pridať pripomienku</button><span class="result" aria-live="polite"></span></div>
+      </div>
+    </article>
     <article class="film tallfilm" id="film-K51">
       <div data-video="K51" data-shape="v45"></div>
       <div class="info">
@@ -661,9 +671,10 @@
 <div class="tip" id="tip" hidden></div>
 
 <script>
-  const BUILD = { renderedAt: "2026-10-05T10:00:00Z" };
+  const BUILD = { renderedAt: "2026-10-05T10:40:00Z" };
   // id assetov (videa a plagaty); prazdne = este sa nahrava
   const VIDEOS = {
+    K52: { cap: "f5271e3da3c59688132ef381f6a21e9e", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 57.5 },
     K51: { cap: "dacc31d37e1ccc687c363da617a941c3", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 57.5 },
     K50: { cap: "3b00ae3805e243694323fe5ef1a32301", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 57.5 },
     K49: { cap: "2455e140109331204407df11d2f855fd", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 56.4 },
@@ -731,7 +742,8 @@
     "Kolo 48 (56 s)": [7.59, 9.26, 10.77, 8.2, 20.6],
     "Kolo 49 (56 s)": [7.59, 9.26, 10.77, 8.2, 20.6],
     "Kolo 50 (57 s)": [8.62, 9.26, 10.77, 8.2, 20.6],
-    "Kolo 51 (57 s)": [8.62, 9.26, 10.77, 8.2, 20.6]
+    "Kolo 51 (57 s)": [8.62, 9.26, 10.77, 8.2, 20.6],
+    "Kolo 52 (57 s)": [8.62, 9.26, 10.77, 8.2, 20.6]
   };
   const SCRIPT = [
     ["C2", "Kedy ste naposledy nevedeli nájsť nejaký dokument?", "old", "C2, prvá veta"],
@@ -791,8 +803,8 @@
   ];
   const ASKS = [
     [
-        "Aplikácia 0:26",
-        "Zelený rámik na hodnote drží 1,7 s. Stačí?"
+        "Háčik a QR scéna",
+        "QR vedľa pečiatky, ikony hierarchie do chvíle po blesku. Sedí?"
     ],
     [
         "Logo 0:06 až 0:10",

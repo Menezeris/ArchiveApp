@@ -11,11 +11,11 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
 - Dĺžka: okolo 75 s a k tomu 30 s teaser. Ponuku (C8) nechal na mňa.
 - Pôvodnú verziu nechytať, je to vstup. Hlas a hudbu negenerovať znova (existujúce nahrávky sa len strihajú).
 
-## Kde sme skončili (5. 10. 2026, kolo 51)
+## Kde sme skončili (5. 10. 2026, kolo 52)
 
 - Dve hotové videá, obe LinkedIn 4:5 (1080 x 1350), obe sa renderujú z toho istého projektu:
   - `video/out/kratka/K-LinkedIn_1080p.mp4` (76,8 s, kolo 31, kompozícia `K-LinkedIn`): plná krátka verzia, od kola 31 bez zmeny.
-  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (57,5 s, kolo 51, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
+  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (57,5 s, kolo 52, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
     otázka v kancelárii a prestrih do skladu, "Hľadanie môže trvať hodiny.", logo ("Predstavujeme Assetin Archives."), háčik
     "Naskenovať celý archív môže byť drahé. Naša aplikácia fotí len identifikačnú stranu." (logo z predstavenia odíde do
     pravého dolného rohu ako rohové logo, 328 strán proti 1 identifikačnej strane, nadpis "Katalogizácia: len identifikačná
@@ -24,8 +24,8 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
     hľadanie (slovo, cesta k položke, od "aj všetky vyčítané údaje" karta položky a posun k žltej zhode), výsledok "Výsledok:
     spoľahlivo viete, čo presne máte a kde to je." a "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať."
     (tmavomodré karty), "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč." (karty "od pár šanónov" / "aj celý
-    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 až 51 nižšie. Kolá 32 až 50 sú v `out/kratka/verzie/`. Kolá 32 až 46 sú zlúčené do `main`
-    (PR #23), kolá 47 až 51 sú na vetve.
+    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 až 52 nižšie. Kolá 32 až 51 sú v `out/kratka/verzie/`. Kolá 32 až 46 sú zlúčené do `main`
+    (PR #23), kolá 47 až 52 sú na vetve.
     Náhľady `*_preview_540p.mp4` vedľa. Staršie kolá 14 až 30 sú v `out/kratka/verzie/`. Pôvodná dlhá verzia (145 s, 16:9) sa nemenila.
 - Zdroj: kompozície `K-LinkedIn` a `K-LinkedIn-46` (zoznam klipov `LI_LIST_46` na konci súboru) v `src/scenes/kratka/LinkedIn.tsx` (spoločné dáta `Kratka.tsx`, klipy `src/kratkaList.ts`),
   scenár `src/copy/vo_kratka.json`, hlas `public/vo-kratka/`, hudba `src/copy/music_kratka.json` (variant `K`: hudba
@@ -49,6 +49,19 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
   - Krabica alebo box: posúdené v kole 24, odporúčanie nechať "krabica".
 - Gemini API (hlas aj hudba) naposledy vracalo 402, vyčerpaný predplatený kredit; nové vety čakajú na jeho dobitie.
 - Review stránka experimentu (odkaz hore) je súkromná, ostatní ju uvidia, až keď ju vlastník zdieľa cez Share.
+
+## Kolo 52 (5. 10. 2026): QR mimo pečiatky, ikony hierarchie dlhšie
+
+Samuel (ku kolu 51): v 0:16 dať QR kód na identifikačnej strane mimo pečiatky, viac doľava; v 0:20 by ikony Polica, Krabica,
+Šanón, Zložka mali ostať dlhšie.
+
+- `Sheet` (`src/components/Illustrations.tsx`) má prop `qrAt` (podiel šírky a výšky, predvolene [0.7, 0.76] ako doteraz, aby K
+  ostala bez zmeny); list v háčiku má QR na [0.16, 0.72], teda vľavo dole vedľa pečiatky, nie cez ňu.
+- Ikony hierarchie v QR scéne odchádzali na začiatku vety "Stačí bežný mobil." (2,85 s klipu); teraz ostávajú do 0,3 s po
+  blesku (`C5_46_FLASH + 300`, asi 4,0 s), teda aj počas príletu mobilu, o 1,1 s dlhšie. Bez zmeny dĺžky a hudby.
+- Kontroly: stills 16,4 s (QR vľavo, pečiatka vpravo), 20,9 a 21,5 s (ikony pod krabicou počas príletu mobilu, mobil ich
+  neprekrýva); K-LinkedIn 2302 snímok.
+- Kolo 51 je uložené v `out/kratka/verzie/K-LinkedIn-46_kolo51_57s_*.mp4` a v commite `1e73193`.
 
 ## Kolo 51 (5. 10. 2026): zelený rámik na navrhnutej hodnote dlhšie
 

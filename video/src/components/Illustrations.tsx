@@ -45,13 +45,15 @@ export const Floor: React.FC<{ x: number; y: number; w: number; d: number; fill?
 );
 
 /** Dokument (list A4) v 2D s riadkami textu, volitelne peciatka. */
-export const Sheet: React.FC<{ w?: number; h?: number; lines?: number; stamp?: boolean; qr?: boolean; title?: boolean }> = ({
+/** `qrAt` = poloha QR (podiel w, h); predvolene vpravo dole cez peciatku, hacik K46 (kolo 52) ho ma vlavo dole vedla peciatky. */
+export const Sheet: React.FC<{ w?: number; h?: number; lines?: number; stamp?: boolean; qr?: boolean; title?: boolean; qrAt?: [number, number] }> = ({
   w = 220,
   h = 300,
   lines = 7,
   stamp,
   qr,
   title = true,
+  qrAt = [0.7, 0.76],
 }) => (
   <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{ display: 'block' }}>
     <rect x={1} y={1} width={w - 2} height={h - 2} rx={6} fill="#fff" stroke={ISO.line} strokeWidth={1.5} />
@@ -66,7 +68,7 @@ export const Sheet: React.FC<{ w?: number; h?: number; lines?: number; stamp?: b
       </g>
     ) : null}
     {qr ? (
-      <g transform={`translate(${w * 0.7} ${h * 0.76})`}>
+      <g transform={`translate(${w * qrAt[0]} ${h * qrAt[1]})`}>
         {(() => {
           const q = w * 0.22;
           const m = q / 9;

@@ -1573,7 +1573,7 @@ const LI_Hook: React.FC = () => {
               {top ? (
                 <>
                   {/* kolo 37 (Samuel: graficky rozlisit identifikacnu stranu): vrchny list ma hlavicku s nazvom a kratke polia, nie plny text */}
-                  <Sheet w={w} h={h} lines={0} title={false} qr stamp />
+                  <Sheet w={w} h={h} lines={0} title={false} qr stamp qrAt={[0.16, 0.72]} /> {/* kolo 52 (Samuel): QR vlavo dole, mimo peciatky */}
                   <div style={{ position: 'absolute', left: w * 0.12, top: h * 0.09, width: w * 0.76 }}>
                     <div style={{ fontFamily: APP_FONT, fontWeight: 600, fontSize: 13, letterSpacing: '0.08em', color: INK[400] }}>NÁZOV PROJEKTU</div>
                     <div style={{ position: 'relative', marginTop: 6, padding: '6px 8px', borderRadius: 6, background: `rgba(234,245,235,${Math.min(1, frameT * 1.5)})`, fontFamily: FONT.display, fontWeight: 800, fontSize: 24, lineHeight: 1.12, letterSpacing: '-0.01em', color: INK[900] }}>
@@ -1669,7 +1669,7 @@ const C5_46_STEPS: C5Step[] = [
   { from: 300, title: 'Prilepiť QR kód' },
   { from: voAt(C5_46_CLIP, 1) - 100, title: 'Mobilom odfotiť identifikačnú stranu' },
 ];
-const C5Hierarchy46: React.FC = () => <C5HierarchyBase clip={C5_46_CLIP} outAt={voAt(C5_46_CLIP, 1)} iconsAt={[0, 1, 2, 3].map((i) => voAt(C5_46_CLIP, 0) + 150 + i * 90)} qrAt={voAt(C5_46_CLIP, 0) + C5_46_W0.kod * 1000 - 150} arrange={false} />;
+const C5Hierarchy46: React.FC = () => <C5HierarchyBase clip={C5_46_CLIP} outAt={C5_46_FLASH + 300} iconsAt={[0, 1, 2, 3].map((i) => voAt(C5_46_CLIP, 0) + 150 + i * 90)} qrAt={voAt(C5_46_CLIP, 0) + C5_46_W0.kod * 1000 - 150} arrange={false} />;
 /** F24: zostrih k46-f24-review (pokoj na fotke 2,4 s, lupa 1,6x, prijatie hned), veta "Aplikacia z fotky sama vycita udaje a clovek ich len potvrdi.", klik 0,3 s po "potvrdi". */
 const KF24_46 = 'k46-f24-review';
 const F24_46_CLIP = 'K46-F24-Aplikacia';
