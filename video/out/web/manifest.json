@@ -1,7 +1,7 @@
 {
   "$comment": "Generuje `npm run export:web` (video/scripts/export-web.mjs) - needitovat rucne.",
   "schema": 1,
-  "updated": "2026-10-02",
+  "updated": "2026-10-05",
   "video": {
     "width": 1920,
     "height": 1080,
@@ -9,19 +9,19 @@
     "sound": true
   },
   "full": {
-    "seconds": 145.22,
+    "seconds": 150.63,
     "files": {
       "1080p": {
         "path": "out/mp4/Full_1080p.mp4",
-        "bytes": 15754674,
-        "sha256": "2121d7649b406aadb38862ec954bf5391a5f17667228f633448b5e606bc90630",
-        "changed": "2026-10-02"
+        "bytes": 20844780,
+        "sha256": "9edf873bd27daefac2f3c0415325060e2212d39d5fdd38b00077948b6f059343",
+        "changed": "2026-10-05"
       },
       "540p": {
         "path": "out/mp4/Full_preview_540p.mp4",
-        "bytes": 5053269,
-        "sha256": "1643462129b462826caa9117370521a257cbe9368f07beee8536252283837edf",
-        "changed": "2026-10-02"
+        "bytes": 5894062,
+        "sha256": "b23c989575762984ccba468c546fbf2c7baca341a1cfac80d70ea6d31b41ebe5",
+        "changed": "2026-10-05"
       }
     }
   },
@@ -33,28 +33,28 @@
       "seconds": 3.6,
       "file": {
         "path": "out/mp4/C1-Intro.mp4",
-        "bytes": 283760,
-        "sha256": "c92af38937d37797a7c0d47222821c3e78f021a79efa19863f0f268a6f406d1b",
-        "changed": "2026-09-26"
+        "bytes": 264266,
+        "sha256": "2685cd5336bfae8bbec967118c6378926c77bcd780be6607e6cdd0e73f619d33",
+        "changed": "2026-09-30"
       },
       "stills": [
         {
           "path": "out/stills/C1-Intro_1.png",
-          "bytes": 929688,
-          "sha256": "bb8324192c94d12b7d3992bac997ae9e6cf28ee96625770e3a65dbda090d6503",
-          "changed": "2026-09-26"
+          "bytes": 937083,
+          "sha256": "23edc16b3047abcf47b206c3e3c06385ab63e1d359e18dbeb9b94b783322af09",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C1-Intro_2.png",
-          "bytes": 932826,
-          "sha256": "15ce262ea521ed503a35837f6f1700b5d39135ae72374d0dd51a9d4f68b4ceb5",
-          "changed": "2026-09-22"
+          "bytes": 937348,
+          "sha256": "b9a5e361c088eef94da1331fce8d86d2ce0ff631ea778de15d98669c8bc9fcc2",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C1-Intro_3.png",
-          "bytes": 964626,
-          "sha256": "404464987d9febe51ae7f5b1c34e5fad0aaefe08af67e4818f2e64f60ac0d207",
-          "changed": "2026-09-26"
+          "bytes": 1045985,
+          "sha256": "8543537278c14c5567b4cd41e623ab0768c3c5de473ede34b3d91b5016d398d1",
+          "changed": "2026-10-05"
         }
       ],
       "steps": []
@@ -63,37 +63,37 @@
       "id": "C2-Hladanie",
       "order": 2,
       "title": "Hľadanie",
-      "seconds": 12.99,
+      "seconds": 11.95,
       "file": {
         "path": "out/mp4/C2-Hladanie.mp4",
-        "bytes": 1957694,
-        "sha256": "a957d8b57d827afbbec0d9725767938d527e3c1633ab523dc7f128d178eea12a",
-        "changed": "2026-09-27"
+        "bytes": 1850510,
+        "sha256": "8c188faedc1874bcb1195255620c0ecd045548f70b7703f9f1e68111f8ea58cc",
+        "changed": "2026-10-05"
       },
       "stills": [
         {
           "path": "out/stills/C2-Hladanie_1.png",
-          "bytes": 642284,
-          "sha256": "de46fcd94c94c84da88ce3ee9fef7a3c9d92316e0b9d9c290637314c769b1e52",
-          "changed": "2026-09-27"
+          "bytes": 676314,
+          "sha256": "a29fae514b385aa378f2b6cb376d5419c0425001f52dc0f49ae500af2ae18155",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C2-Hladanie_2.png",
-          "bytes": 644996,
-          "sha256": "f18af0f0b00ee1d624edb6e5997731ff7831f58f1e0354010c0abf189cec1cda",
-          "changed": "2026-09-27"
+          "bytes": 672465,
+          "sha256": "00e68c123d0a93d605bce14f00e9e0db47ccb986261227d2d273795330a96797",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C2-Hladanie_3.png",
-          "bytes": 675863,
-          "sha256": "7814e41dadaf0f968552a244e0214ca09f5474efa0a7e4d65869629d6d840f4c",
-          "changed": "2026-09-27"
+          "bytes": 920497,
+          "sha256": "d1b4499cdb30af0c2dc9fb3604e8ae0450fb79ad2e59ff927d78dcfb99938713",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C2-Hladanie_4.png",
-          "bytes": 898793,
-          "sha256": "c22ffdb0fee955483b30aedd840c10edc86d54d323f95c85798e156ebdcadfd5",
-          "changed": "2026-10-02"
+          "bytes": 882536,
+          "sha256": "1d77597028666e3970d071c0bee959ef4f4cec5e4056e72244b3db69354ae972",
+          "changed": "2026-10-05"
         }
       ],
       "steps": []
@@ -102,82 +102,130 @@
       "id": "C4-Cena",
       "order": 3,
       "title": "Cena problému",
-      "seconds": 18.52,
+      "seconds": 19.58,
       "file": {
         "path": "out/mp4/C4-Cena.mp4",
-        "bytes": 2116852,
-        "sha256": "dbb5b9dccf4043cf08a2456fcb49e774e686bdffb842e730a8dbee346633603a",
-        "changed": "2026-10-02"
+        "bytes": 2082502,
+        "sha256": "1bf5c0ede30f947181bb78f4cfd125ff93453c3f428482b1eed593edb16f3554",
+        "changed": "2026-10-05"
       },
       "stills": [
         {
           "path": "out/stills/C4-Cena_1.png",
-          "bytes": 925582,
-          "sha256": "200641da8702c0a7e11008e244283a85ee837b7b9f586335eedb8ee8d4288835",
-          "changed": "2026-09-27"
+          "bytes": 900338,
+          "sha256": "a8dabbfb4bb73555e817ea7146790b9c0c1003a2d75e0bb9f125c0ede74e63d5",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C4-Cena_2.png",
-          "bytes": 929867,
-          "sha256": "d0df0ad5858367ee90d1310aebd8e6e5d070fcbb28591c70ad1162d60654c55c",
-          "changed": "2026-09-27"
+          "bytes": 945671,
+          "sha256": "62d0408b7b265e63735821bd3be7897b0a2db0693c9d102eee592f61918989f0",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C4-Cena_3.png",
-          "bytes": 918327,
-          "sha256": "7b2e641fc888d9e45b5ec40a86984b84ec0cae876be35d37a978f901bd31a4c2",
-          "changed": "2026-09-27"
+          "bytes": 931889,
+          "sha256": "807d3d7a21062f1134ac632e7383aff903293a33644e7f3bcc3c0c2e681676fb",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C4-Cena_4.png",
-          "bytes": 87340,
-          "sha256": "92803119d4d532a5d5114d14a27bc157ac96429ee7193d2a4ab5e174036ee4dd",
-          "changed": "2026-09-27"
+          "bytes": 82672,
+          "sha256": "99cd1757a03d6a6e765364106fb10277e07b35bd9dac0ae3ae4bdd536b015f1e",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C4-Cena_5.png",
-          "bytes": 101530,
-          "sha256": "c854f2350cf350ea78b85cbc43c9aa566bcccc0545f110d4e832e1e23af0368d",
-          "changed": "2026-09-27"
+          "bytes": 116437,
+          "sha256": "c8475b88b61e5ca18754644311554efd44c4a925c872010691ece3a98984664c",
+          "changed": "2026-10-05"
         }
       ],
       "steps": []
     },
     {
-      "id": "C5-Teren",
+      "id": "C4b-Hacik",
       "order": 4,
+      "title": "C4b-Hacik",
+      "seconds": 7.51,
+      "file": {
+        "path": "out/mp4/C4b-Hacik.mp4",
+        "bytes": 1314820,
+        "sha256": "944495f3510793d42d6d53db33144f5a41842db000201892d9737254121898b9",
+        "changed": "2026-10-05"
+      },
+      "stills": [
+        {
+          "path": "out/stills/C4b-Hacik_1.png",
+          "bytes": 61816,
+          "sha256": "7c38f1620d0143709a74694851abb72a61b86eb6096e5cb21ffbda155efae2b2",
+          "changed": "2026-10-05"
+        },
+        {
+          "path": "out/stills/C4b-Hacik_2.png",
+          "bytes": 286936,
+          "sha256": "d2247e8236a38a67e8f062ebdbf147533fa26e91d4b8b8a83720295ff995e596",
+          "changed": "2026-10-05"
+        },
+        {
+          "path": "out/stills/C4b-Hacik_3.png",
+          "bytes": 288033,
+          "sha256": "f06e61edfd5f6f6e716e34ec75af9a5bfab70dbba2848300b4be18a3c9ca9c93",
+          "changed": "2026-10-05"
+        },
+        {
+          "path": "out/stills/C4b-Hacik_4.png",
+          "bytes": 305203,
+          "sha256": "c3c0f06c892c8f5d48547f1781e0bbc1ebe0cc1ef401aed9c2cf2a840792b2ad",
+          "changed": "2026-10-05"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Skenovať všetko je drahé",
+          "line": ""
+        },
+        {
+          "title": "Katalogizácia: len identifikačná strana",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "C5-Teren",
+      "order": 5,
       "title": "V teréne",
-      "seconds": 11.76,
+      "seconds": 16.62,
       "file": {
         "path": "out/mp4/C5-Teren.mp4",
-        "bytes": 1632112,
-        "sha256": "f850e5994371ebc8be8f19b07737875d79553878738a1d711b242ecb27b51409",
-        "changed": "2026-10-02"
+        "bytes": 2051954,
+        "sha256": "6df6b5538487b8172f579c7a4d737b5fafd5ee75e7b5ce0a7334f29f87240bed",
+        "changed": "2026-10-05"
       },
       "stills": [
         {
           "path": "out/stills/C5-Teren_1.png",
-          "bytes": 137573,
-          "sha256": "f77916d4046bdb3948691e3bc8b31d5475ceba424557c1c2e3722af1ab521332",
-          "changed": "2026-10-02"
+          "bytes": 128490,
+          "sha256": "e37c71a2bb999729bc13b8dc955aed40d6b85a05027da3f4021b31ef9feac60d",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C5-Teren_2.png",
-          "bytes": 150925,
-          "sha256": "773a728df5bf746dfe82812a7047ceec3acd29336727c2d56fbb4c4731e439d7",
-          "changed": "2026-10-02"
+          "bytes": 167850,
+          "sha256": "bc47ddb5acb11f0d791db30c82e5c0215a6b9bab496079a8f027d2313f9a4d8c",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C5-Teren_3.png",
-          "bytes": 369466,
-          "sha256": "5f78cad32733bd23c1ac93d5c14f8831627651b0ad25d6d5a2703d5addac31e1",
-          "changed": "2026-10-02"
+          "bytes": 206507,
+          "sha256": "0b936aa09b274737f90360225e55442e9e25378952850b8b396353e33dcee422",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C5-Teren_4.png",
-          "bytes": 193707,
-          "sha256": "aa270c757a22bb19ebb3f87c2de3841f35fe9c0c7850a58a6b90382168c06769",
-          "changed": "2026-10-02"
+          "bytes": 374237,
+          "sha256": "9e4c878af47e41b5381e6169f0f20b9208baffdac561f4181cc1d586d283c843",
+          "changed": "2026-10-05"
         }
       ],
       "steps": [
@@ -197,33 +245,33 @@
     },
     {
       "id": "F1-Sken",
-      "order": 5,
+      "order": 6,
       "title": "V mobile",
       "seconds": 14.76,
       "file": {
         "path": "out/mp4/F1-Sken.mp4",
-        "bytes": 2639222,
-        "sha256": "b673c99912561598ea4049435081a936d208dbce5f15b864cea8a3d9b0bb6f41",
-        "changed": "2026-10-02"
+        "bytes": 2610836,
+        "sha256": "3f6f362c6b8687a8e5d694245674019ca99f6262b6d74c8bd0920abce79dd645",
+        "changed": "2026-10-01"
       },
       "stills": [
         {
           "path": "out/stills/F1-Sken_1.png",
-          "bytes": 284295,
-          "sha256": "970b981a2f17cd5bf8b2b5fd6955cc6d6035b85da421f341a0b51f8e716829af",
-          "changed": "2026-09-25"
+          "bytes": 288670,
+          "sha256": "3de9eed0acce92d7c31db58668fe55738d456e87f9465b564ede8fe133c9ca69",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/F1-Sken_2.png",
-          "bytes": 296048,
-          "sha256": "c8c92c09882065cbec148d151ef1c709202d8cb4401abab5e96db17093b87a12",
-          "changed": "2026-09-26"
+          "bytes": 298104,
+          "sha256": "f0ea0b18a179f3cce97f88a79b6c58ec5a621697c5c6534836bdf73832bb05aa",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/F1-Sken_3.png",
-          "bytes": 469659,
-          "sha256": "eba901c3ed30f97a74bfa8777fec9c53b589b72568c9b2e8263d20507b790cb0",
-          "changed": "2026-09-25"
+          "bytes": 476267,
+          "sha256": "c6ba8e0bf886d04d73bb29e2573ffe51bdf8f2f24410074b161d35a90d3715c3",
+          "changed": "2026-10-05"
         }
       ],
       "steps": [
@@ -246,114 +294,39 @@
       ]
     },
     {
-      "id": "C6-Spracovanie",
-      "order": 6,
-      "title": "Spracovanie",
-      "seconds": 3.05,
-      "file": {
-        "path": "out/mp4/C6-Spracovanie.mp4",
-        "bytes": 375622,
-        "sha256": "841fce20006080c7c2115ca15a294651aec32b7b2a64dc6d95dcc80d132e3ee0",
-        "changed": "2026-10-02"
-      },
-      "stills": [
-        {
-          "path": "out/stills/C6-Spracovanie_1.png",
-          "bytes": 121486,
-          "sha256": "46e89206ed10ac447538eb1a59ad3e23acbb010579d887236d2b6f02b87be800",
-          "changed": "2026-10-02"
-        },
-        {
-          "path": "out/stills/C6-Spracovanie_2.png",
-          "bytes": 152826,
-          "sha256": "2757ced1c3734f50c5bbe3f51d7d0f6a3df3533dbb21a51ffd9a8cd350cf1778",
-          "changed": "2026-10-02"
-        },
-        {
-          "path": "out/stills/C6-Spracovanie_3.png",
-          "bytes": 94141,
-          "sha256": "52dfa77f94bc327970ee7e83afc48e99a3a00dd62f51c9b682ac1aefe2c48d45",
-          "changed": "2026-09-25"
-        }
-      ],
-      "steps": []
-    },
-    {
-      "id": "F2-Metadata",
-      "order": 7,
-      "title": "Návrh metadát",
-      "seconds": 8.26,
-      "file": {
-        "path": "out/mp4/F2-Metadata.mp4",
-        "bytes": 1117330,
-        "sha256": "b51443652481fe50e98008e883d642287d9101e893a2219e5460189a82cf565c",
-        "changed": "2026-09-25"
-      },
-      "stills": [
-        {
-          "path": "out/stills/F2-Metadata_1.png",
-          "bytes": 425914,
-          "sha256": "bb16f06f26c4ae52ac346a6a8b30c76f80597127099f4745a2c36c0b9c9f41af",
-          "changed": "2026-10-02"
-        },
-        {
-          "path": "out/stills/F2-Metadata_2.png",
-          "bytes": 469460,
-          "sha256": "f4255d99c3b0a5cdafbc528c51be6e82a36c36beaf46da62251cfb199aae3f80",
-          "changed": "2026-10-02"
-        },
-        {
-          "path": "out/stills/F2-Metadata_3.png",
-          "bytes": 317429,
-          "sha256": "2dfcce9175e6ff63b2167968b1392762f1cd45632f33cabd8d2426709027cf69",
-          "changed": "2026-10-02"
-        }
-      ],
-      "steps": [
-        {
-          "title": "Rozpoznať text",
-          "line": ""
-        },
-        {
-          "title": "Navrhnúť metadáta",
-          "line": ""
-        }
-      ]
-    },
-    {
       "id": "F4-Kontrola",
-      "order": 8,
+      "order": 7,
       "title": "Kontrola",
-      "seconds": 18.65,
+      "seconds": 19.39,
       "file": {
         "path": "out/mp4/F4-Kontrola.mp4",
-        "bytes": 3163200,
-        "sha256": "3230904c56ecb707bd8ffcd12d50bd483a2d71ccf564d7166a93003540fb3d90",
-        "changed": "2026-09-26"
+        "bytes": 5070869,
+        "sha256": "114350e54f880e657d0f2ceca1635f796bebf344063799a2b5142e661c046a3a",
+        "changed": "2026-10-05"
       },
       "stills": [
         {
           "path": "out/stills/F4-Kontrola_1.png",
-          "bytes": 165781,
-          "sha256": "815d8a6ad625f2d89e28c72ad041038a9a228cc71cde503df9306719021b2d90",
-          "changed": "2026-10-02"
+          "bytes": 178502,
+          "sha256": "cde0c9ba44051461b21b115e75bfb30c32e4cdf1cc917750789a3db4eb796db1",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/F4-Kontrola_2.png",
-          "bytes": 572428,
-          "sha256": "468e0eac1dd458d07c1cf400a6c1d058cba38f6a60bd29c0b660ca5f220ebbe2",
-          "changed": "2026-10-02"
+          "bytes": 517933,
+          "sha256": "7fc4c6bda20141f670d53f7feb63dccbb8b26a823b6929a560addd8527909149",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/F4-Kontrola_3.png",
-          "bytes": 555875,
-          "sha256": "ed658ebfbe51cd9df1481a21df9bd0e548d7f6f2044f7c1ad4adc2b0c953bec5",
-          "changed": "2026-10-02"
+          "bytes": 610087,
+          "sha256": "42ba2e4b694a65b58aca3c6c3d74d537e7bb4ad500f4d729a15cd0f65d105db4",
+          "changed": "2026-10-05"
         }
       ],
       "steps": [
         {
-          "title": "Návrh metadát",
+          "title": "Návrh údajov",
           "line": ""
         },
         {
@@ -371,92 +344,53 @@
       ]
     },
     {
-      "id": "C10-Databaza",
-      "order": 9,
-      "title": "Práca s databázou",
-      "seconds": 9.05,
-      "file": {
-        "path": "out/mp4/C10-Databaza.mp4",
-        "bytes": 752019,
-        "sha256": "d53f5ba6a571073169b17a4bc2f90ee89e56a9fd13a7c339fce3ea98dc99dc2a",
-        "changed": "2026-10-02"
-      },
-      "stills": [
-        {
-          "path": "out/stills/C10-Databaza_1.png",
-          "bytes": 142819,
-          "sha256": "7cf13bdc11085998dc9db39a16f449619f157c5ab7c68b2cabd6e9ec2a543095",
-          "changed": "2026-10-02"
-        },
-        {
-          "path": "out/stills/C10-Databaza_2.png",
-          "bytes": 146602,
-          "sha256": "d5944e2b4dae2aa4d45cd76d1559cbc290484016b0c57aff0d00c35c0e6c62c5",
-          "changed": "2026-10-02"
-        },
-        {
-          "path": "out/stills/C10-Databaza_3.png",
-          "bytes": 128028,
-          "sha256": "78dfd9e2c19754d4cac108ef1b3cc8f6b3a18242021771ee32da361bcbb4a864",
-          "changed": "2026-10-02"
-        },
-        {
-          "path": "out/stills/C10-Databaza_4.png",
-          "bytes": 138582,
-          "sha256": "04cfb7855a446fa87711b1fdaf952bf24f36808c84e80c8fec87704309f27e71",
-          "changed": "2026-10-02"
-        }
-      ],
-      "steps": []
-    },
-    {
       "id": "F3-Vyhladavanie",
-      "order": 10,
+      "order": 8,
       "title": "Vyhľadávanie",
-      "seconds": 16.15,
+      "seconds": 11.16,
       "file": {
         "path": "out/mp4/F3-Vyhladavanie.mp4",
-        "bytes": 3016849,
-        "sha256": "01c363bbd325d3f3ae0bfecea51d0604da659a62b494559d87ac702d530b2f83",
-        "changed": "2026-09-27"
+        "bytes": 2725245,
+        "sha256": "5886c72b3d7693703b68e97214712bd9b4bc0ab6474a1a054ffb139e21b45882",
+        "changed": "2026-10-05"
       },
       "stills": [
         {
           "path": "out/stills/F3-Vyhladavanie_1.png",
-          "bytes": 621640,
-          "sha256": "6c0a4fafe2219a1117a5d2e97dff46f24235f0819d02191b6b2c774227847508",
-          "changed": "2026-10-02"
+          "bytes": 409826,
+          "sha256": "f0a66d805f5c2b0f2bfe399dd8538ef226f24584d34bbe38cd83b674ac15b89f",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/F3-Vyhladavanie_2.png",
-          "bytes": 421074,
-          "sha256": "dcaf86eb3487936fb863288f69b75e157c3c0d7eae961b712f9bdef72dbc04cd",
-          "changed": "2026-10-02"
+          "bytes": 280311,
+          "sha256": "a70b61f564c05694ded58b67256c0d76fe5842479cd9a7bac30df698bcf00821",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/F3-Vyhladavanie_3.png",
-          "bytes": 402176,
-          "sha256": "a952cf2cb3bc3bf9c5be0510707a45b8c939ecca69cbff61472ef3742d9a6413",
-          "changed": "2026-10-02"
+          "bytes": 384070,
+          "sha256": "2232aa814166a7704a9f621cc3ae4978da1271b9474c26f67eaea206d46c9358",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/F3-Vyhladavanie_4.png",
-          "bytes": 393379,
-          "sha256": "cdae3f7595644cb10aa83366b9661ffeffacc61a48af0905fd3be7f7a28bcc69",
-          "changed": "2026-10-02"
+          "bytes": 384873,
+          "sha256": "9dd4806255703752a6049f98d1414c77567f8f990ae1cda884e99be1367d70fe",
+          "changed": "2026-10-05"
         }
       ],
       "steps": [
         {
-          "title": "Kľúčové slovo",
+          "title": "Napísať kľúčové slovo",
           "line": ""
         },
         {
-          "title": "Záznam a podrobnosti",
+          "title": "Cesta k položke",
           "line": ""
         },
         {
-          "title": "Cesta v hierarchii",
+          "title": "Vyčítané údaje",
           "line": ""
         },
         {
@@ -466,80 +400,209 @@
       ]
     },
     {
+      "id": "C8a-Vysledok",
+      "order": 9,
+      "title": "C8a-Vysledok",
+      "seconds": 11.12,
+      "file": {
+        "path": "out/mp4/C8a-Vysledok.mp4",
+        "bytes": 1010596,
+        "sha256": "c0adb6544c03cfc4d011e523c3ec0798cbe735e0cc5fa97f5f2a824f7df62902",
+        "changed": "2026-10-05"
+      },
+      "stills": [
+        {
+          "path": "out/stills/C8a-Vysledok_1.png",
+          "bytes": 103520,
+          "sha256": "f9e6215ba9209cde48feb767b29304ea615c485c8fdb6ac242cb6724db7e31ab",
+          "changed": "2026-10-05"
+        },
+        {
+          "path": "out/stills/C8a-Vysledok_2.png",
+          "bytes": 128526,
+          "sha256": "795d35b2b3e1fbbfaf4d389154d7c71a8232b29b4fe7338d81068ec4f24efc65",
+          "changed": "2026-10-05"
+        },
+        {
+          "path": "out/stills/C8a-Vysledok_3.png",
+          "bytes": 157321,
+          "sha256": "90892ea33c8a5e8eb8c44ddb057df21ee2d8a1d8bb32959b1d281fa677b8ec5c",
+          "changed": "2026-10-05"
+        },
+        {
+          "path": "out/stills/C8a-Vysledok_4.png",
+          "bytes": 186962,
+          "sha256": "31d68d348f2201f22e649a39716675f5fe9f71814d78234f5059814056c8c4e7",
+          "changed": "2026-10-05"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Výsledok katalogizácie",
+          "line": ""
+        },
+        {
+          "title": "Čo ďalej",
+          "line": ""
+        }
+      ]
+    },
+    {
       "id": "C8-Pilot",
-      "order": 11,
+      "order": 10,
       "title": "Ako začať",
-      "seconds": 21.06,
+      "seconds": 5.76,
       "file": {
         "path": "out/mp4/C8-Pilot.mp4",
-        "bytes": 1857095,
-        "sha256": "2c0623774ec91b0a531d94100ca67449c8a3cbd14d3729c934505784f85bb89d",
-        "changed": "2026-10-02"
+        "bytes": 538193,
+        "sha256": "9c4155e4c22deb36bf6f6676ba456dfecfb80e1acb3bf3877e8fdf1202e27b38",
+        "changed": "2026-10-05"
       },
       "stills": [
         {
           "path": "out/stills/C8-Pilot_1.png",
-          "bytes": 108742,
-          "sha256": "eefeb40c5dab22c50c02abc3743ad63fc70d5bc058d27148d6f7f2d663a043ce",
-          "changed": "2026-10-02"
+          "bytes": 116893,
+          "sha256": "5b926e25139bc31c2b905c855ac6257cb96fb7bb0136c066def33297dba7c579",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C8-Pilot_2.png",
-          "bytes": 122722,
-          "sha256": "051c1512bcbd61869c032759170bd1be20c8f57e1725a951ef760be4fce86a69",
-          "changed": "2026-10-02"
+          "bytes": 148148,
+          "sha256": "52a8d39a1c50bd201481d390d13f2f87c574cc4e1e2ebd544e93956eb400ed9a",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C8-Pilot_3.png",
-          "bytes": 148572,
-          "sha256": "403e65593e1079efffa012e7c4ef98f959fc6a2bdb0b4148526e8d4796467265",
-          "changed": "2026-10-02"
+          "bytes": 160708,
+          "sha256": "c752ac66045584bfebd66d167ec9ed467f6e14d850a47944786aa127ce721cce",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C8-Pilot_4.png",
-          "bytes": 195352,
-          "sha256": "6468f97957e86d06c4745e50f1b0910ede46c03bc6f694c692b38171b0beb584",
-          "changed": "2026-10-02"
+          "bytes": 160508,
+          "sha256": "9798071f4348c48a597260f4674fe75eeb3c650cbf727ef3154baa43e396fae2",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C8-Pilot_5.png",
-          "bytes": 194273,
-          "sha256": "a21cb0d3693d5c23ed78c0585d689e994025db0a6f273171e8a8a5698c6c78e9",
-          "changed": "2026-10-02"
+          "bytes": 143742,
+          "sha256": "d9ca35b67380224980af918dd0dc5e98a6eeb47ad7d3eb91c38207c1848eae55",
+          "changed": "2026-10-05"
         }
       ],
-      "steps": []
+      "steps": [
+        {
+          "title": "Vlastnými silami, alebo na kľúč",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "C8b-Technika",
+      "order": 11,
+      "title": "C8b-Technika",
+      "seconds": 8.66,
+      "file": {
+        "path": "out/mp4/C8b-Technika.mp4",
+        "bytes": 774814,
+        "sha256": "2ba4561d97c3b7835416cd284623bc3e3b8003761db51e86604fa6164d1201e0",
+        "changed": "2026-10-01"
+      },
+      "stills": [
+        {
+          "path": "out/stills/C8b-Technika_1.png",
+          "bytes": 101303,
+          "sha256": "53373694cb56482a68b1a3b04a5032ce79e37f5ba15faa2a9b61e4dce1de0c12",
+          "changed": "2026-10-05"
+        },
+        {
+          "path": "out/stills/C8b-Technika_2.png",
+          "bytes": 171894,
+          "sha256": "84c4595a390fd8c3d07d1f1d3b5e37dbb283fabda34c3d5036ca7b7e71e066a8",
+          "changed": "2026-10-05"
+        },
+        {
+          "path": "out/stills/C8b-Technika_3.png",
+          "bytes": 171477,
+          "sha256": "5016eb480c147fe7d35697ee3cd06de3bb4a0384ce6b7782db50e51ca12954e6",
+          "changed": "2026-10-05"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Technické riešenie",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "C8c-Vyzva",
+      "order": 12,
+      "title": "C8c-Vyzva",
+      "seconds": 4.76,
+      "file": {
+        "path": "out/mp4/C8c-Vyzva.mp4",
+        "bytes": 438122,
+        "sha256": "57fd30a2433105809971a5793424dcb5a97868fe3ff1300359a3f36546f94b96",
+        "changed": "2026-10-05"
+      },
+      "stills": [
+        {
+          "path": "out/stills/C8c-Vyzva_1.png",
+          "bytes": 99076,
+          "sha256": "e0f98c9d5fc7dd95ba08ce58b6e07512a9eea6ea2bb1e3040a575f056e3b08e4",
+          "changed": "2026-10-05"
+        },
+        {
+          "path": "out/stills/C8c-Vyzva_2.png",
+          "bytes": 101637,
+          "sha256": "93666a75c7ba4ceed569b93b34152a9feb036790fc2f8d4e041704129a303f41",
+          "changed": "2026-10-05"
+        },
+        {
+          "path": "out/stills/C8c-Vyzva_3.png",
+          "bytes": 193558,
+          "sha256": "6dc7dcad67213c16c20f684ce14504dba2301789e53686a9202be8a3641f80b8",
+          "changed": "2026-10-05"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Prvý krok",
+          "line": ""
+        }
+      ]
     },
     {
       "id": "C9-Outro",
-      "order": 12,
+      "order": 13,
       "title": "Záver",
-      "seconds": 7.36,
+      "seconds": 4.84,
       "file": {
         "path": "out/mp4/C9-Outro.mp4",
-        "bytes": 685731,
-        "sha256": "7776caa8c8dd0dbdc97bc485d1333245b6ef2a86f541901118b1a4367eef068a",
-        "changed": "2026-09-27"
+        "bytes": 538281,
+        "sha256": "7f18c420b646e05870e63817074790a1380ea0a16668c826e5aaa4cca1bc2f98",
+        "changed": "2026-10-05"
       },
       "stills": [
         {
           "path": "out/stills/C9-Outro_1.png",
-          "bytes": 1484402,
-          "sha256": "45087f11de645c7d94485d07d4e16bcd7a8a3576b144fd50997c7e428695d0e5",
-          "changed": "2026-09-27"
+          "bytes": 1448685,
+          "sha256": "59f41b791e2ebd43bb9ba8f07525b3251ea22d7275be4ebf26d74b2f50c5c1f3",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C9-Outro_2.png",
-          "bytes": 1482451,
-          "sha256": "71a23dc47f9606ce7294dab12916c33c3698dd79c63916ca7aa425aca9f5cdad",
-          "changed": "2026-09-27"
+          "bytes": 1431187,
+          "sha256": "257472f2e3f593d5418868f13a5581f163e6f7af9fd3c0010bd4c49cbec4b6a3",
+          "changed": "2026-10-05"
         }
       ],
       "steps": []
     },
     {
       "id": "C7-Hierarchia",
-      "order": 13,
+      "order": 14,
       "title": "C7-Hierarchia",
       "seconds": 5.65,
       "file": {
@@ -557,15 +620,15 @@
         },
         {
           "path": "out/stills/C7-Hierarchia_2.png",
-          "bytes": 135423,
-          "sha256": "16337346f58a91b98932d472005e73349872515dc28d76bb1b4de3b40c2f807b",
-          "changed": "2026-10-02"
+          "bytes": 134368,
+          "sha256": "7288458ec141f70f382057ef750208dff04e13a71c8df323bdb8e6bcb7dccf85",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/C7-Hierarchia_3.png",
-          "bytes": 118741,
-          "sha256": "ce18492ed4d0f4fc1faf48929a1f097a472ce999f6c4e64284accab2756e476b",
-          "changed": "2026-10-02"
+          "bytes": 120734,
+          "sha256": "e6a93a1ad5a83f9e7713235bdeaf8e7aacbdc63708b6273043bdb7ce4f1ece1e",
+          "changed": "2026-10-05"
         }
       ],
       "steps": [
@@ -577,7 +640,7 @@
     },
     {
       "id": "F4-Navrh",
-      "order": 14,
+      "order": 15,
       "title": "F4-Navrh",
       "seconds": 5.8,
       "file": {
@@ -589,21 +652,21 @@
       "stills": [
         {
           "path": "out/stills/F4-Navrh_1.png",
-          "bytes": 473246,
-          "sha256": "3e47c72c451075444455474cbebdf29a7624ce761c10123638fa3d600676da92",
-          "changed": "2026-10-02"
+          "bytes": 483291,
+          "sha256": "413b84a3e34eaa65c3afe3d5d0275b96d48e4820797e7452eef6fd9130ff70d7",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/F4-Navrh_2.png",
-          "bytes": 453761,
-          "sha256": "a4cfee79308e63570f09f2b7d2d359f7b4b11e4b299c951b2d135d39cb7d9ab2",
-          "changed": "2026-10-02"
+          "bytes": 465243,
+          "sha256": "9cf1652b0c25402fbfcfdc5519540581027596cc158de2b999dc54006965a8c5",
+          "changed": "2026-10-05"
         },
         {
           "path": "out/stills/F4-Navrh_3.png",
-          "bytes": 361454,
-          "sha256": "2d8c42558b3b8890d46161d98e81b4a16dc83143598bc24182ae3e8e62e8d80e",
-          "changed": "2026-10-02"
+          "bytes": 370523,
+          "sha256": "193d74287903052a01ac09644e8f13ff00aa78ee4ef5176200bef948d4721bb6",
+          "changed": "2026-10-05"
         }
       ],
       "steps": [
@@ -619,7 +682,7 @@
     },
     {
       "id": "F4-Kontrola-Web",
-      "order": 15,
+      "order": 16,
       "title": "F4-Kontrola-Web",
       "seconds": 15.53,
       "file": {
@@ -669,7 +732,7 @@
     },
     {
       "id": "F3-Vyhladavanie-Web",
-      "order": 16,
+      "order": 17,
       "title": "F3-Vyhladavanie-Web",
       "seconds": 16.1,
       "file": {
@@ -728,17 +791,22 @@
     {
       "clip": "C2-Hladanie",
       "title": "Hľadanie",
-      "text": "Kedy ste naposledy nevedeli nájsť nejaký dokument? Či už správu, výkres alebo protokol? Vy viete, že tam niekde je. V sklade, na polici, v krabici alebo v zložke."
+      "text": "Kedy ste naposledy nevedeli nájsť nejaký dokument? Či už správu, výkres alebo protokol? V sklade, na polici, v krabici alebo v zložke."
     },
     {
       "clip": "C4-Cena",
       "title": "Cena problému",
-      "text": "Bez jasného systému trvá hľadanie hodiny. Niekedy je rýchlejšie dať dokumentáciu vyhotoviť nanovo. A tak sa môže stať, že zaplatíte dvakrát za to isté. Predstavujeme vám softvérové riešenie katalogizácie Assetin Archives."
+      "text": "Hľadanie môže trvať hodiny. Niekedy je rýchlejšie dať dokumentáciu vyhotoviť nanovo. A tak sa môže stať, že zaplatíte dvakrát za to isté. S nami ho nájdete za pár sekúnd. Predstavujeme Assetin Archives. Z vášho archívu urobíme prehľadný digitálny katalóg."
+    },
+    {
+      "clip": "C4b-Hacik",
+      "title": "C4b-Hacik",
+      "text": "Naskenovať celý archív môže byť drahé. Naša aplikácia fotí len identifikačnú stranu."
     },
     {
       "clip": "C5-Teren",
       "title": "V teréne",
-      "text": "Riešenie začína fyzickými dokumentami. Jedinečný QR kód sa prilepí na každú položku a mobilom sa odfotí jej identifikačná strana."
+      "text": "Riešenie začína fyzickými dokumentami. Každá položka, či už polica, krabica, šanón alebo zložka, dostane QR kód, podľa toho, ako máte archív usporiadaný. Stačí bežný mobil."
     },
     {
       "clip": "F1-Sken",
@@ -746,39 +814,39 @@
       "text": "V mobile vyberieme typ položky, ako napríklad zložka alebo dokument, a zaradíme ju do hierarchie podľa skutočnosti. Potom odfotíme jej identifikačnú stranu. Položka tým dostane svoj digitálny záznam."
     },
     {
-      "clip": "C6-Spracovanie",
-      "title": "Spracovanie",
-      "text": "Fotku ďalej spracuje aplikácia."
-    },
-    {
-      "clip": "F2-Metadata",
-      "title": "Návrh metadát",
-      "text": "Najprv aplikácia rozpozná text na identifikačnej strane, potom navrhne metadáta: autora, názov projektu, rok."
-    },
-    {
       "clip": "F4-Kontrola",
       "title": "Kontrola",
       "text": "Návrh ale nie je finálny záznam. Človek každú hodnotu overí a potvrdí. Fotka je dôkaz a ostáva pri zázname. Prípadné opravy a doplnenia prebiehajú priamo v návrhu. Tým vznikne overený a dohľadateľný záznam fyzického dokumentu."
     },
     {
-      "clip": "C10-Databaza",
-      "title": "Práca s databázou",
-      "text": "Vytvorenú databázu katalógu archívu vieme exportovať, analyzovať alebo prehľadávať. Najjednoduchšie je vyhľadávanie."
-    },
-    {
       "clip": "F3-Vyhladavanie",
       "title": "Vyhľadávanie",
-      "text": "Stačí zadať kľúčové slovo. Aplikácia záznam nájde a zobrazí jeho podrobnosti. Ľudsky čitateľná cesta v hierarchii vás dovedie na správnu policu. Kľúčové slovo sa zvýrazní v metadátach záznamu."
+      "text": "Potom stačí napísať kľúčové slovo. Aplikácia ukáže cestu k položke aj všetky vyčítané údaje. Kľúčové slovo sa zvýrazní v metadátach záznamu."
+    },
+    {
+      "clip": "C8a-Vysledok",
+      "title": "C8a-Vysledok",
+      "text": "Výsledok: spoľahlivo viete, aké dokumenty máte a kde presne sa nachádzajú. Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať."
     },
     {
       "clip": "C8-Pilot",
       "title": "Ako začať",
-      "text": "Archív vám spracujeme na kľúč. Začneme obhliadkou skladu a pilotom na jednej krabici. Alebo ho katalogizujete vlastnými silami a licenciu zaobstaráme podľa rozsahu. V oboch prípadoch určíte rozsah nasadenia: len identifikačné strany, alebo skenovanie celých dokumentov s fulltextovým vyhľadávaním."
+      "text": "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč."
+    },
+    {
+      "clip": "C8b-Technika",
+      "title": "C8b-Technika",
+      "text": "Aplikácia funguje v súlade s vašimi bezpečnostnými požiadavkami, online u nás alebo na vašej infraštruktúre."
+    },
+    {
+      "clip": "C8c-Vyzva",
+      "title": "C8c-Vyzva",
+      "text": "Začnime jednou krabicou, zadarmo a nezáväzne."
     },
     {
       "clip": "C9-Outro",
       "title": "Záver",
-      "text": "Assetin Archives. Zistíte, čo máte v archíve a kde presne to leží."
+      "text": "Assetin Archives."
     },
     {
       "clip": "C7-Hierarchia",

@@ -44,7 +44,7 @@ const paced = (id: string, d: PacedDef): [string, SceneDef] => {
  */
 export const SCENE_LIST: [string, SceneDef][] = [
   ['C1-Intro', { component: C1_Intro, seconds: 3.6, stills: [30, 55, 95] }],
-  paced('C2-Hladanie', { scene: C2_Hladanie, seconds: C2_SECONDS, vo: true, dark: true, brand: { dark: true }, stills: [80, 150, 260, 340] }), // kolo 55: bez zastavenia obrazu (predtym holds 1700/2420 a 3600/500)
+  paced('C2-Hladanie', { scene: C2_Hladanie, seconds: C2_SECONDS, vo: true, dark: true, brand: { dark: true }, stills: [80, 150, 290, 340] }), // kolo 55: bez zastavenia obrazu (predtym holds 1700/2420 a 3600/500)
   // kolo 54: logo s tvrdym t "Predstavujeme Assetin Archives." + veta o katalogu, logo ostava a prevezme ho hacik (bez krabice);
   // klip konci 0,3 s po vete (vystup 19,55 s = scena 15,28 s + pauzy 4,27 s)
   paced('C4-Cena', { scene: C4_CenaMain, seconds: 15.28, vo: true, darkUntil: 11400, brand: { darkUntil: C4_WIPE_AT, hide: [C4_WIPE_AT, 1e9] }, holds: [{ at: 3000, hold: 2500 }, { at: 4390, hold: 1770 }], stills: [80, 170, 280, 370, 500] }),
