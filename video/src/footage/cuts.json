@@ -241,7 +241,7 @@
   "k46-f3-search": {
     "src": "src/search2.mp4",
     "vf": "crop=1764:882:96:150",
-    "note": "Kolo 34 (K46): ako k-f3-search; kolo 42 (Samuel: v zazname nie je vidiet udaje o polozke): doplneny posun k zhode v metadatach (7,4 az 12,8 s, 3x) a zlta zhoda (12,8 az 13,2 s), karta drzi kratsie. Kolo 44: posun k zhode skor (od \"aj vsetky\"), zhoda drzi dlhsie (8,05 s). Kolo 47 (Samuel: hladanie neiste a sekave, preblikuje mys): cakanie 1x, posun 3x, po zostrihu scripts/hide-cursor.py zakryje kurzor (delogo podla stopy).",
+    "note": "Kolo 34 (K46): ako k-f3-search; kolo 42 (Samuel: v zazname nie je vidiet udaje o polozke): doplneny posun k zhode v metadatach (7,4 az 12,8 s, 3x) a zlta zhoda (12,8 az 13,2 s), karta drzi kratsie. Kolo 44: posun k zhode skor (od \"aj vsetky\"), zhoda drzi dlhsie (8,05 s). Kolo 47 (Samuel: hladanie neiste a sekave, preblikuje mys): cakanie 1x, posun 3x, po zostrihu scripts/hide-cursor.py zakryje kurzor (delogo podla stopy). Kolo 57: posun stranky plynulo (smooth), zlty riadok v strede okna.",
     "segs": [
       {
         "from": 3.5,
@@ -257,20 +257,18 @@
       {
         "from": 6.2,
         "to": 7.4,
-        "after": 0.7,
-        "note": "vysledok ZL_03 a detail v pokoji (drobcek PL_01 / KR_01 / ZL_03, Priloha, zaciatok tabulky metadat); kolo 47: posun od 4,8 s"
+        "after": 0.5,
+        "note": "vysledok ZL_03 a detail v pokoji (drobcek PL_01 / KR_01 / ZL_03, Priloha, zaciatok tabulky metadat); kolo 47: posun od 4,8 s; kolo 57: 0,5 s"
       },
       {
-        "from": 7.4,
-        "to": 12.8,
-        "speed": 3,
-        "note": "posun stranky k zhode v metadatach (kolo 47: 3x namiesto 4x, 1,8 s pocas \"aj vsetky vycitane\", kamera stoji)"
-      },
-      {
-        "from": 12.8,
-        "to": 13.2,
+        "from": 7.45,
+        "to": 12.95,
+        "smooth": {
+          "dur": 2.2,
+          "stopEarly": 90
+        },
         "after": 1.2,
-        "note": "automaticky zvyraznena zhoda v metadatach (Popis zmeny: Doplnenie vodovodnej pripojky...), drzi do konca klipu (kolo 48: 2,0 s; kolo 54: 1,6 s, kratsie ticho pred Vysledkom, karta polozky od \"udaje\")"
+        "note": "kolo 57 (Samuel: sekane scrollovanie, zlty riadok ma zastat v strede): plynuly posun zo snimok vybranych podla polohy stranky (scripts/smooth-scroll.py), 2,2 s ease-in-out (sinus), zastavi 90 px pred koncom, aby zlta zhoda bola v strede okna, drzi do konca klipu (1,2 s)"
       }
     ]
   },

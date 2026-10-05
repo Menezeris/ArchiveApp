@@ -1,4 +1,5 @@
 import React from 'react';
+import f3Scroll46 from '../../footage/k46-f3-search.scroll.json';
 import { AbsoluteFill, Easing, Freeze, Img, OffthreadVideo, Series, staticFile, useCurrentFrame } from 'remotion';
 import { Scene, SceneFrameContext } from '../../components/Scene';
 import { voLines } from '../../components/Subtitles';
@@ -515,9 +516,17 @@ const footViewAt = (keys: FootView[], t: number) => {
   }
   return keys[keys.length - 1];
 };
-const LiFootage: React.FC<{ src: string; views: FootView[]; marks?: Mark[]; taps?: Tap[]; dimAt?: number }> = ({ src, views, marks = [], taps = [], dimAt }) => {
+/** Kolo 57: `scroll` = korekcia vyrezu pri plynulom posune stranky (src/footage/<id>.scroll.json zo scripts/smooth-scroll.py). */
+type ScrollFix = { t0: number; fps: number; dy: number[] };
+const scrollDy = (sc: ScrollFix | undefined, t: number) => {
+  if (!sc || t < sc.t0) return 0;
+  const k = Math.min(sc.dy.length - 1, Math.round((t - sc.t0) * sc.fps));
+  return sc.dy[k];
+};
+const LiFootage: React.FC<{ src: string; views: FootView[]; marks?: Mark[]; taps?: Tap[]; dimAt?: number; scroll?: ScrollFix }> = ({ src, views, marks = [], taps = [], dimAt, scroll }) => {
   const frame = useCurrentFrame();
-  const v = footViewAt(views, frame / FPS);
+  const v0 = footViewAt(views, frame / FPS);
+  const v = scroll ? { ...v0, y: v0.y + scrollDy(scroll, frame / FPS) } : v0;
   const dim = dimAt !== undefined ? 1 - 0.85 * tween(frame, dimAt * 1000, 450) : 1; // kolo 34: okno zbledne, ked kartu vysunie Panel
   const cw = WIN.w,
     ch = WIN.h - 44;
@@ -1724,6 +1733,7 @@ const F3_46_SECONDS = cutDuration(KF3_46);
  * okno -> pole Hladat -> detail s drobcekom pri "cestu" -> posun stranky k zltej zhode pri "udaje"), karty pod oknom: hladane
  * slovo, cesta (DocPath) pri "cestu", najdena polozka (ItemCard) pri "udaje". Klip K-F3-Vyhladavanie ostava pre K. */
 const F3_46_CLIP = 'K46-F3-Vyhladavanie';
+const F3_46_SCROLL = f3Scroll46 as ScrollFix; // kolo 57: korekcia vyrezu pri plynulom posune stranky
 const F3_46_W = { aplikacia: 2.6, cestu: 3.82, udaje: 6.14 }; // s od zaciatku vety (K46-F3-Vyhladavanie-0 words)
 const F3_46_L0 = voAt(F3_46_CLIP, 0) / 1000;
 const F3_46_CESTU = F3_46_L0 + F3_46_W.cestu;
@@ -1744,7 +1754,7 @@ const F3_46_VIEWS: FootView[] = (() => {
     { t: F3_46_CESTU - 0.9, ...search },
     { t: F3_46_CESTU - 0.1, ...detail }, // "cestu k polozke": drobcek a hlavicka ZL_03; posun stranky (3x) ide pod stojacou kamerou
     { t: F3_46_AJ + 1.4, ...detail },
-    { t: F3_46_SECONDS + 0.3, x: 500, y: 350, w: 960 }, // kolo 45 (Samuel: v 0:38 sa to zasekne): od zhody vyrez ide pomaly dalej az do prelinacky
+    { t: 99, ...detail }, // kolo 57 (Samuel: sekane scrollovanie, zlty riadok v strede): kamera stoji, stranka sa posunie plynulo (smooth-scroll) a zlta zhoda zastane v strede vyrezu (y 580)
   ];
 })();
 const F3_46_STEPS: Step[] = [
@@ -1754,11 +1764,11 @@ const F3_46_STEPS: Step[] = [
 ];
 const F3_46_MARKS: Mark[] = [
   markAt(KF3_46, 0.3, 1.9, 190, 578, 1638, 62, { spot: true }), // pole vyhladavania (pisanie slova)
-  markAt(KF3_46, F3_46_CESTU - 0.05, F3_46_AJ + 0.1, 596, 783, 246, 28, { spot: true }), // drobcek PL_01 / KR_01 / ZL_03: "cestu k polozke"
+  markAt(KF3_46, F3_46_CESTU - 0.05, F3_46_SCROLL.t0 + 0.15, 596, 783, 246, 28, { spot: true }), // kolo 57: odide so zaciatkom posunu stranky // drobcek PL_01 / KR_01 / ZL_03: "cestu k polozke"
 ];
 const LI_F3_46: React.FC = () => (
   <AbsoluteFill>
-    <LiFootage src={`footage/${KF3_46}.mp4`} views={F3_46_VIEWS} marks={F3_46_MARKS} />
+    <LiFootage src={`footage/${KF3_46}.mp4`} views={F3_46_VIEWS} marks={F3_46_MARKS} scroll={F3_46_SCROLL} />
     <Panel from={0.25} to={F3_46_APLIKACIA + 0.3} label="Hľadané slovo" width={WIN.w} middle>
       <SearchField typeFrom={0.5} typeTo={1.7} />
     </Panel>

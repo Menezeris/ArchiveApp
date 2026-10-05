@@ -11,11 +11,11 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
 - Dĺžka: okolo 75 s a k tomu 30 s teaser. Ponuku (C8) nechal na mňa.
 - Pôvodnú verziu nechytať, je to vstup. Hlas a hudbu negenerovať znova (existujúce nahrávky sa len strihajú).
 
-## Kde sme skončili (5. 10. 2026, kolo 56)
+## Kde sme skončili (5. 10. 2026, kolo 57)
 
 - Dve hotové videá, obe LinkedIn 4:5 (1080 x 1350), obe sa renderujú z toho istého projektu:
   - `video/out/kratka/K-LinkedIn_1080p.mp4` (76,8 s, kolo 31, kompozícia `K-LinkedIn`): plná krátka verzia, od kola 31 bez zmeny.
-  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (57,3 s, kolo 56, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
+  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (57,1 s, kolo 57, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
     otázka v kancelárii a prestrih do skladu, "Hľadanie môže trvať hodiny.", logo ("Predstavujeme Assetin Archives."), háčik
     "Naskenovať celý archív môže byť drahé. Naša aplikácia fotí len identifikačnú stranu." (logo z predstavenia odíde do
     pravého dolného rohu ako rohové logo, 328 strán proti 1 identifikačnej strane, nadpis "Katalogizácia: len identifikačná
@@ -24,8 +24,8 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
     hľadanie (slovo, cesta k položke, od "aj všetky vyčítané údaje" karta položky a posun k žltej zhode), výsledok "Výsledok:
     spoľahlivo viete, aké dokumenty máte a kde sa nachádzajú." a "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať."
     (tmavomodré karty), "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč." (karty "od pár šanónov" / "aj celý
-    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 až 56 nižšie. Kolá 32 až 55 sú v `out/kratka/verzie/`. Kolá 32 až 54 sú zlúčené do `main`
-    (PR #23 a #24), kolá 55 a 56 sú na vetve.
+    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 až 57 nižšie. Kolá 32 až 56 sú v `out/kratka/verzie/`. Kolá 32 až 54 sú zlúčené do `main`
+    (PR #23 a #24), kolá 55 až 57 sú na vetve.
     Náhľady `*_preview_540p.mp4` vedľa. Staršie kolá 14 až 30 sú v `out/kratka/verzie/`. Pôvodná dlhá verzia (145 s, 16:9) sa nemenila.
 - Zdroj: kompozície `K-LinkedIn` a `K-LinkedIn-46` (zoznam klipov `LI_LIST_46` na konci súboru) v `src/scenes/kratka/LinkedIn.tsx` (spoločné dáta `Kratka.tsx`, klipy `src/kratkaList.ts`),
   scenár `src/copy/vo_kratka.json`, hlas `public/vo-kratka/`, hudba `src/copy/music_kratka.json` (variant `K`: hudba
@@ -49,6 +49,29 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
   - Krabica alebo box: posúdené v kole 24, odporúčanie nechať "krabica".
 - Gemini API (hlas aj hudba) naposledy vracalo 402, vyčerpaný predplatený kredit; nové vety čakajú na jeho dobitie.
 - Review stránka experimentu (odkaz hore) je súkromná, ostatní ju uvidia, až keď ju vlastník zdieľa cez Share.
+
+## Kolo 57 (5. 10. 2026): plynulý posun stránky v hľadaní, žltý riadok v strede, prechody v hudbe
+
+Samuel (ku kolu 56): v 0:36 sa stránka nascrolluje veľmi sekane a vyznačený riadok má zastať v strede; v 0:47 a na konci
+(0:56) sa hudba divne skne, urobiť lepší prechod.
+
+- Príčina sekania: zdroj (`search2.mp4`) posúva stránku plynulo, ale v dvoch dávkach (7,53 až 8,10 s a 10,73 až 12,87 s,
+  spolu 1 417 px) s pauzou 2,6 s medzi nimi; pri 3x zrýchlení z toho bolo "rozbeh, stop, rozbeh". Nový skript
+  `scripts/smooth-scroll.py` zmeria posun obsahu po snímkach (korelácia profilu riadkov), zloží úsek 2,0 s s posunom po krivke
+  ease-in-out a pre každú výstupnú snímku vyberie zdrojovú s najbližšou polohou; zvyšnú odchýlku (najviac 15 px) zapíše do
+  `src/footage/k46-f3-search.scroll.json` a `LiFootage` (prop `scroll`) o ňu posunie výrez, takže pohyb je presný. Posun
+  zastaví 90 px pred koncom zdroja, žltá zhoda je v strede výrezu (y 580); kamera počas posunu aj po ňom stojí (predtým na
+  konci ešte pomaly dochádzala). `cut-footage.mjs` a `src/lib/cuts.ts` poznajú segment so `smooth` (dĺžka `smooth.dur`).
+  Zostrih 8,0 s (bol 8,2), kurzor znova zakrytý (`hide-cursor.py`).
+- Hudba: dva skoky nahradené prechodmi, ktoré sú priamo v skladbe. Pred scénou Kto bol skok 16 -> 44 z groove (-13,8 dB) rovno
+  do pokojnej časti (-19,1 dB); teraz groove 0 až 15, potom takt 43 (skok 15 -> 43, podobnosť 0,999, -13,2 / -12,8 dB) a z neho
+  prirodzene do 44 ako v skladbe. Pred logom bol skok 47 -> 51; teraz pokojná časť 44, 45, 49 (skok 45 -> 49, podobnosť 0,999)
+  a prirodzene 49 -> 50 -> akord 51. Počet taktov rovnaký. Tempo 1,0014, delay 0,086 s, takt 43 v 43,45 s, pokojná časť na
+  Kto 45,73 s, akord 54,86 s (logo 54,93 s).
+- Začiatky klipov: C2 0, C4 7,43, háčik 10,8, C5 17,57, aplikácia 22,5, hľadanie 28,33, výsledok 35,93, Kto 45,73, výzva 50,23,
+  logo 54,93; film 57,13 s (1714 snímok). K-LinkedIn 2302 snímok bez zmeny.
+- Kontroly: posun v hotovom videu po snimkach 0, 1, 2, 4 ... 32 az 34 ... 4, 2, 1, 0 px (bez zaseknutia), zlty riadok "Popis zmeny" stoji v strede vyrezu (y 442, vyrez 190 az 695), kamera stoji; hudba: Gemini bez klikov a skokov, prechod 0:45 do pokojnej casti je povodny prechod skladby (rytmika dohra takt 43), akord v 54,9 s doznie s 1,2 s stisenim; mix 57,2 s, -16,2 LUFS, true peak -1,5 dBFS; K-LinkedIn 2302 snimok bez zmeny.
+- Kolo 56 je uložené v `out/kratka/verzie/K-LinkedIn-46_kolo56_57s_*.mp4` a v commite `d5cd957`.
 
 ## Kolo 56 (5. 10. 2026): úvod o sekundu pokojnejší (otázniky)
 
