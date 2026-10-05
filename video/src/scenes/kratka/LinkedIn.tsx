@@ -1880,8 +1880,9 @@ const VysTile: React.FC<{ kind: VysKind; label: string; sub: string; at: number;
 const LI_Vysledok: React.FC = () => (
   <AbsoluteFill style={{ background: '#fff' }}>
     {/* kolo 37 (Samuel): riadok "Ako s tym dalej" prec, ostavaju dva */}
-    <VysRow text="Čo presne máte" at={VYS_L0 + VYS_W.co * 1000 - 100} top={250} showAt={VYS_L0 + 150} />
-    <VysRow text="Kde to je" at={VYS_L0 + VYS_W.kde * 1000 - 100} top={420} showAt={VYS_L0 + 240} />
+    {/* kolo 53 (Samuel): "Ake dokumenty mate" / "Kde sa nachadzaju" namiesto "Co presne mate" / "Kde to je" (hlas ostava) */}
+    <VysRow text="Aké dokumenty máte" at={VYS_L0 + VYS_W.co * 1000 - 100} top={250} showAt={VYS_L0 + 150} />
+    <VysRow text="Kde sa nachádzajú" at={VYS_L0 + VYS_W.kde * 1000 - 100} top={420} showAt={VYS_L0 + 240} />
     {VYS_TILES.map((t, i) => (
       <VysTile key={t.kind} {...t} at={VYS_L1 + t.at * 1000 - 120} showAt={VYS_L1 - 100 + i * 90} left={C8X + i * (300 + (C8W - 900) / 2)} />
     ))}
