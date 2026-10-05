@@ -11,11 +11,11 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
 - Dĺžka: okolo 75 s a k tomu 30 s teaser. Ponuku (C8) nechal na mňa.
 - Pôvodnú verziu nechytať, je to vstup. Hlas a hudbu negenerovať znova (existujúce nahrávky sa len strihajú).
 
-## Kde sme skončili (5. 10. 2026, kolo 55)
+## Kde sme skončili (5. 10. 2026, kolo 56)
 
 - Dve hotové videá, obe LinkedIn 4:5 (1080 x 1350), obe sa renderujú z toho istého projektu:
   - `video/out/kratka/K-LinkedIn_1080p.mp4` (76,8 s, kolo 31, kompozícia `K-LinkedIn`): plná krátka verzia, od kola 31 bez zmeny.
-  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (56,3 s, kolo 55, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
+  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (57,3 s, kolo 56, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
     otázka v kancelárii a prestrih do skladu, "Hľadanie môže trvať hodiny.", logo ("Predstavujeme Assetin Archives."), háčik
     "Naskenovať celý archív môže byť drahé. Naša aplikácia fotí len identifikačnú stranu." (logo z predstavenia odíde do
     pravého dolného rohu ako rohové logo, 328 strán proti 1 identifikačnej strane, nadpis "Katalogizácia: len identifikačná
@@ -24,8 +24,8 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
     hľadanie (slovo, cesta k položke, od "aj všetky vyčítané údaje" karta položky a posun k žltej zhode), výsledok "Výsledok:
     spoľahlivo viete, aké dokumenty máte a kde sa nachádzajú." a "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať."
     (tmavomodré karty), "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč." (karty "od pár šanónov" / "aj celý
-    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 až 55 nižšie. Kolá 32 až 54 sú v `out/kratka/verzie/`. Kolá 32 až 54 sú zlúčené do `main`
-    (PR #23 a #24), kolo 55 je na vetve.
+    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 až 56 nižšie. Kolá 32 až 55 sú v `out/kratka/verzie/`. Kolá 32 až 54 sú zlúčené do `main`
+    (PR #23 a #24), kolá 55 a 56 sú na vetve.
     Náhľady `*_preview_540p.mp4` vedľa. Staršie kolá 14 až 30 sú v `out/kratka/verzie/`. Pôvodná dlhá verzia (145 s, 16:9) sa nemenila.
 - Zdroj: kompozície `K-LinkedIn` a `K-LinkedIn-46` (zoznam klipov `LI_LIST_46` na konci súboru) v `src/scenes/kratka/LinkedIn.tsx` (spoločné dáta `Kratka.tsx`, klipy `src/kratkaList.ts`),
   scenár `src/copy/vo_kratka.json`, hlas `public/vo-kratka/`, hudba `src/copy/music_kratka.json` (variant `K`: hudba
@@ -49,6 +49,22 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
   - Krabica alebo box: posúdené v kole 24, odporúčanie nechať "krabica".
 - Gemini API (hlas aj hudba) naposledy vracalo 402, vyčerpaný predplatený kredit; nové vety čakajú na jeho dobitie.
 - Review stránka experimentu (odkaz hore) je súkromná, ostatní ju uvidia, až keď ju vlastník zdieľa cez Share.
+
+## Kolo 56 (5. 10. 2026): úvod o sekundu pokojnejší (otázniky)
+
+Samuel (ku kolu 55): úvod je príliš rýchly; pridať pol sekundy na panáčika s otáznikom v kancelárii aj v sklade (+1 s).
+
+- Kancelária: prestrih do skladu v 3,6 s (bolo 3,1), otáznik (3,0 až 3,6 s) je teda celý pred prestrihom.
+- Sklad: nový parameter `holdMs` v `c2Geo` (K 0): panáčik po príchode k regálu s otáznikom 0,5 s postojí (čas skladu 6500
+  stojí), až potom sa otvárajú krabice a zložky idú hore (6,06 s). Veta o hodinách od 5,66 s.
+- Hudba: úvod tri celé takty (-12, -2, -1), aby nastúpila hneď (s 2,25 taktu by začínala v 1,7 s), tempo 0,9963, delay
+  0,051 s, takt 0 v 6,93 s (0,5 s pred zeleným prechodom 7,43 s), pokojná časť na Kto 45,93 s, akord 55,11 s (logo 55,13 s).
+- Začiatky klipov: C2 0, C4 7,43, háčik 10,8, C5 17,57, aplikácia 22,5, hľadanie 28,33, výsledok 36,13, Kto 45,93, výzva 50,43,
+  logo 55,13; film 57,33 s (1720 snímok). K-LinkedIn 2302 snímok bez zmeny.
+- Kontroly: mriežka úvodu 2,5 fps (vyhodené veci, otáznik v kancelárii pred prestrihom, panáčik s otáznikom pri regáli
+  postojí, krabice, zložky pri vete o hodinách), prepis mixu cez Gemini: všetkých 15 viet celých, hudba od začiatku do konca,
+  akord, bez skoku; -16,2 LUFS, true peak -1,5 dBFS; K-LinkedIn 2302 snímok.
+- Kolo 55 je uložené v `out/kratka/verzie/K-LinkedIn-46_kolo55_56s_*.mp4` a v commite `298714a`.
 
 ## Kolo 55 (5. 10. 2026): hlas výsledku ako riadky v obraze
 

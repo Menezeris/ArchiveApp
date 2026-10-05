@@ -1078,23 +1078,24 @@ const C2_UP = 7820; // cas skladu: zlozky v oboch krabiciach su hore
  * ide o 0,5-1 s dlhsie; ~684 px, ~1,75 s), K46 0,5 (ako v kole 10, ~411 px, ~1,05 s; bez zvuku bol sklad 4-8 s prazdny).
  * Rovnaka rychlost na obrazovke ako v kancelarii; z nej prichod k regalu, zdvihnutie zloziek, prechod na policu a pomaly najazd.
  */
-type C2Geo = { p0: number; d: number; panAt: number; walkAt: number; upSpeed: number; walkMs: number; arr: number; upAt: number; push: [number, number]; slowZoom: (t: number) => number };
+type C2Geo = { p0: number; d: number; panAt: number; walkAt: number; upSpeed: number; holdMs: number; walkMs: number; arr: number; upAt: number; push: [number, number]; slowZoom: (t: number) => number };
 /** Kolo 44 (K46 bez vety "V kancelarii ci v archive."): `panAt` = ms klipu prestrihu dole do skladu (K: C2_PAN_AT), chodza 650 ms po nom. */
 /** Kolo 54: `upSpeed` = zrychlenie useku od prichodu panacika po zlozky hore (cas skladu 6500 az 7820; K 1). */
-const c2Geo = (p0: number, panAt = C2_PAN_AT, upSpeed = 1): C2Geo => {
+/** Kolo 56: `holdMs` = panacik po prichode k regalu postoji s otaznikom (cas skladu 6500 stoji); K 0. */
+const c2Geo = (p0: number, panAt = C2_PAN_AT, upSpeed = 1, holdMs = 0): C2Geo => {
   const d = whDist(1) - whDist(p0);
   const walkMs = (800 * d * WH_K) / OFFICE_WALK_PX;
   const walkAt = panAt + 650;
   const arr = walkAt + walkMs; // panacik pri regali (cas skladu 6500)
-  const upAt = arr + (C2_UP - 6500) / upSpeed; // ms klipu: zlozky hore
-  const push: [number, number] = [arr + 500 / upSpeed, 600 / upSpeed]; // prechod na policu (cas skladu 7000-7600), sklad uz takmer vybledol
+  const upAt = arr + holdMs + (C2_UP - 6500) / upSpeed; // ms klipu: zlozky hore
+  const push: [number, number] = [arr + holdMs + 500 / upSpeed, 600 / upSpeed]; // prechod na policu (cas skladu 7000-7600), sklad uz takmer vybledol
   // kolo 15: pomaly najazd na policu, 300 ms pred koncom prechodu sa rozbehne (900 ms) na +3,5 % za sekundu okolo C2_Q
   const slow = { at: push[0] + push[1] - 300, ramp: 900, rate: 0.035 / 1000 };
   const slowZoom = (t: number) => {
     const u = Math.max(0, t - slow.at);
     return 1 + slow.rate * (u < slow.ramp ? (u * u) / (2 * slow.ramp) : u - slow.ramp / 2);
   };
-  return { p0, d, panAt, walkAt, upSpeed, walkMs, arr, upAt, push, slowZoom };
+  return { p0, d, panAt, walkAt, upSpeed, holdMs, walkMs, arr, upAt, push, slowZoom };
 };
 const C2_GEO = c2Geo(0.32);
 const WH_P0 = C2_GEO.p0;
@@ -1126,6 +1127,7 @@ const c2Plan = (backAt: number, endMs: number, g: C2Geo = C2_GEO, backSpeed = 1)
       const e = (i + 1) / 20;
       return [g.walkAt + g.walkMs * e, whTime(invert01(whDist, whDist(g.p0) + g.d * easeInOut(e)))];
     }),
+    ...(g.holdMs ? [[g.arr + g.holdMs, whTime(1)] as [number, number]] : []), // kolo 56: panacik pri regali s otaznikom postoji
     [g.upAt, C2_UP], // 1:1: vyblednutie skladu, krabice, veka a zlozky hore
     [backAt, 8500], // staticka chvila so zlozkami hore
     [backAt + back, 9620], // zlozky dole, veka a krabice spat
@@ -1478,9 +1480,10 @@ const C2_46_CLIP = 'K46-C2-Hladanie';
 const C2_46_LINE = voAt(C2_46_CLIP, 1); // kolo 44 (Samuel: skratit pod minutu): veta "V kancelarii ci v archive." vypadla, "Hladanie..." je druha
 /** Kolo 34: kratsia chodza (start 0,5 ako v kole 10, ~1,05 s) a navrat zloziek 1,25x; `at` vety o hodinach v JSON = upAt - ~100.
  * Kolo 44: prestrih dole do skladu uz pocas otazky (1500 ms klipu, K 3450), zlozky hore ~4,5 s, veta o hodinach hned po otazke. */
-const C2_46_PAN_AT = 3100; // kolo 54: 3300 -> 3100 (tretia vec dopadne v 3200 este pri plnej kancelarii, otaznik od 3000)
+const C2_46_PAN_AT = 3600; // kolo 56 (Samuel: uvod prilis rychly, +0,5 s na otaznik v kancelarii): otaznik 3,0 az 3,6 s cely pred prestrihom
+// kolo 54: 3100 // kolo 54: 3300 -> 3100 (tretia vec dopadne v 3200 este pri plnej kancelarii, otaznik od 3000)
 // povodne: const C2_46_PAN_AT = 3300; // kolo 48: 1900; kolo 50 (Samuel: kancelaria prikratka, nestihne povyhadzovat): prestrih az po dopade tretej veci (3 200 ms) a otazniku
-const C2_46_GEO = c2Geo(0.68, C2_46_PAN_AT, 1.5); // kolo 54 (ticho 2,2 s po otazke): kratsia chodza (0,68) a zlozky hore 1,5x // kolo 50: kratsia chodza v sklade (p0 0,6, ~0,7 s), aby uvod nenarastol o celu kancelariu
+const C2_46_GEO = c2Geo(0.68, C2_46_PAN_AT, 1.5, 500); // kolo 56: +0,5 s s otaznikom pri regali // kolo 54 (ticho 2,2 s po otazke): kratsia chodza (0,68) a zlozky hore 1,5x // kolo 50: kratsia chodza v sklade (p0 0,6, ~0,7 s), aby uvod nenarastol o celu kancelariu
 const C2_46 = c2Plan(Math.max(C2_46_LINE + 150, C2_46_GEO.upAt + 100), C2_46_LINE + (voLines(C2_46_CLIP)[1].dur ?? 1780), C2_46_GEO, 1.25);
 const LI_C2_46: React.FC = () => <LI_C2Base wmap={C2_46.wmap} panAt={C2_46_PAN_AT} />;
 /** C4: len "Predstavujeme vam Assetin Archives." (bez vety o katalogu), logo s pilulkou odide 0,6 s po vete (5,7 s klipu), bez ikon archiv -> katalog. */
