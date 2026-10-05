@@ -1,6 +1,6 @@
 import React from 'react';
 import { C1_Intro } from './scenes/C1_Intro';
-import { C2_Hladanie } from './scenes/C2_Hladanie';
+import { C2_Hladanie, C2_SECONDS } from './scenes/C2_Hladanie';
 import { C2_Kancelaria } from './scenes/C2_Kancelaria';
 import { C3_Sklad } from './scenes/C3_Sklad';
 import { C4_CenaMain, C4_WIPE_AT } from './scenes/C4_Cena';
@@ -40,7 +40,7 @@ const paced = (id: string, d: PacedDef): [string, SceneDef] => {
  */
 export const SCENE_LIST: [string, SceneDef][] = [
   ['C1-Intro', { component: C1_Intro, seconds: 3.6, stills: [30, 55, 95] }],
-  paced('C2-Hladanie', { scene: C2_Hladanie, seconds: 10, vo: true, dark: true, brand: { dark: true }, holds: [{ at: 1700, hold: 2420 }, { at: 3600, hold: 500 }], stills: [80, 150, 260, 380] }),
+  paced('C2-Hladanie', { scene: C2_Hladanie, seconds: C2_SECONDS, vo: true, dark: true, brand: { dark: true }, stills: [80, 150, 260, 380] }), // kolo 55: bez zastavenia obrazu (predtym holds 1700/2420 a 3600/500)
   // kolo 54: logo s tvrdym t "Predstavujeme Assetin Archives." + veta o katalogu, logo ostava a prevezme ho hacik (bez krabice);
   // klip konci 0,3 s po vete (vystup 19,55 s = scena 15,28 s + pauzy 4,27 s)
   paced('C4-Cena', { scene: C4_CenaMain, seconds: 15.28, vo: true, darkUntil: 11400, brand: { darkUntil: C4_WIPE_AT, hide: [C4_WIPE_AT, 1e9] }, holds: [{ at: 3000, hold: 2500 }, { at: 4390, hold: 1770 }], stills: [80, 170, 280, 370, 500] }),
@@ -53,7 +53,8 @@ export const SCENE_LIST: [string, SceneDef][] = [
   paced('C6-Spracovanie', { scene: C6_Spracovanie, seconds: 2, vo: false, // kolo 52: 2 s (predtym 3 s bez hlasu)
     // kolo 51: bez vety (F2 hned "Aplikacia z fotky sama precita text...")
     brand: {}, stills: [20, 45, 85] }),
-  paced('F2-Metadata', { scene: F2_Metadata, seconds: F2_SECONDS, vo: true, holds: [{ at: 7400, hold: 900 }], // kolo 51: veta z kratkej verzie je o 0,3 s dlhsia
+  paced('F2-Metadata', { scene: F2_Metadata, seconds: F2_SECONDS, vo: true, // kolo 56: bez zastavenia obrazu (predtym hold 7400/900), spracovanie pomalsie v zostrihu
+    // kolo 51: veta z kratkej verzie je o 0,3 s dlhsia
     brand: {}, stills: [10, 100, 240] }),
   paced('F4-Kontrola', { scene: F4_Kontrola, seconds: F4_SECONDS, vo: true, brand: {}, stills: [10, 150, 400] }),
   // kolo 53 (Samuel: export a analyzu vyhodit, hned klucove slovo a vyhladavanie): C10-Databaza vypadol, F3 ide hned po F4

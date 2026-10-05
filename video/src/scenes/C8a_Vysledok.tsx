@@ -17,7 +17,8 @@ import { tween } from '../lib/anim';
 const CLIP = 'C8a-Vysledok';
 const L0 = voAt(CLIP, 0);
 const L1 = voAt(CLIP, 1);
-const W = { co: 2.05, kde: 3.37, uchovat: 1.48, skartovat: 2.2, skenovat: 3.86 }; // s od zaciatku viet (ako VYS_W v kratkej)
+const W = { co: 2.22, kde: 3.86, // kolo 56: nova veta "...ake dokumenty mate a kde presne sa nachadzaju." (slova ake a kde, faster-whisper)
+  uchovat: 1.48, skartovat: 2.2, skenovat: 3.86 }; // s od zaciatku viet (ako VYS_W v kratkej)
 const FADE = 300;
 export const C8A_SECONDS = (L1 + (voLines(CLIP)[1].dur ?? 4760) + 300 + FADE) / 1000;
 const STEPS = [

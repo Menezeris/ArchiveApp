@@ -16,7 +16,7 @@
       ]
     },
     {
-      "at": 8950,
+      "at": 6870,
       "text": "V sklade, na polici, v krabici alebo v zložke.",
       "src": {
         "file": "public/vo/orig51/C2-Hladanie-1.wav",
@@ -275,22 +275,25 @@
   "C8a-Vysledok": [
     {
       "at": 200,
-      "text": "Výsledok: spoľahlivo viete, čo presne máte a kde to je.",
+      "text": "Výsledok: spoľahlivo viete, aké dokumenty máte a kde presne sa nachádzajú.",
       "parts": [
         "Výsledok: spoľahlivo viete,",
-        "čo presne máte a kde to je."
+        "aké dokumenty máte a kde presne sa nachádzajú."
       ],
-      "dur": 4190,
+      "dur": 5360,
       "partAt": [
         0,
-        2020
+        2140
       ],
       "src": {
-        "file": "public/vo-kratka/lines/K46-Vysledok-0.wav"
-      }
+        "file": "public/vo/orig56/C8a-Vysledok-0.gemini.wav",
+        "start": 0.2,
+        "end": 5.56
+      },
+      "_note": "Kolo 56 (Samuel): nova veta Gemini TTS (hlas voice_7ws1j8pd39cu, styl ako K46-Vysledok-0), vybrany kandidat 2 z 3 cez Gemini (najplynulejsi, pauza po Vysledok 0,33 s)."
     },
     {
-      "at": 4550,
+      "at": 5710,
       "text": "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať.",
       "parts": [
         "Potom viete rozhodnúť,",
@@ -323,22 +326,6 @@
       ],
       "src": {
         "file": "public/vo-kratka/lines/K46-Kto-0.wav"
-      }
-    },
-    {
-      "at": 5300,
-      "text": "V oboch prípadoch určíte rozsah nasadenia: len identifikačné strany, alebo skenovanie celých dokumentov s fulltextovým vyhľadávaním.",
-      "parts": [
-        "V oboch prípadoch určíte rozsah nasadenia: len identifikačné strany,",
-        "alebo skenovanie celých dokumentov s fulltextovým vyhľadávaním."
-      ],
-      "dur": 8280,
-      "partAt": [
-        0,
-        4380
-      ],
-      "src": {
-        "file": "public/vo/orig54/C8-Pilot-2.wav"
       }
     }
   ],

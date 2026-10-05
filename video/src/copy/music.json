@@ -206,7 +206,7 @@
     "_end": "koniec pocutelneho doznenia v bed_dlha_edit_e.wav (variant D + 4 takty)"
   },
   "F": {
-    "_": "Kolo 53 (Samuel: hudba sa na zaciatku hned rozbije a skonci skor ako video; C10 vypadol, film ~153 s): takty ako pred kolom 51 (bez taktov -4 a -3, polfraza 8-11 len raz), na konci polfraza 48-51 dvakrat (zaverecny akord pride ~3 s pred koncom filmu). Hudba zacina klavirom od 0 s (bez ticha do 2,27 s, prvy akord v tichom intre C1 nastupil skokom), iskry nad 4-6 kHz o 20 dB tichsie v tichom uvode (1,1-20,4 s) a v zaverecnom akorde. Skladba Lyria konci useknutim bez zaverecneho akordu: za posledny takt (na dobu taktu 52) je prvy akord skladby (2,1-8,1 s zdroja, uder 2,25 s) s 1,8 s stisenim, `end` = 2,4 s po udere, v mixe 0,05 s pred koncom filmu; C9 je o 1,7 s dlhsi, akord udrie po poslednom slove a doznie na logu (stisenie poslednych 0,5 s). Vyrovnanie (scripts/music_level.py) najviac +10 dB, rastie najviac 2,5 dB/s, spicka pod -3 dBFS. Stisenie pod hlasom attack 150 ms, release 800 ms. Mix: python3 scripts/music_edit.py --cfg src/copy/music.json --variant F, potom node scripts/mix-music.mjs --variant F --music public/music/bed_dlha_edit_f.wav.",
+    "_": "Kolo 53 (Samuel: hudba sa na zaciatku hned rozbije a skonci skor ako video; C10 vypadol, film ~153 s): takty ako pred kolom 51 (bez taktov -4 a -3, polfraza 8-11 len raz), na konci polfraza 48-51 dvakrat (zaverecny akord pride ~3 s pred koncom filmu). Hudba zacina klavirom od 0 s (bez ticha do 2,27 s, prvy akord v tichom intre C1 nastupil skokom), iskry nad 4-6 kHz o 20 dB tichsie v tichom uvode (1,1-20,4 s) a v zaverecnom akorde. Skladba Lyria konci useknutim bez zaverecneho akordu: za posledny takt (na dobu taktu 52) je prvy akord skladby (2,1-8,1 s zdroja, uder 2,25 s) s 1,8 s stisenim, `end` = 2,4 s po udere, v mixe 0,05 s pred koncom filmu; C9 je o 1,7 s dlhsi, akord udrie po poslednom slove a doznie na logu (stisenie poslednych 0,5 s). Vyrovnanie (scripts/music_level.py) najviac +10 dB, rastie najviac 2,5 dB/s, spicka pod -3 dBFS. Stisenie pod hlasom attack 150 ms, release 800 ms. Mix: python3 scripts/music_edit.py --cfg src/copy/music.json --variant F, potom node scripts/mix-music.mjs --variant F --music public/music/bed_dlha_edit_f.wav. Kolo 56 (film 150,5 s: C2 bez zastavenia, C8 bez vety o rozsahu): polfraza 48-51 na konci len raz (o 9,14 s kratsie), koniec a stisenie iskier v akorde posunute o tolko skor; tempo v mixe ~0,973.",
     "edit": {
       "src": "public/music/bed.wav",
       "out": "public/music/bed_dlha_edit_f.wav",
@@ -275,10 +275,6 @@
         48,
         49,
         50,
-        51,
-        48,
-        49,
-        50,
         51
       ],
       "dirty": [],
@@ -295,8 +291,8 @@
           "db": -20
         },
         {
-          "from": 152.94,
-          "to": 155.53,
+          "from": 143.8,
+          "to": 146.39,
           "fade_ms": 400,
           "lo_hz": 4000,
           "hi_hz": 6000,
@@ -313,7 +309,7 @@
       }
     },
     "cuts": [],
-    "end": 155.53,
+    "end": 146.39,
     "_end": "uder zaverecneho akordu + 2,4 s; v mixe 0,05 s pred koncom filmu, stisenie poslednych 0,5 s (C9 je o 1,7 s dlhsi: akord udrie po poslednom slove a doznie na logu)",
     "endPad": 0.05,
     "fadeOut": 0.5,

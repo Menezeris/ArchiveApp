@@ -653,3 +653,15 @@ Samuel: "v tom dlhom videu sú staré logá" (upresnil: Háčik, 36 až 44 s) a 
 - Príčina: písma Manrope a Inter načíta `Scene` (`loadFonts`), každý klip sa renderuje samostatne a nový `C4b_Hacik.tsx` ako jediný `Scene` nepoužíval. Celý Háčik (nadpisy, titulky, počítadlo, € na cenovkách, slogan pod logom) išiel náhradným písmom, preto pôsobil ako staré logo. Teraz je obalený v `Scene`. Ostatné klipy `Scene` alebo `loadFonts` majú (overené grepom).
 - Logo do rohu: slogan a ikony zmiznú za 250 ms, logo sa pohne až potom (250 až 700 ms), prvý nadpis a stoh listov prídu po ňom (logo necestuje cez text ani stoh). Sivé počítadlo naskočí od 5 strán (sivé "1 strana" predbiehalo zelenú pointu).
 - Film 158,2 s bez zmeny dĺžky, -15,7 LUFS. Krátka verzia sa nemenila.
+
+## Kolo 56 (5. 10. 2026): plynulosť úvodu a záznamov, Výsledok, bez vety o rozsahu
+
+Samuel (komentár pri Hľadaní): "príde mi to tu zaseknuté a zbytočne pomalé oproti nášmu krátkemu videu". V session: "1:20 zas je to nejako moc zaseknuté... Neviem, či na veľkej obrazovke treba ten obdĺžnik s návrhom tam dlhšie držať, keď potom sa tam roztiahne už tá aplikácia okolo 1:35, plus potom často sa tam tá footage zasekne a hlas ide ďalej. Okolo 2:00 zmeň na spoľahlivo viete, aké dokumenty máte a kde presne sa nachádzajú. 2:17 toto už nesedí, skenovanie celých dokumentov príde až na základe katalogizácie pomocou identifikačných strán."
+
+- C2 Hľadanie: bez Paced holds (1700/2420 a 3600/500). Kancelária 1:1 ako v K/K46 (veci vyhodené počas otázky), `Office` má voliteľné `qmOutAt` a `tags` (predvolene ako v krátkej, K a K46 pixelovo zhodné 0/25): pri "správu", "výkres", "protokol" vyskočia nad vyhodenými vecami názvy v jednom rade s čiarou k veci. Prestrih do skladu po "protokol" (`PAN_OUT`), sklad o `WH_SHIFT` neskôr, návrat zložiek 1,25x. "V sklade, na polici..." od 6,87 s (predtým 8,95 s). 11,95 s (predtým 12,92 s).
+- F2: spracovanie 2,5x (predtým 6x), 60 až 100 % 0,8x (predtým 1,25x), po ňom 1,4 s (predtým 3,3 s), bez hold 7400/900.
+- F4: bez karty návrhu pod oknom (okno veľké od začiatku). Zostrih: fotka 0,2/0,3 s (predtým 0,4/0,9), lupa 1,2x, montáž 10x, oprava 1,4x, koniec 64,8 až 69,8 s 1x + 0,6 s (Odosielanie a zoznam Kontroly bez ďalších príloh) namiesto 3,5 s zamrznutého Odosielania.
+- Výsledok: nová veta Gemini TTS "Výsledok: spoľahlivo viete, aké dokumenty máte a kde presne sa nachádzajú." (hlas voice_7ws1j8pd39cu, štýl K46-Vysledok-0, kandidát 2 z 3 podľa posluchu Gemini), `public/vo/orig56/C8a-Vysledok-0.gemini.wav` 0,2 až 5,56 s; riadky pri "aké" 2,22 s a "kde" 3,86 s (faster-whisper).
+- C8: veta o rozsahu nasadenia a karty Identifikačné strany / Celé dokumenty vypadli (odporovali Výsledku), ostali KtoCard v strede, 5,76 s.
+- Hudba F: polfráza 48-51 na konci len raz (o 9,14 s kratšie), `end` 146,39, tempo 0,9728. Pokojná časť skladby (bez bicích) začne presne so scénou Sami alebo na kľúč. Posluch Gemini: vety celé, bez skokov v hudbe (okrem prirodzeného prechodu do pokojnej časti), akord dozvie do konca. Film 150,6 s, -15,8 LUFS.
+- Úložisko assetov review stránky je takmer plné (1 GB): zmazané nepoužívané staré Full (kolo 54 a 55) a C4b z kola 54.

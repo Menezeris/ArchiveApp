@@ -1,8 +1,7 @@
 import React from 'react';
 import { Step } from '../components/Steps';
 import { voAt } from '../components/Subtitles';
-import { DesktopFootageClip, Mark, Panel, Tap, markAt, tapAt } from './F2_Metadata';
-import { ValueCard } from '../components/AppCards';
+import { DesktopFootageClip, Mark, Tap, markAt, tapAt } from './F2_Metadata';
 import { cutDuration, cutTime, segStart } from '../lib/cuts';
 
 /**
@@ -38,6 +37,8 @@ const F4_MARKS: Mark[] = [
  * Kolo 52 (ako v kratkej verzii): karta navrhu z F2 (Nazov projektu, autor, rok) je pod oknom od zaciatku, pri prijati
  * prveho navrhu (klik pri "potvrdi") zozelenie a dostane fajku; po nej sa okno znova zvacsi (fotka ako dokaz, oprava).
  */
-const F4_PANELS: Panel[] = [{ from: -0.5, to: F4_TAPS[0].t + 1.6, node: <ValueCard approveAt={F4_TAPS[0].t} authorAt={0} yearAt={0} /> }];
+// kolo 56 (Samuel: na velkej obrazovke netreba drzat obdlznik s navrhom, ked sa potom aplikacia aj tak roztiahne): F4 bez karty,
+// okno je velke od zaciatku (navrh a potvrdenie su vidiet priamo v aplikacii, spot na hodnote a dotyk pri prijati)
+// povodne: const F4_PANELS: Panel[] = [{ from: -0.5, to: F4_TAPS[0].t + 1.6, node: <ValueCard approveAt={F4_TAPS[0].t} authorAt={0} yearAt={0} /> }];
 /** F4 zacina z bielej (F2 konci fade-om), sirsie okno sa objavi. */
-export const F4_Kontrola: React.FC = () => <DesktopFootageClip src="footage/f4-review.mp4" seconds={F4_SECONDS} steps={F4_STEPS} taps={F4_TAPS} marks={F4_MARKS} enter panels={F4_PANELS} />;
+export const F4_Kontrola: React.FC = () => <DesktopFootageClip src="footage/f4-review.mp4" seconds={F4_SECONDS} steps={F4_STEPS} taps={F4_TAPS} marks={F4_MARKS} enter />;

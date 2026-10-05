@@ -25,15 +25,15 @@
       {
         "from": 17.3,
         "to": 24.3,
-        "speed": 6,
-        "note": "spracovanie 10 -> 60 % (prechod na Kontroly, fotka) zrychlene"
+        "speed": 2.5,
+        "note": "spracovanie 10 -> 60 % (prechod na Kontroly, fotka); kolo 56: 2,5x (predtym 6x), priebeh bezi pod vetou namiesto statickej obrazovky"
       },
       {
         "from": 33.9,
         "to": 35.8,
-        "speed": 1.25,
-        "after": 3.3,
-        "note": "60 -> 100 % Kontrola pripravena (cakanie na 60 % 24,3-33,9 s vystrihnute, obrazovka rovnaka)"
+        "speed": 0.8,
+        "after": 1.4,
+        "note": "60 -> 100 % Kontrola pripravena (cakanie na 60 % 24,3-33,9 s vystrihnute, obrazovka rovnaka); kolo 56: 0,8x a po nom 1,4 s (predtym 1,25x a 3,3 s statickeho obrazu)"
       }
     ]
   },
@@ -81,14 +81,14 @@
       {
         "from": 0.5,
         "to": 2.5,
-        "before": 0.4,
-        "after": 0.9,
+        "before": 0.2,
+        "after": 0.3,
         "note": "fotka stitku a prvy navrh (Nazov projektu), pokoj"
       },
       {
         "from": 6.4,
         "to": 9.4,
-        "speed": 1.6,
+        "speed": 1.2,
         "fade": 0.25,
         "note": "lupa nad fotkou: overenie podla fotky"
       },
@@ -101,24 +101,25 @@
       {
         "from": 12.4,
         "to": 42.4,
-        "speed": 12,
+        "speed": 10,
         "note": "montaz dalsich prijati"
       },
       {
         "from": 42.4,
         "to": 50,
-        "speed": 1.6,
+        "speed": 1.4,
         "note": "oprava Cislo zmeny 1 -> 2 (ceruzka 43,6 s, pole Hodnota 44-48 s, Prijat upravu 48,15 s)"
       },
       {
         "from": 64.8,
-        "to": 67.6,
-        "speed": 1.2,
+        "to": 69.8,
+        "speed": 1.0,
         "fade": 0.3,
-        "after": 3.54,
-        "note": "Odoslat 66,6 s, Odosielanie kontroly"
+        "after": 0.6,
+        "note": "Odoslat 66,6 s, Odosielanie kontroly a zoznam Kontroly bez dalsich priloh (hotovo); kolo 56: do 69,8 s 1x namiesto 3,5 s zamrznuteho Odosielania"
       }
-    ]
+    ],
+    "note": "Kolo 56 (Samuel: footage sa zasekne a hlas ide dalej): kratsie drzanie fotky (0,2/0,3 s), lupa 1,2x, montaz 10x, oprava 1,4x, koniec az po zoznam Kontroly (hotovo) bez dlheho zamrznutia."
   },
   "f1-sken": {
     "src": "src/sken-1.mp4",

@@ -136,21 +136,20 @@
 <script>
   // Stav stranky: BUILD sa meni pri kazdom publikovani (kolo, cas renderu), zivy stav cita db dokument status/current.
   const BUILD = {
- "round": 55,
- "renderedAt": "2026-10-05T18:18:00Z"
+ "round": 56,
+ "renderedAt": "2026-10-05T18:45:00Z"
 };
   const FULL = {
- "len": 158.2,
- "cap": "ef1ca60e55d0a9221e28ffd621ae5b8d",
- "poster": "1571d929b8f71ea50d43d1bc4e180f28",
+ "len": 150.6,
+ "cap": "4d51ce2fba818623a172ec5ebe0e8614",
+ "poster": "4141c7063ddefe798f43ccf60fc2870a",
  "desc": "Tvrdé strihy medzi klipmi, hlas Gemini TTS (Velvet 1), titulky a od kola 37 hudba (Lyria, pod hlasom stíšená)."
 };
   const NEWS = [
- "Kolo 55: Háčik (36 až 44 s) má správne písmo. Klip sa renderoval bez písiem Manrope a Inter, preto nadpisy, titulky, počítadlo strán aj € išli náhradným písmom. Logo sa pohne do rohu až po zmiznutí sloganu a ikon, nadpis a stoh listov prídu až potom (logo už necestuje cez text ani cez stoh), sivé počítadlo naskočí od 5 strán.",
- "Kolo 54: dlhá verzia zladená s hotovou krátkou (LinkedIn 55,6 s). Kde obe hovoria to isté, má dlhá tie isté vety a obraz, navyše si nechala svoje detaily (Fotka v aplikácii, overenie a opravy, zvýraznenie v metadátach, rozsah nasadenia, Technické riešenie).",
- "Nové klipy: Háčik po logu („Naskenovať celý archív môže byť drahé. Naša aplikácia fotí len identifikačnú stranu.“: 328 strán za €€€ proti 1 strane za €), Výsledok (Aké dokumenty máte, Kde sa nachádzajú; Uchovať, Skartovať, Plnohodnotne skenovať) a Výzva („Začnime jednou krabicou, zadarmo a nezáväzne.“).",
- "Zmenené: „Predstavujeme Assetin Archives.“ (tvrdé t ako v krátkej), v sklade „Stačí bežný mobil.“, vyhľadávanie v poradí krátkej (najprv cesta k položke, potom údaje, bez kurzora, kamera počas posunu stojí), Ako začať „Buď katalogizujete sami, alebo vám archív spracujeme na kľúč.“ + rozsah nasadenia (licencia podľa rozsahu je na karte), na konci len „Assetin Archives.“ a akord. Vypadli veta o obhliadke a pilote a „Zistíte, čo máte v archíve a kde presne to leží.“",
- "Film 158,2 s (predtým 154,6 s), hudba rovnaká (variant F), tempo prispôsobené dĺžke. Krátka verzia sa nezmenila (overené pixelovo)."
+ "Kolo 56: úvod (Hľadanie) bez zastavenia obrazu. Panáčik v kancelárii vyhadzuje veci počas otázky ako v krátkej verzii, pri „Či už správu, výkres alebo protokol?“ vyskočia nad vyhodenými vecami ich názvy, do skladu sa prestrihne hneď po „protokol“ a „V sklade, na polici...“ zaznie pri prestrihu (o 1 s kratšie, bez 2,4 s státia).",
+ "Extrakcia (1:20) a kontrola (1:35): spracovanie beží pomalšie pod vetou namiesto statickej obrazovky, záznam už nestojí, kým hlas pokračuje (fotka drží kratšie, lupa a montáž pomalšie, na konci namiesto zamrznutého „Odosielania“ zoznam kontrol bez ďalších príloh). V kontrole už nie je karta s návrhom pod oknom, aplikácia je veľká od začiatku.",
+ "Výsledok: nová veta „Výsledok: spoľahlivo viete, aké dokumenty máte a kde presne sa nachádzajú.“ (ten istý hlas, vybraná z troch pokusov). Veta o rozsahu nasadenia (identifikačné strany alebo celé dokumenty) vypadla: skenovanie celých dokumentov prichádza až na základe katalogizácie, čo už hovorí Výsledok. Ostali karty Vlastnými silami a Služba na kľúč.",
+ "Film 150,6 s (predtým 158,2 s). Hudba bez opakovanej poslednej polfrázy, pokojná časť začne so scénou Sami alebo na kľúč, akord na konci ostáva. Kolo 55: správne písmo v Háčiku, logo do rohu až po slogane."
 ];
   const CLIPS = [
  {
@@ -164,10 +163,10 @@
  {
   "id": "C2-Hladanie",
   "name": "Hľadanie (kancelária → sklad)",
-  "len": 13.0,
-  "desc": "Kolo 51: bez vety „Vy viete, že tam niekde je.“ (ako v krátkej). Kolo 50: väčšie titulky, logo v rohu zarovnané s obsahom. Kolo 43: „V sklade, na polici, v krabici alebo v zložke.“ (doplnené „v“, veta nanovo). Kolo 42: zložky nepresvitajú, druhý otáznik rovnako dlho ako prvý.",
-  "cap": "f5ceb8652be8446394e57c3dda04611a",
-  "poster": "7d61b442c052f308ad5e47819c271e0a"
+  "len": 12.0,
+  "desc": "Kolo 56: bez zastavenia obrazu (predtým 2,4 s státia pri otvorenej skrini). Veci letia zo skrine počas otázky, pri „správu, výkres alebo protokol“ vyskočia ich názvy, prestrih do skladu hneď po vete a „V sklade, na polici...“ pri prestrihu; o 1 s kratšie. Kolo 51: bez vety „Vy viete, že tam niekde je.“ (ako v krátkej). Kolo 50: väčšie titulky, logo v rohu zarovnané s obsahom. Kolo 43: „V sklade, na polici, v krabici alebo v zložke.“ (doplnené „v“, veta nanovo). Kolo 42: zložky nepresvitajú, druhý otáznik rovnako dlho ako prvý.",
+  "cap": "adefaacb4e3c336a6d0c9da544126ffb",
+  "poster": "04e7fed87cf40edff9b3c61c64f83cbf"
  },
  {
   "id": "C4-Cena",
@@ -212,18 +211,18 @@
  {
   "id": "F2-Metadata",
   "name": "Footage: extrakcia metadát",
-  "len": 9.2,
-  "desc": "Kolo 53: ostrejší záznam (2x rozlíšenie), krúžky klikov končia pred strihom. Kolo 52: pri „a navrhne údaje“ karta pod oknom (Názov projektu, autor a rok pri svojich slovách) ako v krátkej, okno sa zmenší a ukáže fotku a priebeh spracovania. Kolo 51: „Aplikácia z fotky sama prečíta text a navrhne údaje, ktoré na nej nájde, napríklad názov projektu, autora alebo rok.“, kroky „Prečítať text“ a „Návrh údajov“. Kolo 50: záznam v okne na celú šírku, výrez s fotkou a priebehom spracovania, nadpis kroku hore vľavo. Kolo 33: hlas od 0,4 s, načítavanie zrýchlené (čakanie na 60 % vystrihnuté, spolu ~2 s namiesto ~6 s), kliky premerané (zaškrtnutie, Extrahovať metadáta, spustenie), prelínačky. Klip 8,3 s namiesto 13,7 s.",
-  "cap": "42ba46ff2f276e6c55e073b10f8ab420",
-  "poster": "693fffb89e450d2ffc4b464bb1d5e10e"
+  "len": 8.8,
+  "desc": "Kolo 56: spracovanie beží pomalšie pod vetou (2,5x a 0,8x namiesto 6x a 1,25x), bez 3,3 s statickej obrazovky na 100 % a bez zastavenia obrazu. Kolo 53: ostrejší záznam (2x rozlíšenie), krúžky klikov končia pred strihom. Kolo 52: pri „a navrhne údaje“ karta pod oknom (Názov projektu, autor a rok pri svojich slovách) ako v krátkej, okno sa zmenší a ukáže fotku a priebeh spracovania. Kolo 51: „Aplikácia z fotky sama prečíta text a navrhne údaje, ktoré na nej nájde, napríklad názov projektu, autora alebo rok.“, kroky „Prečítať text“ a „Návrh údajov“. Kolo 50: záznam v okne na celú šírku, výrez s fotkou a priebehom spracovania, nadpis kroku hore vľavo. Kolo 33: hlas od 0,4 s, načítavanie zrýchlené (čakanie na 60 % vystrihnuté, spolu ~2 s namiesto ~6 s), kliky premerané (zaškrtnutie, Extrahovať metadáta, spustenie), prelínačky. Klip 8,3 s namiesto 13,7 s.",
+  "cap": "e8d08b7d4e2eaee0a8accc29a560b945",
+  "poster": "036bb02c8bd0cdf065c46631010d4d2f"
  },
  {
   "id": "F4-Kontrola",
   "name": "Footage: kontrola metadát",
-  "len": 18.7,
-  "desc": "Kolo 54: rámik na navrhnutej hodnote drží až po potvrdenie. Kolo 53: ostrejší záznam, priblíženie najviac 1,3x, krúžok pri „Prijať úpravu“ na tlačidle (pred zmenou rozloženia). Kolo 52: karta návrhu z F2 pod oknom, pri prijatí prvého návrhu („potvrdí“) zozelenie, dostane fajku a štítok Potvrdené; potom je okno znova veľké. Kolo 51: krok „Návrh údajov“ (predtým „Návrh metadát“). Kolo 50: okno na celú šírku, pri každom zvýraznení (hodnota, fotka, oprava) priblíženie na to miesto, nadpis kroku hore vľavo. Kolo 40: jantárový rámik opravy končí pred kliknutím na „Prijať úpravu“ (48,2 s záznamu), kruh kliknutia na správnom mieste. Kolo 36: zvýraznenia ako rámik so stmaveným okolím.",
-  "cap": "c5eb7dbc86bdbcb02fe5724703157abb",
-  "poster": "97585013456a35ae522618a0b4d2bc66"
+  "len": 19.4,
+  "desc": "Kolo 56: bez karty návrhu pod oknom (aplikácia veľká od začiatku), fotka na začiatku drží kratšie, lupa a montáž pomalšie, na konci namiesto 3,5 s zamrznutého Odosielania zoznam kontrol bez ďalších príloh. Kolo 54: rámik na navrhnutej hodnote drží až po potvrdenie. Kolo 53: ostrejší záznam, priblíženie najviac 1,3x, krúžok pri „Prijať úpravu“ na tlačidle (pred zmenou rozloženia). Kolo 52: karta návrhu z F2 pod oknom, pri prijatí prvého návrhu („potvrdí“) zozelenie, dostane fajku a štítok Potvrdené; potom je okno znova veľké. Kolo 51: krok „Návrh údajov“ (predtým „Návrh metadát“). Kolo 50: okno na celú šírku, pri každom zvýraznení (hodnota, fotka, oprava) priblíženie na to miesto, nadpis kroku hore vľavo. Kolo 40: jantárový rámik opravy končí pred kliknutím na „Prijať úpravu“ (48,2 s záznamu), kruh kliknutia na správnom mieste. Kolo 36: zvýraznenia ako rámik so stmaveným okolím.",
+  "cap": "2c0cc9055bf34784f8801b64c3213ef4",
+  "poster": "010a1b5c61e0540860afa45587a651d1"
  },
  {
   "id": "F3-Vyhladavanie",
@@ -236,18 +235,18 @@
  {
   "id": "C8a-Vysledok",
   "name": "Výsledok",
-  "len": 10.0,
-  "desc": "Kolo 54 (nový, z krátkej verzie): „Výsledok: spoľahlivo viete, čo presne máte a kde to je.“: riadky Aké dokumenty máte a Kde sa nachádzajú sa pri „čo“ a „kde“ vyplnia tmavomodrou s fajkou. „Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať.“: dlaždice Uchovať (dlhodobo), Skartovať (menší sklad), Plnohodnotne skenovať (fulltextové vyhľadávanie) sa rozsvietia pri svojich slovách.",
-  "cap": "cab73d03c14ecbde3b014111c1271a56",
-  "poster": "aaa16e2d3369d0570146a082c3dad8d6"
+  "len": 11.1,
+  "desc": "Kolo 56: nová veta „Výsledok: spoľahlivo viete, aké dokumenty máte a kde presne sa nachádzajú.“, riadky sa vyplnia pri „aké“ a „kde“. Kolo 54 (nový, z krátkej verzie): „Výsledok: spoľahlivo viete, čo presne máte a kde to je.“: riadky Aké dokumenty máte a Kde sa nachádzajú sa pri „čo“ a „kde“ vyplnia tmavomodrou s fajkou. „Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať.“: dlaždice Uchovať (dlhodobo), Skartovať (menší sklad), Plnohodnotne skenovať (fulltextové vyhľadávanie) sa rozsvietia pri svojich slovách.",
+  "cap": "5038589f85809fc8af261821e63e0127",
+  "poster": "71abe9cb99b45dd579e0f33b48092780"
  },
  {
   "id": "C8-Pilot",
-  "name": "Sami alebo na kľúč, rozsah",
-  "len": 13.9,
-  "desc": "Kolo 54: „Buď katalogizujete sami, alebo vám archív spracujeme na kľúč.“ (ako v krátkej): karty Vlastnými silami (s našou aplikáciou, od pár šanónov; licencia podľa rozsahu) a Služba na kľúč (tmavomodrá); potom „V oboch prípadoch určíte rozsah nasadenia...“ s kartami Identifikačné strany a Celé dokumenty. Veta o obhliadke a pilote vypadla. Kolo 52: karty na celú šírku rámca (zarovnané s nadpisom a logom v rohu), väčšie písmo a ikony. Kolo 50: nadpis „Ako začať“ hore vľavo, prvý riadok kariet „Spracovanie archívu“ (ako v krátkej). Kolo 47: celý blok posunutý na stred plochy nad titulkami. Kolo 46: riadky farebne odlíšené - Ako začať biele karty so zelenou, Rozsah nasadenia svetlomodré karty s tmavomodrou. Kolo 45: dva riadky rovnakých kariet v tých istých stĺpcoch. Hore Ako začať: Služba na kľúč (obhliadka a pilot na krabici) a Softvér (licencia podľa rozsahu). Dole Rozsah nasadenia (v oboch prípadoch): Identifikačné strany (metadáta a poloha v archíve) a Celé dokumenty (skenovanie, fulltextové vyhľadávanie). Hlas: „V oboch prípadoch určíte rozsah nasadenia: len identifikačné strany, alebo skenovanie celých dokumentov s fulltextovým vyhľadávaním.“",
-  "cap": "688961e05254bd90833a3d39bde0cb9d",
-  "poster": "e3f8d50908618aecf44f1a75b1126c15"
+  "name": "Sami alebo na kľúč",
+  "len": 5.8,
+  "desc": "Kolo 56: veta o rozsahu nasadenia a karty Identifikačné strany / Celé dokumenty vypadli (skenovanie celých dokumentov prichádza až na základe katalogizácie, hovorí to Výsledok); ostali karty Vlastnými silami a Služba na kľúč v strede. Kolo 54: „Buď katalogizujete sami, alebo vám archív spracujeme na kľúč.“ (ako v krátkej): karty Vlastnými silami (s našou aplikáciou, od pár šanónov; licencia podľa rozsahu) a Služba na kľúč (tmavomodrá); potom „V oboch prípadoch určíte rozsah nasadenia...“ s kartami Identifikačné strany a Celé dokumenty. Veta o obhliadke a pilote vypadla. Kolo 52: karty na celú šírku rámca (zarovnané s nadpisom a logom v rohu), väčšie písmo a ikony. Kolo 50: nadpis „Ako začať“ hore vľavo, prvý riadok kariet „Spracovanie archívu“ (ako v krátkej). Kolo 47: celý blok posunutý na stred plochy nad titulkami. Kolo 46: riadky farebne odlíšené - Ako začať biele karty so zelenou, Rozsah nasadenia svetlomodré karty s tmavomodrou. Kolo 45: dva riadky rovnakých kariet v tých istých stĺpcoch. Hore Ako začať: Služba na kľúč (obhliadka a pilot na krabici) a Softvér (licencia podľa rozsahu). Dole Rozsah nasadenia (v oboch prípadoch): Identifikačné strany (metadáta a poloha v archíve) a Celé dokumenty (skenovanie, fulltextové vyhľadávanie). Hlas: „V oboch prípadoch určíte rozsah nasadenia: len identifikačné strany, alebo skenovanie celých dokumentov s fulltextovým vyhľadávaním.“",
+  "cap": "2c93850d79cac92f4ef92ddcd7468869",
+  "poster": "10ebada51418afdd9ce8162f38233143"
  },
  {
   "id": "C8b-Technika",
