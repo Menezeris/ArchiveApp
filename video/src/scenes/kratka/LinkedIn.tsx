@@ -1563,9 +1563,11 @@ const LI_Hook: React.FC = () => {
           const rot = (i - 2.5) * 2.2;
           const dx = (i - 2.5) * 9,
             dy = -i * 14;
-          const lx = top ? 480 * split : 0; // vrchny list ide doprava (o 480 px voci stohu, ktory ide dolava)
-          const ly = top ? -40 * split : 0;
-          const sc = top ? 1 + 0.1 * split : 1;
+          // kolo 49 (Samuel: list je posunuty hore a cenovka vytrca zo stranky): list ide doprava o 420 px (stred 752 px), ostava
+          // na vyske stohu (stred ~525 px, predtym o 40 px vyssie a 1,1x), zvacsi sa len 1,05x; cenovka visi na jeho pravom hornom rohu
+          const lx = top ? 420 * split : 0; // vrchny list ide doprava voci stohu, ktory ide dolava
+          const ly = top ? 30 * split : 0;
+          const sc = top ? 1 + 0.05 * split : 1;
           return (
             <div key={i} style={{ position: 'absolute', left: cx - w / 2 + dx + stackDx + lx, top: cy - h / 2 + dy + ly, width: w, height: h, opacity: top ? 1 : 1 - stackDim, transform: `rotate(${rot * (1 - (top ? split : 0))}deg) scale(${sc})`, transformOrigin: 'center', filter: 'drop-shadow(0 10px 22px rgba(15,23,42,0.14))' }}>
               {top ? (
@@ -1614,7 +1616,7 @@ const LI_Hook: React.FC = () => {
       ) : null}
       {/* stitok "1 strana" pod zdvihnutym listom */}
       {one > 0 ? (
-        <div style={{ position: 'absolute', left: cx + 250 - 220, top: 800, width: 440, textAlign: 'center', fontFamily: FONT.display, fontWeight: 800, fontSize: 48, letterSpacing: '-0.01em', color: BRAND[600], opacity: one, transform: `translateY(${(1 - one) * 12}px)`, whiteSpace: 'nowrap' }}>1 strana</div>
+        <div style={{ position: 'absolute', left: cx + 212 - 220, top: 800, width: 440, textAlign: 'center', fontFamily: FONT.display, fontWeight: 800, fontSize: 48, letterSpacing: '-0.01em', color: BRAND[600], opacity: one, transform: `translateY(${(1 - one) * 12}px)`, whiteSpace: 'nowrap' }}>1 strana</div>
       ) : null}
       {/* cenovka EUR EUR EUR pri "drahe"; pri "hospodarnejsi" zbledne a pri liste je zelena cenovka s jednym EUR */}
       {tag > 0 && tagOut < 1 ? (
@@ -1623,7 +1625,7 @@ const LI_Hook: React.FC = () => {
         </div>
       ) : null}
       {cheap > 0 ? (
-        <div style={{ position: 'absolute', left: 930, top: 300, opacity: Math.min(1, cheap * 1.4), transform: `rotate(8deg) scale(${1.9 * (0.7 + 0.3 * Math.min(1, cheap))})`, transformOrigin: 'left center' }}>
+        <div style={{ position: 'absolute', left: 858, top: 292, opacity: Math.min(1, cheap * 1.4), transform: `rotate(8deg) scale(${1.9 * (0.7 + 0.3 * Math.min(1, cheap))})`, transformOrigin: 'left center' }}>
           <PriceTag text="€" s={Math.min(1, cheap)} color={BRAND[600]} size={26} />
         </div>
       ) : null}

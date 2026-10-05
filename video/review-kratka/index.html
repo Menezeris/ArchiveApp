@@ -154,6 +154,16 @@
       <h2>LinkedIn verzia</h2>
       <p>Hore je kolo 34 (52 s), pod ním kolo 33 (50 s), kolo 32 (56 s), plná LinkedIn verzia 77 s (kolo 31, bez zmeny) a na porovnanie kolo 15. Staršie kolá sú nižšie v zbalenej časti.</p>
     </div>
+    <article class="film tallfilm" id="film-K49">
+      <div data-video="K49" data-shape="v45"></div>
+      <div class="info">
+        <div class="head"><h3>Kolo 49: zarovnanie háčika (56 s)</h3><span class="len" data-len="K49"></span></div>
+        <ul>
+          <li>0:10 až 0:16: zdvihnutý list je na výške stohu (bol o 40 px vyššie a väčší), zelená cenovka visí na jeho pravom hornom rohu a nevytŕča k okraju obrazu, "1 strana" pod stredom listu. Inak bez zmeny.</li>
+        </ul>
+        <div class="composer"><button type="button" data-role="compose" disabled>Pridať pripomienku</button><span class="result" aria-live="polite"></span></div>
+      </div>
+    </article>
     <article class="film tallfilm" id="film-K48">
       <div data-video="K48" data-shape="v45"></div>
       <div class="info">
@@ -631,9 +641,10 @@
 <div class="tip" id="tip" hidden></div>
 
 <script>
-  const BUILD = { renderedAt: "2026-10-05T07:30:00Z" };
+  const BUILD = { renderedAt: "2026-10-05T08:40:00Z" };
   // id assetov (videa a plagaty); prazdne = este sa nahrava
   const VIDEOS = {
+    K49: { cap: "2455e140109331204407df11d2f855fd", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 56.4 },
     K48: { cap: "6ae487d7d6acb37ee69381ca3e20e158", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 56.4 },
     K47: { cap: "5e37ae86d584abedeef42c6d46723993", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 56.4 },
     K46: { cap: "86d59b650b8049c8cf5eb0ae04dd9c6d", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 55.9 }, // kolo 46 (kluc L46 patri kolu 32, "verzia okolo 46 s"; v prvom publishi kola 46 bol duplicitny a riadok prehraval kolo 32)
@@ -695,7 +706,8 @@
     "Kolo 45 (59 s)": [7.19, 12.41, 11.91, 7.63, 19.83],
     "Kolo 46 (56 s)": [7.19, 9.33, 11.91, 7.63, 19.87],
     "Kolo 47 (56 s)": [7.19, 9.53, 11.91, 7.9, 19.87],
-    "Kolo 48 (56 s)": [7.59, 9.26, 10.77, 8.2, 20.6]
+    "Kolo 48 (56 s)": [7.59, 9.26, 10.77, 8.2, 20.6],
+    "Kolo 49 (56 s)": [7.59, 9.26, 10.77, 8.2, 20.6]
   };
   const SCRIPT = [
     ["C2", "Kedy ste naposledy nevedeli nájsť nejaký dokument?", "old", "C2, prvá veta"],
@@ -755,16 +767,16 @@
   ];
   const ASKS = [
     [
-        "Tempo",
-        "Cesta k položke 3,4 s, karta položky so žltou zhodou, kratšie ticho pred vetami, kancelária dlhšie. Sedí?"
+        "Háčik 0:10",
+        "List na výške stohu, cenovka na rohu listu. Sedí zarovnanie?"
     ],
     [
         "Logo 0:06 až 0:10",
         "Hlas \"Predstavujeme Assetin Archives.\" trvá 2,9 s, viac sa ubrať nedá. Nechať, alebo iná veta (napr. len \"Assetin Archives.\", -1,3 s)?"
     ],
     [
-        "Simulácia (kolo 45)",
-        "Námety: nadpis pri QR \"v skrini aj v sklade\", 0:24 až 0:26 dva podobné zábery formulára."
+        "Zlúčenie",
+        "Kolá 47 až 49 sú na vetve, do main po odsúhlasení."
     ]
   ];
   const blob = (id) => '/_blob/' + id;

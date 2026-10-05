@@ -11,11 +11,11 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
 - Dĺžka: okolo 75 s a k tomu 30 s teaser. Ponuku (C8) nechal na mňa.
 - Pôvodnú verziu nechytať, je to vstup. Hlas a hudbu negenerovať znova (existujúce nahrávky sa len strihajú).
 
-## Kde sme skončili (5. 10. 2026, kolo 48)
+## Kde sme skončili (5. 10. 2026, kolo 49)
 
 - Dve hotové videá, obe LinkedIn 4:5 (1080 x 1350), obe sa renderujú z toho istého projektu:
   - `video/out/kratka/K-LinkedIn_1080p.mp4` (76,8 s, kolo 31, kompozícia `K-LinkedIn`): plná krátka verzia, od kola 31 bez zmeny.
-  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (56,4 s, kolo 48, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
+  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (56,4 s, kolo 49, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
     otázka v kancelárii a prestrih do skladu, "Hľadanie môže trvať hodiny.", logo ("Predstavujeme Assetin Archives."), háčik
     "Naskenovať celý archív môže byť drahé. Naša aplikácia fotí len identifikačnú stranu." (logo z predstavenia odíde do
     pravého dolného rohu ako rohové logo, 328 strán proti 1 identifikačnej strane, nadpis "Katalogizácia: len identifikačná
@@ -24,8 +24,8 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
     hľadanie (slovo, cesta k položke, od "aj všetky vyčítané údaje" karta položky a posun k žltej zhode), výsledok "Výsledok:
     spoľahlivo viete, čo presne máte a kde to je." a "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať."
     (tmavomodré karty), "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč." (karty "od pár šanónov" / "aj celý
-    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 až 48 nižšie. Kolá 32 až 47 sú v `out/kratka/verzie/`. Kolá 32 až 46 sú zlúčené do `main`
-    (PR #23), kolá 47 a 48 sú na vetve.
+    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 až 49 nižšie. Kolá 32 až 48 sú v `out/kratka/verzie/`. Kolá 32 až 46 sú zlúčené do `main`
+    (PR #23), kolá 47 až 49 sú na vetve.
     Náhľady `*_preview_540p.mp4` vedľa. Staršie kolá 14 až 30 sú v `out/kratka/verzie/`. Pôvodná dlhá verzia (145 s, 16:9) sa nemenila.
 - Zdroj: kompozície `K-LinkedIn` a `K-LinkedIn-46` (zoznam klipov `LI_LIST_46` na konci súboru) v `src/scenes/kratka/LinkedIn.tsx` (spoločné dáta `Kratka.tsx`, klipy `src/kratkaList.ts`),
   scenár `src/copy/vo_kratka.json`, hlas `public/vo-kratka/`, hudba `src/copy/music_kratka.json` (variant `K`: hudba
@@ -49,6 +49,17 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
   - Krabica alebo box: posúdené v kole 24, odporúčanie nechať "krabica".
 - Gemini API (hlas aj hudba) naposledy vracalo 402, vyčerpaný predplatený kredit; nové vety čakajú na jeho dobitie.
 - Review stránka experimentu (odkaz hore) je súkromná, ostatní ju uvidia, až keď ju vlastník zdieľa cez Share.
+
+## Kolo 49 (5. 10. 2026): zarovnanie háčika (list a cenovka)
+
+Samuel (ku kolu 48): v 0:10 pri "len identifikačná strana" je grafika posunutá hore a cenovka s € vytŕča zo stránky.
+
+- Zdvihnutý list bol o 40 px vyššie a 1,1x väčší než stoh (vrch 216 px pri stohu 290 px) a zelená cenovka na x 930 visela cez
+  jeho pravý okraj až po 1 065 px (okraj obrazu 1 080). Teraz: list ide doprava o 420 px (bolo 480), ostáva na výške stohu
+  (stred asi 525 px), zväčší sa len 1,05x; cenovka visí na jeho pravom hornom rohu (x 858, y 292, končí asi 1 010 px); štítok
+  "1 strana" pod stredom listu. Bez zmeny dĺžky (56,4 s), hudba bez zmeny.
+- Kontroly: still 15,8 s (list a stoh na jednej výške, cenovka na rohu s rezervou od okraja), mriežka háčika 13 až 16,5 s.
+- Kolo 48 je uložené v `out/kratka/verzie/K-LinkedIn-46_kolo48_56s_*.mp4` a v commite `82973bc`.
 
 ## Kolo 48 (5. 10. 2026): tempo podľa simulácie divákov v normálnej a polovičnej rýchlosti
 
