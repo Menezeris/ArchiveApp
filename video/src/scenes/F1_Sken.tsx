@@ -6,7 +6,9 @@ import { loadFonts } from '../lib/fonts';
 import { phases } from '../copy/sk';
 import { cutDuration, cutTime } from '../lib/cuts';
 import { voAt } from '../components/Subtitles';
-import { BRAND, FONT, INK } from '../theme';
+import { BRAND } from '../theme';
+import { StepLabel } from '../components/Frame16';
+import { C5_TITLE_LEFT } from './C5_Teren';
 
 /**
  * F1 - Footage: sken prveho stitku v appke (screen recording z mobilu).
@@ -21,16 +23,22 @@ export const F1_SECONDS = cutDuration('f1-sken'); // zostrih podla src/footage/c
 const SRC_W = 884,
   SRC_H = 1920;
 
-export type Tap = { t: number; x: number; y: number }; // s, podiel sirky/vysky celeho zaznamu
+export type Tap = { t: number; x: number; y: number; d?: number }; // s, podiel sirky/vysky celeho zaznamu; d = trvanie kruzku (ms, predvolene 550)
 export type Step = { from: number; title: string; line?: string }; // s
 /** Zvyraznenie (kolo 33 fixka, kolo 36 spot: ramik + stmavene okolie): s, podiely celeho zaznamu; sweep sa uz nepouziva. */
 export type PhoneMark = { from: number; to: number; x: number; y: number; w: number; h: number; sweep?: number };
 
-/** Kolo 33: kliky premerane na zazname 1206 x 2622 (podiely), casy zdroja. */
+/**
+ * Kolo 33: kliky premerane na zazname 1206 x 2622 (podiely), casy zdroja.
+ * Kolo 53 (Samuel: dotyky na displeji su mimo): kruzok kliku presiel cez prelinacku do dalsej obrazovky (Dalej 1,7 s je
+ * az po zaciatku prelinacky do fotoaparatu, Use Photo 9,9 s uz na formulari) a spust bola o 0,35 s neskor ako bliknutie
+ * iOS (8,583 s zdroja, ako v kratkej verzii kolo 23). Kruzky su teraz na obrazovke, ktorej patria, a skoncia pred strihom;
+ * Use Photo bez kruzku (tlacidlo nie je v orezanom displeji vidiet).
+ */
 const F1_TAPS: Tap[] = [
-  { t: cutTime('f1-sken', 1.7), x: 0.887, y: 0.791 }, // Dalej
-  { t: cutTime('f1-sken', 8.9), x: 0.5, y: 0.824 }, // spust
-  { t: cutTime('f1-sken', 9.9), x: 0.86, y: 0.916 }, // Use Photo
+  { t: cutTime('f1-sken', 1.15), x: 0.887, y: 0.791, d: 420 }, // Dalej (prelinacka do fotoaparatu od 1,46 s zdroja)
+  { t: cutTime('f1-sken', 8.55), x: 0.5, y: 0.824 }, // spust (bliknutie iOS 8,583 s)
+  // Use Photo (9,9 s) bez kruzku: tlacidlo je pod orezom displeja (lista Safari), kruzok bol na prazdnom mieste
 ];
 /** Kroky podla hlasu (casti vety vo vo.json): typ, zaradenie do hierarchie, fotka, zaznam. */
 const voS = (k: number) => voAt('F1-Sken', 0, k) / 1000;
@@ -69,12 +77,11 @@ export const FootageClip: React.FC<{ src: string; seconds: number; taps?: Tap[];
   const videoW = screenW;
   const videoH = (videoW * SRC_H) / SRC_W;
   const videoLeft = 0;
-  const stepIdx = Math.max(0, steps.findIndex((s, i) => ms / 1000 >= s.from && (i === steps.length - 1 || ms / 1000 < steps[i + 1].from)));
 
   return (
     <AbsoluteFill style={{ background: '#fff' }}>
       {panelOnly ? null : (
-      <PhoneFrame at={PHONE}>
+      <PhoneFrame at={PHONE} screenBg="#000">{/* kolo 50: cierne pozadie displeja (bez bielych rohov), ako v kratkej */}
         <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#fff' }}>
           {/* footage orezane o systemove listy: video sirsie o crop, posunute hore */}
           <div style={{ position: 'absolute', left: videoLeft, top: -crop.top * videoH, width: videoW, height: videoH }}>
@@ -87,7 +94,7 @@ export const FootageClip: React.FC<{ src: string; seconds: number; taps?: Tap[];
             })}
             {/* tapy: jemny zeleny kruh, ktory sa rozsiri a zmizne */}
             {taps.map((tp, i) => {
-              const t = tw(tp.t * 1000, 550);
+              const t = tw(tp.t * 1000, tp.d ?? 550);
               if (t <= 0 || t >= 1) return null;
               const r = 18 + 70 * t;
               return (
@@ -100,28 +107,8 @@ export const FootageClip: React.FC<{ src: string; seconds: number; taps?: Tap[];
       </PhoneFrame>
       )}
 
-      {/* sprievodny text vpravo */}
-      <div style={{ position: 'absolute', left: 960, top: 0, width: 800, height: 1080, display: 'flex', flexDirection: 'column', justifyContent: 'center', opacity: textIn, transform: `translateX(${(1 - textIn) * 40}px)` }}>
-        {steps.map((s, i) => {
-          const on = i === stepIdx ? 1 : 0;
-          const inT = settle(frame, s.from * 1000);
-          return (
-            <div key={i} style={{ position: 'absolute', left: 0, right: 0, opacity: on * inT, transform: `translateY(${(1 - inT) * 16}px)` }}>
-              <div style={{ fontFamily: FONT.body, fontWeight: 600, fontSize: 24, letterSpacing: '0.14em', textTransform: 'uppercase', color: BRAND[600], marginBottom: 18 }}>
-                {phases.teren}
-              </div>
-              <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 64, lineHeight: 1.05, color: INK[900], letterSpacing: '-0.02em', marginBottom: 18 }}>{s.title}</div>
-              {s.line ? <div style={{ fontFamily: FONT.body, fontWeight: 400, fontSize: 34, lineHeight: 1.35, color: INK[500], maxWidth: 640 }}>{s.line}</div> : null}
-              {/* body krokov */}
-              <div style={{ display: 'flex', gap: 10, marginTop: 36 }}>
-                {steps.map((_, k) => (
-                  <div key={k} style={{ width: k <= i ? 34 : 12, height: 12, borderRadius: 6, background: k <= i ? BRAND[500] : INK[200] }} />
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      {/* kolo 50: nadpis kroku hore nad stlpcom titulkov (StepLabel, ako v celom filme), bez nazvu fazy a bodiek */}
+      <StepLabel frame={frame} steps={steps.map((s) => ({ from: s.from * 1000, title: s.title }))} left={C5_TITLE_LEFT} opacity={textIn} />
 
       <AbsoluteFill style={{ background: '#fff', opacity: fadeOut, pointerEvents: 'none' }} />
     </AbsoluteFill>

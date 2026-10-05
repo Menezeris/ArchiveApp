@@ -8,7 +8,7 @@ export const captions = {
   C3b: 'Je to niekde tam.',
   C4a: 'Hľadanie trvá dlhšie než nové vyhotovenie.',
   C4: 'Zaplatené dvakrát za tú istú dokumentáciu.',
-  C4brand: 'Digitálna katalogizácia archivovanej dokumentácie',
+  C4brand: 'Digitálny poriadok v papierovom archíve', // kolo 49: slogan z kratkej verzie (predtym 'Digitálna katalogizácia archivovanej dokumentácie')
   C5: 'Nalepiť QR, odfotiť. Celá práca v teréne.',
   C6: 'Text z fotky rozpozná a navrhne údaje.',
   C7: 'Každá položka má svoje miesto.',
@@ -32,7 +32,8 @@ export const pilot = {
 
 /** C8 (kolo 42): dve ponuky - sluzba na kluc (hlavna) a softver. */
 export const offer = {
-  kicker: 'Ako začať',
+  heading: 'Ako začať', // kolo 50: nadpis kroku hore vlavo (StepLabel)
+  kicker: 'Spracovanie archívu', // kolo 50: riadok sluzba / softver (nazov ako nadpis v kratkej verzii), predtym 'Ako začať'
   // kolo 44: karty s rovnakou stavbou (ikona, nazov, popis, jeden krok); kolo 45: pod nimi rovnaky riadok "Rozsah nasadenia"
   service: { title: 'Služba na kľúč', desc: 'Celý archív spracujeme za vás.', step: 'Obhliadka a pilot na krabici' },
   software: { title: 'Softvér', desc: 'Katalogizujete vlastnými silami.', step: 'Licencia podľa rozsahu' },

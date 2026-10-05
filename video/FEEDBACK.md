@@ -540,3 +540,128 @@ Samuel: Marek po pridaní nevie pridávať pripomienky („Pripomienky sa z toht
 
 - Príčina: plná verzia `comments` (vlastné pole a odoslanie zo stránky) sa hosťom pozvaným e-mailom a návštevníkom cez odkaz nedáva, `claude.use("comments")` im vráti `null`.
 - Oprava: `comments: {"composer_only": true}`; pri klipe aj pri celom filme je tlačidlo „Pridať pripomienku“, ktoré otvorí okno komentára claude.ai ukotvené na klip. Ak ani to nejde (hosť nemá prístup komentovať), stránka povie, že treba prístup s komentovaním v Share. Hodinová kontrola číta vlákna ako doteraz.
+
+
+## Kolo 49 (30. 9. 2026): značka ako v krátkej LinkedIn verzii
+
+Samuel: dlhú verziu spraviť obdobne ako krátku LinkedIn verziu (vetva `claude/video-assets-archives-exp-la1hts`, `EXPERIMENT-KRATKA.md`), len dlhšiu a s presnejšími detailmi; preniesť logá, farby, písmo, orezania a upravené slovosledy, aby boli obe verzie značkovo konzistentné. Rozhodnutia: slogan z krátkej, vety z krátkej s detailmi dlhej, rámec obrazu krátkej na 16:9, pojem ostáva „identifikačná strana“. Plán v troch kolách: 49 značka, 50 rámec obrazu a orezy, 51 vety a hlas.
+
+Vetva `claude/magical-davinci-j440nt` stojí na hlave experimentu (kolo 30 krátkej), takže logá, `scenes/kratka/archivesLogo.ts` a hotové vety krátkej sú k dispozícii; `scenes/kratka/*` sa nemení. Kontrola: 8 snímok K-LinkedIn je po zmenách pixelovo zhodných s hlavou experimentu.
+
+- Nový `src/components/ArchivesBrand.tsx`: `Lockup` (oficiálne dvojriadkové logo domček | assetin nad ARCHIVES z `podklady/archives-logo-final`, verzie `color` / `inverse` / `onGreen`, skladanie `build` ako v krátkej), `CornerBrand` (logo v rohu), `FreePill` (pre C8 v kole 50).
+- Logo v pravom dolnom rohu počas celého filmu okrem intra, veľkého loga v C4 a záveru (`brand` v `paced`, vykresľuje `Paced`): 60 px, účiara ARCHIVES 40 px od spodku, 72 px od pravého okraja; na tmavom (C2, začiatok C4) verzia na tmavomodrú. Nahrádza pätu (domček, assetin, Archives, web), ktorá z `Scene` vypadla.
+- Titulky o 10 px vyššie (916 px), v F1 končia pred stĺpcom loga (vpravo 330 px), aby sa nebili s logom.
+- C1: namiesto textového lockupu (assetin/.space | Archives) oficiálne logo na tmavomodrej, skladá sa, potom priblíženie do navy ako doteraz. 3,6 s.
+- C4: prechod do loga zelený a za ním biely pás zdola nahor (800 ms, mäkká hrana) namiesto bielej prelínačky; oficiálne logo (200 px) sa poskladá, keď biela prejde jeho miesto; slogan „Digitálny poriadok v papierovom archíve“ sivou vetou (Inter 500, 40 px) namiesto zelených kapitálok. Titulky svetlé do 11,4 s (biela zdola). Krátka verzia (`brand = false`) má bielu prelínačku ako doteraz.
+- C9: logo vo verzii na zelenú (celé biele, 210 px), slogan Manrope 600 `BRAND[100]`, web v obrysovej pilulke ako v krátkej, pod ňou firma; malá značka a čiara vypadli (domček je v logu).
+- Slogan (`captions.C4brand`) je „Digitálny poriadok v papierovom archíve“ (predtým „Digitálna katalogizácia archivovanej dokumentácie“).
+- `scripts/stills-fast.mjs`: stills viacerých klipov jedným bundlom (`node scripts/stills-fast.mjs C4-Cena:330,420 C9-Outro:40`).
+
+
+## Kolo 50 (30. 9. 2026): rámec obrazu ako v krátkej verzii
+
+Pokračovanie plánu z kola 49 (rámec krátkej verzie prenesený na 16:9). Nový `src/components/Frame16.tsx` (`FRAME`, `APP_WIN`, `StepLabel`, `footViewAt`, `autoViews`).
+
+- Nadpis kroku hore vľavo (Manrope 800, 56 px, 44 px od vrchu, vľavo 120 px) namiesto pravého panelu s názvom fázy, nadpisom a bodkami postupu (F2, F3, F4, C6, C10). V C5 a F1 je nad stĺpcom vpravo od mobilu (vľavo 900 px, ako titulky F1). C8 má hore nadpis „Ako začať“, prvý riadok kariet sa volá „Spracovanie archívu“ (ako nadpis v krátkej), druhý „Rozsah nasadenia“ bez zmeny.
+- Okno aplikácie `APP_WIN` na celú šírku rámca (120 až 1800 px, 128 až 880 px), zarovnané s nadpisom a s logom v rohu. C6 aj C10 prechádzajú presne do neho.
+- Priblížený záznam ako `LiFootage` v krátkej: záznam je v okne ako výrez zdroja, pri každom zvýraznení (spot) sa okno plynulo priblíži na jeho oblasť (najviac na 1000 px zdroja, ~1,7x) a potom sa vráti na celkový pohľad (`autoViews`). Rámik spotu a kliky sú v px okna. F2 má výrez nižšie (fotka a priebeh spracovania).
+- Titulky 50 px, Manrope 700 (ako veľké titulky krátkej), y 900 px; logo v rohu 56 px, vpravo 120 px (zarovnané s oknom), účiara ARCHIVES 36 px od spodku. V F1 titulok končí pred stĺpcom loga.
+- F1: čierne pozadie displeja mobilu (bez bielych rohov), ako v krátkej.
+- Úvod C2: plošiny kancelárie a skladu majú v dlhej verzii rohy v obraze už teraz (prechody boli len v krátkej), bez zmeny.
+- Zatiaľ neprenesené (na posúdenie): prekreslené karty údajov pod oknom (Názov projektu, hľadané slovo, cesta k položke) a výrezy ručne podľa hlasu (teraz automaticky podľa zvýraznení); zelená pilulka „Zadarmo a nezáväzne“ pri pilote v C8 (v hlase dlhej verzie „zadarmo“ nie je).
+
+
+## Kolo 51 (30. 9. 2026): vety a hudba ako v krátkej verzii
+
+Posledná časť plánu z kola 49 (Samuel: vety prevziať z krátkej, kde hovoria to isté, dlhá si nechá detaily; pojem „identifikačná strana“ ostáva). Nová je len jedna veta (Gemini, rovnaký hlas), ostatné sú vystrihnuté z hotových nahrávok krátkej a dlhej verzie (`src` vo `vo.json`, `scripts/kratka_lines.py --script src/copy/vo.json --dir public/vo`, pôvodné vety dlhej v `public/vo/orig51/`).
+
+| Klip | Predtým | Teraz |
+|---|---|---|
+| C2 | „Vy viete, že tam niekde je. V sklade, na polici, v krabici alebo v zložke.“ | „V sklade, na polici, v krabici alebo v zložke.“ (na tom istom mieste) |
+| C4 | „Bez jasného systému trvá hľadanie hodiny. ...“ | „Hľadanie môže trvať hodiny.“ + veta o novom vyhotovení a platení dvakrát (detail dlhej) |
+| C4 | – | pred logom „S nami ho nájdete za pár sekúnd.“ (10,35 s) |
+| C4 | „Predstavujeme vám softvérové riešenie katalogizácie Assetin Archives.“ | „Predstavujeme vám Assetin Archives. Z vášho archívu urobíme prehľadný digitálny katalóg.“ (prepis „aset in árchajvs“ ako v kole 47); logo drží o 2,47 s dlhšie (`H_MAIN` 6250) |
+| C5 | „Riešenie začína fyzickými dokumentami. Jedinečný QR kód sa prilepí na každú položku a mobilom sa odfotí jej identifikačná strana.“ | „Riešenie začína fyzickými dokumentami. Každá položka, či už polica, krabica, šanón alebo zložka, dostane QR kód, podľa toho, ako máte archív usporiadaný. Mobilom potom odfotíme jej identifikačnú stranu.“ (posledná veta nová); pauzy 3800 a 4350 ms, nálepky letia pri „šanón alebo zložka“, mobil pri „Mobilom“ |
+| C6 | „Fotku ďalej spracuje aplikácia.“ | bez vety (F2 hneď povie, čo aplikácia s fotkou urobí) |
+| F2 | „Najprv aplikácia rozpozná text ..., potom navrhne metadáta: autora, názov projektu, rok.“ | „Aplikácia z fotky sama prečíta text a navrhne údaje, ktoré na nej nájde, napríklad názov projektu, autora alebo rok.“ (pauza 900 ms na konci) |
+| F3 | „Stačí zadať kľúčové slovo.“ + „Aplikácia záznam nájde ...“ + „Ľudsky čitateľná cesta ...“ | „Potom stačí napísať kľúčové slovo a aplikácia ukáže údaje o konkrétnej položke... aj cestu k nej.“ + „Kľúčové slovo sa zvýrazní v metadátach záznamu.“ (detail dlhej); nový spot na nájdenom zázname ZL_03 |
+| F4 | bez zmeny (vety o overení, dôkaze a opravách sú detail dlhej) | |
+
+- Kroky: F2 „Prečítať text / Návrh údajov“, F4 „Návrh údajov“, F3 „Napísať kľúčové slovo / Údaje o položke / Cesta k položke / Zvýraznené v metadátach“. Nadpis v C5 a F1 o 100 px ďalej vpravo (dotýkal sa veka krabice).
+- Hudba: `bed.wav` poskladaný `scripts/music_edit.py` (variant `D` v `src/copy/music.json`) na mriežke 105 BPM z krátkej verzie: bez taktov -4 a -3 ako doteraz, polfráza 8-11 dvakrát (+9,1 s pod dlhší film), na začiatku bez iskier ako v krátkej (ticho do 2,27 s, výšky 2,2 až 5,3 s o 24 dB tichšie). Full: `node scripts/mix-music.mjs --variant D --music public/music/bed_dlha_edit.wav`, tempo 0,9974, nástup kapely 25,2 s (2,6 s pred zeleným prechodom na logo ako doteraz).
+- Film 154,3 s (predtým 145,2), -16 LUFS. Krátka verzia overená, 8 kontrolných snímok pixelovo zhodných.
+- Otvorené na posúdenie: prekreslené karty údajov pod oknom a pilulka „Zadarmo a nezáväzne“ v C8 (z kola 50); slide o bezpečnosti a infraštruktúre z krátkej („Technické riešenie“) v dlhej nie je.
+
+
+## Kolo 52 (1. 10. 2026): zvyšok obrazu krátkej verzie, slide Technické riešenie
+
+Samuel: porovnať, čo ešte nesedí s krátkou verziou, a opraviť. Porovnanie snímok Full kola 51 a K-LinkedIn kola 30: značka a rámec už sedeli, chýbali grafické prvky krátkej (hlas bol rovnaký, obraz chudobnejší) a tri miesta nesedeli s rámcom z kola 50. Rozhodnutia: body 1 až 7 áno, slide „Technické riešenie“ áno, pilulka „Zadarmo a nezáväzne“ nie.
+
+- Nové `src/components/ArchivesIcons.tsx` (HIcon, QrBadge, OfferIcon skopírované z krátkej) a `src/components/AppCards.tsx` (ValueCard, SearchCard, ItemCard, DocPath na šírku okna 16:9, pás `PANEL` 200 px).
+- C4: pod logom a sloganom ikony Váš archív → Digitálny katalóg pri slovách „archívu“, „urobíme“, „prehľadný“ (čas výstupu, `useOutputFrame`); logo o 70 px vyššie (280 px). Krátka verzia (`brand = false`) bez zmeny.
+- C5: vpravo od krabice rad Polica, Krabica, Šanón, Zložka (ikona pri svojom slove, QR nálepka pri „dostane QR kód“, dva príklady usporiadania), odíde pred vetou o mobile. Len dlhá verzia (`C5_TerenMain`, prop `hierarchy`).
+- `DesktopFootageClip` má `panels`: počas karty sa okno plynulo zmenší o 220 px (spodok 660 px), karta je 680 až 880 px; výrezy `autoViews` sú počítané pre menšie okno.
+  - F2: pri „a navrhne údaje“ karta Názov projektu, autor a rok pri svojich slovách; výrez pred kartou celý spodok záznamu, s kartou fotka a priebeh (`F2_VIEWS`).
+  - F4: tá istá karta od začiatku, pri prijatí návrhu (5,5 s) zozelenie s fajkou a štítkom Potvrdené, potom okno znova veľké.
+  - F3: hľadané slovo (píše sa 1,0 až 2,1 s ako v zázname), karta ZL_03 so zvýrazneným „vodovod“, cesta PL_01 → KR_01 → ZL_03 pri „aj cestu k nej“; pri vete o metadátach okno veľké.
+- C8: karty na šírku rámca (120 až 1800 px, stĺpce 810 px), väčšie písmo a ikony. C10: okno od začiatku `APP_WIN`, karty väčšie. C6: 2 s, nadpis od začiatku.
+- Nový klip `C8b-Technika` (8,6 s) za C8: zelený pás Bezpečne, pod ním Online u nás alebo Na vašej infraštruktúre, karta pri svojom slove zelená. Veta „Aplikácia funguje v súlade s vašimi bezpečnostnými požiadavkami, online u nás alebo na vašej infraštruktúre.“ je z nahrávky krátkej (`src` K-C8-Ponuka-2.wav), bez Gemini.
+- Hudba: variant `E` v `music.json` (D + polfráza 40-43 dvakrát, +4 takty), `bed_dlha_edit_e.wav`, tempo 1,0067. Film 162,0 s (predtým 154,3), -16 LUFS. Krátka verzia overená, 8 kontrolných snímok pixelovo zhodných.
+
+
+## Kolo 53 (1. 10. 2026): ostrosť, dotyky, bez Exportu a Analýzy, hudba na začiatku a konci
+
+Samuel: „Príde mi to teraz rozmazané a málo ostré. Hudba nesedí, na začiatku sa to hneď rozbije. To, kde klikáme (dotyky na displeji), je mimo. Celé to s exportom a analýzou vyhoď, prosto hneď ideme na kľúčové slovo a vyhľadávanie. Hudba skončí skôr ako video. Oprav všetko.“
+
+- Ostrosť: záznamy aplikácie sú 1920 x 1032 s nízkym bitrate, orez 1764 x 882 je natívne rozlíšenie a od kola 50 sa okno približovalo až 1,7x (prehliadač zväčšoval bilineárne). Teraz `cuts.json` `up: 2` (f2, f3, f4): `scripts/cut-footage.mjs` robí zostrihy v dvojnásobnom rozlíšení (lanczos + jemný unsharp, crf 14), okno sa len zmenšuje; `autoViews` najviac 1,3x (minW 1300). Full sa už nekóduje druhýkrát (`mix-music.mjs` spája klipy `-c:v copy`).
+- Dotyky: krúžky (550 ms) prechádzali cez prelínačku do ďalšej obrazovky. F1: Ďalej pri 1,15 s zdroja (prelínačka do fotoaparátu od 1,46 s), spúšť pri bliknutí iOS 8,55 s (predtým 8,9 s), Use Photo bez krúžku (tlačidlo je pod orezom displeja). F2 a F4: `Tap.d` a `Tap.lead`, krúžok začne 0,1 s pred klikom a skončí pred strihom; „Prijať úpravu“ pred zmenou rozloženia (48,23 s zdroja).
+- C10 (Export, Analýza, Vyhľadávanie) vypadol zo `SCENE_LIST`, F3 ide hneď po F4 a okno sa objaví z bielej (`enter`).
+- Hudba (variant `F`, `music.json`): takty ako pred kolom 51 (8-11 len raz), na konci polfráza 48-51 dvakrát. Začína klavírom od 0 s (bez ticha do 2,27 s: prvý akord v tichom intre C1 nastúpil skokom), iskry nad 4-6 kHz o 20 dB tichšie v 1,1-20,4 s. `music_level.py` má `--rise` (zosilnenie rastie najviac 2,5 dB/s) a `--peak` (špička pod -3 dBFS), max +10 dB (predtým +15 dB skokom po prvom akorde). Stíšenie pod hlasom attack 150 ms a release 800 ms (`duck`).
+- Koniec: skladba Lyria končí useknutím bez záverečného akordu. `music_edit.py` má `coda`: za posledný takt je prvý akord skladby (2,1-8,1 s zdroja) so stíšením. `end` = úder + 2,4 s, `endPad` 0,05 s, `fadeOut` 0,5 s. C9 je o 1,7 s dlhší (9,0 s), akord udrie po poslednom slove a dozvie na logu. Zvuk končil ~1 s pred obrazom (`amix duration=first`), teraz `duration=longest` + `atrim` a hlas doplnený tichom (`apad`).
+- Kontrola posluchom (Gemini 3.1 Pro, ako test divákov): začiatok „plynulý, čistý, bez skoku a skreslenia“, koniec „akord doznieva presne s koncom videa“.
+- Film 154,6 s, -15,7 LUFS. Krátka verzia overená, 8 kontrolných snímok pixelovo zhodných.
+
+## Kolo 54 (5. 10. 2026): dlhá verzia zladená s hotovou krátkou (K-LinkedIn-46)
+
+Samuel: "Na základe nášho krátkeho videa, ktoré už vzniklo, treba upraviť dlhé, aby sedelo rovnako, a vhodne ho doplniť." Rozhodnutia: koniec ako v krátkej plus detaily dlhej, výzva ako v krátkej (so "zadarmo a nezáväzne", mení kolo 52), háčik za logom a v C5 "Stačí bežný mobil.", veta krátkej o tom, kto archív spracuje, plus veta o rozsahu, licencia len na karte.
+
+- `main` zlúčený do vetvy (kompozícia `K-LinkedIn-46`, zostrihy `k46-*`, `hide-cursor.py`, `Sheet` s `qrAt`, `PriceTag`). Krátke verzie K aj K46 sú pixelovo zhodné so stavom v `main` (25 kontrolných snímok, `scenes/kratka/*` ani `vo_kratka.json` sa nemenili).
+- Nové poradie: C1, C2, C4, **C4b-Hacik**, C5, F1, C6, F2, F4, F3, **C8a-Vysledok**, C8, C8b, **C8c-Vyzva**, C9. Film 158,2 s (predtým 154,6 s).
+
+| Klip | Hlas | Obraz |
+|---|---|---|
+| C4 | "Predstavujeme Assetin Archives." (K46, tvrdé t) + "Z vášho archívu urobíme prehľadný digitálny katalóg." (výrez z K-C4-Cena-1) | ikony Váš archív -> Digitálny katalóg pri slovách, logo ostane na mieste (`C4_CenaMain`) |
+| C4b-Hacik (nový) | K46-Hook-0 a -1 | port `LI_Hook` na 16:9: logo sa zmenší do rohu, stoh 328 strán a €€€, identifikačná strana, 1 strana a € |
+| C5 | tretia veta "Stačí bežný mobil." (K46-C5-Teren-1) | ikony usporiadania odídu pred mobilom, krabica z bielej (`enter`) |
+| F3 | K46-F3 "Potom stačí napísať kľúčové slovo. Aplikácia ukáže cestu k položke aj všetky vyčítané údaje." + "Kľúčové slovo sa zvýrazní v metadátach záznamu." | poradie K46: pole Hľadať, DocPath pri "cestu k položke", ItemCard pri "údaje"; bez kurzora (`hide-cursor.py --scale 2`), kamera počas posunu stojí |
+| C8a-Vysledok (nový) | K46-Vysledok-0 a -1 | riadky Aké dokumenty máte / Kde sa nachádzajú, dlaždice Uchovať / Skartovať / Plnohodnotne skenovať |
+| C8 | K46-Kto-0 + veta o rozsahu nasadenia | KtoCard Vlastnými silami (licencia podľa rozsahu na karte) a Služba na kľúč, pod nimi rozsah |
+| C8c-Vyzva (nový) | K-C8-Ponuka-3 "Začnime jednou krabicou, zadarmo a nezáväzne." | krabica s QR, pilulka Zadarmo a nezáväzne, web |
+| C9 | len "Assetin Archives." | bez zmeny, akord dozvie na logu |
+
+- Vypadli: "Mobilom potom odfotíme jej identifikačnú stranu." (C5), veta o obhliadke a pilote (C8), "Zistíte, čo máte v archíve a kde presne to leží." (C9).
+- Nové spoločné súbory pre 16:9: `components/ArchivesClose.tsx` (VysRow, VysTile, VysIcon, KtoCard, FirstStep), `DocPath` s `stepsAt`. `hide-cursor.py` má `--scale N` (zostrihy `up: 2`).
+- Hudba: variant F bez zmeny, `mix-music.mjs` prispôsobí tempo dĺžke filmu (0,9836). Akord udrie po "Assetin Archives." a dozvie do konca. -15,7 LUFS, true peak -1,5 dBFS.
+- Kontrola posluchom (Gemini 3.1 Pro, po 40 s úsekoch, celý súbor naraz vracal 502): všetky vety celé a zrozumiteľné, nič sa neopakuje za sebou, "Assetin" znie "asetin" (tvrdé t), hudba bez skoku, akord dozvie do konca. Gemini upozornil, že "fotí len identifikačnú stranu" (Háčik, 40 s) a "Potom odfotíme jej identifikačnú stranu." (F1, 69 s) hovoria podobnú vec asi o 30 s neskôr. F1 je ukážka v mobile a ostala podľa plánu, na zváženie.
+- Mriežka snímok: počítadlo v háčiku skloňuje (1 strana, 2 až 4 strany, 5 a viac strán), koniec F3 už neodreže stĺpec popisov.
+- Neurobené z plánu: ceruzka na karte F4 (oprava v zázname je v inom poli, Číslo zmeny, ktoré už má jantárový rámik), farby C8b (ostali zelené, rovnako ako v krátkej), `stepsAfterXfade` (dlhá verzia nemá prelínačky medzi klipmi, scény idú do bielej a z bielej, nadpisy sa neprekrývajú), variant hudby G (F s tempom stačí).
+
+## Kolo 55 (5. 10. 2026): písmo a logo v Háčiku
+
+Samuel: "v tom dlhom videu sú staré logá" (upresnil: Háčik, 36 až 44 s) a komentár "nie je tam správny font, či už pri nových nadpisoch alebo €".
+
+- Príčina: písma Manrope a Inter načíta `Scene` (`loadFonts`), každý klip sa renderuje samostatne a nový `C4b_Hacik.tsx` ako jediný `Scene` nepoužíval. Celý Háčik (nadpisy, titulky, počítadlo, € na cenovkách, slogan pod logom) išiel náhradným písmom, preto pôsobil ako staré logo. Teraz je obalený v `Scene`. Ostatné klipy `Scene` alebo `loadFonts` majú (overené grepom).
+- Logo do rohu: slogan a ikony zmiznú za 250 ms, logo sa pohne až potom (250 až 700 ms), prvý nadpis a stoh listov prídu po ňom (logo necestuje cez text ani stoh). Sivé počítadlo naskočí od 5 strán (sivé "1 strana" predbiehalo zelenú pointu).
+- Film 158,2 s bez zmeny dĺžky, -15,7 LUFS. Krátka verzia sa nemenila.
+
+## Kolo 56 (5. 10. 2026): plynulosť úvodu a záznamov, Výsledok, bez vety o rozsahu
+
+Samuel (komentár pri Hľadaní): "príde mi to tu zaseknuté a zbytočne pomalé oproti nášmu krátkemu videu". V session: "1:20 zas je to nejako moc zaseknuté... Neviem, či na veľkej obrazovke treba ten obdĺžnik s návrhom tam dlhšie držať, keď potom sa tam roztiahne už tá aplikácia okolo 1:35, plus potom často sa tam tá footage zasekne a hlas ide ďalej. Okolo 2:00 zmeň na spoľahlivo viete, aké dokumenty máte a kde presne sa nachádzajú. 2:17 toto už nesedí, skenovanie celých dokumentov príde až na základe katalogizácie pomocou identifikačných strán."
+
+- C2 Hľadanie: bez Paced holds (1700/2420 a 3600/500). Kancelária 1:1 ako v K/K46 (veci vyhodené počas otázky), `Office` má voliteľné `qmOutAt` a `tags` (predvolene ako v krátkej, K a K46 pixelovo zhodné 0/25): pri "správu", "výkres", "protokol" vyskočia nad vyhodenými vecami názvy v jednom rade s čiarou k veci. Prestrih do skladu po "protokol" (`PAN_OUT`), sklad o `WH_SHIFT` neskôr, návrat zložiek 1,25x. "V sklade, na polici..." od 6,87 s (predtým 8,95 s). 11,95 s (predtým 12,92 s).
+- F2: spracovanie 2,5x (predtým 6x), 60 až 100 % 0,8x (predtým 1,25x), po ňom 1,4 s (predtým 3,3 s), bez hold 7400/900.
+- F4: bez karty návrhu pod oknom (okno veľké od začiatku). Zostrih: fotka 0,2/0,3 s (predtým 0,4/0,9), lupa 1,2x, montáž 10x, oprava 1,4x, koniec 64,8 až 69,8 s 1x + 0,6 s (Odosielanie a zoznam Kontroly bez ďalších príloh) namiesto 3,5 s zamrznutého Odosielania.
+- Výsledok: nová veta Gemini TTS "Výsledok: spoľahlivo viete, aké dokumenty máte a kde presne sa nachádzajú." (hlas voice_7ws1j8pd39cu, štýl K46-Vysledok-0, kandidát 2 z 3 podľa posluchu Gemini), `public/vo/orig56/C8a-Vysledok-0.gemini.wav` 0,2 až 5,56 s; riadky pri "aké" 2,22 s a "kde" 3,86 s (faster-whisper).
+- C8: veta o rozsahu nasadenia a karty Identifikačné strany / Celé dokumenty vypadli (odporovali Výsledku), ostali KtoCard v strede, 5,76 s.
+- Hudba F: polfráza 48-51 na konci len raz (o 9,14 s kratšie), `end` 146,39, tempo 0,9728. Pokojná časť skladby (bez bicích) začne presne so scénou Sami alebo na kľúč. Posluch Gemini: vety celé, bez skokov v hudbe (okrem prirodzeného prechodu do pokojnej časti), akord dozvie do konca. Film 150,6 s, -15,8 LUFS.
+- Úložisko assetov review stránky je takmer plné (1 GB): zmazané nepoužívané staré Full (kolo 54 a 55) a C4b z kola 54.

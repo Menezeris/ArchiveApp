@@ -1,7 +1,8 @@
 import React from 'react';
 import { useCurrentFrame } from 'remotion';
 import { Scene } from '../components/Scene';
-import { FOOTAGE_WINDOW_WIDE, WindowFrame } from '../components/Device';
+import { WindowFrame } from '../components/Device';
+import { APP_WIN, StepLabel } from '../components/Frame16';
 import { pop, settle, tween } from '../lib/anim';
 import { phases } from '../copy/sk';
 import { BRAND, FONT, INK } from '../theme';
@@ -18,12 +19,15 @@ import { BRAND, FONT, INK } from '../theme';
  *
  * ms (nahovor od 300, casy slov + 300): 0 okno · 300 karty stlmene · 700 text vpravo · 2800 Vyhladavanie ·
  * 3850 Zoskupovanie · 4600 Export · 6800 zostane Vyhladavanie · 7600-8400 okno do okna F3 · 8300-8550 obsah zmizne.
+ * Kolo 50: okno do APP_WIN (okno F3 na celu sirku), nadpis kroku hore vlavo.
  */
-const WIN = { x: 380, y: 150, w: 900, h: 640 };
-const CARD = { w: 230, h: 250, gap: 36 };
+// kolo 52 (Samuel: rozlozenie ako v kratkej verzii): okno od zaciatku APP_WIN ako vsetky okna aplikacie (predtym mensie
+// v strede od 510 px a na konci sa zvacsilo), karty vacsie; F3 nadvazuje v tom istom okne
+const WIN = APP_WIN;
+const CARD = { w: 340, h: 360, gap: 60 };
 
 const Icon: React.FC<{ kind: 'search' | 'chart' | 'export' }> = ({ kind }) => (
-  <svg width={104} height={104} viewBox="0 0 100 100" fill="none" stroke={BRAND[600]} strokeWidth={8} strokeLinecap="round" strokeLinejoin="round">
+  <svg width={140} height={140} viewBox="0 0 100 100" fill="none" stroke={BRAND[600]} strokeWidth={8} strokeLinecap="round" strokeLinejoin="round">
     {kind === 'search' ? (
       <>
         <circle cx={42} cy={42} r={25} />
@@ -57,18 +61,11 @@ export const C10_Databaza: React.FC = () => {
   const chrome = tw(0, 400);
   const focus = tw(7100, 400); // zostane vyhladavanie (slovo "vyhladavanie" 7,2 s)
   const content = 1 - tw(8700, 250);
-  const fill = tw(8000, 800); // okno prejde do okna F3 (hlas konci 8,3 s)
-  const note = settle(frame, 700) * (1 - tw(7900, 300));
   const dim = settle(frame, 300); // karty su v okne od zaciatku, stlmene
-  const at = {
-    x: WIN.x + (FOOTAGE_WINDOW_WIDE.x - WIN.x) * fill,
-    y: WIN.y + (FOOTAGE_WINDOW_WIDE.y - WIN.y) * fill,
-    w: WIN.w + (FOOTAGE_WINDOW_WIDE.w - WIN.w) * fill,
-    h: WIN.h + (FOOTAGE_WINDOW_WIDE.h - WIN.h) * fill,
-  };
+  const at = WIN; // kolo 52: okno uz je v polohe okna F3
   const rowW = CARDS.length * CARD.w + (CARDS.length - 1) * CARD.gap;
   return (
-    <Scene mode="light" footer footerOpacity={1 - fill}>
+    <Scene mode="light">
       <WindowFrame at={at} chrome={chrome}>
         <div style={{ position: 'absolute', left: (at.w - rowW) / 2, top: (at.h - 44 - CARD.h) / 2, display: 'flex', gap: CARD.gap, opacity: content }}>
           {CARDS.map((c, i) => {
@@ -88,24 +85,20 @@ export const C10_Databaza: React.FC = () => {
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: 22,
+                  gap: 30,
                   opacity: dim * (0.3 + 0.7 * Math.min(1, t)) * (main ? 1 : 1 - 0.65 * focus),
                   transform: `scale(${(0.96 + 0.04 * Math.min(1, t)) * (main ? 1 + 0.06 * focus : 1)})`,
                 }}
               >
                 <Icon kind={c.kind} />
-                <div style={{ fontFamily: FONT.display, fontWeight: 700, fontSize: 30, color: INK[900], letterSpacing: '-0.01em' }}>{c.label}</div>
+                <div style={{ fontFamily: FONT.display, fontWeight: 700, fontSize: 40, color: INK[900], letterSpacing: '-0.01em' }}>{c.label}</div>
               </div>
             );
           })}
         </div>
       </WindowFrame>
-      {/* vpravo nadpis ako pri footage (StepsPanel) */}
-      <div style={{ position: 'absolute', left: 1460, top: 0, width: 430, height: 1080, display: 'flex', flexDirection: 'column', justifyContent: 'center', opacity: note, transform: `translateX(${(1 - note) * 24}px)` }}>
-        <div style={{ fontFamily: FONT.body, fontWeight: 600, fontSize: 22, letterSpacing: '0.14em', textTransform: 'uppercase', color: BRAND[600], marginBottom: 14 }}>{phases.app}</div>
-        <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 56, lineHeight: 1.05, color: INK[900], letterSpacing: '-0.02em', marginBottom: 14 }}>Práca s databázou</div>
-        <div style={{ fontFamily: FONT.body, fontWeight: 400, fontSize: 30, lineHeight: 1.35, color: INK[500] }}>Export, analýza aj vyhľadávanie.</div>
-      </div>
+      {/* kolo 50: nadpis kroku hore vlavo (predtym vpravo s nazvom fazy a riadkom) */}
+      <StepLabel frame={frame} steps={[{ from: 700, title: 'Práca s databázou' }]} opacity={1 - tw(7900, 300)} />
     </Scene>
   );
 };

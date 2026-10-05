@@ -3,9 +3,23 @@
 Tento súbor je pre novú session. Všetko dôležité je v gite na vetve `claude/progress-preview-vo1ocm`,
 od 27. 9. 2026 (po kole 48) aj so všetkými podkladmi: zdrojové záznamy `public/footage/`, vygenerované vety hlasu `public/vo/` a hudba Lyria `public/music/bed.wav`. Hlavná verzia je zlúčená aj do `main`. Jediný odvodený súbor mimo gitu je `public/music/bed_level.wav` (vytvorí ho `mix-music.mjs` cez `scripts/music_level.py`).
 
+## Posledná verzia (5. 10. 2026)
+
+- **Dlhé video: kolo 56, 150,6 s** (`out/mp4/Full_1080p.mp4`, review stránka https://claude.ai/artifact/R2aK5Ms7zxVvtKM4SjHCJa kolo 56), zlúčené do `main`. História kôl 49 až 56 je vo `FEEDBACK.md`.
+- **Krátka verzia: `K-LinkedIn-46` (55,6 s)**, bez zmeny od kola 54 krátkej (`EXPERIMENT-KRATKA.md`).
+- **Web (PR #21, export pre produktovú stránku):** webové klipy C7-Hierarchia, F4-Navrh, F4-Kontrola-Web a F3-Vyhladavanie-Web (`WEB_EXTRA_LIST` v `src/scenesList.ts`). F3 a F4 pre web majú od zlúčenia vlastné zostrihy (`f3-search-web`, `f4-review-web` v `cuts.json`, footage `public/footage/*-web.mp4`) a zmrazený `DesktopFootageClip` (`src/scenes/web/WebFootage.tsx`), aby ich nemenili úpravy dlhého videa. `out/web/manifest.json` je ešte zo starého Full (pred kolom 49): pred ďalším nasadením webu treba spustiť `node scripts/export-web.mjs`. Pri novom renderi C7-Hierarchia budú titulky väčšie (štýl z kola 50).
+
 ## Pokračovanie v novej session
 
 Stačí checkout vetvy (alebo `main`), `cd video && npm install`, potom hneď `bash scripts/render.sh <klip>` a `node scripts/mix-music.mjs` (Full s hudbou). Hlas netreba generovať (`vo.mjs --engine gemini --reuse` vezme vety z `public/vo/lines`), hudbu netreba generovať (`public/music/bed.wav` je v gite). Staršie poznámky nižšie o obnove podkladov „mimo gitu“ platia len pre stav pred 27. 9. 2026.
+
+## Dlhá verzia zjednotená s krátkou (kolá 49 až 51, 30. 9. 2026)
+
+- Vetva `claude/magical-davinci-j440nt` (na hlave experimentu krátkej verzie). Značka `src/components/ArchivesBrand.tsx`, rámec 16:9 `src/components/Frame16.tsx`, vety so `src` vo `vo.json` (výroba `python3 scripts/kratka_lines.py --script src/copy/vo.json --dir public/vo`, potom `node scripts/vo.mjs --engine gemini --reuse`).
+- **Full od kola 53:** `python3 scripts/music_edit.py --cfg src/copy/music.json --variant F` (raz, vyrobí `public/music/bed_dlha_edit_f.wav`) a `node scripts/mix-music.mjs --variant F --music public/music/bed_dlha_edit_f.wav`. Variant F má vlastné vyrovnanie (`level`), stíšenie (`duck`) a koniec (`coda`, `endPad`, `fadeOut`). Desktopové záznamy sú v 2x rozlíšení (`cuts.json` `up`, `node scripts/cut-footage.mjs f2-metadata f3-search f4-review`).
+- Kolo 52: karty pod oknom (`components/AppCards.tsx`, `panels` v `DesktopFootageClip`), ikony krátkej (`components/ArchivesIcons.tsx`), nový klip `C8b-Technika` (slide Technické riešenie).
+- Kolo 54 (5. 10. 2026): `main` zlúčený, dlhá zladená s `K-LinkedIn-46`. Nové klipy `C4b-Hacik`, `C8a-Vysledok`, `C8c-Vyzva` (prvky v `components/ArchivesClose.tsx`). Full stále variant F (tempo sa prispôsobí dĺžke sám). Po `node scripts/cut-footage.mjs f3-search` treba `python3 scripts/hide-cursor.py public/footage/f3-search.mp4 --scale 2` (zakryje kurzor). Kontrola krátkych verzií: snímky K a K46 porovnať so stavom v `main`.
+- Rýchle stills viacerých klipov: `node scripts/stills-fast.mjs C4-Cena:330,420 C9-Outro:40`.
 
 ## Checkpoint
 

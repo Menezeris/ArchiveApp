@@ -4,6 +4,10 @@ import { Scene, useCaptions } from '../components/Scene';
 import { Caption } from '../components/Text';
 import { ArchiveBox, archiveBoxPxPerCm, QR_SCALE } from '../components/ArchiveBox';
 import { FOOTAGE_PHONE, PhoneFrame } from '../components/Device';
+import { StepLabel } from '../components/Frame16';
+import { HIcon, HKind, QrBadge } from '../components/ArchivesIcons';
+import { useOutputFrame } from '../components/Paced';
+import { voAt } from '../components/Subtitles';
 import { Camera } from '../lib/camera';
 import { pop, settle, tween } from '../lib/anim';
 import { captions, phases } from '../copy/sk';
@@ -29,6 +33,8 @@ import { BRAND, CM, FONT, INK, ISO, SAFE } from '../theme';
 const BOX = 860;
 /** Krabica vlavo (vpravo je priestor na kroky), rovnaka poloha na konci C4. */
 export const C5_BOX_LEFT = 200;
+/** Kolo 50: lava hrana nadpisu kroku v C5 a F1 (stlpec vpravo od mobilu, ako titulky F1). */
+export const C5_TITLE_LEFT = 1000; // kolo 51: o 100 px dalej od veka krabice
 const PX = archiveBoxPxPerCm(BOX); // ~9.4 px/cm
 const SHEET = { w: CM.sheet.w * PX, h: CM.sheet.h * PX };
 const PHONE = { w: CM.phone.w * PX * 1.4, h: CM.phone.h * PX * 1.4 };
@@ -54,14 +60,65 @@ const STEPS: C5Step[] = [
   { from: 4350, title: 'Odfotiť identifikačnú stranu' }, // kolo 32: pred pauzou (hold 4750, po dopade poslednej nalepky), aby bol na zmrazenom obraze cely
 ];
 
-/** `steps`, `phase`: ine kroky a nazov fazy vpravo (experiment kratkej verzie), predvolene hlavna verzia. */
-export const C5_Teren: React.FC<{ steps?: C5Step[]; phase?: string }> = ({ steps = STEPS, phase = phases.teren }) => {
+/**
+ * Kolo 52 (Samuel: preniest do dlhej aj zvysok obrazu kratkej verzie): vpravo od krabice rad Polica, Krabica, Sanon,
+ * Zlozka ako v kratkej (kolo 4 a 7 tam): ikona pri svojom slove vety "Kazda polozka, ci uz polica, krabica, sanon alebo
+ * zlozka, dostane QR kod, podla toho, ako mate archiv usporiadany.", nalepka QR pri "dostane QR kod", pri "podla toho"
+ * a "archiv" dva priklady usporiadania (ostatne polozky stlmene). Scena v tom case stoji v pauze, casy su v case
+ * vystupu (useOutputFrame), slova z public/vo/lines/C5-Teren-1.words.json. Rad odide pred vetou o mobile.
+ */
+const H_WORDS = [1.52, 2.3, 3.02, 3.88]; // polica, krabica, sanon, zlozka
+const H_QR = 4.76; // "dostane QR kod"
+const H_ARRANGE = { a: 6.16, b: 7.18, all: 8.36 }; // "podla toho", "archiv", koniec "usporiadany"
+const H_ITEMS: { kind: HKind; label: string; a: boolean; b: boolean }[] = [
+  { kind: 'shelf', label: 'Polica', a: true, b: true },
+  { kind: 'box', label: 'Krabica', a: true, b: false },
+  { kind: 'binder', label: 'Šanón', a: false, b: true },
+  { kind: 'folder', label: 'Zložka', a: true, b: false },
+];
+const H_ROW = { left: C5_TITLE_LEFT - 20, top: 330, item: 205, icon: 112 };
+const C5Hierarchy: React.FC = () => {
+  const of = useOutputFrame();
+  const line = voAt('C5-Teren', 1);
+  // kolo 54: rad odide tesne pred prichodom mobilu (vystup 12,45 s; mobil by ho na 16:9 prekryl), veta "Staci bezny mobil." od 12,27 s
+  const out = tween(of, voAt('C5-Teren', 2) - 300, 350);
+  if (out >= 1) return null;
+  const at = (s: number) => line + s * 1000;
+  const wa = tween(of, at(H_ARRANGE.a) - 80, 260) * (1 - tween(of, at(H_ARRANGE.b) - 80, 260));
+  const wb = tween(of, at(H_ARRANGE.b) - 80, 260) * (1 - tween(of, at(H_ARRANGE.all), 320));
+  return (
+    <div style={{ position: 'absolute', left: H_ROW.left, top: H_ROW.top, width: 4 * H_ROW.item, display: 'flex', opacity: 1 - out }}>
+      {H_ITEMS.map((it, i) => {
+        const t = settle(of, at(H_WORDS[i]) - 120);
+        const qr = settle(of, at(H_QR) + i * 90);
+        const off = wa * (it.a ? 0 : 1) + wb * (it.b ? 0 : 1);
+        return (
+          <div key={it.label} style={{ width: H_ROW.item, display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: t * (1 - 0.72 * off), transform: `translateY(${(1 - t) * 18}px) scale(${1 - 0.08 * off})` }}>
+            <div style={{ position: 'relative' }}>
+              <HIcon kind={it.kind} size={H_ROW.icon} on={qr > 0.5 && off < 0.5} />
+              {qr > 0 ? <QrBadge size={46} t={qr} /> : null}
+            </div>
+            <div style={{ marginTop: 14, fontFamily: FONT.display, fontWeight: 700, fontSize: 32, color: INK[900] }}>{it.label}</div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+/**
+ * `steps`, `phase`: ine kroky a nazov fazy vpravo (experiment kratkej verzie), predvolene hlavna verzia.
+ * `hierarchy` (kolo 52, len dlha verzia): rad ikon Polica, Krabica, Sanon, Zlozka vpravo od krabice.
+ */
+export const C5_Teren: React.FC<{ steps?: C5Step[]; phase?: string; hierarchy?: boolean; enter?: boolean }> = ({ steps = STEPS, phase = phases.teren, hierarchy = false, enter = false }) => {
   const frame = useCurrentFrame();
   const showCap = useCaptions();
   const tw = (s: number, d: number) => tween(frame, s, d);
   const boxLeft = C5_BOX_LEFT;
   const boxTop = SAFE.illoTop - 40;
-  const appear = 1; // krabica je na scene od zaciatku (usadila sa uz na konci C4)
+  // krabica je na scene od zaciatku (usadila sa uz na konci C4); kolo 54 (`enter`, dlha verzia): pred C5 je hacik na bielej,
+  // krabica sa usadi zdola ako predtym na konci C4
+  const appear = enter ? settle(frame, 0) : 1;
   const sheet = settle(frame, 900);
   // lety nalepiek: z bunky harku (r, c) na ciel v krabici (suradnice viewBox 240); dolet = pop QR
   // skew = sklon plochy, na ktoru nalepka doleta (krabica: prava stena -26,6 stupna; zlozky: predna plocha +26,6 stupna)
@@ -98,7 +155,6 @@ export const C5_Teren: React.FC<{ steps?: C5Step[]; phase?: string }> = ({ steps
     w: PHONE_NOW.w + (PHONE_END.w - PHONE_NOW.w) * move,
     h: PHONE_NOW.h + (PHONE_END.h - PHONE_NOW.h) * move,
   };
-  const stepIdx = Math.max(0, steps.findIndex((s, i) => frame * 1000 / 30 >= s.from && (i === steps.length - 1 || frame * 1000 / 30 < steps[i + 1].from)));
 
   // pozicia bunky harku v px: harok lezi naplocho (izometria 2:1 ako krabica), os x harku ide vpravo dole, os y vlavo dole
   const sheetCx = 250,
@@ -114,7 +170,7 @@ export const C5_Teren: React.FC<{ steps?: C5Step[]; phase?: string }> = ({ steps
   const used = (r: number, c: number) => FLIGHTS.some((f) => f.cell[0] === r && f.cell[1] === c && frame >= (f.start / 1000) * 30);
 
   return (
-    <Scene mode="light" footer footerOpacity={1 - move}>
+    <Scene mode="light">
       <Camera keys={[{ ms: 5200, x: 0, y: 0, scale: 1 }, { ms: 6600, ...CAM_END }]}>
       <div style={{ position: 'absolute', inset: 0, opacity: others }}>
         {/* harok nalepiek A4: 4 x 5 bielych QR */}
@@ -281,29 +337,14 @@ export const C5_Teren: React.FC<{ steps?: C5Step[]; phase?: string }> = ({ steps
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 60% 45%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 55%)', opacity: flash, pointerEvents: 'none' }} />
       </Camera>
 
-      {/* kroky vpravo: nas pristup (rovnaky jazyk ako pri footage); mimo kamery, nehybe sa pri najazde */}
-      <div style={{ position: 'absolute', left: 1380, top: 0, width: 500, height: 1080, display: 'flex', flexDirection: 'column', justifyContent: 'center', opacity: others }}>
-        {steps.map((s, i) => {
-          const on = i === stepIdx ? 1 : 0;
-          const inT = settle(frame, s.from);
-          return (
-            <div key={i} style={{ position: 'absolute', left: 0, right: 0, top: 320, opacity: on * inT, transform: `translateY(${(1 - inT) * 16}px)` }}>
-              <div style={{ fontFamily: FONT.body, fontWeight: 600, fontSize: 22, letterSpacing: '0.14em', textTransform: 'uppercase', color: BRAND[600], marginBottom: 14 }}>
-                {phase}
-              </div>
-              <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 56, lineHeight: 1.05, color: INK[900], letterSpacing: '-0.02em', marginBottom: 14 }}>{s.title}</div>
-              {s.line ? <div style={{ fontFamily: FONT.body, fontWeight: 400, fontSize: 30, lineHeight: 1.35, color: INK[500] }}>{s.line}</div> : null}
-              <div style={{ display: 'flex', gap: 10, marginTop: 28 }}>
-                {steps.map((_, k) => (
-                  <div key={k} style={{ width: k <= i ? 34 : 12, height: 12, borderRadius: 6, background: k <= i ? BRAND[500] : INK[200] }} />
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-
+      {/* kroky: kolo 50 nadpis kroku hore (StepLabel) nad stlpcom titulkov F1, bez nazvu fazy a bodiek (predtym vpravo);
+          mimo kamery, nehybe sa pri najazde */}
+      <StepLabel frame={frame} steps={steps} left={C5_TITLE_LEFT} opacity={others} />
+      {hierarchy ? <C5Hierarchy /> : null}
     </Scene>
   );
 };
+
+/** Hlavna (dlha) verzia C5 s radom ikon hierarchie (kolo 52). Kolo 54: krabica pride zdola (pred C5 je hacik), veta
+ * "Staci bezny mobil." (nadpis kroku ostava "Odfotit identifikacnu stranu", dlhsi z kratkej sa do stlpca vpravo nezmesti). */
+export const C5_TerenMain: React.FC = () => <C5_Teren hierarchy enter />;

@@ -3,7 +3,9 @@
 a zakryje ho filtrom delogo (dopocita z okolia), vysledok prepise zostrih. Stopa: sablona sipky (binarna, 26 x 19 px) sa
 porovna s kazdou snimkou (korelacia cez FFT: tmave body v tele sipky, svetle v obryse, pokuta za tmave v obryse); skore nad
 prahom = kurzor v obraze. Susedne snimky s rovnakou polohou su jeden usek (delogo s enable=between).
-Pouzitie: python3 scripts/hide-cursor.py public/footage/k46-f3-search.mp4 [--dry]
+Pouzitie: python3 scripts/hide-cursor.py public/footage/k46-f3-search.mp4 [--dry] [--scale 2]
+Kolo 54 (dlha verzia): `--scale N` pre zostrih v nasobnom rozliseni (cuts.json `up`): stopa sa hlada v snimkach zmensenych
+N-krat (sablona je v povodnej velkosti kurzora), box delogo sa N-krat zvacsi; vystup crf 14 ako zostrihy s `up`.
 """
 import json
 import os
@@ -25,12 +27,15 @@ PAD = 4  # okraj boxu delogo okolo sipky
 def main():
     path = sys.argv[1]
     dry = "--dry" in sys.argv
+    N = int(sys.argv[sys.argv.index("--scale") + 1]) if "--scale" in sys.argv else 1
     probe = subprocess.run([FF, "-i", path], capture_output=True, text=True).stderr
     import re
 
     m = re.search(r", (\d+)x(\d+)[, ]", probe)
-    W, H = int(m[1]), int(m[2])
-    raw = subprocess.run([FF, "-loglevel", "error", "-i", path, "-vf", f"fps={FPS},format=gray", "-f", "rawvideo", "-"], capture_output=True).stdout
+    W0, H0 = int(m[1]), int(m[2])
+    W, H = W0 // N, H0 // N
+    scale = f",scale={W}:{H}:flags=area" if N > 1 else ""
+    raw = subprocess.run([FF, "-loglevel", "error", "-i", path, "-vf", f"fps={FPS}{scale},format=gray", "-f", "rawvideo", "-"], capture_output=True).stdout
     fr = np.frombuffer(raw, dtype=np.uint8).reshape(-1, H, W)
     tpl = np.array([[int(c) for c in row] for row in TPL])
     dark = (tpl == 1).astype(np.float64)
@@ -72,11 +77,12 @@ def main():
         h = 20 + 2 * PAD
         x0 = min(x0, W - w - 1)
         y0 = min(y0, H - h - 1)
+        x0, y0, w, h = x0 * N, y0 * N, w * N, h * N
         a = r["start"] / FPS - 0.5 / FPS
         b = (r["end"] + 1) / FPS - 0.5 / FPS
         filters.append(f"delogo=x={x0}:y={y0}:w={w}:h={h}:enable='between(t,{a:.4f},{b:.4f})'")
     out = path + ".nocursor.mp4"
-    subprocess.run([FF, "-loglevel", "error", "-y", "-i", path, "-vf", ",".join(filters), "-c:v", "libx264", "-crf", "16", "-preset", "slow", "-pix_fmt", "yuv420p", "-an", out], check=True)
+    subprocess.run([FF, "-loglevel", "error", "-y", "-i", path, "-vf", ",".join(filters), "-c:v", "libx264", "-crf", "14" if N > 1 else "16", "-preset", "slow", "-pix_fmt", "yuv420p", "-an", out], check=True)
     os.replace(out, path)
     json.dump({"runs": runs, "fps": FPS}, open(path + ".cursor.json", "w"))
     print(f"-> {path} (kurzor zakryty), stopa v {path}.cursor.json")

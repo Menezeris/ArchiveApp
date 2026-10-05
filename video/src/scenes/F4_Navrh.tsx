@@ -1,7 +1,7 @@
 import React from 'react';
 import { cutDuration, srcFrac } from '../lib/cuts';
 import { FOOTAGE_WINDOW_WIDE } from '../components/Device';
-import { DesktopFootageClip, Mark, ZoomKey, markAt } from './F2_Metadata';
+import { DesktopFootageClip, Mark, ZoomKey, markAt } from './web/WebFootage';
 
 /**
  * F4-Navrh - klip len pre web (krok 3 produktovej stranky "Aplikacia precita

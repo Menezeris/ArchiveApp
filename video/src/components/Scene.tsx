@@ -4,8 +4,8 @@ import { BRAND, FONT, Mode, modeColors, W } from '../theme';
 import { loadFonts } from '../lib/fonts';
 
 /**
- * Spolocny obal scen: pozadie podla rezimu, patka s logom a www ako
- * v brozure (na svetlych stranach), zeleny pas dole na tmavych.
+ * Spolocny obal scen: pozadie podla rezimu, zeleny pas dole na tmavych, patka s logom a www (`footer`) len pre webove klipy.
+ * Kolo 49: v dlhom videu patka vypadla, znacku nesie logo v rohu (CornerBrand cez Paced); `footer` je predvolene vypnuta.
  */
 /** Render bez textu: `npx remotion render <ID> --props='{"captions":false}'` */
 export const useCaptions = (defaultOn = false) => {

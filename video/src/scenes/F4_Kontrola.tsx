@@ -1,9 +1,8 @@
 import React from 'react';
 import { Step } from '../components/Steps';
-import { FOOTAGE_WINDOW_WIDE } from '../components/Device';
 import { voAt } from '../components/Subtitles';
-import { DesktopFootageClip, Mark, Tap, ZoomKey, markAt, tapAt } from './F2_Metadata';
-import { cutDuration, cutTime, segStart, srcFrac } from '../lib/cuts';
+import { DesktopFootageClip, Mark, Tap, markAt, tapAt } from './F2_Metadata';
+import { cutDuration, cutTime, segStart } from '../lib/cuts';
 
 /**
  * F4 - Kontrola metadat: zostrih noveho zaznamu (review2.mp4, 70 s) podla src/footage/cuts.json.
@@ -16,46 +15,30 @@ const ID = 'f4-review';
 export const F4_SECONDS = cutDuration(ID);
 const vo = (i: number, k = 0) => voAt('F4-Kontrola', i, k);
 const F4_STEPS: Step[] = [
-  { from: 0, title: 'Návrh metadát' },
+  { from: 0, title: 'Návrh údajov' }, // kolo 51: "udaje" ako v kratkej verzii
   { from: vo(1), title: 'Overiť a potvrdiť' },
   { from: vo(2), title: 'Opraviť v návrhu' },
   { from: vo(3), title: 'Overený záznam' },
 ];
+/** Kolo 53 (Samuel: dotyky mimo): kruzok konci pred strihom do montaze (5,77 s) a pred zmenou rozlozenia po "Prijat upravu". */
 const F4_TAPS: Tap[] = [
-  tapAt(ID, 12.15, 1734, 764), // prijat prvy navrh (Nazov projektu)
+  { ...tapAt(ID, 12.15, 1734, 764), d: 330 }, // prijat prvy navrh (Nazov projektu); montaz od 12,4 s zdroja
   tapAt(ID, 43.6, 1775, 745), // ceruzka - upravit navrh (Cislo zmeny)
-  tapAt(ID, 48.15, 1716, 789), // Prijat upravu (kolo 40: klik je v 48,15 s, rozlozenie sa meni v 48,23 s)
+  { ...tapAt(ID, 48.15, 1716, 789), d: 300, lead: 0.2 }, // Prijat upravu (kolo 40: klik je v 48,15 s, rozlozenie sa meni v 48,23 s)
   tapAt(ID, 66.6, 855, 442), // Odoslat
 ];
 const F4_MARKS: Mark[] = [
-  markAt(ID, segStart(ID, 2) + 0.15, cutTime(ID, 12.1), 824, 654, 428, 32, { spot: true }), // spravna hodnota "Novostavba bytoveho domu SLNECNA 12, BRATISLAVA"
+  // kolo 54 (ako kolo 51 kratkej: ramik na navrhnutej hodnote dlhsie): drzi cez prijatie (12,15 s) az tesne pred montaz (12,4 s zdroja)
+  markAt(ID, segStart(ID, 2) + 0.15, cutTime(ID, 12.38), 824, 654, 428, 32, { spot: true }), // spravna hodnota "Novostavba bytoveho domu SLNECNA 12, BRATISLAVA"
   markAt(ID, vo(1, 1) / 1000, vo(1, 1) / 1000 + 2.4, 286, 523, 331, 443, { spot: true }), // "Fotka je dokaz": ramik okolo fotky
   markAt(ID, cutTime(ID, 44.0), cutTime(ID, 48.2), 828, 668, 967, 40, { spot: true, color: 'amber' }), // oprava: pole Hodnota pri Cislo zmeny (1 -> 2); kolo 40: konci pred prijatim (48,23 s), inak ostal zlty ramik po prekliknuti
 ];
-/** F4 zacina z bielej (F2 konci fade-om), sirsie okno sa objavi. */
-export const F4_Kontrola: React.FC = () => <DesktopFootageClip src="footage/f4-review.mp4" seconds={F4_SECONDS} steps={F4_STEPS} taps={F4_TAPS} marks={F4_MARKS} win={FOOTAGE_WINDOW_WIDE} panelLeft={1460} panelWidth={430} enter />;
-
 /**
- * F4-Kontrola-Web: ten isty zostrih pre web (krok 4 produktovej stranky), s kamerou: priblizenie
- * na fotku pri overovani, na pole Hodnota pri potvrdeni a oprave, cely zaber pri montazi a odoslani.
- * Samuel 2. 10.: priblizovat tam, kde sa prave nieco deje. Bez hlasu (web hra bez zvuku).
+ * Kolo 52 (ako v kratkej verzii): karta navrhu z F2 (Nazov projektu, autor, rok) je pod oknom od zaciatku, pri prijati
+ * prveho navrhu (klik pri "potvrdi") zozelenie a dostane fajku; po nej sa okno znova zvacsi (fotka ako dokaz, oprava).
  */
-const f = (x: number, y: number, scale: number, s: number): ZoomKey => ({ ms: s * 1000, ...srcFrac(ID, x, y), scale });
-const FULL = (s: number) => f(980, 591, 1, s);
-/** Web: uvodny zaber (fotka a prvy navrh) je uz v klipe kroku 3 (F4-Navrh), preto sa preskoci (Samuel 2. 10.). */
-export const F4_WEB_SKIP = Math.round(segStart(ID, 1) * 1000);
-const F4_ZOOM: ZoomKey[] = [
-  FULL(0),
-  FULL(segStart(ID, 1)),
-  f(450, 700, 1.7, segStart(ID, 1) + 0.8), // lupa nad fotkou: overenie podla fotky
-  f(450, 700, 1.7, segStart(ID, 2) - 0.1),
-  f(1310, 700, 1.6, segStart(ID, 2) + 0.5), // spravna hodnota a prijatie
-  f(1310, 700, 1.6, segStart(ID, 3)),
-  FULL(segStart(ID, 3) + 0.7), // montaz dalsich prijati
-  FULL(segStart(ID, 4) - 0.3),
-  f(1310, 700, 1.5, segStart(ID, 4) + 0.4), // oprava Cislo zmeny
-  f(1310, 700, 1.5, segStart(ID, 5)),
-  FULL(segStart(ID, 5) + 0.8), // Odoslat, odosielanie kontroly
-  FULL(F4_SECONDS),
-];
-export const F4_KontrolaWeb: React.FC = () => <DesktopFootageClip src="footage/f4-review.mp4" seconds={F4_SECONDS} steps={F4_STEPS} taps={F4_TAPS} marks={F4_MARKS} zoom={F4_ZOOM} win={FOOTAGE_WINDOW_WIDE} panelLeft={1460} panelWidth={430} enter />;
+// kolo 56 (Samuel: na velkej obrazovke netreba drzat obdlznik s navrhom, ked sa potom aplikacia aj tak roztiahne): F4 bez karty,
+// okno je velke od zaciatku (navrh a potvrdenie su vidiet priamo v aplikacii, spot na hodnote a dotyk pri prijati)
+// povodne: const F4_PANELS: Panel[] = [{ from: -0.5, to: F4_TAPS[0].t + 1.6, node: <ValueCard approveAt={F4_TAPS[0].t} authorAt={0} yearAt={0} /> }];
+/** F4 zacina z bielej (F2 konci fade-om), sirsie okno sa objavi. */
+export const F4_Kontrola: React.FC = () => <DesktopFootageClip src="footage/f4-review.mp4" seconds={F4_SECONDS} steps={F4_STEPS} taps={F4_TAPS} marks={F4_MARKS} enter />;

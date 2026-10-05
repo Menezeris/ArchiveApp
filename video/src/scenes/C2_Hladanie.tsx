@@ -7,7 +7,8 @@ import { Binder, Cabinet, Carton, Chair, Desk, IsoBox, Pallet, Roll, ShelfFrame,
 import { Floor, Person, QuestionMark } from '../components/Illustrations';
 import { pop, settle, tween } from '../lib/anim';
 import { captions } from '../copy/sk';
-import { BRAND, CM, ISO, SAFE } from '../theme';
+import { voAt } from '../components/Subtitles';
+import { BRAND, CM, FPS, ISO, NAVY, SAFE } from '../theme';
 import { CAM_END, PALLETS, SEARCH_QMS, SHELF_LEVEL, SHELVES, SV, SearchCarton, TARGET_SHELF, VB } from './C3_Sklad';
 
 /**
@@ -59,12 +60,15 @@ const Papers: React.FC<{ x: number; y: number; z: number; h?: number }> = ({ x, 
  * Kancelaria (0-3,9 s): skratena verzia C2. Export pre experiment kratkej verzie (LinkedIn: vlastny cas kancelarie a skladu).
  * `floor` = false: bez vlastnej podlahy (LinkedIn kresli jednu spolocnu plosinu pre kancelariu aj sklad), predvolene s nou.
  */
-export const Office: React.FC<{ frame: number; floor?: boolean }> = ({ frame, floor = true }) => {
+/** Kolo 55 (dlha verzia): `qmOutAt` = ms, kedy otaznik zmizne (predvolene 3600 ako v K/K46), `tags` = nazvy vyhodenych veci
+ * (index veci v `thrown`, ms vyskocenia). Bez nich je kancelaria rovnaka ako v kratkej verzii. */
+export type OfficeTag = { item: number; at: number; text: string };
+export const Office: React.FC<{ frame: number; floor?: boolean; qmOutAt?: number; tags?: OfficeTag[] }> = ({ frame, floor = true, qmOutAt = 3600, tags = [] }) => {
   const tw = (s: number, d: number) => tween(frame, s, d);
   const walk = tw(300, 800);
   const open = tw(1100, 600);
   const leave = 0; // panacik po vyhadzani stoji (odchod vypadol, scena ide rovno dole do skladu)
-  const qmOut = 1 - tw(3600, 250);
+  const qmOut = 1 - tw(qmOutAt, 250);
   const qm = [pop(frame, 3000) * qmOut]; // jeden kratky otaznik // jeden otaznik po kratkej pauze, ked je vsetko vyhadzane
   // panacik: ku skrini, potom odchadza doprava (pred skrinou) von z framu
   const atX = CAB.x - 70,
@@ -118,6 +122,42 @@ export const Office: React.FC<{ frame: number; floor?: boolean }> = ({ frame, fl
           </g>
         );
       })}
+      {(() => {
+        // nazvy v jednom rade nad vyhodenymi vecami (kazdy s tenkou ciarou k svojej veci), od seba aspon o sirku
+        const FS = 15;
+        const items = tags.map((tg) => {
+          const it = thrown[tg.item];
+          const [px, py] = iso(it.tx + 16, it.ty + 15, 6);
+          return { tg, px, py, w: tg.text.length * FS * 0.56 + 24 };
+        });
+        const rowY = Math.min(...items.map((i) => i.py), 1e9) - 62;
+        const sorted = [...items].sort((p, q) => p.px - q.px);
+        let right = -1e9;
+        const xs = new Map<string, number>();
+        for (const i of sorted) {
+          const x = Math.max(i.px + 24, right + i.w / 2 + 6); // o kusok doprava, aby prvy nazov nezakryl panacika
+          xs.set(i.tg.text, x);
+          right = x + i.w / 2;
+        }
+        return items.map(({ tg, px, py, w }) => {
+          const t = pop(frame, tg.at, { damping: 15 });
+          if (t <= 0) return null;
+          const x = xs.get(tg.text) ?? px;
+          const k = Math.min(1, t);
+          return (
+            <g key={tg.text} opacity={Math.min(1, t * 1.5)}>
+              <line x1={x} y1={rowY + 14} x2={px} y2={py} stroke={BRAND[400]} strokeWidth={1.2} strokeDasharray="2 2" opacity={k} />
+              <circle cx={px} cy={py} r={2.4} fill={BRAND[400]} opacity={k} />
+              <g transform={`translate(${x} ${rowY}) scale(${0.6 + 0.4 * k})`}>
+                <rect x={-w / 2} y={-14} width={w} height={28} rx={14} fill="#fff" stroke={BRAND[500]} strokeWidth={1.6} />
+                <text x={0} y={5.2} textAnchor="middle" fontFamily="Inter" fontWeight={600} fontSize={FS} fill={NAVY[800]}>
+                  {tg.text}
+                </text>
+              </g>
+            </g>
+          );
+        });
+      })()}
       {qm.map((s, i) => {
         const bob = Math.sin(frame / 10 + i * 2.1) * 3;
         const [qx, qy] = iso(atX - 30 + Math.sin(frame / 14 + i) * 1.5, atY - 4, 140 + bob);
@@ -218,11 +258,35 @@ export const Warehouse: React.FC<{ frame: number; floor?: boolean }> = ({ frame,
   );
 };
 
+/**
+ * Kolo 55 (Samuel: uvod je zaseknuty a zbytocne pomaly oproti kratkej): bez zastavenia obrazu (Paced holds 2,4 s pri otvorenej
+ * skrini a 0,5 s pred prestrihom). Kancelaria ide 1:1 ako v kratkej (veci vyhodene pocas otazky, otaznik v 3,0 s), pri
+ * "Ci uz spravu, vykres alebo protokol?" vyskoci nad kazdou vyhodenou vecou jej nazov, prestrih do skladu hned po "protokol"
+ * a veta "V sklade, na polici, v krabici alebo v zlozke." zacne pri prestrihu. Sklad bezi o WH_SHIFT neskor (rovnaky ako
+ * predtym), navrat zloziek a krabic 1,25x (ako K46); koniec v tom istom stave skladu (C4 nadvazuje kamerou CAM_END).
+ */
+const L0 = voAt('C2-Hladanie', 0);
+const W0 = { spravu: 3.72, vykres: 4.48, protokol: 5.38, koniec: 5.84 }; // s od zaciatku vety (C2-Hladanie-0.words.json)
+const TAGS: OfficeTag[] = [
+  { item: 0, at: L0 + W0.spravu * 1000 - 80, text: 'Správa' },
+  { item: 1, at: L0 + W0.vykres * 1000 - 80, text: 'Výkres' },
+  { item: 2, at: L0 + W0.protokol * 1000 - 80, text: 'Protokol' },
+];
+const PAN_OUT = L0 + W0.koniec * 1000 - 100; // ms klipu: prestrih dole do skladu
+const WH_SHIFT = PAN_OUT - PAN_AT; // sklad o tolko neskor ako v povodnom case sceny
+const BACK = { at: 8500, end: 9700, speed: 1.25 }; // cas skladu: zlozky dole, veka a krabice spat (zrychlene), koniec
+const whMs = (ms: number) => {
+  const w = ms - WH_SHIFT;
+  return w <= BACK.at ? w : BACK.at + (w - BACK.at) * BACK.speed;
+};
+export const C2_SECONDS = Math.ceil(((BACK.at + WH_SHIFT + (BACK.end - BACK.at) / BACK.speed) / 1000) * FPS) / FPS;
+
 export const C2_Hladanie: React.FC = () => {
   const frame = useCurrentFrame();
   const showCap = useCaptions(); // kolo 29: vety nesie nahovor + titulky (Paced), Caption ostava len na CAP=1
   const tw = (s: number, d: number) => tween(frame, s, d);
-  const pan = tw(PAN_AT, PAN_MS);
+  const pan = tw(PAN_OUT, PAN_MS);
+  const wf = (whMs((frame / FPS) * 1000) / 1000) * FPS;
 
   return (
     <Scene mode="dark">
@@ -230,12 +294,12 @@ export const C2_Hladanie: React.FC = () => {
       <div style={{ position: 'absolute', inset: 0, transform: `translateY(${-1080 * pan}px)` }}>
         {pan < 1 ? (
           <div style={{ position: 'absolute', left: 0, top: 0, width: 1920, height: 1080, overflow: 'hidden' }}>
-            <Office frame={frame} />
+            <Office frame={frame} qmOutAt={PAN_OUT - 100} tags={TAGS} />
           </div>
         ) : null}
         {pan > 0 ? (
           <div style={{ position: 'absolute', left: 0, top: 1080, width: 1920, height: 1080, overflow: 'hidden' }}>
-            <Warehouse frame={frame} />
+            <Warehouse frame={wf} />
           </div>
         ) : null}
       </div>
