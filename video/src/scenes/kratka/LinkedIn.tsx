@@ -1682,7 +1682,7 @@ const F24_46_UPRAVI = F24_46_L0 + F24_46_W.upravi;
 const F24_46_END = F24_46_L0 + (voLines(F24_46_CLIP)[0].dur ?? 4960) / 1000 + 0.5; // kolo 36: 0,6 s po vete; kolo 48: 0,5 s
 const F24_46_MARKS: Mark[] = [
   markAt(KF24_46, F24_46_L0 + 0.3, F24_46_UDAJE - 0.05, 286, 523, 331, 443, { spot: true }), // "z fotky sama vycita": fotka
-  markAt(KF24_46, F24_46_UDAJE + 0.3, F24_46_POTVRDI - 0.4, 824, 654, 428, 32, { spot: true }), // "udaje": navrhnuta hodnota
+  markAt(KF24_46, F24_46_UDAJE + 0.3, F24_46_UPRAVI - 0.1, 824, 654, 428, 32, { spot: true }), // "udaje": navrhnuta hodnota; kolo 51 (Samuel: ramik je tam kratko): drzi cez "potvrdi" az po "upravi" (1,7 s, bolo 0,5 s; riadok je v oboch segmentoch zostrihu na tom istom mieste)
 ];
 const F24_46_VIEWS: FootView[] = (() => {
   // kolo 40 (publikum: polia aplikacie su na mobile drobne): tesnejsie vyrezy okolo fotky, pola Nazov projektu a prijatia;
