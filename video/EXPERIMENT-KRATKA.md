@@ -11,11 +11,11 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
 - Dĺžka: okolo 75 s a k tomu 30 s teaser. Ponuku (C8) nechal na mňa.
 - Pôvodnú verziu nechytať, je to vstup. Hlas a hudbu negenerovať znova (existujúce nahrávky sa len strihajú).
 
-## Kde sme skončili (5. 10. 2026, kolo 57)
+## Kde sme skončili (5. 10. 2026, kolo 58)
 
 - Dve hotové videá, obe LinkedIn 4:5 (1080 x 1350), obe sa renderujú z toho istého projektu:
   - `video/out/kratka/K-LinkedIn_1080p.mp4` (76,8 s, kolo 31, kompozícia `K-LinkedIn`): plná krátka verzia, od kola 31 bez zmeny.
-  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (57,1 s, kolo 57, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
+  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (57,1 s, kolo 58, kompozícia `K-LinkedIn-46`; na zverejnenie `K-LinkedIn-46_LinkedIn.mp4`, ten istý obsah s faststart): krátka verzia pre LinkedIn:
     otázka v kancelárii a prestrih do skladu, "Hľadanie môže trvať hodiny.", logo ("Predstavujeme Assetin Archives."), háčik
     "Naskenovať celý archív môže byť drahé. Naša aplikácia fotí len identifikačnú stranu." (logo z predstavenia odíde do
     pravého dolného rohu ako rohové logo, 328 strán proti 1 identifikačnej strane, nadpis "Katalogizácia: len identifikačná
@@ -24,8 +24,8 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
     hľadanie (slovo, cesta k položke, od "aj všetky vyčítané údaje" karta položky a posun k žltej zhode), výsledok "Výsledok:
     spoľahlivo viete, aké dokumenty máte a kde sa nachádzajú." a "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať."
     (tmavomodré karty), "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč." (karty "od pár šanónov" / "aj celý
-    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 až 57 nižšie. Kolá 32 až 56 sú v `out/kratka/verzie/`. Kolá 32 až 54 sú zlúčené do `main`
-    (PR #23 a #24), kolá 55 až 57 sú na vetve.
+    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 až 58 nižšie. Kolá 32 až 57 sú v `out/kratka/verzie/`. Kolá 32 až 57 sú zlúčené do `main`
+    (PR #23, #24 a #27), kolo 58 je na vetve.
     Náhľady `*_preview_540p.mp4` vedľa. Staršie kolá 14 až 30 sú v `out/kratka/verzie/`. Pôvodná dlhá verzia (145 s, 16:9) sa nemenila.
 - Zdroj: kompozície `K-LinkedIn` a `K-LinkedIn-46` (zoznam klipov `LI_LIST_46` na konci súboru) v `src/scenes/kratka/LinkedIn.tsx` (spoločné dáta `Kratka.tsx`, klipy `src/kratkaList.ts`),
   scenár `src/copy/vo_kratka.json`, hlas `public/vo-kratka/`, hudba `src/copy/music_kratka.json` (variant `K`: hudba
@@ -49,6 +49,20 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
   - Krabica alebo box: posúdené v kole 24, odporúčanie nechať "krabica".
 - Gemini API (hlas aj hudba) naposledy vracalo 402, vyčerpaný predplatený kredit; nové vety čakajú na jeho dobitie.
 - Review stránka experimentu (odkaz hore) je súkromná, ostatní ju uvidia, až keď ju vlastník zdieľa cez Share.
+
+## Kolo 58 (5. 10. 2026): finálna verzia na zverejnenie
+
+- Záverečná kontrola (Gemini: štyria diváci, spomalená verzia, zvuk; každý technický nález overený na snímkach v plnom
+  rozlíšení): nálezy "dvojité logo v 0:08", "nečistota pod sloganom" (je to nabiehajúca adresa www.assetin.sk), "krabica
+  presakuje pod kartami v 0:49" (bežná prelínačka) a "Návrh údajov len 1 s" (je na obraze 1,5 až 2 s) sa nepotvrdili.
+  Potvrdená bola jediná chyba: čiarka v nadpise "Vlastnými silami, alebo na kľúč". Bez "buď" sa pred "alebo" čiarka nepíše, preto je
+  teraz nadpis "Vlastnými silami alebo na kľúč" (len `LI_LIST_46`; rovnaký nadpis v dlhej verzii `src/scenes/C8_Pilot.tsx` sa nemenil).
+- Render na zverejnenie: `npx remotion render K-LinkedIn-46 ... --crf 12 --x264-preset slow`, mix ako v kole 57, potom
+  `ffmpeg -i K-LinkedIn-46_1080p.mp4 -c copy -movflags +faststart K-LinkedIn-46_LinkedIn.mp4`. H.264 High, 1080 x 1350,
+  30 fps, yuv420p, AAC 48 kHz 192 kb/s, 57,2 s, -16,2 LUFS, true peak -1,5 dBFS, 10,7 MB.
+- Kolo 57 je v `out/kratka/verzie/K-LinkedIn-46_kolo57_57s_*.mp4`.
+- Mimo videa (do textu príspevku): príklad je zo stavebníctva, preto do textu napísať, že sa to hodí na akékoľvek dokumenty
+  (zmluvy, spisy, účtovníctvo); otázky na cenu, GDPR a bezpečnosť patria do textu príspevku a na web.
 
 ## Kolo 57 (5. 10. 2026): plynulý posun stránky v hľadaní, žltý riadok v strede, prechody v hudbe
 

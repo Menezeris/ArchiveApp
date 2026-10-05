@@ -1914,7 +1914,7 @@ const LI_LIST_46: LiDef[] = [
   { def: paced(F24_46_CLIP, { scene: LI_F24_46, seconds: F24_46_END, stills: [], ...noSubs }), tone: () => 'light', steps: F24_46_STEPS, phase: phases.app, xfadeIn: F1_XFADE, stepsAfterXfade: true },
   { def: paced(F3_46_CLIP, { scene: LI_F3_46, seconds: F3_46_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: F3_46_STEPS, phase: phases.search }, // kolo 43: vlastny klip hlasu
   { def: paced(VYS_CLIP, { scene: LI_Vysledok, seconds: VYS_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: VYS_STEPS, phase: offer.kicker, xfadeIn: F1_XFADE, stepsAfterXfade: true }, // kolo 45: prelinacka z hladania (tvrdy strih z okna na prazdnu bielu preblesol; v kole 36 bola prec)
-  { def: paced(KTO_CLIP, { scene: LI_Kto, seconds: KTO_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Vlastnými silami, alebo na kľúč' }], phase: offer.kicker, xfadeIn: C8_XFADE, stepsAfterXfade: true }, // kolo 40
+  { def: paced(KTO_CLIP, { scene: LI_Kto, seconds: KTO_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Vlastnými silami alebo na kľúč' }], phase: offer.kicker, xfadeIn: C8_XFADE, stepsAfterXfade: true }, // kolo 40
   // kolo 48: dobeh vyzvy 0,5 s (bolo 0,2)
   { def: paced(C8_46_CLIP, { scene: LI_C8_46, seconds: clipEndSeconds(C8_46_CLIP, 0.5), stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Prvý krok' }], phase: offer.kicker, subsOut: [0, 1e9], xfadeIn: C8_XFADE, stepsAfterXfade: true },
   { def: paced('K-C9-Outro', { scene: LI_C9, seconds: 2.2, stills: [], ...noSubs }), tone: () => 'dark', chrome: false, subs: false }, // kolo 43: 2,2 s, aby akord doznel pod logom

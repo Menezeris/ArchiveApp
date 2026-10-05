@@ -154,6 +154,18 @@
       <h2>LinkedIn verzia</h2>
       <p>Hore je kolo 34 (52 s), pod ním kolo 33 (50 s), kolo 32 (56 s), plná LinkedIn verzia 77 s (kolo 31, bez zmeny) a na porovnanie kolo 15. Staršie kolá sú nižšie v zbalenej časti.</p>
     </div>
+    <article class="film tallfilm" id="film-K58">
+      <div data-video="K58" data-shape="v45"></div>
+      <div class="info">
+        <div class="head"><h3>Kolo 58: finálna verzia na zverejnenie (57 s)</h3><span class="len" data-len="K58"></span></div>
+        <ul>
+          <li>Nadpis v 0:46 "Vlastnými silami alebo na kľúč" bez čiarky (bez "buď" sa čiarka pred "alebo" nepíše).</li>
+          <li>Súbor na LinkedIn: H.264 High, 1080 x 1350, 30 fps, CRF 12 (preset slow), AAC 48 kHz, -16,2 LUFS, faststart.</li>
+          <li>Inak bez zmeny oproti kolu 57; kolá 55 až 57 sú v main (PR #27).</li>
+        </ul>
+        <div class="composer"><button type="button" data-role="compose" disabled>Pridať pripomienku</button><span class="result" aria-live="polite"></span></div>
+      </div>
+    </article>
     <article class="film tallfilm" id="film-K57">
       <div data-video="K57" data-shape="v45"></div>
       <div class="info">
@@ -727,9 +739,10 @@
 <div class="tip" id="tip" hidden></div>
 
 <script>
-  const BUILD = { renderedAt: "2026-10-05T20:10:00Z" };
+  const BUILD = { renderedAt: "2026-10-05T22:10:00Z" };
   // id assetov (videa a plagaty); prazdne = este sa nahrava
   const VIDEOS = {
+    K58: { cap: "d70cafe95628cb533d65b94d69c7a505", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 57.1 },
     K57: { cap: "80456a47458abefa80e9327bccf24c86", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 57.1 },
     K56: { cap: "63b09a6c1baa35e17b76b3770b527fb8", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 57.3 },
     K55: { cap: "4335cfb720c51f9d97eba74ea0a3f928", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 56.3 },
@@ -809,7 +822,7 @@
     "Kolo 54 (56 s)": [7.45, 9.26, 10.77, 7.8, 20.3],
     "Kolo 55 (56 s)": [7.45, 9.26, 10.77, 7.8, 21.0],
     "Kolo 56 (57 s)": [8.45, 9.26, 10.77, 7.8, 21.0],
-    "Kolo 57 (57 s)": [8.45, 9.26, 10.77, 7.6, 21.0]
+    "Kolo 58 (57 s)": [8.45, 9.26, 10.77, 7.6, 21.0]
   };
   const SCRIPT = [
     ["C2", "Kedy ste naposledy nevedeli nájsť nejaký dokument?", "old", "C2, prvá veta"],
@@ -869,8 +882,8 @@
   ];
   const ASKS = [
     [
-        "Hľadanie a hudba",
-        "Plynulý posun so žltým riadkom v strede, prechody v hudbe zo skladby. Sedí?"
+        "Zverejnenie",
+        "Kolo 58 je finálna verzia (súbor K-LinkedIn-46_LinkedIn.mp4). Ide von?"
     ],
     [
         "Obsah mimo videa",
@@ -878,7 +891,7 @@
     ],
     [
         "Zlúčenie",
-        "Kolá 32 až 54 sú v main (PR #23 a #24), kolá 55 až 57 na vetve."
+        "Kolá 32 až 57 sú v main (PR #23, #24 a #27), kolo 58 na vetve."
     ]
   ];
   const blob = (id) => '/_blob/' + id;
