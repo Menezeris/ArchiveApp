@@ -22,6 +22,13 @@ for (const id of ids) {
   segs.forEach((s, i) => {
     const out = join(tmp, `${i}.mp4`);
     const speed = s.speed ?? 1;
+    if (s.smooth) {
+      // kolo 57: plynuly posun stranky (scripts/smooth-scroll.py), korekcia vyrezu do src/footage/<id>.scroll.json
+      const t0 = segs.slice(0, i).reduce((acc, q, j) => acc + (q.smooth ? q.smooth.dur + (q.after ?? 0) : (q.before ?? 0) + (q.to - q.from) / (q.speed ?? 1) + (q.after ?? 0)) - (j > 0 ? q.fade ?? 0 : 0), 0);
+      execFileSync('python3', ['scripts/smooth-scroll.py', `public/footage/${src}`, String(s.from), String(s.to), String(s.smooth.dur), out, '--vf', cuts[id].vf ?? `crop=${cuts.crop}`, '--stop-early', String(s.smooth.stopEarly ?? 0), '--after', String(s.after ?? 0), '--t0', t0.toFixed(4), '--json', `src/footage/${id}.scroll.json`], { stdio: 'inherit' });
+      parts.push(`file '${out}'`);
+      return;
+    }
     // fps pred tpad: po setpts nema stream snimkovu frekvenciu a tpad by zmrazenie ticho vynechal (ffmpeg 7, kolo 32)
     // kolo 53: `up` = vystup v nasobnom rozliseni (lanczos + jemny unsharp), okno aplikacie sa v Remotion len zmensuje (ostrejsi text)
     const up = cuts[id].up ? [`scale=iw*${cuts[id].up}:ih*${cuts[id].up}:flags=lanczos`, 'unsharp=5:5:0.6:5:5:0'] : [];
@@ -29,6 +36,17 @@ for (const id of ids) {
     execFileSync(FF, ['-v', 'error', '-y', '-ss', String(s.from), '-to', String(s.to), '-i', `public/footage/${src}`, '-vf', vf, '-an', '-c:v', 'libx264', '-crf', '14', '-preset', 'fast', '-pix_fmt', 'yuv420p', out], { stdio: 'inherit' });
     parts.push(`file '${out}'`);
   });
+  // kolo 57: skutocny zaciatok plynuleho posunu (dlzky usekov su po zaokruhleni na snimky ine ako nominalne) do <id>.scroll.json
+  const si = segs.findIndex((q) => q.smooth);
+  if (si >= 0) {
+    const files = parts.map((p) => p.slice(6, -1));
+    const t0 = files.slice(0, si).reduce((acc, f) => acc + measure(f), 0);
+    const jf = `src/footage/${id}.scroll.json`;
+    const j = JSON.parse(readFileSync(jf, 'utf8'));
+    j.t0 = Math.round(t0 * 10000) / 10000;
+    writeFileSync(jf, JSON.stringify(j));
+    console.log(`plynuly posun zacina v ${j.t0} s zostrihu (namerane)`);
+  }
   const out = `public/footage/${id}.mp4`;
   const enc = ['-c:v', 'libx264', '-crf', cuts[id].up ? '14' : '16', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-an', out];
   if (segs.some((s, i) => i > 0 && s.fade)) {
@@ -56,7 +74,7 @@ for (const id of ids) {
     execFileSync(FF, ['-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', join(tmp, 'list.txt'), ...enc], { stdio: 'inherit' });
   }
   rmSync(tmp, { recursive: true, force: true });
-  const dur = segs.reduce((a, s, i) => a + (s.before ?? 0) + (s.to - s.from) / (s.speed ?? 1) + (s.after ?? 0) - (i > 0 ? s.fade ?? 0 : 0), 0);
+  const dur = segs.reduce((a, s, i) => a + (s.smooth ? s.smooth.dur + (s.after ?? 0) : (s.before ?? 0) + (s.to - s.from) / (s.speed ?? 1) + (s.after ?? 0)) - (i > 0 ? s.fade ?? 0 : 0), 0);
   const real = measure(out);
   const warn = Math.abs(real - dur) > 0.3 ? `  <-- POZOR: namerane ${real.toFixed(2)} s` : '';
   console.log(`${id}: ${segs.length} segmentov, ${dur.toFixed(2)} s -> public/footage/${id}.mp4${warn}`);

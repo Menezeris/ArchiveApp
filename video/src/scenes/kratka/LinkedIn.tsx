@@ -1,4 +1,5 @@
 import React from 'react';
+import f3Scroll46 from '../../footage/k46-f3-search.scroll.json';
 import { AbsoluteFill, Easing, Freeze, Img, OffthreadVideo, Series, staticFile, useCurrentFrame } from 'remotion';
 import { Scene, SceneFrameContext } from '../../components/Scene';
 import { voLines } from '../../components/Subtitles';
@@ -515,9 +516,17 @@ const footViewAt = (keys: FootView[], t: number) => {
   }
   return keys[keys.length - 1];
 };
-const LiFootage: React.FC<{ src: string; views: FootView[]; marks?: Mark[]; taps?: Tap[]; dimAt?: number }> = ({ src, views, marks = [], taps = [], dimAt }) => {
+/** Kolo 57: `scroll` = korekcia vyrezu pri plynulom posune stranky (src/footage/<id>.scroll.json zo scripts/smooth-scroll.py). */
+type ScrollFix = { t0: number; fps: number; dy: number[] };
+const scrollDy = (sc: ScrollFix | undefined, t: number) => {
+  if (!sc || t < sc.t0) return 0;
+  const k = Math.min(sc.dy.length - 1, Math.round((t - sc.t0) * sc.fps));
+  return sc.dy[k];
+};
+const LiFootage: React.FC<{ src: string; views: FootView[]; marks?: Mark[]; taps?: Tap[]; dimAt?: number; scroll?: ScrollFix }> = ({ src, views, marks = [], taps = [], dimAt, scroll }) => {
   const frame = useCurrentFrame();
-  const v = footViewAt(views, frame / FPS);
+  const v0 = footViewAt(views, frame / FPS);
+  const v = scroll ? { ...v0, y: v0.y + scrollDy(scroll, frame / FPS) } : v0;
   const dim = dimAt !== undefined ? 1 - 0.85 * tween(frame, dimAt * 1000, 450) : 1; // kolo 34: okno zbledne, ked kartu vysunie Panel
   const cw = WIN.w,
     ch = WIN.h - 44;
@@ -1078,23 +1087,24 @@ const C2_UP = 7820; // cas skladu: zlozky v oboch krabiciach su hore
  * ide o 0,5-1 s dlhsie; ~684 px, ~1,75 s), K46 0,5 (ako v kole 10, ~411 px, ~1,05 s; bez zvuku bol sklad 4-8 s prazdny).
  * Rovnaka rychlost na obrazovke ako v kancelarii; z nej prichod k regalu, zdvihnutie zloziek, prechod na policu a pomaly najazd.
  */
-type C2Geo = { p0: number; d: number; panAt: number; walkAt: number; upSpeed: number; walkMs: number; arr: number; upAt: number; push: [number, number]; slowZoom: (t: number) => number };
+type C2Geo = { p0: number; d: number; panAt: number; walkAt: number; upSpeed: number; holdMs: number; walkMs: number; arr: number; upAt: number; push: [number, number]; slowZoom: (t: number) => number };
 /** Kolo 44 (K46 bez vety "V kancelarii ci v archive."): `panAt` = ms klipu prestrihu dole do skladu (K: C2_PAN_AT), chodza 650 ms po nom. */
 /** Kolo 54: `upSpeed` = zrychlenie useku od prichodu panacika po zlozky hore (cas skladu 6500 az 7820; K 1). */
-const c2Geo = (p0: number, panAt = C2_PAN_AT, upSpeed = 1): C2Geo => {
+/** Kolo 56: `holdMs` = panacik po prichode k regalu postoji s otaznikom (cas skladu 6500 stoji); K 0. */
+const c2Geo = (p0: number, panAt = C2_PAN_AT, upSpeed = 1, holdMs = 0): C2Geo => {
   const d = whDist(1) - whDist(p0);
   const walkMs = (800 * d * WH_K) / OFFICE_WALK_PX;
   const walkAt = panAt + 650;
   const arr = walkAt + walkMs; // panacik pri regali (cas skladu 6500)
-  const upAt = arr + (C2_UP - 6500) / upSpeed; // ms klipu: zlozky hore
-  const push: [number, number] = [arr + 500 / upSpeed, 600 / upSpeed]; // prechod na policu (cas skladu 7000-7600), sklad uz takmer vybledol
+  const upAt = arr + holdMs + (C2_UP - 6500) / upSpeed; // ms klipu: zlozky hore
+  const push: [number, number] = [arr + holdMs + 500 / upSpeed, 600 / upSpeed]; // prechod na policu (cas skladu 7000-7600), sklad uz takmer vybledol
   // kolo 15: pomaly najazd na policu, 300 ms pred koncom prechodu sa rozbehne (900 ms) na +3,5 % za sekundu okolo C2_Q
   const slow = { at: push[0] + push[1] - 300, ramp: 900, rate: 0.035 / 1000 };
   const slowZoom = (t: number) => {
     const u = Math.max(0, t - slow.at);
     return 1 + slow.rate * (u < slow.ramp ? (u * u) / (2 * slow.ramp) : u - slow.ramp / 2);
   };
-  return { p0, d, panAt, walkAt, upSpeed, walkMs, arr, upAt, push, slowZoom };
+  return { p0, d, panAt, walkAt, upSpeed, holdMs, walkMs, arr, upAt, push, slowZoom };
 };
 const C2_GEO = c2Geo(0.32);
 const WH_P0 = C2_GEO.p0;
@@ -1126,6 +1136,7 @@ const c2Plan = (backAt: number, endMs: number, g: C2Geo = C2_GEO, backSpeed = 1)
       const e = (i + 1) / 20;
       return [g.walkAt + g.walkMs * e, whTime(invert01(whDist, whDist(g.p0) + g.d * easeInOut(e)))];
     }),
+    ...(g.holdMs ? [[g.arr + g.holdMs, whTime(1)] as [number, number]] : []), // kolo 56: panacik pri regali s otaznikom postoji
     [g.upAt, C2_UP], // 1:1: vyblednutie skladu, krabice, veka a zlozky hore
     [backAt, 8500], // staticka chvila so zlozkami hore
     [backAt + back, 9620], // zlozky dole, veka a krabice spat
@@ -1478,9 +1489,10 @@ const C2_46_CLIP = 'K46-C2-Hladanie';
 const C2_46_LINE = voAt(C2_46_CLIP, 1); // kolo 44 (Samuel: skratit pod minutu): veta "V kancelarii ci v archive." vypadla, "Hladanie..." je druha
 /** Kolo 34: kratsia chodza (start 0,5 ako v kole 10, ~1,05 s) a navrat zloziek 1,25x; `at` vety o hodinach v JSON = upAt - ~100.
  * Kolo 44: prestrih dole do skladu uz pocas otazky (1500 ms klipu, K 3450), zlozky hore ~4,5 s, veta o hodinach hned po otazke. */
-const C2_46_PAN_AT = 3100; // kolo 54: 3300 -> 3100 (tretia vec dopadne v 3200 este pri plnej kancelarii, otaznik od 3000)
+const C2_46_PAN_AT = 3600; // kolo 56 (Samuel: uvod prilis rychly, +0,5 s na otaznik v kancelarii): otaznik 3,0 az 3,6 s cely pred prestrihom
+// kolo 54: 3100 // kolo 54: 3300 -> 3100 (tretia vec dopadne v 3200 este pri plnej kancelarii, otaznik od 3000)
 // povodne: const C2_46_PAN_AT = 3300; // kolo 48: 1900; kolo 50 (Samuel: kancelaria prikratka, nestihne povyhadzovat): prestrih az po dopade tretej veci (3 200 ms) a otazniku
-const C2_46_GEO = c2Geo(0.68, C2_46_PAN_AT, 1.5); // kolo 54 (ticho 2,2 s po otazke): kratsia chodza (0,68) a zlozky hore 1,5x // kolo 50: kratsia chodza v sklade (p0 0,6, ~0,7 s), aby uvod nenarastol o celu kancelariu
+const C2_46_GEO = c2Geo(0.68, C2_46_PAN_AT, 1.5, 500); // kolo 56: +0,5 s s otaznikom pri regali // kolo 54 (ticho 2,2 s po otazke): kratsia chodza (0,68) a zlozky hore 1,5x // kolo 50: kratsia chodza v sklade (p0 0,6, ~0,7 s), aby uvod nenarastol o celu kancelariu
 const C2_46 = c2Plan(Math.max(C2_46_LINE + 150, C2_46_GEO.upAt + 100), C2_46_LINE + (voLines(C2_46_CLIP)[1].dur ?? 1780), C2_46_GEO, 1.25);
 const LI_C2_46: React.FC = () => <LI_C2Base wmap={C2_46.wmap} panAt={C2_46_PAN_AT} />;
 /** C4: len "Predstavujeme vam Assetin Archives." (bez vety o katalogu), logo s pilulkou odide 0,6 s po vete (5,7 s klipu), bez ikon archiv -> katalog. */
@@ -1721,6 +1733,7 @@ const F3_46_SECONDS = cutDuration(KF3_46);
  * okno -> pole Hladat -> detail s drobcekom pri "cestu" -> posun stranky k zltej zhode pri "udaje"), karty pod oknom: hladane
  * slovo, cesta (DocPath) pri "cestu", najdena polozka (ItemCard) pri "udaje". Klip K-F3-Vyhladavanie ostava pre K. */
 const F3_46_CLIP = 'K46-F3-Vyhladavanie';
+const F3_46_SCROLL = f3Scroll46 as ScrollFix; // kolo 57: korekcia vyrezu pri plynulom posune stranky
 const F3_46_W = { aplikacia: 2.6, cestu: 3.82, udaje: 6.14 }; // s od zaciatku vety (K46-F3-Vyhladavanie-0 words)
 const F3_46_L0 = voAt(F3_46_CLIP, 0) / 1000;
 const F3_46_CESTU = F3_46_L0 + F3_46_W.cestu;
@@ -1741,7 +1754,7 @@ const F3_46_VIEWS: FootView[] = (() => {
     { t: F3_46_CESTU - 0.9, ...search },
     { t: F3_46_CESTU - 0.1, ...detail }, // "cestu k polozke": drobcek a hlavicka ZL_03; posun stranky (3x) ide pod stojacou kamerou
     { t: F3_46_AJ + 1.4, ...detail },
-    { t: F3_46_SECONDS + 0.3, x: 500, y: 350, w: 960 }, // kolo 45 (Samuel: v 0:38 sa to zasekne): od zhody vyrez ide pomaly dalej az do prelinacky
+    { t: 99, ...detail }, // kolo 57 (Samuel: sekane scrollovanie, zlty riadok v strede): kamera stoji, stranka sa posunie plynulo (smooth-scroll) a zlta zhoda zastane v strede vyrezu (y 580)
   ];
 })();
 const F3_46_STEPS: Step[] = [
@@ -1751,11 +1764,11 @@ const F3_46_STEPS: Step[] = [
 ];
 const F3_46_MARKS: Mark[] = [
   markAt(KF3_46, 0.3, 1.9, 190, 578, 1638, 62, { spot: true }), // pole vyhladavania (pisanie slova)
-  markAt(KF3_46, F3_46_CESTU - 0.05, F3_46_AJ + 0.1, 596, 783, 246, 28, { spot: true }), // drobcek PL_01 / KR_01 / ZL_03: "cestu k polozke"
+  markAt(KF3_46, F3_46_CESTU - 0.05, F3_46_SCROLL.t0 + 0.15, 596, 783, 246, 28, { spot: true }), // kolo 57: odide so zaciatkom posunu stranky // drobcek PL_01 / KR_01 / ZL_03: "cestu k polozke"
 ];
 const LI_F3_46: React.FC = () => (
   <AbsoluteFill>
-    <LiFootage src={`footage/${KF3_46}.mp4`} views={F3_46_VIEWS} marks={F3_46_MARKS} />
+    <LiFootage src={`footage/${KF3_46}.mp4`} views={F3_46_VIEWS} marks={F3_46_MARKS} scroll={F3_46_SCROLL} />
     <Panel from={0.25} to={F3_46_APLIKACIA + 0.3} label="Hľadané slovo" width={WIN.w} middle>
       <SearchField typeFrom={0.5} typeTo={1.7} />
     </Panel>
@@ -1815,7 +1828,7 @@ const VYS_CLIP = 'K46-Vysledok';
 /** Kolo 36 (Samuel): "Vysledok katalogizacie je, ze viete, co mate, kde to je a ako s tym dalej nalozit." (tri zelene riadky pri
  * slovach); kolo 38: "Vysledok je, ze spolahlivo viete, co presne mate a kde to je." (dva riadky) a "Na zaklade toho viete rozhodnut, napriklad co uchovat, skartovat alebo plnohodnotne skenovat." (dlazdice v obrysoch
  * od zaciatku vety, rozsvietia sa pri slovach). Casy slov z K46-Vysledok-0 a -1 words. */
-const VYS_W = { co: 2.05, kde: 3.37, uchovat: 1.48, skartovat: 2.2, skenovat: 3.86 }; // kolo 54: prva veta o 0,25 s kratsia (pauza po "Vysledok:") // kolo 44: "Vysledok: spolahlivo viete, co presne mate a kde to je." a "Potom viete rozhodnut, co uchovat, skartovat alebo plnohodnotne skenovat." (words)
+const VYS_W = { co: 2.38, kde: 3.86, uchovat: 1.48, skartovat: 2.2, skenovat: 3.86 }; // kolo 55: prva veta "Vysledok: spolahlivo viete, ake dokumenty mate a kde sa nachadzaju." (co = "ake", kde = "kde") // kolo 44: "Vysledok: spolahlivo viete, co presne mate a kde to je." a "Potom viete rozhodnut, co uchovat, skartovat alebo plnohodnotne skenovat." (words)
 const VYS_L0 = voAt(VYS_CLIP, 0);
 const VYS_L1 = voAt(VYS_CLIP, 1);
 const VYS_SECONDS = (VYS_L1 + (voLines(VYS_CLIP)[1].dur ?? 6240)) / 1000 + 0.3;

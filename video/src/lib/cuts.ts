@@ -4,12 +4,13 @@ import cuts from '../footage/cuts.json';
  * Seg: usek zdroja (s). speed = zrychlenie, before/after = zmrazeny prvy/posledny obraz (s),
  * fade = prelinacka z predosleho segmentu (s, kolo 33): segment zacina o `fade` skor a prekryva koniec predosleho.
  */
-type Seg = { from: number; to: number; speed?: number; before?: number; after?: number; fade?: number; note?: string };
+/** Kolo 57: `smooth` = plynuly posun stranky (scripts/smooth-scroll.py): usek trva `dur` s bez ohladu na dlzku zdroja. */
+type Seg = { from: number; to: number; speed?: number; before?: number; after?: number; fade?: number; note?: string; smooth?: { dur: number; stopEarly?: number } };
 type Cut = { src: string; vf?: string; segs: Seg[] };
 const table = cuts as unknown as Record<string, Cut | string>;
 
 const segs = (id: string) => (table[id] as Cut).segs;
-const play = (s: Seg) => (s.to - s.from) / (s.speed ?? 1);
+const play = (s: Seg) => (s.smooth ? s.smooth.dur : (s.to - s.from) / (s.speed ?? 1));
 const len = (s: Seg) => (s.before ?? 0) + play(s) + (s.after ?? 0);
 
 /** Cas v zostrihu (s), kde zacina segment i (vratane zmrazeneho zaciatku a prelinacky). */
@@ -26,7 +27,7 @@ export const cutTime = (id: string, src: number) => {
   const list = segs(id);
   for (let i = 0; i < list.length; i++) {
     const s = list[i];
-    if (src >= s.from && src <= s.to) return segPlay(id, i) + (src - s.from) / (s.speed ?? 1);
+    if (src >= s.from && src <= s.to) return segPlay(id, i) + ((src - s.from) / (s.to - s.from)) * play(s); // smooth: priblizne (linearne)
   }
   throw new Error(`cutTime: ${src} s nie je v ziadnom segmente ${id}`);
 };

@@ -154,6 +154,38 @@
       <h2>LinkedIn verzia</h2>
       <p>Hore je kolo 34 (52 s), pod ním kolo 33 (50 s), kolo 32 (56 s), plná LinkedIn verzia 77 s (kolo 31, bez zmeny) a na porovnanie kolo 15. Staršie kolá sú nižšie v zbalenej časti.</p>
     </div>
+    <article class="film tallfilm" id="film-K57">
+      <div data-video="K57" data-shape="v45"></div>
+      <div class="info">
+        <div class="head"><h3>Kolo 57: plynulý posun stránky, žltý riadok v strede, prechody v hudbe (57 s)</h3><span class="len" data-len="K57"></span></div>
+        <ul>
+          <li>Hľadanie (0:33 až 0:35): stránka sa posunie plynulo za 2 s (záznam posúval v dvoch dávkach s pauzou, zrýchlenie to sekalo) a žltý riadok zastane v strede okna; kamera stojí.</li>
+          <li>Hudba: pred scénou Kto (0:45) a pred logom (0:55) už nie sú skoky, ale prechody priamo zo skladby (takt 43 pred pokojnou časťou, takty 49 a 50 pred záverečným akordom).</li>
+          <li>Dĺžka 57,1 s.</li>
+        </ul>
+        <div class="composer"><button type="button" data-role="compose" disabled>Pridať pripomienku</button><span class="result" aria-live="polite"></span></div>
+      </div>
+    </article>
+    <article class="film tallfilm" id="film-K56">
+      <div data-video="K56" data-shape="v45"></div>
+      <div class="info">
+        <div class="head"><h3>Kolo 56: úvod o sekundu pokojnejší (57 s)</h3><span class="len" data-len="K56"></span></div>
+        <ul>
+          <li>0:00 až 0:07: panáčik s otáznikom ostáva o 0,5 s dlhšie v kancelárii aj v sklade (pri regáli postojí, než sa otvoria krabice). Veta o hodinách príde o sekundu neskôr, hudba nastupuje hneď na začiatku. Dĺžka 57,3 s.</li>
+        </ul>
+        <div class="composer"><button type="button" data-role="compose" disabled>Pridať pripomienku</button><span class="result" aria-live="polite"></span></div>
+      </div>
+    </article>
+    <article class="film tallfilm" id="film-K55">
+      <div data-video="K55" data-shape="v45"></div>
+      <div class="info">
+        <div class="head"><h3>Kolo 55: hlas výsledku ako riadky v obraze (56 s)</h3><span class="len" data-len="K55"></span></div>
+        <ul>
+          <li>0:35: hlas hovorí "Výsledok: spoľahlivo viete, aké dokumenty máte a kde sa nachádzajú.", rovnako ako riadky v obraze. Riadky sa rozsvietia pri slovách "aké" a "kde". Dĺžka 56,3 s, hudba doladená.</li>
+        </ul>
+        <div class="composer"><button type="button" data-role="compose" disabled>Pridať pripomienku</button><span class="result" aria-live="polite"></span></div>
+      </div>
+    </article>
     <article class="film tallfilm" id="film-K54">
       <div data-video="K54" data-shape="v45"></div>
       <div class="info">
@@ -695,9 +727,12 @@
 <div class="tip" id="tip" hidden></div>
 
 <script>
-  const BUILD = { renderedAt: "2026-10-05T13:00:00Z" };
+  const BUILD = { renderedAt: "2026-10-05T20:10:00Z" };
   // id assetov (videa a plagaty); prazdne = este sa nahrava
   const VIDEOS = {
+    K57: { cap: "80456a47458abefa80e9327bccf24c86", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 57.1 },
+    K56: { cap: "63b09a6c1baa35e17b76b3770b527fb8", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 57.3 },
+    K55: { cap: "4335cfb720c51f9d97eba74ea0a3f928", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 56.3 },
     K54: { cap: "cd9758ece467a97dba7999872086d8b3", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 55.6 },
     K53: { cap: "24fe13a63694b12a1a9ff1919fe1aab7", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 57.5 },
     K52: { cap: "f5271e3da3c59688132ef381f6a21e9e", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 57.5 },
@@ -771,7 +806,10 @@
     "Kolo 51 (57 s)": [8.62, 9.26, 10.77, 8.2, 20.6],
     "Kolo 52 (57 s)": [8.62, 9.26, 10.77, 8.2, 20.6],
     "Kolo 53 (57 s)": [8.62, 9.26, 10.77, 8.2, 20.6],
-    "Kolo 54 (56 s)": [7.45, 9.26, 10.77, 7.8, 20.3]
+    "Kolo 54 (56 s)": [7.45, 9.26, 10.77, 7.8, 20.3],
+    "Kolo 55 (56 s)": [7.45, 9.26, 10.77, 7.8, 21.0],
+    "Kolo 56 (57 s)": [8.45, 9.26, 10.77, 7.8, 21.0],
+    "Kolo 57 (57 s)": [8.45, 9.26, 10.77, 7.6, 21.0]
   };
   const SCRIPT = [
     ["C2", "Kedy ste naposledy nevedeli nájsť nejaký dokument?", "old", "C2, prvá veta"],
@@ -831,8 +869,8 @@
   ];
   const ASKS = [
     [
-        "Tempo po opravách",
-        "Úvod bez dlhého ticha, karty v Kto hneď, nadpisy bez prekrytia. Sedí?"
+        "Hľadanie a hudba",
+        "Plynulý posun so žltým riadkom v strede, prechody v hudbe zo skladby. Sedí?"
     ],
     [
         "Obsah mimo videa",
@@ -840,7 +878,7 @@
     ],
     [
         "Zlúčenie",
-        "Kolá 47 až 54 sú na vetve, do main po odsúhlasení."
+        "Kolá 32 až 54 sú v main (PR #23 a #24), kolá 55 až 57 na vetve."
     ]
   ];
   const blob = (id) => '/_blob/' + id;
