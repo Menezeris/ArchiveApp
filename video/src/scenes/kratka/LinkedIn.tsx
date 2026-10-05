@@ -91,6 +91,7 @@ type LiDef = {
   top?: React.FC; // kolo 6: vrstva nad znackou a webom, pod titulkami (C4: prechod do bielej a nastup loga)
   subsOut?: [number, number]; // kolo 6: titulky v useku [od, do) ms vyblednu a nie su (C4: pocas prechodu na logo)
   rowOut?: [number, number]; // kolo 6: riadok znacky hore v useku [od, do) ms nie je, potom sa vrati (C4: pocas velkeho loga)
+  stepsAfterXfade?: boolean; // kolo 54 (K46): nadpis kroku prichadzajuceho klipu sa ukaze az po prelinacke (inak sa dva nadpisy prekryju)
   labelOut?: boolean; // nazov kroku na konci klipu vybledne s obrazom (F3 -> C8, kde uz ziadny krok nie je)
   xfadeIn?: number; // kolo 13: ms, o ktore sa klip prekryje s predchadzajucim a cely sa v nich prelinie (F3 -> C8 bez bielej)
   subInk?: (ms: number) => number; // kolo 15: farba titulkov 0 = biela, 1 = tmava (C4: titulok mosta pocas zeleneho prechodu)
@@ -1077,22 +1078,23 @@ const C2_UP = 7820; // cas skladu: zlozky v oboch krabiciach su hore
  * ide o 0,5-1 s dlhsie; ~684 px, ~1,75 s), K46 0,5 (ako v kole 10, ~411 px, ~1,05 s; bez zvuku bol sklad 4-8 s prazdny).
  * Rovnaka rychlost na obrazovke ako v kancelarii; z nej prichod k regalu, zdvihnutie zloziek, prechod na policu a pomaly najazd.
  */
-type C2Geo = { p0: number; d: number; panAt: number; walkAt: number; walkMs: number; arr: number; upAt: number; push: [number, number]; slowZoom: (t: number) => number };
+type C2Geo = { p0: number; d: number; panAt: number; walkAt: number; upSpeed: number; walkMs: number; arr: number; upAt: number; push: [number, number]; slowZoom: (t: number) => number };
 /** Kolo 44 (K46 bez vety "V kancelarii ci v archive."): `panAt` = ms klipu prestrihu dole do skladu (K: C2_PAN_AT), chodza 650 ms po nom. */
-const c2Geo = (p0: number, panAt = C2_PAN_AT): C2Geo => {
+/** Kolo 54: `upSpeed` = zrychlenie useku od prichodu panacika po zlozky hore (cas skladu 6500 az 7820; K 1). */
+const c2Geo = (p0: number, panAt = C2_PAN_AT, upSpeed = 1): C2Geo => {
   const d = whDist(1) - whDist(p0);
   const walkMs = (800 * d * WH_K) / OFFICE_WALK_PX;
   const walkAt = panAt + 650;
   const arr = walkAt + walkMs; // panacik pri regali (cas skladu 6500)
-  const upAt = arr + (C2_UP - 6500); // ms klipu: zlozky hore
-  const push: [number, number] = [arr + 500, 600]; // prechod na policu (cas skladu 7000-7600), sklad uz takmer vybledol
+  const upAt = arr + (C2_UP - 6500) / upSpeed; // ms klipu: zlozky hore
+  const push: [number, number] = [arr + 500 / upSpeed, 600 / upSpeed]; // prechod na policu (cas skladu 7000-7600), sklad uz takmer vybledol
   // kolo 15: pomaly najazd na policu, 300 ms pred koncom prechodu sa rozbehne (900 ms) na +3,5 % za sekundu okolo C2_Q
   const slow = { at: push[0] + push[1] - 300, ramp: 900, rate: 0.035 / 1000 };
   const slowZoom = (t: number) => {
     const u = Math.max(0, t - slow.at);
     return 1 + slow.rate * (u < slow.ramp ? (u * u) / (2 * slow.ramp) : u - slow.ramp / 2);
   };
-  return { p0, d, panAt, walkAt, walkMs, arr, upAt, push, slowZoom };
+  return { p0, d, panAt, walkAt, upSpeed, walkMs, arr, upAt, push, slowZoom };
 };
 const C2_GEO = c2Geo(0.32);
 const WH_P0 = C2_GEO.p0;
@@ -1409,7 +1411,7 @@ const LiFrame: React.FC<{ d: LiDef }> = ({ d }) => {
         </div>
       ) : null}
       {d.steps ? (
-        <div style={{ position: 'absolute', inset: 0, opacity: d.labelOut ? 1 - tween(frame, s.seconds * 1000 - 500, 400) : 1 }}>
+        <div style={{ position: 'absolute', inset: 0, opacity: (d.labelOut ? 1 - tween(frame, s.seconds * 1000 - 500, 400) : 1) * (d.stepsAfterXfade && d.xfadeIn ? tween(frame, d.xfadeIn - 50, 200) : 1) }}>
           <StepLabel steps={d.steps} frame={frame} />
         </div>
       ) : null}
@@ -1476,8 +1478,9 @@ const C2_46_CLIP = 'K46-C2-Hladanie';
 const C2_46_LINE = voAt(C2_46_CLIP, 1); // kolo 44 (Samuel: skratit pod minutu): veta "V kancelarii ci v archive." vypadla, "Hladanie..." je druha
 /** Kolo 34: kratsia chodza (start 0,5 ako v kole 10, ~1,05 s) a navrat zloziek 1,25x; `at` vety o hodinach v JSON = upAt - ~100.
  * Kolo 44: prestrih dole do skladu uz pocas otazky (1500 ms klipu, K 3450), zlozky hore ~4,5 s, veta o hodinach hned po otazke. */
-const C2_46_PAN_AT = 1500;
-const C2_46_GEO = c2Geo(0.5, C2_46_PAN_AT);
+const C2_46_PAN_AT = 3100; // kolo 54: 3300 -> 3100 (tretia vec dopadne v 3200 este pri plnej kancelarii, otaznik od 3000)
+// povodne: const C2_46_PAN_AT = 3300; // kolo 48: 1900; kolo 50 (Samuel: kancelaria prikratka, nestihne povyhadzovat): prestrih az po dopade tretej veci (3 200 ms) a otazniku
+const C2_46_GEO = c2Geo(0.68, C2_46_PAN_AT, 1.5); // kolo 54 (ticho 2,2 s po otazke): kratsia chodza (0,68) a zlozky hore 1,5x // kolo 50: kratsia chodza v sklade (p0 0,6, ~0,7 s), aby uvod nenarastol o celu kancelariu
 const C2_46 = c2Plan(Math.max(C2_46_LINE + 150, C2_46_GEO.upAt + 100), C2_46_LINE + (voLines(C2_46_CLIP)[1].dur ?? 1780), C2_46_GEO, 1.25);
 const LI_C2_46: React.FC = () => <LI_C2Base wmap={C2_46.wmap} panAt={C2_46_PAN_AT} />;
 /** C4: len "Predstavujeme vam Assetin Archives." (bez vety o katalogu), logo s pilulkou odide 0,6 s po vete (5,7 s klipu), bez ikon archiv -> katalog. */
@@ -1490,7 +1493,7 @@ const C4_46_CLIP = 'K46-C4-Cena';
  * prelinie 250 ms (logo a stoh sa neprekryvaju). */
 const C4_46_LINE_END = voAt(C4_46_CLIP, 0) + (voLines(C4_46_CLIP)[0].dur ?? 3840);
 const K_C4_H46 = C4_46_LINE_END + 5000 - (7900 + K_C4_D - C4_SKIP - 50); // kolo 40: logo neodchadza (brandOut az za koncom klipu), hacik ho prevezme ako hlavicku
-const C4_46_SECONDS = (C4_46_LINE_END + 300) / 1000; // kolo 40: klip konci 400 ms po vete s logom na obraze; kolo 44: 300 ms
+const C4_46_SECONDS = (C4_46_LINE_END + 150) / 1000; // kolo 40: klip konci 400 ms po vete s logom na obraze; kolo 44: 300 ms; kolo 48: 150 ms (logo stalo)
 const K_C4_LI46 = k4LiFor(K_C4For(K_C4_H46, false));
 const C4Top46: React.FC = () => <C4TopBase clip={C4_46_CLIP} h={K_C4_H46} promise={false} pill={false} center />; // kolo 36 (Samuel): riadok "Na kluc..." prec, bude az na webe
 /**
@@ -1504,10 +1507,10 @@ const C4Top46: React.FC = () => <C4TopBase clip={C4_46_CLIP} h={K_C4_H46} promis
 const HOOK_CLIP = 'K46-Hook';
 const HOOK_W = { drahe: 2.32, foti: 1.0, identifikacnu: 1.5 }; // s od zaciatku viet (K46-Hook-0 a -1 words); kolo 43: ramik pri "foti", zelena cenovka pri "identifikacnu"; kolo 46 (Samuel: veta "Nas pristup katalogizacie je hospodarnejsi:" zdvojena s grafikou): druha veta je len "Nasa aplikacia foti len identifikacnu stranu." (strih z nahravky kola 43), katalogizacia v nadpise kroku
 const HOOK_SECONDS = (voAt(HOOK_CLIP, 1) + (voLines(HOOK_CLIP)[1].dur ?? 3840)) / 1000 + 0.25;
-const HOOK_LOGO = { h0: 168, h1: 64, y1: 44, right: 48, ms: 600 }; // kolo 40: logo z C4 sa zmensi a vysunie vpravo hore ako hlavicka hacika
+const HOOK_LOGO = { h0: 168, h1: BRAND_H, right: 48, ms: 450 }; // kolo 47: 450 ms, logo je v rohu skor, nez pride prvy titulok (600 ms), inak by cez neho preslo // kolo 40: logo z C4 sa zmensi a vysunie ako hlavicka; kolo 47 (Samuel): do praveho dolneho rohu, presne na miesto rohoveho loga ostatnych zaberov (BrandRow)
 const HOOK_STEPS: Step[] = [
   { from: 0, title: 'Skenovať všetko je drahé' },
-  { from: voAt(HOOK_CLIP, 1) - 100, title: 'Katalogizácia: len 1 strana' }, // kolo 46: kratsie, dlhsi nadpis isiel pod logo v hlavicke
+  { from: voAt(HOOK_CLIP, 1) - 100, title: 'Katalogizácia: len identifikačná strana' }, // kolo 46: kratsie (nadpis isiel pod logo v hlavicke); kolo 47: logo je v rohu dole, nadpis cely
 ];
 const HOOK_PAGES = 328; // pocitadlo stran pri skenovani celeho archivu (kolo 37: 328 namiesto 1 240)
 const fmtPages = (n: number) => `${Math.round(n).toLocaleString('sk-SK').replace(/\u00a0/g, ' ')} strán`;
@@ -1523,12 +1526,13 @@ const LI_Hook: React.FC = () => {
   const ms = (frame / FPS) * 1000;
   const L0 = voAt(HOOK_CLIP, 0),
     L1 = voAt(HOOK_CLIP, 1);
-  const logoT = tween(frame, 120, HOOK_LOGO.ms, easeInOut); // 0 = logo v strede ako na konci C4, 1 = hlavicka vpravo hore
+  const logoT = tween(frame, 100, HOOK_LOGO.ms, easeInOut); // 0 = logo v strede ako na konci C4, 1 = hlavicka vpravo hore
   const [LVW, LVH] = ARCHIVES_LOGO.two.view;
   const lh = HOOK_LOGO.h0 + (HOOK_LOGO.h1 - HOOK_LOGO.h0) * logoT;
   const lw = (lh * LVW) / LVH;
   const lx = (LI.w - (HOOK_LOGO.h0 * LVW) / LVH) / 2 + (LI.w - HOOK_LOGO.right - (HOOK_LOGO.h1 * LVW) / LVH - (LI.w - (HOOK_LOGO.h0 * LVW) / LVH) / 2) * logoT;
-  const ly = C4_Y46.logo + (HOOK_LOGO.y1 - C4_Y46.logo) * logoT;
+  const ly1 = LI.h - (BRAND_BASE - 0.6 * (BRAND_H / LVH)) - HOOK_LOGO.h1; // vrch rohoveho loga (BrandRow: right 48, bottom BRAND_BASE - 0.6 k)
+  const ly = C4_Y46.logo + (ly1 - C4_Y46.logo) * logoT;
   const stackIn = settle(frame, 450);
   const scanFrom = L0 + 150;
   const count = tween(frame, scanFrom, HOOK_W.drahe * 1000 + 300, easeInOut);
@@ -1562,15 +1566,17 @@ const LI_Hook: React.FC = () => {
           const rot = (i - 2.5) * 2.2;
           const dx = (i - 2.5) * 9,
             dy = -i * 14;
-          const lx = top ? 480 * split : 0; // vrchny list ide doprava (o 480 px voci stohu, ktory ide dolava)
-          const ly = top ? -40 * split : 0;
-          const sc = top ? 1 + 0.1 * split : 1;
+          // kolo 49 (Samuel: list je posunuty hore a cenovka vytrca zo stranky): list ide doprava o 420 px (stred 752 px), ostava
+          // na vyske stohu (stred ~525 px, predtym o 40 px vyssie a 1,1x), zvacsi sa len 1,05x; cenovka visi na jeho pravom hornom rohu
+          const lx = top ? 420 * split : 0; // vrchny list ide doprava voci stohu, ktory ide dolava
+          const ly = top ? 30 * split : 0;
+          const sc = top ? 1 + 0.05 * split : 1;
           return (
             <div key={i} style={{ position: 'absolute', left: cx - w / 2 + dx + stackDx + lx, top: cy - h / 2 + dy + ly, width: w, height: h, opacity: top ? 1 : 1 - stackDim, transform: `rotate(${rot * (1 - (top ? split : 0))}deg) scale(${sc})`, transformOrigin: 'center', filter: 'drop-shadow(0 10px 22px rgba(15,23,42,0.14))' }}>
               {top ? (
                 <>
                   {/* kolo 37 (Samuel: graficky rozlisit identifikacnu stranu): vrchny list ma hlavicku s nazvom a kratke polia, nie plny text */}
-                  <Sheet w={w} h={h} lines={0} title={false} qr stamp />
+                  <Sheet w={w} h={h} lines={0} title={false} qr stamp qrAt={[0.16, 0.72]} /> {/* kolo 52 (Samuel): QR vlavo dole, mimo peciatky */}
                   <div style={{ position: 'absolute', left: w * 0.12, top: h * 0.09, width: w * 0.76 }}>
                     <div style={{ fontFamily: APP_FONT, fontWeight: 600, fontSize: 13, letterSpacing: '0.08em', color: INK[400] }}>NÁZOV PROJEKTU</div>
                     <div style={{ position: 'relative', marginTop: 6, padding: '6px 8px', borderRadius: 6, background: `rgba(234,245,235,${Math.min(1, frameT * 1.5)})`, fontFamily: FONT.display, fontWeight: 800, fontSize: 24, lineHeight: 1.12, letterSpacing: '-0.01em', color: INK[900] }}>
@@ -1613,7 +1619,7 @@ const LI_Hook: React.FC = () => {
       ) : null}
       {/* stitok "1 strana" pod zdvihnutym listom */}
       {one > 0 ? (
-        <div style={{ position: 'absolute', left: cx + 250 - 220, top: 800, width: 440, textAlign: 'center', fontFamily: FONT.display, fontWeight: 800, fontSize: 48, letterSpacing: '-0.01em', color: BRAND[600], opacity: one, transform: `translateY(${(1 - one) * 12}px)`, whiteSpace: 'nowrap' }}>1 strana</div>
+        <div style={{ position: 'absolute', left: cx + 212 - 220, top: 800, width: 440, textAlign: 'center', fontFamily: FONT.display, fontWeight: 800, fontSize: 48, letterSpacing: '-0.01em', color: BRAND[600], opacity: one, transform: `translateY(${(1 - one) * 12}px)`, whiteSpace: 'nowrap' }}>1 strana</div>
       ) : null}
       {/* cenovka EUR EUR EUR pri "drahe"; pri "hospodarnejsi" zbledne a pri liste je zelena cenovka s jednym EUR */}
       {tag > 0 && tagOut < 1 ? (
@@ -1622,7 +1628,7 @@ const LI_Hook: React.FC = () => {
         </div>
       ) : null}
       {cheap > 0 ? (
-        <div style={{ position: 'absolute', left: 930, top: 300, opacity: Math.min(1, cheap * 1.4), transform: `rotate(8deg) scale(${1.9 * (0.7 + 0.3 * Math.min(1, cheap))})`, transformOrigin: 'left center' }}>
+        <div style={{ position: 'absolute', left: 858, top: 292, opacity: Math.min(1, cheap * 1.4), transform: `rotate(8deg) scale(${1.9 * (0.7 + 0.3 * Math.min(1, cheap))})`, transformOrigin: 'left center' }}>
           <PriceTag text="€" s={Math.min(1, cheap)} color={BRAND[600]} size={26} />
         </div>
       ) : null}
@@ -1643,7 +1649,7 @@ const C5_46_SPEED = 1.4;
 const C5_46_W1 = { mobil: 0.88 }; // s od zaciatku vety "Staci bezny mobil." (words)
 const C5_46_FLASH = voAt(C5_46_CLIP, 1) + C5_46_W1.mobil * 1000 - 100; // ms klipu: blesk
 const C5_46_LAND = C5_46_FLASH + 3500 / 2.2; // mobil dosadol (scena 8400), dosadnutie 2,2x
-const C5_46_END = Math.max(voAt(C5_46_CLIP, 1) + (voLines(C5_46_CLIP)[1].dur ?? 1500) + 250, C5_46_LAND + 200);
+const C5_46_END = Math.max(voAt(C5_46_CLIP, 1) + (voLines(C5_46_CLIP)[1].dur ?? 1500) + 250, C5_46_LAND + 100); // kolo 48: 100 ms po dosadnuti
 const C5_46_MAP: [number, number][] = [
   [0, 300],
   [C5_46_FLASH - 900, 4000],
@@ -1666,7 +1672,7 @@ const C5_46_STEPS: C5Step[] = [
   { from: 300, title: 'Prilepiť QR kód' },
   { from: voAt(C5_46_CLIP, 1) - 100, title: 'Mobilom odfotiť identifikačnú stranu' },
 ];
-const C5Hierarchy46: React.FC = () => <C5HierarchyBase clip={C5_46_CLIP} outAt={voAt(C5_46_CLIP, 1)} iconsAt={[0, 1, 2, 3].map((i) => voAt(C5_46_CLIP, 0) + 150 + i * 90)} qrAt={voAt(C5_46_CLIP, 0) + C5_46_W0.kod * 1000 - 150} arrange={false} />;
+const C5Hierarchy46: React.FC = () => <C5HierarchyBase clip={C5_46_CLIP} outAt={C5_46_FLASH + 300} iconsAt={[0, 1, 2, 3].map((i) => voAt(C5_46_CLIP, 0) + 150 + i * 90)} qrAt={voAt(C5_46_CLIP, 0) + C5_46_W0.kod * 1000 - 150} arrange={false} />;
 /** F24: zostrih k46-f24-review (pokoj na fotke 2,4 s, lupa 1,6x, prijatie hned), veta "Aplikacia z fotky sama vycita udaje a clovek ich len potvrdi.", klik 0,3 s po "potvrdi". */
 const KF24_46 = 'k46-f24-review';
 const F24_46_CLIP = 'K46-F24-Aplikacia';
@@ -1676,10 +1682,10 @@ const F24_46_UDAJE = F24_46_L0 + F24_46_W.udaje;
 const F24_46_POTVRDI = F24_46_L0 + F24_46_W.potvrdi;
 const F24_46_TAPS: Tap[] = [tapAt(KF24_46, 12.15, 1734, 764)]; // prijat spravnu hodnotu (Nazov projektu)
 const F24_46_UPRAVI = F24_46_L0 + F24_46_W.upravi;
-const F24_46_END = F24_46_L0 + (voLines(F24_46_CLIP)[0].dur ?? 4960) / 1000 + 0.6; // kolo 36: 0,6 s po vete
+const F24_46_END = F24_46_L0 + (voLines(F24_46_CLIP)[0].dur ?? 4960) / 1000 + 0.5; // kolo 36: 0,6 s po vete; kolo 48: 0,5 s
 const F24_46_MARKS: Mark[] = [
   markAt(KF24_46, F24_46_L0 + 0.3, F24_46_UDAJE - 0.05, 286, 523, 331, 443, { spot: true }), // "z fotky sama vycita": fotka
-  markAt(KF24_46, F24_46_UDAJE + 0.3, F24_46_POTVRDI - 0.4, 824, 654, 428, 32, { spot: true }), // "udaje": navrhnuta hodnota
+  markAt(KF24_46, F24_46_UDAJE + 0.3, F24_46_UPRAVI - 0.1, 824, 654, 428, 32, { spot: true }), // "udaje": navrhnuta hodnota; kolo 51 (Samuel: ramik je tam kratko): drzi cez "potvrdi" az po "upravi" (1,7 s, bolo 0,5 s; riadok je v oboch segmentoch zostrihu na tom istom mieste)
 ];
 const F24_46_VIEWS: FootView[] = (() => {
   // kolo 40 (publikum: polia aplikacie su na mobile drobne): tesnejsie vyrezy okolo fotky, pola Nazov projektu a prijatia;
@@ -1701,7 +1707,7 @@ const F24_46_VIEWS: FootView[] = (() => {
 })();
 const F24_46_STEPS: Step[] = [
   { from: 0, title: 'Prečítať text' },
-  { from: F24_46_UDAJE * 1000, title: 'Návrh údajov' },
+  { from: (F24_46_L0 + 1.58) * 1000 - 100, title: 'Návrh údajov' }, // kolo 54: od "vycita" (1,6 s namiesto 1 s)
   { from: F24_46_POTVRDI * 1000 - 150, title: 'Človek potvrdí alebo upraví' },
 ];
 /** Kolo 34: okno zbledlo a karta sa vysunula na jeho miesto. Kolo 36 (Samuel: rychlo to preblikne, karta ma byt rovno pod oknom):
@@ -1715,10 +1721,11 @@ const F3_46_SECONDS = cutDuration(KF3_46);
  * okno -> pole Hladat -> detail s drobcekom pri "cestu" -> posun stranky k zltej zhode pri "udaje"), karty pod oknom: hladane
  * slovo, cesta (DocPath) pri "cestu", najdena polozka (ItemCard) pri "udaje". Klip K-F3-Vyhladavanie ostava pre K. */
 const F3_46_CLIP = 'K46-F3-Vyhladavanie';
-const F3_46_W = { cestu: 3.82, udaje: 6.14 }; // s od zaciatku vety (K46-F3-Vyhladavanie-0 words)
+const F3_46_W = { aplikacia: 2.6, cestu: 3.82, udaje: 6.14 }; // s od zaciatku vety (K46-F3-Vyhladavanie-0 words)
 const F3_46_L0 = voAt(F3_46_CLIP, 0) / 1000;
 const F3_46_CESTU = F3_46_L0 + F3_46_W.cestu;
-const F3_46_UDAJE = F3_46_L0 + F3_46_W.udaje; // len na kontrolu (koniec vety)
+const F3_46_UDAJE = F3_46_L0 + F3_46_W.udaje; // kolo 48: karta polozky pri "udaje" (so zltou zhodou)
+const F3_46_APLIKACIA = F3_46_L0 + F3_46_W.aplikacia; // kolo 48: karta cesty uz od "Aplikacia ukaze" (predtym od "cestu" po "aj", len 0,8 s)
 /** Kolo 44 (Samuel: karta udajov je na obraze prilis kratko a cesta drzi pocas "aj vsetky vycitane udaje"): cesta odide a karta
  * polozky pride uz na zaciatku casti "aj vsetky vycitane udaje" (partAt[2]), posun stranky k zhode v zostrihu od AJ - 0,5 s, karta drzi
  * do konca klipu (~3 s). */
@@ -1726,38 +1733,36 @@ const F3_46_AJ = F3_46_L0 + (voLines(F3_46_CLIP)[0].partAt?.[2] ?? 4600) / 1000;
 const F3_46_VIEWS: FootView[] = (() => {
   const full = { x: 70, y: 0, w: 1625 },
     search = { x: 60, y: 300, w: 1000 },
-    detail = { x: 480, y: 440, w: 820 },
-    match = { x: 480, y: 220, w: 1000 }; // sirsi, aby cely zvyrazneny text (x 908 az 1393) bol vnutri
+    detail = { x: 480, y: 330, w: 1000 }; // kolo 47 (Samuel: hladanie neiste a sekave): jeden vyrez pre drobcek (y 783) aj zhodu po posune (y ~490, x 908 az 1393), kamera pocas posunu stranky stoji
   return [
     { t: 0, ...full },
     { t: 0.5, ...full },
     { t: 1.3, ...search }, // priblizenie pocas pisania slova
     { t: F3_46_CESTU - 0.9, ...search },
-    { t: F3_46_CESTU - 0.1, ...detail }, // "cestu k polozke": drobcek a hlavicka ZL_03
-    { t: F3_46_AJ - 0.6, ...detail },
-    { t: F3_46_AJ + 0.4, ...match }, // "aj vsetky vycitane udaje": posun stranky k zhode v metadatach
-    { t: F3_46_SECONDS + 0.3, x: 510, y: 280, w: 940 }, // kolo 45 (Samuel: v 0:38 sa to zasekne): zaznam je od zhody staticky, vyrez ide pomaly dalej az do prelinacky
+    { t: F3_46_CESTU - 0.1, ...detail }, // "cestu k polozke": drobcek a hlavicka ZL_03; posun stranky (3x) ide pod stojacou kamerou
+    { t: F3_46_AJ + 1.4, ...detail },
+    { t: F3_46_SECONDS + 0.3, x: 500, y: 350, w: 960 }, // kolo 45 (Samuel: v 0:38 sa to zasekne): od zhody vyrez ide pomaly dalej az do prelinacky
   ];
 })();
 const F3_46_STEPS: Step[] = [
   { from: 0, title: 'Napísať kľúčové slovo' },
-  { from: F3_46_CESTU * 1000 - 150, title: 'Cesta k položke' },
-  { from: F3_46_AJ * 1000 - 150, title: 'Vyčítané údaje' },
+  { from: F3_46_APLIKACIA * 1000 + 350, title: 'Cesta k položke' }, // kolo 54: spolu s kartou cesty (predtym ~1 s po nej)
+  { from: F3_46_UDAJE * 1000 - 450, title: 'Vyčítané údaje' },
 ];
 const F3_46_MARKS: Mark[] = [
   markAt(KF3_46, 0.3, 1.9, 190, 578, 1638, 62, { spot: true }), // pole vyhladavania (pisanie slova)
-  markAt(KF3_46, F3_46_CESTU - 0.05, F3_46_AJ - 0.5, 596, 783, 246, 28, { spot: true }), // drobcek PL_01 / KR_01 / ZL_03: "cestu k polozke"
+  markAt(KF3_46, F3_46_CESTU - 0.05, F3_46_AJ + 0.1, 596, 783, 246, 28, { spot: true }), // drobcek PL_01 / KR_01 / ZL_03: "cestu k polozke"
 ];
 const LI_F3_46: React.FC = () => (
   <AbsoluteFill>
     <LiFootage src={`footage/${KF3_46}.mp4`} views={F3_46_VIEWS} marks={F3_46_MARKS} />
-    <Panel from={0.25} to={F3_46_CESTU - 0.2} label="Hľadané slovo" width={WIN.w} middle>
+    <Panel from={0.25} to={F3_46_APLIKACIA + 0.3} label="Hľadané slovo" width={WIN.w} middle>
       <SearchField typeFrom={0.5} typeTo={1.7} />
     </Panel>
-    <Panel from={F3_46_CESTU - 0.15} to={F3_46_AJ - 0.1} label="Cesta k položke" width={WIN.w} middle>
+    <Panel from={F3_46_APLIKACIA + 0.35} to={F3_46_UDAJE - 0.4} label="Cesta k položke" width={WIN.w} middle>
       <DocPath lineAt={F3_46_CESTU - F3_WORDS.cestu} />
     </Panel>
-    <Panel from={F3_46_AJ - 0.05} to={F3_46_SECONDS + 1} label="Nájdená položka" width={WIN.w} middle>
+    <Panel from={F3_46_UDAJE - 0.35} to={F3_46_SECONDS + 1} label="Nájdená položka" width={WIN.w} middle>
       <ItemCard />
     </Panel>
   </AbsoluteFill>
@@ -1770,7 +1775,7 @@ const C8_46_CLIP = 'K46-C8-Ponuka';
  * sluzbu na kluc." s dvoma kartami (Vlastnymi silami / Sluzba na kluc) pri slovach, pred vyzvou.
  */
 const KTO_CLIP = 'K46-Kto';
-const KTO_W = { sami: 1.3, archiv: 2.62 }; // s od zaciatku vety "Bud katalogizujete sami, alebo vam archiv spracujeme na kluc." (K46-Kto-0 words); kolo 44 kratsia veta
+const KTO_W = { sami: 1.3, alebo: 2.0, archiv: 2.62 }; // s od zaciatku vety "Bud katalogizujete sami, alebo vam archiv spracujeme na kluc." (K46-Kto-0 words); kolo 44 kratsia veta
 const KTO_L0 = voAt(KTO_CLIP, 0);
 const KTO_SECONDS = (KTO_L0 + (voLines(KTO_CLIP)[0].dur ?? 4500)) / 1000 + 0.2; // kolo 44: 0,2 s po vete
 /** Kolo 43 (Samuel: zavery su plane, zapracovat tmavomodru): karta Vlastnymi silami biela s tmavomodrym obrysom, karta Sluzba na
@@ -1792,8 +1797,9 @@ const KtoCard: React.FC<{ kind: OfferIconKind; title: string; sub: string; at: n
 const LI_Kto: React.FC = () => (
   <AbsoluteFill style={{ background: '#fff' }}>
     {/* kolo 45 (simulovani divaci z malych firiem: "je to pre velke sklady"): podtitulky s rozsahom od par sanonov po cely sklad */}
-    <KtoCard kind="app" title="Vlastnými silami" sub="s našou aplikáciou, od pár šanónov" at={KTO_L0 + KTO_W.sami * 1000 - 150} left={60} />
-    <KtoCard kind="catalog" title="Služba na kľúč" sub="archív spracujeme my, aj celý sklad" at={KTO_L0 + KTO_W.archiv * 1000 - 150} left={560} dark />
+    {/* kolo 54 (prehliadka: 1,3 s prazdnej bielej): prva karta hned so zaciatkom vety, druha pri "alebo" */}
+    <KtoCard kind="app" title="Vlastnými silami" sub="s našou aplikáciou, od pár šanónov" at={KTO_L0 - 150} left={60} />
+    <KtoCard kind="catalog" title="Služba na kľúč" sub="archív spracujeme my, aj celý sklad" at={KTO_L0 + KTO_W.alebo * 1000 - 150} left={560} dark />
   </AbsoluteFill>
 );
 const LI_C8_46: React.FC = () => (
@@ -1809,7 +1815,7 @@ const VYS_CLIP = 'K46-Vysledok';
 /** Kolo 36 (Samuel): "Vysledok katalogizacie je, ze viete, co mate, kde to je a ako s tym dalej nalozit." (tri zelene riadky pri
  * slovach); kolo 38: "Vysledok je, ze spolahlivo viete, co presne mate a kde to je." (dva riadky) a "Na zaklade toho viete rozhodnut, napriklad co uchovat, skartovat alebo plnohodnotne skenovat." (dlazdice v obrysoch
  * od zaciatku vety, rozsvietia sa pri slovach). Casy slov z K46-Vysledok-0 a -1 words. */
-const VYS_W = { co: 2.3, kde: 3.62, uchovat: 1.48, skartovat: 2.2, skenovat: 3.86 }; // kolo 44: "Vysledok: spolahlivo viete, co presne mate a kde to je." a "Potom viete rozhodnut, co uchovat, skartovat alebo plnohodnotne skenovat." (words)
+const VYS_W = { co: 2.05, kde: 3.37, uchovat: 1.48, skartovat: 2.2, skenovat: 3.86 }; // kolo 54: prva veta o 0,25 s kratsia (pauza po "Vysledok:") // kolo 44: "Vysledok: spolahlivo viete, co presne mate a kde to je." a "Potom viete rozhodnut, co uchovat, skartovat alebo plnohodnotne skenovat." (words)
 const VYS_L0 = voAt(VYS_CLIP, 0);
 const VYS_L1 = voAt(VYS_CLIP, 1);
 const VYS_SECONDS = (VYS_L1 + (voLines(VYS_CLIP)[1].dur ?? 6240)) / 1000 + 0.3;
@@ -1878,8 +1884,9 @@ const VysTile: React.FC<{ kind: VysKind; label: string; sub: string; at: number;
 const LI_Vysledok: React.FC = () => (
   <AbsoluteFill style={{ background: '#fff' }}>
     {/* kolo 37 (Samuel): riadok "Ako s tym dalej" prec, ostavaju dva */}
-    <VysRow text="Čo presne máte" at={VYS_L0 + VYS_W.co * 1000 - 100} top={250} showAt={VYS_L0 + 150} />
-    <VysRow text="Kde to je" at={VYS_L0 + VYS_W.kde * 1000 - 100} top={420} showAt={VYS_L0 + 240} />
+    {/* kolo 53 (Samuel): "Ake dokumenty mate" / "Kde sa nachadzaju" namiesto "Co presne mate" / "Kde to je" (hlas ostava) */}
+    <VysRow text="Aké dokumenty máte" at={VYS_L0 + VYS_W.co * 1000 - 100} top={250} showAt={VYS_L0 + 150} />
+    <VysRow text="Kde sa nachádzajú" at={VYS_L0 + VYS_W.kde * 1000 - 100} top={420} showAt={VYS_L0 + 240} />
     {VYS_TILES.map((t, i) => (
       <VysTile key={t.kind} {...t} at={VYS_L1 + t.at * 1000 - 120} showAt={VYS_L1 - 100 + i * 90} left={C8X + i * (300 + (C8W - 900) / 2)} />
     ))}
@@ -1891,11 +1898,12 @@ const LI_LIST_46: LiDef[] = [
   { def: paced(HOOK_CLIP, { scene: LI_Hook, seconds: HOOK_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: HOOK_STEPS, phase: PHASE_ARCHIV, chrome: false }, // kolo 40: logo je v hlavicke, bez prelinacky (rovnaky obraz ako koniec C4)
   { def: paced(C5_46_CLIP, { scene: C5_46_Scene, seconds: C5_46_SECONDS, stills: [], ...noSubs }), band: true, tone: () => 'light', steps: C5_46_STEPS, phase: PHASE_ARCHIV, shift: c5Shift, win: { top: 138, bottom: 1030, feather: 18 }, overflow: true, overlay: C5Hierarchy46, xfadeIn: 400 },
   // kolo 34: skutocny zaznam fotenia (F1) vypadol, fotenie ukazuje hacik aj C5 (blesk), F24 sa prelinie z mobilu na konci C5
-  { def: paced(F24_46_CLIP, { scene: LI_F24_46, seconds: F24_46_END, stills: [], ...noSubs }), tone: () => 'light', steps: F24_46_STEPS, phase: phases.app, xfadeIn: F1_XFADE },
+  { def: paced(F24_46_CLIP, { scene: LI_F24_46, seconds: F24_46_END, stills: [], ...noSubs }), tone: () => 'light', steps: F24_46_STEPS, phase: phases.app, xfadeIn: F1_XFADE, stepsAfterXfade: true },
   { def: paced(F3_46_CLIP, { scene: LI_F3_46, seconds: F3_46_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: F3_46_STEPS, phase: phases.search }, // kolo 43: vlastny klip hlasu
-  { def: paced(VYS_CLIP, { scene: LI_Vysledok, seconds: VYS_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: VYS_STEPS, phase: offer.kicker, xfadeIn: F1_XFADE }, // kolo 45: prelinacka z hladania (tvrdy strih z okna na prazdnu bielu preblesol; v kole 36 bola prec)
-  { def: paced(KTO_CLIP, { scene: LI_Kto, seconds: KTO_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Vlastnými silami, alebo na kľúč' }], phase: offer.kicker, xfadeIn: C8_XFADE }, // kolo 40
-  { def: paced(C8_46_CLIP, { scene: LI_C8_46, seconds: clipEndSeconds(C8_46_CLIP, 0.2), stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Prvý krok' }], phase: offer.kicker, subsOut: [0, 1e9], xfadeIn: C8_XFADE },
+  { def: paced(VYS_CLIP, { scene: LI_Vysledok, seconds: VYS_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: VYS_STEPS, phase: offer.kicker, xfadeIn: F1_XFADE, stepsAfterXfade: true }, // kolo 45: prelinacka z hladania (tvrdy strih z okna na prazdnu bielu preblesol; v kole 36 bola prec)
+  { def: paced(KTO_CLIP, { scene: LI_Kto, seconds: KTO_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Vlastnými silami, alebo na kľúč' }], phase: offer.kicker, xfadeIn: C8_XFADE, stepsAfterXfade: true }, // kolo 40
+  // kolo 48: dobeh vyzvy 0,5 s (bolo 0,2)
+  { def: paced(C8_46_CLIP, { scene: LI_C8_46, seconds: clipEndSeconds(C8_46_CLIP, 0.5), stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Prvý krok' }], phase: offer.kicker, subsOut: [0, 1e9], xfadeIn: C8_XFADE, stepsAfterXfade: true },
   { def: paced('K-C9-Outro', { scene: LI_C9, seconds: 2.2, stills: [], ...noSubs }), tone: () => 'dark', chrome: false, subs: false }, // kolo 43: 2,2 s, aby akord doznel pod logom
 ];
 export const liFrames46 = () => liFramesOf(LI_LIST_46);
