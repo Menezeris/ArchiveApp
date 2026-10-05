@@ -645,3 +645,11 @@ Samuel: "Na základe nášho krátkeho videa, ktoré už vzniklo, treba upraviť
 - Kontrola posluchom (Gemini 3.1 Pro, po 40 s úsekoch, celý súbor naraz vracal 502): všetky vety celé a zrozumiteľné, nič sa neopakuje za sebou, "Assetin" znie "asetin" (tvrdé t), hudba bez skoku, akord dozvie do konca. Gemini upozornil, že "fotí len identifikačnú stranu" (Háčik, 40 s) a "Potom odfotíme jej identifikačnú stranu." (F1, 69 s) hovoria podobnú vec asi o 30 s neskôr. F1 je ukážka v mobile a ostala podľa plánu, na zváženie.
 - Mriežka snímok: počítadlo v háčiku skloňuje (1 strana, 2 až 4 strany, 5 a viac strán), koniec F3 už neodreže stĺpec popisov.
 - Neurobené z plánu: ceruzka na karte F4 (oprava v zázname je v inom poli, Číslo zmeny, ktoré už má jantárový rámik), farby C8b (ostali zelené, rovnako ako v krátkej), `stepsAfterXfade` (dlhá verzia nemá prelínačky medzi klipmi, scény idú do bielej a z bielej, nadpisy sa neprekrývajú), variant hudby G (F s tempom stačí).
+
+## Kolo 55 (5. 10. 2026): písmo a logo v Háčiku
+
+Samuel: "v tom dlhom videu sú staré logá" (upresnil: Háčik, 36 až 44 s) a komentár "nie je tam správny font, či už pri nových nadpisoch alebo €".
+
+- Príčina: písma Manrope a Inter načíta `Scene` (`loadFonts`), každý klip sa renderuje samostatne a nový `C4b_Hacik.tsx` ako jediný `Scene` nepoužíval. Celý Háčik (nadpisy, titulky, počítadlo, € na cenovkách, slogan pod logom) išiel náhradným písmom, preto pôsobil ako staré logo. Teraz je obalený v `Scene`. Ostatné klipy `Scene` alebo `loadFonts` majú (overené grepom).
+- Logo do rohu: slogan a ikony zmiznú za 250 ms, logo sa pohne až potom (250 až 700 ms), prvý nadpis a stoh listov prídu po ňom (logo necestuje cez text ani stoh). Sivé počítadlo naskočí od 5 strán (sivé "1 strana" predbiehalo zelenú pointu).
+- Film 158,2 s bez zmeny dĺžky, -15,7 LUFS. Krátka verzia sa nemenila.

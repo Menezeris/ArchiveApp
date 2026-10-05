@@ -2,6 +2,7 @@ import React from 'react';
 import { useCurrentFrame } from 'remotion';
 import { CORNER, Lockup } from '../components/ArchivesBrand';
 import { StepLabel } from '../components/Frame16';
+import { Scene } from '../components/Scene';
 import { PriceTag, Sheet } from '../components/Illustrations';
 import { voAt, voLines } from '../components/Subtitles';
 import { ARCHIVES_LOGO } from './kratka/archivesLogo';
@@ -17,6 +18,7 @@ import { BRAND, FONT, FPS, INK } from '../theme';
  * pri "drahe" cenovka EUR EUR EUR; "Nasa aplikacia foti len identifikacnu stranu.": stoh sa odsunie dolava a zbledne, vrchny
  * list (identifikacna strana: nazov projektu, autor, rok, typ, peciatka, QR vlavo dole) ide doprava, pri "foti" zeleny ramik
  * a blesk, pri "identifikacnu" zelena cenovka s jednym EUR na rohu listu a "1 strana".
+ * Kolo 55: obal `Scene` (nacita pisma Manrope a Inter; bez neho islo cele Hacik nahradnym pismom, aj € a logo pusobilo ako stare).
  * Logo z konca C4 (C4_CenaMain) je na tom istom mieste a za 450 ms sa zmensi presne do rohoveho loga (CornerBrand), slogan
  * a ikony Vas archiv -> Digitalny katalog zblednu. Na konci klipu obsah zbledne do bielej, C5 zacne krabicou zdola.
  */
@@ -27,7 +29,7 @@ const L1 = voAt(CLIP, 1);
 const FADE = 300; // dobeh do bielej pred C5
 export const C4B_SECONDS = (L1 + (voLines(CLIP)[1].dur ?? 3010) + 250 + FADE) / 1000;
 const STEPS = [
-  { from: 0, title: 'Skenovať všetko je drahé' },
+  { from: 700, title: 'Skenovať všetko je drahé' }, // kolo 55: az ked je logo v rohu (LOGO.at + LOGO.ms)
   { from: L1 - 100, title: 'Katalogizácia: len identifikačná strana' },
 ];
 const PAGES = 328;
@@ -35,7 +37,8 @@ const fmtPages = (n: number) => {
   const k = Math.round(n);
   return `${k.toLocaleString('sk-SK').replace(/ /g, ' ')} ${k === 1 ? 'strana' : k >= 2 && k <= 4 ? 'strany' : 'strán'}`; // kolo 54: sklonovanie pocas pocitania
 };
-const LOGO = { at: 100, ms: 450 };
+const LOGO = { at: 250, ms: 450 }; // kolo 55: slogan a ikony zmiznu najprv (0 az 250 ms), logo sa pohne az potom
+const CLEAR = 250;
 /** Javisko v suradniciach kratkej verzie (stred stohu 540, 560), na 16:9 zvacsene STAGE_K a posunute na (960, STAGE_Y). */
 const STAGE_K = 1.2;
 const STAGE_Y = 470;
@@ -58,7 +61,7 @@ export const C4b_Hacik: React.FC = () => {
     y1 = 1080 - CORNER.base - VH * (h1 / VH); // vrch svg rohoveho loga (bottom CORNER.base - 0,6 k, vyska (VH + 0,6) k)
   const sloganTop = LOGO_TOP + ((VH + 0.6) * h0) / VH + SLOGAN_GAP;
   // stoh a list (ako LI_Hook)
-  const stackIn = settle(frame, 450);
+  const stackIn = settle(frame, LOGO.at + LOGO.ms - 50); // kolo 55: logo necestuje cez stoh
   const scanFrom = L0 + 150;
   const count = tween(frame, scanFrom, W.drahe * 1000 + 300, easeInOut);
   const tag = pop(frame, L0 + W.drahe * 1000 - 120, { damping: 15 });
@@ -79,11 +82,11 @@ export const C4b_Hacik: React.FC = () => {
   const stackDim = 0.55 * split;
   const sheetCx = cx + SPREAD.stack + SPREAD.sheet; // stred listu po odsune
   return (
-    <div style={{ position: 'absolute', inset: 0, background: '#fff' }}>
+    <Scene mode="light">
       <StepLabel frame={frame} steps={STEPS} opacity={fade} />
       {/* slogan a ikony z konca C4 zblednu */}
-      <div style={{ position: 'absolute', left: 0, right: 0, top: sloganTop, textAlign: 'center', fontFamily: FONT.body, fontWeight: 500, fontSize: 40, color: INK[600], opacity: Math.max(0, 1 - lt * 2.5), whiteSpace: 'nowrap' }}>{captions.C4brand}</div>
-      <C4Promise out={tween(frame, 0, 300)} full />
+      <div style={{ position: 'absolute', left: 0, right: 0, top: sloganTop, textAlign: 'center', fontFamily: FONT.body, fontWeight: 500, fontSize: 40, color: INK[600], opacity: 1 - tween(frame, 0, CLEAR), whiteSpace: 'nowrap' }}>{captions.C4brand}</div>
+      <C4Promise out={tween(frame, 0, CLEAR)} full />
       <div style={{ position: 'absolute', left: 0, top: 0, width: 1920, height: 1080, opacity: fade }}>
         <div style={{ position: 'absolute', left: 960 - cx * STAGE_K, top: STAGE_Y - cy * STAGE_K, width: 1080, height: 1000, transform: `scale(${STAGE_K})`, transformOrigin: '0 0' }}>
           <div style={{ position: 'absolute', inset: 0, opacity: stackIn, transform: `translateY(${(1 - stackIn) * 20}px)` }}>
@@ -131,7 +134,7 @@ export const C4b_Hacik: React.FC = () => {
             })}
             {scanning ? <div style={{ position: 'absolute', left: cx - w / 2 - 40 + stackDx, top: cy - h / 2 - 70 + scanY * (h + 60), width: w + 80, height: 6, borderRadius: 3, background: INK[500], opacity: 0.75 * (1 - split * 2), boxShadow: '0 0 18px 6px rgba(71,85,105,0.35)' }} /> : null}
           </div>
-          {count > 0 ? <div style={{ position: 'absolute', left: cx - 220 + stackDx, top: 800, width: 440, textAlign: 'center', fontFamily: FONT.display, fontWeight: 800, fontSize: 48, letterSpacing: '-0.01em', color: INK[500], opacity: 1 - stackDim, whiteSpace: 'nowrap' }}>{fmtPages(PAGES * count)}</div> : null}
+          {PAGES * count >= 4.5 ? <div style={{ position: 'absolute', left: cx - 220 + stackDx, top: 800, width: 440, textAlign: 'center', fontFamily: FONT.display, fontWeight: 800, fontSize: 48, letterSpacing: '-0.01em', color: INK[500], opacity: 1 - stackDim, whiteSpace: 'nowrap' }}>{fmtPages(PAGES * count)}</div> : null}
           {one > 0 ? <div style={{ position: 'absolute', left: sheetCx - 220, top: 800, width: 440, textAlign: 'center', fontFamily: FONT.display, fontWeight: 800, fontSize: 48, letterSpacing: '-0.01em', color: BRAND[600], opacity: one, transform: `translateY(${(1 - one) * 12}px)`, whiteSpace: 'nowrap' }}>1 strana</div> : null}
           {tag > 0 && tagOut < 1 ? (
             <div style={{ position: 'absolute', left: 690 + 1.6 * stackDx, top: 300, opacity: 1 - tagOut, transform: `rotate(8deg) scale(${1.9 * (0.7 + 0.3 * Math.min(1, tag))})`, transformOrigin: 'left center' }}>
@@ -149,6 +152,6 @@ export const C4b_Hacik: React.FC = () => {
       <div style={{ position: 'absolute', left: x0 + (x1 - x0) * lt, top: y0 + (y1 - y0) * lt }}>
         <Lockup height={lh} />
       </div>
-    </div>
+    </Scene>
   );
 };
