@@ -3,6 +3,12 @@
 Tento súbor je pre novú session. Všetko dôležité je v gite na vetve `claude/progress-preview-vo1ocm`,
 od 27. 9. 2026 (po kole 48) aj so všetkými podkladmi: zdrojové záznamy `public/footage/`, vygenerované vety hlasu `public/vo/` a hudba Lyria `public/music/bed.wav`. Hlavná verzia je zlúčená aj do `main`. Jediný odvodený súbor mimo gitu je `public/music/bed_level.wav` (vytvorí ho `mix-music.mjs` cez `scripts/music_level.py`).
 
+## Posledná verzia (5. 10. 2026)
+
+- **Dlhé video: kolo 56, 150,6 s** (`out/mp4/Full_1080p.mp4`, review stránka https://claude.ai/artifact/R2aK5Ms7zxVvtKM4SjHCJa kolo 56), zlúčené do `main`. História kôl 49 až 56 je vo `FEEDBACK.md`.
+- **Krátka verzia: `K-LinkedIn-46` (55,6 s)**, bez zmeny od kola 54 krátkej (`EXPERIMENT-KRATKA.md`).
+- **Web (PR #21, export pre produktovú stránku):** webové klipy C7-Hierarchia, F4-Navrh, F4-Kontrola-Web a F3-Vyhladavanie-Web (`WEB_EXTRA_LIST` v `src/scenesList.ts`). F3 a F4 pre web majú od zlúčenia vlastné zostrihy (`f3-search-web`, `f4-review-web` v `cuts.json`, footage `public/footage/*-web.mp4`) a zmrazený `DesktopFootageClip` (`src/scenes/web/WebFootage.tsx`), aby ich nemenili úpravy dlhého videa. `out/web/manifest.json` je ešte zo starého Full (pred kolom 49): pred ďalším nasadením webu treba spustiť `node scripts/export-web.mjs`. Pri novom renderi C7-Hierarchia budú titulky väčšie (štýl z kola 50).
+
 ## Pokračovanie v novej session
 
 Stačí checkout vetvy (alebo `main`), `cd video && npm install`, potom hneď `bash scripts/render.sh <klip>` a `node scripts/mix-music.mjs` (Full s hudbou). Hlas netreba generovať (`vo.mjs --engine gemini --reuse` vezme vety z `public/vo/lines`), hudbu netreba generovať (`public/music/bed.wav` je v gite). Staršie poznámky nižšie o obnove podkladov „mimo gitu“ platia len pre stav pred 27. 9. 2026.

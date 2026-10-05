@@ -1,7 +1,7 @@
 import React from 'react';
 import { Composition, Folder } from 'remotion';
 import { FPS, H, W } from './theme';
-import { OPTIONAL_LIST, SCENE_LIST } from './scenesList';
+import { OPTIONAL_LIST, SCENE_LIST, WEB_EXTRA_LIST } from './scenesList';
 import { Full } from './scenes/Full';
 import { FootageFrame, footageDefaults } from './scenes/FootageFrame';
 import { K_LinkedIn, K_LinkedIn46, LI, liFrames, liFrames46 } from './scenes/kratka/LinkedIn';
@@ -34,6 +34,11 @@ export const Root: React.FC = () => (
         width={W}
         height={H}
       />
+    </Folder>
+    <Folder name="Web">
+      {WEB_EXTRA_LIST.map(([id, s]) => (
+        <Composition key={id} id={id} component={s.component} durationInFrames={Math.round(s.seconds * FPS)} fps={FPS} width={W} height={H} />
+      ))}
     </Folder>
     {/* experiment kratkej verzie: LinkedIn 4:5 (jedina kratka verzia); hlavna verzia vyssie sa nemeni */}
     <Folder name="Kratka">
