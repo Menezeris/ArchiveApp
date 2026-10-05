@@ -1476,7 +1476,7 @@ const C2_46_CLIP = 'K46-C2-Hladanie';
 const C2_46_LINE = voAt(C2_46_CLIP, 1); // kolo 44 (Samuel: skratit pod minutu): veta "V kancelarii ci v archive." vypadla, "Hladanie..." je druha
 /** Kolo 34: kratsia chodza (start 0,5 ako v kole 10, ~1,05 s) a navrat zloziek 1,25x; `at` vety o hodinach v JSON = upAt - ~100.
  * Kolo 44: prestrih dole do skladu uz pocas otazky (1500 ms klipu, K 3450), zlozky hore ~4,5 s, veta o hodinach hned po otazke. */
-const C2_46_PAN_AT = 1500;
+const C2_46_PAN_AT = 1900; // kolo 48 (Samuel: uvod niekde rychlo, niekde pomaly): kancelaria o 0,4 s dlhsie
 const C2_46_GEO = c2Geo(0.5, C2_46_PAN_AT);
 const C2_46 = c2Plan(Math.max(C2_46_LINE + 150, C2_46_GEO.upAt + 100), C2_46_LINE + (voLines(C2_46_CLIP)[1].dur ?? 1780), C2_46_GEO, 1.25);
 const LI_C2_46: React.FC = () => <LI_C2Base wmap={C2_46.wmap} panAt={C2_46_PAN_AT} />;
@@ -1490,7 +1490,7 @@ const C4_46_CLIP = 'K46-C4-Cena';
  * prelinie 250 ms (logo a stoh sa neprekryvaju). */
 const C4_46_LINE_END = voAt(C4_46_CLIP, 0) + (voLines(C4_46_CLIP)[0].dur ?? 3840);
 const K_C4_H46 = C4_46_LINE_END + 5000 - (7900 + K_C4_D - C4_SKIP - 50); // kolo 40: logo neodchadza (brandOut az za koncom klipu), hacik ho prevezme ako hlavicku
-const C4_46_SECONDS = (C4_46_LINE_END + 300) / 1000; // kolo 40: klip konci 400 ms po vete s logom na obraze; kolo 44: 300 ms
+const C4_46_SECONDS = (C4_46_LINE_END + 150) / 1000; // kolo 40: klip konci 400 ms po vete s logom na obraze; kolo 44: 300 ms; kolo 48: 150 ms (logo stalo)
 const K_C4_LI46 = k4LiFor(K_C4For(K_C4_H46, false));
 const C4Top46: React.FC = () => <C4TopBase clip={C4_46_CLIP} h={K_C4_H46} promise={false} pill={false} center />; // kolo 36 (Samuel): riadok "Na kluc..." prec, bude az na webe
 /**
@@ -1644,7 +1644,7 @@ const C5_46_SPEED = 1.4;
 const C5_46_W1 = { mobil: 0.88 }; // s od zaciatku vety "Staci bezny mobil." (words)
 const C5_46_FLASH = voAt(C5_46_CLIP, 1) + C5_46_W1.mobil * 1000 - 100; // ms klipu: blesk
 const C5_46_LAND = C5_46_FLASH + 3500 / 2.2; // mobil dosadol (scena 8400), dosadnutie 2,2x
-const C5_46_END = Math.max(voAt(C5_46_CLIP, 1) + (voLines(C5_46_CLIP)[1].dur ?? 1500) + 250, C5_46_LAND + 200);
+const C5_46_END = Math.max(voAt(C5_46_CLIP, 1) + (voLines(C5_46_CLIP)[1].dur ?? 1500) + 250, C5_46_LAND + 100); // kolo 48: 100 ms po dosadnuti
 const C5_46_MAP: [number, number][] = [
   [0, 300],
   [C5_46_FLASH - 900, 4000],
@@ -1677,7 +1677,7 @@ const F24_46_UDAJE = F24_46_L0 + F24_46_W.udaje;
 const F24_46_POTVRDI = F24_46_L0 + F24_46_W.potvrdi;
 const F24_46_TAPS: Tap[] = [tapAt(KF24_46, 12.15, 1734, 764)]; // prijat spravnu hodnotu (Nazov projektu)
 const F24_46_UPRAVI = F24_46_L0 + F24_46_W.upravi;
-const F24_46_END = F24_46_L0 + (voLines(F24_46_CLIP)[0].dur ?? 4960) / 1000 + 0.6; // kolo 36: 0,6 s po vete
+const F24_46_END = F24_46_L0 + (voLines(F24_46_CLIP)[0].dur ?? 4960) / 1000 + 0.5; // kolo 36: 0,6 s po vete; kolo 48: 0,5 s
 const F24_46_MARKS: Mark[] = [
   markAt(KF24_46, F24_46_L0 + 0.3, F24_46_UDAJE - 0.05, 286, 523, 331, 443, { spot: true }), // "z fotky sama vycita": fotka
   markAt(KF24_46, F24_46_UDAJE + 0.3, F24_46_POTVRDI - 0.4, 824, 654, 428, 32, { spot: true }), // "udaje": navrhnuta hodnota
@@ -1716,10 +1716,11 @@ const F3_46_SECONDS = cutDuration(KF3_46);
  * okno -> pole Hladat -> detail s drobcekom pri "cestu" -> posun stranky k zltej zhode pri "udaje"), karty pod oknom: hladane
  * slovo, cesta (DocPath) pri "cestu", najdena polozka (ItemCard) pri "udaje". Klip K-F3-Vyhladavanie ostava pre K. */
 const F3_46_CLIP = 'K46-F3-Vyhladavanie';
-const F3_46_W = { cestu: 3.82, udaje: 6.14 }; // s od zaciatku vety (K46-F3-Vyhladavanie-0 words)
+const F3_46_W = { aplikacia: 2.6, cestu: 3.82, udaje: 6.14 }; // s od zaciatku vety (K46-F3-Vyhladavanie-0 words)
 const F3_46_L0 = voAt(F3_46_CLIP, 0) / 1000;
 const F3_46_CESTU = F3_46_L0 + F3_46_W.cestu;
-const F3_46_UDAJE = F3_46_L0 + F3_46_W.udaje; // len na kontrolu (koniec vety)
+const F3_46_UDAJE = F3_46_L0 + F3_46_W.udaje; // kolo 48: karta polozky pri "udaje" (so zltou zhodou)
+const F3_46_APLIKACIA = F3_46_L0 + F3_46_W.aplikacia; // kolo 48: karta cesty uz od "Aplikacia ukaze" (predtym od "cestu" po "aj", len 0,8 s)
 /** Kolo 44 (Samuel: karta udajov je na obraze prilis kratko a cesta drzi pocas "aj vsetky vycitane udaje"): cesta odide a karta
  * polozky pride uz na zaciatku casti "aj vsetky vycitane udaje" (partAt[2]), posun stranky k zhode v zostrihu od AJ - 0,5 s, karta drzi
  * do konca klipu (~3 s). */
@@ -1741,22 +1742,22 @@ const F3_46_VIEWS: FootView[] = (() => {
 const F3_46_STEPS: Step[] = [
   { from: 0, title: 'Napísať kľúčové slovo' },
   { from: F3_46_CESTU * 1000 - 150, title: 'Cesta k položke' },
-  { from: F3_46_AJ * 1000 - 150, title: 'Vyčítané údaje' },
+  { from: F3_46_UDAJE * 1000 - 450, title: 'Vyčítané údaje' },
 ];
 const F3_46_MARKS: Mark[] = [
   markAt(KF3_46, 0.3, 1.9, 190, 578, 1638, 62, { spot: true }), // pole vyhladavania (pisanie slova)
-  markAt(KF3_46, F3_46_CESTU - 0.05, F3_46_AJ - 0.5, 596, 783, 246, 28, { spot: true }), // drobcek PL_01 / KR_01 / ZL_03: "cestu k polozke"
+  markAt(KF3_46, F3_46_CESTU - 0.05, F3_46_AJ + 0.1, 596, 783, 246, 28, { spot: true }), // drobcek PL_01 / KR_01 / ZL_03: "cestu k polozke"
 ];
 const LI_F3_46: React.FC = () => (
   <AbsoluteFill>
     <LiFootage src={`footage/${KF3_46}.mp4`} views={F3_46_VIEWS} marks={F3_46_MARKS} />
-    <Panel from={0.25} to={F3_46_CESTU - 0.2} label="Hľadané slovo" width={WIN.w} middle>
+    <Panel from={0.25} to={F3_46_APLIKACIA + 0.3} label="Hľadané slovo" width={WIN.w} middle>
       <SearchField typeFrom={0.5} typeTo={1.7} />
     </Panel>
-    <Panel from={F3_46_CESTU - 0.15} to={F3_46_AJ - 0.1} label="Cesta k položke" width={WIN.w} middle>
+    <Panel from={F3_46_APLIKACIA + 0.35} to={F3_46_UDAJE - 0.4} label="Cesta k položke" width={WIN.w} middle>
       <DocPath lineAt={F3_46_CESTU - F3_WORDS.cestu} />
     </Panel>
-    <Panel from={F3_46_AJ - 0.05} to={F3_46_SECONDS + 1} label="Nájdená položka" width={WIN.w} middle>
+    <Panel from={F3_46_UDAJE - 0.35} to={F3_46_SECONDS + 1} label="Nájdená položka" width={WIN.w} middle>
       <ItemCard />
     </Panel>
   </AbsoluteFill>
@@ -1894,7 +1895,8 @@ const LI_LIST_46: LiDef[] = [
   { def: paced(F3_46_CLIP, { scene: LI_F3_46, seconds: F3_46_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: F3_46_STEPS, phase: phases.search }, // kolo 43: vlastny klip hlasu
   { def: paced(VYS_CLIP, { scene: LI_Vysledok, seconds: VYS_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: VYS_STEPS, phase: offer.kicker, xfadeIn: F1_XFADE }, // kolo 45: prelinacka z hladania (tvrdy strih z okna na prazdnu bielu preblesol; v kole 36 bola prec)
   { def: paced(KTO_CLIP, { scene: LI_Kto, seconds: KTO_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Vlastnými silami, alebo na kľúč' }], phase: offer.kicker, xfadeIn: C8_XFADE }, // kolo 40
-  { def: paced(C8_46_CLIP, { scene: LI_C8_46, seconds: clipEndSeconds(C8_46_CLIP, 0.2), stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Prvý krok' }], phase: offer.kicker, subsOut: [0, 1e9], xfadeIn: C8_XFADE },
+  // kolo 48: dobeh vyzvy 0,5 s (bolo 0,2)
+  { def: paced(C8_46_CLIP, { scene: LI_C8_46, seconds: clipEndSeconds(C8_46_CLIP, 0.5), stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Prvý krok' }], phase: offer.kicker, subsOut: [0, 1e9], xfadeIn: C8_XFADE },
   { def: paced('K-C9-Outro', { scene: LI_C9, seconds: 2.2, stills: [], ...noSubs }), tone: () => 'dark', chrome: false, subs: false }, // kolo 43: 2,2 s, aby akord doznel pod logom
 ];
 export const liFrames46 = () => liFramesOf(LI_LIST_46);

@@ -154,6 +154,18 @@
       <h2>LinkedIn verzia</h2>
       <p>Hore je kolo 34 (52 s), pod ním kolo 33 (50 s), kolo 32 (56 s), plná LinkedIn verzia 77 s (kolo 31, bez zmeny) a na porovnanie kolo 15. Staršie kolá sú nižšie v zbalenej časti.</p>
     </div>
+    <article class="film tallfilm" id="film-K48">
+      <div data-video="K48" data-shape="v45"></div>
+      <div class="info">
+        <div class="head"><h3>Kolo 48: tempo podľa simulácie divákov (56 s)</h3><span class="len" data-len="K48"></span></div>
+        <ul>
+          <li>Simulácia dvoch divákov (laik na mobile, správca archívu) v normálnej aj polovičnej rýchlosti: utieklo pri ceste k položke (0,8 s) a pri posune stránky s kartou naraz, stálo pri logu, riadkoch výsledku a tichu pred vetami.</li>
+          <li>Hľadanie (0:30 až 0:35): karta cesty polica > krabica > zložka od "Aplikácia ukáže" po "údaje" (3,4 s), karta položky príde až so žltou zhodou pri "údaje" a drží 2,4 s.</li>
+          <li>Kratšie ticho pred vetami (logo, aplikácia, hľadanie, výsledok), logo stojí o 0,25 s menej; úvod ostane v kancelárii o 0,4 s dlhšie, výzva drží o 0,3 s dlhšie. Dĺžka 56,4 s. Väčšie skrátenie loga a riadkov výsledku by znamenalo iné vety.</li>
+        </ul>
+        <div class="composer"><button type="button" data-role="compose" disabled>Pridať pripomienku</button><span class="result" aria-live="polite"></span></div>
+      </div>
+    </article>
     <article class="film tallfilm" id="film-K47">
       <div data-video="K47" data-shape="v45"></div>
       <div class="info">
@@ -619,9 +631,10 @@
 <div class="tip" id="tip" hidden></div>
 
 <script>
-  const BUILD = { renderedAt: "2026-10-04T21:10:00Z" };
+  const BUILD = { renderedAt: "2026-10-05T07:30:00Z" };
   // id assetov (videa a plagaty); prazdne = este sa nahrava
   const VIDEOS = {
+    K48: { cap: "6ae487d7d6acb37ee69381ca3e20e158", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 56.4 },
     K47: { cap: "5e37ae86d584abedeef42c6d46723993", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 56.4 },
     K46: { cap: "86d59b650b8049c8cf5eb0ae04dd9c6d", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 55.9 }, // kolo 46 (kluc L46 patri kolu 32, "verzia okolo 46 s"; v prvom publishi kola 46 bol duplicitny a riadok prehraval kolo 32)
     L45: { cap: "b3951b9a7bcd7513b72fdcca639fa401", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 59.0 },
@@ -681,7 +694,8 @@
     "Kolo 44 (59 s)": [7.19, 12.41, 11.91, 8.03, 19.83],
     "Kolo 45 (59 s)": [7.19, 12.41, 11.91, 7.63, 19.83],
     "Kolo 46 (56 s)": [7.19, 9.33, 11.91, 7.63, 19.87],
-    "Kolo 47 (56 s)": [7.19, 9.53, 11.91, 7.9, 19.87]
+    "Kolo 47 (56 s)": [7.19, 9.53, 11.91, 7.9, 19.87],
+    "Kolo 48 (56 s)": [7.59, 9.26, 10.77, 8.2, 20.6]
   };
   const SCRIPT = [
     ["C2", "Kedy ste naposledy nevedeli nájsť nejaký dokument?", "old", "C2, prvá veta"],
@@ -741,16 +755,16 @@
   ];
   const ASKS = [
     [
-        "Logo",
-        "Z predstavenia ide do pravého dolného rohu a ostáva ako rohové logo. Sedí?"
+        "Tempo",
+        "Cesta k položke 3,4 s, karta položky so žltou zhodou, kratšie ticho pred vetami, kancelária dlhšie. Sedí?"
     ],
     [
-        "Hľadanie",
-        "Bez myši, čakanie 1x, posun 3x pod stojacou kamerou. Je to už plynulé?"
+        "Logo 0:06 až 0:10",
+        "Hlas \"Predstavujeme Assetin Archives.\" trvá 2,9 s, viac sa ubrať nedá. Nechať, alebo iná veta (napr. len \"Assetin Archives.\", -1,3 s)?"
     ],
     [
         "Simulácia (kolo 45)",
-        "Námety: nadpis pri QR \"v skrini aj v sklade\", úvod dlhšie v kancelárii, 0:24 až 0:26 dva podobné zábery formulára."
+        "Námety: nadpis pri QR \"v skrini aj v sklade\", 0:24 až 0:26 dva podobné zábery formulára."
     ]
   ];
   const blob = (id) => '/_blob/' + id;

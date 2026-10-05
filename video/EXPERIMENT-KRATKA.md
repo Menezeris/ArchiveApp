@@ -11,11 +11,11 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
 - Dĺžka: okolo 75 s a k tomu 30 s teaser. Ponuku (C8) nechal na mňa.
 - Pôvodnú verziu nechytať, je to vstup. Hlas a hudbu negenerovať znova (existujúce nahrávky sa len strihajú).
 
-## Kde sme skončili (4. 10. 2026, kolo 47)
+## Kde sme skončili (5. 10. 2026, kolo 48)
 
 - Dve hotové videá, obe LinkedIn 4:5 (1080 x 1350), obe sa renderujú z toho istého projektu:
   - `video/out/kratka/K-LinkedIn_1080p.mp4` (76,8 s, kolo 31, kompozícia `K-LinkedIn`): plná krátka verzia, od kola 31 bez zmeny.
-  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (56,4 s, kolo 47, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
+  - `video/out/kratka/K-LinkedIn-46_1080p.mp4` (56,4 s, kolo 48, kompozícia `K-LinkedIn-46`): krátka verzia pre LinkedIn:
     otázka v kancelárii a prestrih do skladu, "Hľadanie môže trvať hodiny.", logo ("Predstavujeme Assetin Archives."), háčik
     "Naskenovať celý archív môže byť drahé. Naša aplikácia fotí len identifikačnú stranu." (logo z predstavenia odíde do
     pravého dolného rohu ako rohové logo, 328 strán proti 1 identifikačnej strane, nadpis "Katalogizácia: len identifikačná
@@ -24,8 +24,8 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
     hľadanie (slovo, cesta k položke, od "aj všetky vyčítané údaje" karta položky a posun k žltej zhode), výsledok "Výsledok:
     spoľahlivo viete, čo presne máte a kde to je." a "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať."
     (tmavomodré karty), "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč." (karty "od pár šanónov" / "aj celý
-    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 až 47 nižšie. Kolá 32 až 46 sú v `out/kratka/verzie/`. Kolá 32 až 46 sú zlúčené do `main`
-    (PR #23).
+    sklad"), výzva, logo 2,2 s s doznievajúcim akordom; podrobnosti v kolách 44 až 48 nižšie. Kolá 32 až 47 sú v `out/kratka/verzie/`. Kolá 32 až 46 sú zlúčené do `main`
+    (PR #23), kolá 47 a 48 sú na vetve.
     Náhľady `*_preview_540p.mp4` vedľa. Staršie kolá 14 až 30 sú v `out/kratka/verzie/`. Pôvodná dlhá verzia (145 s, 16:9) sa nemenila.
 - Zdroj: kompozície `K-LinkedIn` a `K-LinkedIn-46` (zoznam klipov `LI_LIST_46` na konci súboru) v `src/scenes/kratka/LinkedIn.tsx` (spoločné dáta `Kratka.tsx`, klipy `src/kratkaList.ts`),
   scenár `src/copy/vo_kratka.json`, hlas `public/vo-kratka/`, hudba `src/copy/music_kratka.json` (variant `K`: hudba
@@ -49,6 +49,33 @@ Review stránka experimentu: https://claude.ai/artifact/Y6R9zZWRh7VNqCNk9dnjg3
   - Krabica alebo box: posúdené v kole 24, odporúčanie nechať "krabica".
 - Gemini API (hlas aj hudba) naposledy vracalo 402, vyčerpaný predplatený kredit; nové vety čakajú na jeho dobitie.
 - Review stránka experimentu (odkaz hore) je súkromná, ostatní ju uvidia, až keď ju vlastník zdieľa cez Share.
+
+## Kolo 48 (5. 10. 2026): tempo podľa simulácie divákov v normálnej a polovičnej rýchlosti
+
+Samuel (ku kolu 47): v 0:32 je cesta k položke ukázaná veľmi krátko; úvod je niekde prirýchly, niekde pomalý; obsahovo sme
+dobre, nasimulovať diváka v tejto rýchlosti aj spomalene a navrhnúť, čo upraviť rýchlostne.
+
+- Meranie: tabuľka klipov (dĺžka, hlas, slov za sekundu, ticho pred prvou a po poslednej vete). Karta cesty bola na obraze 0,8 s
+  (od "cestu" po "aj"), logo 3,6 s na tri slová, ticho pred vetou: aplikácia 1,2 s, výsledok 1,1 s, hľadanie 1,0 s.
+- Simulácia (Gemini, náhľad v normálnej rýchlosti a ten istý náhľad spomalený na polovicu; laik na mobile a správca archívu):
+  utieklo: cesta k položke (0,8 s, nikto ju nezaregistroval), 0:33 posun stránky hore a karta položky dole naraz, štítok ZL_12
+  a rámik mobilu naraz; stálo: logo 0:06 až 0:10, riadky výsledku 0:36 až 0:40, ticho na celom okne aplikácie, ticho pred
+  hľadaním; úvod: prestrih do skladu po 1,5 s zbrklý. Navrhnuté skrátenia loga o 1,5 s a riadkov o 1,5 s sú viazané na dĺžku
+  viet (bez novej nahrávky nejdú), zapracované sú tie, ktoré hlas dovolí.
+- Zmeny: karta cesty od "Aplikácia ukáže" po "údaje" (3,4 s namiesto 0,8 s), karta položky až pri "údaje", keď sa ukáže žltá
+  zhoda (2,4 s, zostrih drží 0,3 s dlhšie); ticho pred vetou: logo 0,3 s (bolo 0,4) a dobeh 0,15 s (bolo 0,3), aplikácia 0,3 s
+  (bolo 0,6) a dosadnutie mobilu drží 0,1 s (bolo 0,2), hľadanie 0,2 s (bolo 0,4) a dobeh aplikácie 0,5 s (bolo 0,6), výsledok
+  0,2 s (bolo 0,4); úvod: prestrih do skladu v 1,9 s (bolo 1,5), veta o hodinách od 4,8 s; výzva drží 0,5 s po vete (bolo 0,2).
+  Spolu 0 s, film 56,4 s.
+- Hudba: tempo 0,9946, delay 0,797 s (takt 0 v 5,97 s, pokojná časť na začiatku Kto 45,03 s, akord 54,22 s na začiatku loga
+  54,23 s).
+- Začiatky klipov: C2 0, C4 6,57, háčik 9,93, C5 16,7, aplikácia 21,63, hľadanie 27,47, výsledok 35,67, Kto 45,03, výzva 49,53,
+  logo 54,23; film 56,43 s (1693 snímok). K-LinkedIn 2302 snímok bez zmeny.
+- Kontroly: mriežka 4 fps 29,5 až 36 s (karta cesty od "Aplikácia ukáže" cez celé "aj všetky vyčítané", karta položky príde so
+  žltou zhodou pri "údaje" a drží do prelínačky), mriežka úvodu 2 fps (kancelária 1,9 s, prestrih, chôdza, zložky hore pri vete
+  o hodinách), prepis mixu cez Gemini: všetky vety celé, hudba do konca, akord pri logu, bez skoku; -16,1 LUFS, true peak
+  -1,5 dBFS; K-LinkedIn 2302 snímok.
+- Kolo 47 je uložené v `out/kratka/verzie/K-LinkedIn-46_kolo47_56s_*.mp4` a v commite `c984a1b`.
 
 ## Kolo 47 (4. 10. 2026): logo do pravého dolného rohu, hľadanie bez myši a s pokojnou kamerou
 
