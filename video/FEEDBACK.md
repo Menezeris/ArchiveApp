@@ -620,3 +620,28 @@ Samuel: „Príde mi to teraz rozmazané a málo ostré. Hudba nesedí, na zači
 - Koniec: skladba Lyria končí useknutím bez záverečného akordu. `music_edit.py` má `coda`: za posledný takt je prvý akord skladby (2,1-8,1 s zdroja) so stíšením. `end` = úder + 2,4 s, `endPad` 0,05 s, `fadeOut` 0,5 s. C9 je o 1,7 s dlhší (9,0 s), akord udrie po poslednom slove a dozvie na logu. Zvuk končil ~1 s pred obrazom (`amix duration=first`), teraz `duration=longest` + `atrim` a hlas doplnený tichom (`apad`).
 - Kontrola posluchom (Gemini 3.1 Pro, ako test divákov): začiatok „plynulý, čistý, bez skoku a skreslenia“, koniec „akord doznieva presne s koncom videa“.
 - Film 154,6 s, -15,7 LUFS. Krátka verzia overená, 8 kontrolných snímok pixelovo zhodných.
+
+## Kolo 54 (5. 10. 2026): dlhá verzia zladená s hotovou krátkou (K-LinkedIn-46)
+
+Samuel: "Na základe nášho krátkeho videa, ktoré už vzniklo, treba upraviť dlhé, aby sedelo rovnako, a vhodne ho doplniť." Rozhodnutia: koniec ako v krátkej plus detaily dlhej, výzva ako v krátkej (so "zadarmo a nezáväzne", mení kolo 52), háčik za logom a v C5 "Stačí bežný mobil.", veta krátkej o tom, kto archív spracuje, plus veta o rozsahu, licencia len na karte.
+
+- `main` zlúčený do vetvy (kompozícia `K-LinkedIn-46`, zostrihy `k46-*`, `hide-cursor.py`, `Sheet` s `qrAt`, `PriceTag`). Krátke verzie K aj K46 sú pixelovo zhodné so stavom v `main` (25 kontrolných snímok, `scenes/kratka/*` ani `vo_kratka.json` sa nemenili).
+- Nové poradie: C1, C2, C4, **C4b-Hacik**, C5, F1, C6, F2, F4, F3, **C8a-Vysledok**, C8, C8b, **C8c-Vyzva**, C9. Film 158,2 s (predtým 154,6 s).
+
+| Klip | Hlas | Obraz |
+|---|---|---|
+| C4 | "Predstavujeme Assetin Archives." (K46, tvrdé t) + "Z vášho archívu urobíme prehľadný digitálny katalóg." (výrez z K-C4-Cena-1) | ikony Váš archív -> Digitálny katalóg pri slovách, logo ostane na mieste (`C4_CenaMain`) |
+| C4b-Hacik (nový) | K46-Hook-0 a -1 | port `LI_Hook` na 16:9: logo sa zmenší do rohu, stoh 328 strán a €€€, identifikačná strana, 1 strana a € |
+| C5 | tretia veta "Stačí bežný mobil." (K46-C5-Teren-1) | ikony usporiadania odídu pred mobilom, krabica z bielej (`enter`) |
+| F3 | K46-F3 "Potom stačí napísať kľúčové slovo. Aplikácia ukáže cestu k položke aj všetky vyčítané údaje." + "Kľúčové slovo sa zvýrazní v metadátach záznamu." | poradie K46: pole Hľadať, DocPath pri "cestu k položke", ItemCard pri "údaje"; bez kurzora (`hide-cursor.py --scale 2`), kamera počas posunu stojí |
+| C8a-Vysledok (nový) | K46-Vysledok-0 a -1 | riadky Aké dokumenty máte / Kde sa nachádzajú, dlaždice Uchovať / Skartovať / Plnohodnotne skenovať |
+| C8 | K46-Kto-0 + veta o rozsahu nasadenia | KtoCard Vlastnými silami (licencia podľa rozsahu na karte) a Služba na kľúč, pod nimi rozsah |
+| C8c-Vyzva (nový) | K-C8-Ponuka-3 "Začnime jednou krabicou, zadarmo a nezáväzne." | krabica s QR, pilulka Zadarmo a nezáväzne, web |
+| C9 | len "Assetin Archives." | bez zmeny, akord dozvie na logu |
+
+- Vypadli: "Mobilom potom odfotíme jej identifikačnú stranu." (C5), veta o obhliadke a pilote (C8), "Zistíte, čo máte v archíve a kde presne to leží." (C9).
+- Nové spoločné súbory pre 16:9: `components/ArchivesClose.tsx` (VysRow, VysTile, VysIcon, KtoCard, FirstStep), `DocPath` s `stepsAt`. `hide-cursor.py` má `--scale N` (zostrihy `up: 2`).
+- Hudba: variant F bez zmeny, `mix-music.mjs` prispôsobí tempo dĺžke filmu (0,9836). Akord udrie po "Assetin Archives." a dozvie do konca. -15,7 LUFS, true peak -1,5 dBFS.
+- Kontrola posluchom (Gemini 3.1 Pro, po 40 s úsekoch, celý súbor naraz vracal 502): všetky vety celé a zrozumiteľné, nič sa neopakuje za sebou, "Assetin" znie "asetin" (tvrdé t), hudba bez skoku, akord dozvie do konca. Gemini upozornil, že "fotí len identifikačnú stranu" (Háčik, 40 s) a "Potom odfotíme jej identifikačnú stranu." (F1, 69 s) hovoria podobnú vec asi o 30 s neskôr. F1 je ukážka v mobile a ostala podľa plánu, na zváženie.
+- Mriežka snímok: počítadlo v háčiku skloňuje (1 strana, 2 až 4 strany, 5 a viac strán), koniec F3 už neodreže stĺpec popisov.
+- Neurobené z plánu: ceruzka na karte F4 (oprava v zázname je v inom poli, Číslo zmeny, ktoré už má jantárový rámik), farby C8b (ostali zelené, rovnako ako v krátkej), `stepsAfterXfade` (dlhá verzia nemá prelínačky medzi klipmi, scény idú do bielej a z bielej, nadpisy sa neprekrývajú), variant hudby G (F s tempom stačí).

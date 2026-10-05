@@ -117,15 +117,17 @@ const PATH_STEPS: { kind: HKind; label: string; code: string; at: number }[] = [
   { kind: 'box', label: 'Krabica', code: 'KR_01', at: PATH_WORDS.k - 0.1 },
   { kind: 'folder', label: 'Zložka', code: 'ZL_03', at: PATH_WORDS.nej + 0.06 },
 ];
-export const DocPath: React.FC<{ lineAt: number }> = ({ lineAt }) => {
+/** Kolo 54: `stepsAt` = s klipu pre Policu, Krabicu a Zlozku (veta kratkej "Aplikacia ukaze cestu k polozke..."); inak `lineAt` + PATH_WORDS. */
+export const DocPath: React.FC<{ lineAt?: number; stepsAt?: [number, number, number] }> = ({ lineAt = 0, stepsAt }) => {
   const frame = useCurrentFrame();
   const s = sec(frame);
+  const STEPS = stepsAt ? PATH_STEPS.map((st, i) => ({ ...st, at: stepsAt[i] - lineAt })) : PATH_STEPS;
   const C = 104,
     col = 420,
-    x0 = (W - col * PATH_STEPS.length) / 2;
+    x0 = (W - col * STEPS.length) / 2;
   return (
     <div style={{ position: 'relative', width: W, height: PANEL.h }}>
-      {PATH_STEPS.slice(1).map((st, i) => {
+      {STEPS.slice(1).map((st, i) => {
         const t = tween(frame, (lineAt + st.at) * 1000 - 250, 250);
         const a = x0 + col * i + col / 2 + C / 2 + 14,
           b = x0 + col * (i + 1) + col / 2 - C / 2 - 14;
@@ -138,7 +140,7 @@ export const DocPath: React.FC<{ lineAt: number }> = ({ lineAt }) => {
           </div>
         );
       })}
-      {PATH_STEPS.map((st, i) => {
+      {STEPS.map((st, i) => {
         const on = s >= lineAt + st.at;
         const lit = settle(frame, (lineAt + st.at) * 1000);
         return (

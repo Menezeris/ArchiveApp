@@ -52,8 +52,9 @@ const WIPE_MS = 800;
 const WIPE_FEATHER = 110;
 const WHITE_AFTER = 220;
 const WIPE_EASE = Easing.bezier(0.45, 0, 0.25, 1);
-const LOGO_H = 200; // vyska loga (sirka ~790 px)
-const LOGO_TOP = 280; // kolo 52: o 70 px vyssie, pod sloganom su ikony Vas archiv -> Digitalny katalog
+export const LOGO_H = 200; // vyska loga (sirka ~790 px)
+export const LOGO_TOP = 280; // kolo 52: o 70 px vyssie, pod sloganom su ikony Vas archiv -> Digitalny katalog
+export const SLOGAN_GAP = 44; // medzera logo -> slogan (40 px), hacik (C4b) nadvazuje na rovnake miesto
 const D_MAIN = 1300; // posun predelu, aby sa dal precitat text pod "2x"
 const H_MAIN = 6250; // kolo 51: premostenie "S nami ho najdete za par sekund." pred logom a pri logu "Predstavujeme vam Assetin Archives. Z vasho archivu urobime prehladny digitalny katalog." (12,75-19,3 s vystupu); predtym 3780 // drzanie znacky: kolo 40 znova veta "Predstavujeme vam softverove riesenie katalogizacie Assetin Archives." (15,5-20,1 s vystupu) + text pod lockupom
 const BOX = 860;
@@ -161,7 +162,7 @@ export const C4_Cena: React.FC<{ d?: number; h?: number; brand?: boolean; cost?:
       {brand && ms >= build && brandOut < 1 ? (
         <div style={{ position: 'absolute', left: 0, right: 0, top: LOGO_TOP, display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: 1 - brandOut, transform: `scale(${1 - 0.06 * brandOut})` }}>
           <Lockup height={LOGO_H} build={build} />
-          <div style={{ marginTop: 44, fontFamily: FONT.body, fontWeight: 500, fontSize: 40, color: INK[600], opacity: tag, transform: `translateY(${(1 - tag) * 10}px)`, whiteSpace: 'nowrap' }}>{captions.C4brand}</div>
+          <div style={{ marginTop: SLOGAN_GAP, fontFamily: FONT.body, fontWeight: 500, fontSize: 40, color: INK[600], opacity: tag, transform: `translateY(${(1 - tag) * 10}px)`, whiteSpace: 'nowrap' }}>{captions.C4brand}</div>
         </div>
       ) : null}
 
@@ -181,13 +182,16 @@ export const C4_Cena: React.FC<{ d?: number; h?: number; brand?: boolean; cost?:
  * case stoji v pauze), slova z public/vo/lines/C4-Cena-3.words.json.
  */
 const PROMISE_TOP = 640;
-const C4_W3 = { archivu: 3.36, urobime: 3.88, prehladny: 4.44 };
-const C4Promise: React.FC<{ out: number }> = ({ out }) => {
+// kolo 54 (krátka verzia K46: "Predstavujeme Assetin Archives." s tvrdym t): veta o katalogu je samostatna (C4-Cena-4, vyrez
+// z K-C4-Cena-1 od 2,72 s), casy slov su od jej zaciatku (predtym 3,36 / 3,88 / 4,44 s od "Predstavujeme vam")
+const C4_W4 = { archivu: 0.64, urobime: 1.16, prehladny: 1.72 };
+/** `full` (kolo 54, hacik C4b): ikony uz cele (hacik prevezme obraz konca C4), `out` = zblednutie. */
+export const C4Promise: React.FC<{ out: number; full?: boolean }> = ({ out, full = false }) => {
   const of = useOutputFrame();
-  const L = voAt('C4-Cena', 3);
-  const arch = settle(of, L + C4_W3.archivu * 1000 - 150);
-  const arrow = tween(of, L + C4_W3.urobime * 1000 - 100, 450);
-  const cat = settle(of, L + C4_W3.prehladny * 1000 - 150);
+  const L = voAt('C4-Cena', 4);
+  const arch = full ? 1 : settle(of, L + C4_W4.archivu * 1000 - 150);
+  const arrow = full ? 1 : tween(of, L + C4_W4.urobime * 1000 - 100, 450);
+  const cat = full ? 1 : settle(of, L + C4_W4.prehladny * 1000 - 150);
   if (arch <= 0.001 || out >= 1) return null;
   const item = (icon: OfferIconKind, label: string, t: number) => (
     <div style={{ width: 340, display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: t, transform: `translateY(${(1 - t) * 18}px)` }}>
@@ -206,3 +210,9 @@ const C4Promise: React.FC<{ out: number }> = ({ out }) => {
     </div>
   );
 };
+
+/**
+ * Kolo 54 (dlha verzia zladena s kratkou K46): logo z predstavenia neodchadza ani nepride krabica; klip konci s logom,
+ * sloganom a ikonami na obraze a hacik (C4b-Hacik) ich prevezme na tom istom mieste (logo sa zmensi do rohu).
+ */
+export const C4_CenaMain: React.FC = () => <C4_Cena h={1e7} />;

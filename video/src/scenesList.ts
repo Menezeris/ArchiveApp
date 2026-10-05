@@ -3,7 +3,8 @@ import { C1_Intro } from './scenes/C1_Intro';
 import { C2_Hladanie } from './scenes/C2_Hladanie';
 import { C2_Kancelaria } from './scenes/C2_Kancelaria';
 import { C3_Sklad } from './scenes/C3_Sklad';
-import { C4_BRAND_END, C4_Cena, C4_WIPE_AT } from './scenes/C4_Cena';
+import { C4_CenaMain, C4_WIPE_AT } from './scenes/C4_Cena';
+import { C4B_SECONDS, C4b_Hacik } from './scenes/C4b_Hacik';
 import { C5_TerenMain } from './scenes/C5_Teren';
 import { C8B_SECONDS, C8b_Technika } from './scenes/C8b_Technika';
 import { F1_SECONDS, F1_Sken } from './scenes/F1_Sken';
@@ -11,7 +12,9 @@ import { C6_Spracovanie } from './scenes/C6_Spracovanie';
 import { F2_Metadata } from './scenes/F2_Metadata';
 import { F3_Vyhladavanie } from './scenes/F3_Vyhladavanie';
 import { F4_Kontrola } from './scenes/F4_Kontrola';
-import { C8_Pilot } from './scenes/C8_Pilot';
+import { C8_Pilot, C8_SECONDS } from './scenes/C8_Pilot';
+import { C8A_SECONDS, C8a_Vysledok } from './scenes/C8a_Vysledok';
+import { C8C_SECONDS, C8c_Vyzva } from './scenes/C8c_Vyzva';
 import { C9_Outro } from './scenes/C9_Outro';
 import { S04_Pokusy } from './scenes/optional/S04_Pokusy';
 import { S10_Nasadenie } from './scenes/optional/S10_Nasadenie';
@@ -38,8 +41,13 @@ const paced = (id: string, d: PacedDef): [string, SceneDef] => {
 export const SCENE_LIST: [string, SceneDef][] = [
   ['C1-Intro', { component: C1_Intro, seconds: 3.6, stills: [30, 55, 95] }],
   paced('C2-Hladanie', { scene: C2_Hladanie, seconds: 10, vo: true, dark: true, brand: { dark: true }, holds: [{ at: 1700, hold: 2420 }, { at: 3600, hold: 500 }], stills: [80, 150, 260, 380] }),
-  paced('C4-Cena', { scene: C4_Cena, seconds: 16.65, vo: true, darkUntil: 11400, brand: { darkUntil: C4_WIPE_AT, hide: [C4_WIPE_AT, C4_BRAND_END] }, holds: [{ at: 3000, hold: 2500 }, { at: 4390, hold: 1770 }], stills: [80, 170, 280, 370, 500] }),
-  paced('C5-Teren', { scene: C5_TerenMain, seconds: 8.4, vo: true, brand: {}, holds: [{ at: 1400, hold: 3800 }, { at: 4300, hold: 4350 }, { at: 6700, hold: 900 }], stills: [70, 200, 300, 400] }), // kolo 51: dlhsia veta o QR (nalepky pri "sanon alebo zlozka, dostane QR kod"), mobil pri "Mobilom potom odfotime"
+  // kolo 54: logo s tvrdym t "Predstavujeme Assetin Archives." + veta o katalogu, logo ostava a prevezme ho hacik (bez krabice);
+  // klip konci 0,3 s po vete (vystup 19,55 s = scena 15,28 s + pauzy 4,27 s)
+  paced('C4-Cena', { scene: C4_CenaMain, seconds: 15.28, vo: true, darkUntil: 11400, brand: { darkUntil: C4_WIPE_AT, hide: [C4_WIPE_AT, 1e9] }, holds: [{ at: 3000, hold: 2500 }, { at: 4390, hold: 1770 }], stills: [80, 170, 280, 370, 500] }),
+  // kolo 54: hacik z kratkej K46 (drahy sken celeho archivu proti 1 identifikacnej strane), rohove logo kresli scena sama
+  paced('C4b-Hacik', { scene: C4b_Hacik, seconds: C4B_SECONDS, vo: true, stills: [20, 80, 150, 200] }),
+  // kolo 51: dlhsia veta o QR (nalepky pri "sanon alebo zlozka, dostane QR kod"); kolo 54: "Staci bezny mobil." (blesk pri "mobil", bez pauzy na konci)
+  paced('C5-Teren', { scene: C5_TerenMain, seconds: 8.4, vo: true, brand: {}, holds: [{ at: 1400, hold: 3800 }, { at: 4300, hold: 4350 }], stills: [70, 200, 300, 400] }),
   paced('F1-Sken', { scene: F1_Sken, seconds: F1_SECONDS, vo: true, brand: {}, subtitleLeft: 900, stills: [20, 170, 310] }),
   // kolo 41: C7-Hierarchia vypadlo (Samuel: navyse; hierarchiu povie F1 "zaradime ju do hierarchie" a ukaze F3 cesta v hierarchii)
   paced('C6-Spracovanie', { scene: C6_Spracovanie, seconds: 2, vo: false, // kolo 52: 2 s (predtym 3 s bez hlasu)
@@ -50,10 +58,15 @@ export const SCENE_LIST: [string, SceneDef][] = [
   paced('F4-Kontrola', { scene: F4_Kontrola, seconds: F4_SECONDS, vo: true, brand: {}, stills: [10, 150, 400] }),
   // kolo 53 (Samuel: export a analyzu vyhodit, hned klucove slovo a vyhladavanie): C10-Databaza vypadol, F3 ide hned po F4
   paced('F3-Vyhladavanie', { scene: F3_Vyhladavanie, seconds: F3_SECONDS, vo: true, brand: {}, stills: [30, 170, 330, 440] }),
-  paced('C8-Pilot', { scene: C8_Pilot, seconds: 21, vo: true, brand: {}, stills: [60, 170, 330, 500, 625] }), // kolo 42: dve ponuky (sluzba na kluc / softver), kolo 45: riadok rozsahu nasadenia
+  // kolo 54: Vysledok katalogizacie z kratkej K46 (dva riadky, tri dlazdice)
+  paced('C8a-Vysledok', { scene: C8a_Vysledok, seconds: C8A_SECONDS, vo: true, brand: {}, stills: [40, 120, 200, 280] }),
+  // kolo 42: dve ponuky, kolo 45: riadok rozsahu nasadenia; kolo 54: veta kratkej "Bud katalogizujete sami, alebo..." + rozsah
+  paced('C8-Pilot', { scene: C8_Pilot, seconds: C8_SECONDS, vo: true, brand: {}, stills: [40, 100, 250, 330, 400] }),
   paced('C8b-Technika', { scene: C8b_Technika, seconds: C8B_SECONDS, vo: true, brand: {}, stills: [40, 160, 220] }), // kolo 52: slide Technicke riesenie z kratkej verzie
-  paced('C9-Outro', { scene: C9_Outro, seconds: 9.0, // kolo 53: o 1,7 s dlhsie, po poslednom slove zaverecny akord hudby doznie na logu
-    vo: true, dark: true, stills: [40, 150] }),
+  // kolo 54: vyzva z kratkej K46 "Zacnime jednou krabicou, zadarmo a nezavazne."
+  paced('C8c-Vyzva', { scene: C8c_Vyzva, seconds: C8C_SECONDS, vo: true, brand: {}, stills: [20, 60, 100] }),
+  // kolo 53: po poslednom slove zaverecny akord hudby doznie na logu; kolo 54: hlas len "Assetin Archives.", 4,8 s
+  paced('C9-Outro', { scene: C9_Outro, seconds: 4.8, vo: true, dark: true, stills: [40, 120] }),
 ];
 
 /** Verzia 1 (dlha): samostatna kancelaria a sklad, nahradene klipom C2-Hladanie. */

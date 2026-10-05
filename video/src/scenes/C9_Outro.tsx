@@ -13,6 +13,8 @@ import { BRAND, FONT } from '../theme';
  * "Digitalny poriadok v papierovom archive" (Manrope 600, BRAND[100]), web v obrysovej pilulke ako v kratkej, firma pod nou.
  * Mala znacka (domcek) a ciara vypadli, domcek je v logu.
  * ms: 200 logo · 700 slogan · 1100 web a firma.
+ * Kolo 54 (dlha verzia zladena s kratkou K46): hlas len "Assetin Archives." (veta "Zistite, co mate v archive..." vypadla,
+ * hovori ju scena Vysledok), zaverecny akord hudby dozvie na logu.
  */
 const T = sk.S12;
 

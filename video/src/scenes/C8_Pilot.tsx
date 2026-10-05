@@ -2,34 +2,34 @@ import React from 'react';
 import { useCurrentFrame } from 'remotion';
 import { Scene } from '../components/Scene';
 import { StepLabel } from '../components/Frame16';
+import { KtoCard } from '../components/ArchivesClose';
+import { voAt, voLines } from '../components/Subtitles';
 import { pop, settle, tween } from '../lib/anim';
 import { offer } from '../copy/sk';
 import { BRAND, FONT, INK, NAVY } from '../theme';
 
 /**
- * C8 - Ako zacat: dva riadky s rovnakymi kartami v tych istych stlpcoch.
- * Hore "Ako zacat": Sluzba na kluc (hlavna, zelena) a Softver. Dole "Rozsah nasadenia (v oboch pripadoch)":
- * Identifikacne strany a Cele dokumenty (skenovanie, fulltext).
- * Kolo 45 (Samuel, screenshot): namiesto pasu s ciarami druhy riadok kariet; karta = ikona v kruhu vlavo,
- * vpravo nazov, popis a jeden stitok, vsetko na rovnakych vyskach.
- * Nahovor: 400 "Archiv vam spracujeme na kluc. Zacneme obhliadkou skladu a pilotom na jednej krabici.",
- * 6700 "Alebo ho katalogizujete vlastnymi silami a licenciu zaobstarame podla rozsahu.",
- * 12100 "V oboch pripadoch urcite rozsah nasadenia: len identifikacne strany, alebo skenovanie celych dokumentov s fulltextovym vyhladavanim."
- *
- * ms (casy slov): 400 sluzba · 3300 jej stitok · 6700 softver (sluzba stlmena) · 9740 jeho stitok · 12100 riadok rozsahu
- * (horny riadok stlmeny) · 15040 identifikacne strany · 17080 cele dokumenty · 20200 vsetko rovnako. 21 s.
- */
-/**
- * Kolo 52 (Samuel: preniest rozlozenie kratkej verzie): karty na sirku ramca (120 az 1800 px, zarovnane s nadpisom
- * a logom v rohu ako okno aplikacie), vacsie pismo a ikony; predtym stlpce 680 px od 250 px a prazdno pod nimi.
+ * C8 - Kto archiv spracuje a v akom rozsahu (kolo 54, Samuel: dlhu verziu zladit s kratkou K46; veta kratkej, licencia na
+ * karte, obhliadka a pilot vypadli, zaciatok riesi vyzva C8c).
+ * Hore dve karty ako scena Kto v kratkej (KtoCard, tmavomodre zavery): Vlastnymi silami (biela s obrysom; s nasou aplikaciou,
+ * od par sanonov; licencia podla rozsahu) pri "sami" a Sluzba na kluc (tmavomodra vyplnena; archiv spracujeme my, aj cely
+ * sklad) pri "alebo". Dole riadok Rozsah nasadenia (v oboch pripadoch) s kartami Identifikacne strany a Cele dokumenty pri
+ * slovach "len" a "alebo", stitky pri "strany" a "fulltextovym"; horny riadok je vtedy stlmeny.
+ * Hlas: 400 "Bud katalogizujete sami, alebo vam archiv spracujeme na kluc." (K46-Kto-0), 5300 "V oboch pripadoch urcite
+ * rozsah nasadenia: len identifikacne strany, alebo skenovanie celych dokumentov s fulltextovym vyhladavanim.".
+ * Kolo 45 a 52: riadok rozsahu ako karty na sirku ramca (120 az 1800 px).
  */
 const COL = { w: 810, gap: 60 };
 const LEFT = 120;
 const RIGHT = LEFT + COL.w + COL.gap;
 const CARD_H = 252;
 const ICON = 124;
-const ROW1 = { kicker: 150, top: 198 };
-const ROW2 = { kicker: 506, top: 554 };
+const TOP = { cards: 160, scope: 480 }; // kolo 54: bez riadku s nazvom (Rozsah nasadenia je nadpis kroku)
+const L0 = voAt('C8-Pilot', 0);
+const L1 = voAt('C8-Pilot', 1);
+const W0 = { alebo: 2.0 }; // K46-Kto-0 words
+const W1 = { len: 2.74, strany: 3.82, alebo: 4.46, fulltextovym: 6.56 }; // C8-Pilot-1 words (povodna veta o rozsahu)
+export const C8_SECONDS = (L1 + (voLines('C8-Pilot')[1].dur ?? 8280) + 300) / 1000;
 
 type IconKind = 'box' | 'app' | 'id' | 'scan';
 type Tone = 'green' | 'navy';
@@ -119,26 +119,15 @@ const Kicker: React.FC<{ y: number; t: number; text: string; note?: string; tone
 
 export const C8_Pilot: React.FC = () => {
   const frame = useCurrentFrame();
-  const tw = (s: number, d: number) => tween(frame, s, d);
-  const k1 = settle(frame, 200);
-  const service = settle(frame, 400);
-  const software = settle(frame, 6700);
-  const k2 = settle(frame, 12100);
-  const restore = 1 - tw(20200, 500);
-  const scopeFocus = tw(12200, 400) * restore; // pocas vety o rozsahu je horny riadok stlmeny
-  const dimService = Math.max(0.45 * tw(6800, 400) * (1 - tw(12000, 300)), 0.35 * scopeFocus); // pocas vety o softveri je sluzba stlmena
-  const dimSoftware = 0.35 * scopeFocus;
+  const scopeFocus = tween(frame, L1 - 100, 400); // pocas vety o rozsahu je horny riadok stlmeny
   const [o1, o2] = offer.scope.options;
   return (
     <Scene mode="light">
-      {/* kolo 50: nadpis kroku hore vlavo ako v celom filme; riadky ostavaju s vlastnymi nazvami */}
-      <StepLabel frame={frame} steps={[{ from: 200, title: offer.heading }]} />
-      <Kicker y={ROW1.kicker} t={k1} text={offer.kicker} />
-      <Card x={LEFT} y={ROW1.top} t={service} dim={dimService} main icon="box" title={offer.service.title} desc={offer.service.desc} step={offer.service.step} stepT={pop(frame, 3300)} />
-      <Card x={RIGHT} y={ROW1.top} t={software} dim={dimSoftware} icon="app" title={offer.software.title} desc={offer.software.desc} step={offer.software.step} stepT={pop(frame, 9740)} />
-      <Kicker y={ROW2.kicker} t={k2} text={offer.scope.kicker} note={offer.scope.note} tone="navy" />
-      <Card x={LEFT} y={ROW2.top} t={settle(frame, 14900)} dim={0} tone="navy" icon="id" title={o1.title} desc={o1.desc} step={o1.step} stepT={pop(frame, 15500)} />
-      <Card x={RIGHT} y={ROW2.top} t={settle(frame, 16950)} dim={0} tone="navy" icon="scan" title={o2.title} desc={o2.desc} step={o2.step} stepT={pop(frame, 18200)} />
+      <StepLabel frame={frame} steps={[{ from: 0, title: 'Vlastnými silami, alebo na kľúč' }, { from: L1 - 150, title: `${offer.scope.kicker} v oboch prípadoch` }]} />
+      <KtoCard kind="app" title="Vlastnými silami" subs={['s našou aplikáciou, od pár šanónov', 'licencia podľa rozsahu']} at={L0 - 150} left={LEFT} top={TOP.cards} w={COL.w} h={270} dim={scopeFocus} />
+      <KtoCard kind="catalog" title="Služba na kľúč" subs={['archív spracujeme my, aj celý sklad']} at={L0 + W0.alebo * 1000 - 150} left={RIGHT} top={TOP.cards} w={COL.w} h={270} dark dim={scopeFocus} />
+      <Card x={LEFT} y={TOP.scope} t={settle(frame, L1 + W1.len * 1000 - 150)} dim={0} tone="navy" icon="id" title={o1.title} desc={o1.desc} step={o1.step} stepT={pop(frame, L1 + W1.strany * 1000)} />
+      <Card x={RIGHT} y={TOP.scope} t={settle(frame, L1 + W1.alebo * 1000 - 150)} dim={0} tone="navy" icon="scan" title={o2.title} desc={o2.desc} step={o2.step} stepT={pop(frame, L1 + W1.fulltextovym * 1000)} />
     </Scene>
   );
 };

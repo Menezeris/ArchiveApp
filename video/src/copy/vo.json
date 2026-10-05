@@ -66,20 +66,38 @@
     },
     {
       "at": 12750,
-      "text": "Predstavujeme vám Assetin Archives. Z vášho archívu urobíme prehľadný digitálny katalóg.",
-      "parts": [
-        "Predstavujeme vám Assetin Archives.",
-        "Z vášho archívu urobíme prehľadný digitálny katalóg."
-      ],
-      "styleExtra": "Pronunciation: the brand name 'Assetin' is Slovak, read it the Slovak way exactly as written, 'a-se-tin' with a soft Slovak 'a' at the start (like 'asetyn'), never the English 'esetin'. Only 'Archives' is English: 'árkajvs'.",
+      "text": "Predstavujeme Assetin Archives.",
       "src": {
-        "file": "public/vo-kratka/lines/K-C4-Cena-1.wav"
+        "file": "public/vo-kratka/lines/K46-C4-Cena-0.wav"
       },
-      "dur": 6520,
-      "partAt": [
-        0,
-        2720
-      ]
+      "dur": 2920
+    },
+    {
+      "at": 15830,
+      "text": "Z vášho archívu urobíme prehľadný digitálny katalóg.",
+      "src": {
+        "file": "public/vo-kratka/lines/K-C4-Cena-1.wav",
+        "start": 2.72
+      },
+      "dur": 3800
+    }
+  ],
+  "C4b-Hacik": [
+    {
+      "at": 600,
+      "text": "Naskenovať celý archív môže byť drahé.",
+      "dur": 3120,
+      "src": {
+        "file": "public/vo-kratka/lines/K46-Hook-0.wav"
+      }
+    },
+    {
+      "at": 3900,
+      "text": "Naša aplikácia fotí len identifikačnú stranu.",
+      "src": {
+        "file": "public/vo-kratka/lines/K46-Hook-1.wav"
+      },
+      "dur": 3010
     }
   ],
   "C5-Teren": [
@@ -110,10 +128,12 @@
       ]
     },
     {
-      "at": 12640,
-      "text": "Mobilom potom odfotíme jej identifikačnú stranu.",
-      "styleExtra": "Pace for this sentence: calm and unhurried.",
-      "dur": 3280
+      "at": 12270,
+      "text": "Stačí bežný mobil.",
+      "src": {
+        "file": "public/vo-kratka/lines/K46-C5-Teren-1.wav"
+      },
+      "dur": 1600
     }
   ],
   "F1-Sken": [
@@ -227,33 +247,24 @@
   "F3-Vyhladavanie": [
     {
       "at": 400,
-      "text": "Potom stačí napísať kľúčové slovo a aplikácia ukáže údaje o konkrétnej položke",
+      "text": "Potom stačí napísať kľúčové slovo. Aplikácia ukáže cestu k položke aj všetky vyčítané údaje.",
       "parts": [
-        "Potom stačí napísať kľúčové slovo",
-        "a aplikácia ukáže údaje o konkrétnej položke"
+        "Potom stačí napísať kľúčové slovo.",
+        "Aplikácia ukáže cestu k položke",
+        "aj všetky vyčítané údaje."
       ],
-      "src": {
-        "file": "public/vo-kratka/lines/K-F3-Vyhladavanie-0.kluc.full.wav",
-        "start": 0,
-        "end": 5.755
-      },
-      "dur": 5750,
+      "dur": 6840,
       "partAt": [
         0,
-        2120
-      ]
-    },
-    {
-      "at": 6450,
-      "text": "aj cestu k nej.",
+        2520,
+        4600
+      ],
       "src": {
-        "file": "public/vo-kratka/lines/K-F3-Vyhladavanie-0.kluc.full.wav",
-        "start": 5.755
-      },
-      "dur": 1180
+        "file": "public/vo-kratka/lines/K46-F3-Vyhladavanie-0.wav"
+      }
     },
     {
-      "at": 10700,
+      "at": 7400,
       "text": "Kľúčové slovo sa zvýrazní v metadátach záznamu.",
       "src": {
         "file": "public/vo/orig51/F3-Vyhladavanie-3.wav"
@@ -261,35 +272,61 @@
       "dur": 3320
     }
   ],
+  "C8a-Vysledok": [
+    {
+      "at": 200,
+      "text": "Výsledok: spoľahlivo viete, čo presne máte a kde to je.",
+      "parts": [
+        "Výsledok: spoľahlivo viete,",
+        "čo presne máte a kde to je."
+      ],
+      "dur": 4190,
+      "partAt": [
+        0,
+        2020
+      ],
+      "src": {
+        "file": "public/vo-kratka/lines/K46-Vysledok-0.wav"
+      }
+    },
+    {
+      "at": 4550,
+      "text": "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať.",
+      "parts": [
+        "Potom viete rozhodnúť,",
+        "čo uchovať, skartovať",
+        "alebo plnohodnotne skenovať."
+      ],
+      "dur": 4760,
+      "partAt": [
+        0,
+        1260,
+        2780
+      ],
+      "src": {
+        "file": "public/vo-kratka/lines/K46-Vysledok-1.wav"
+      }
+    }
+  ],
   "C8-Pilot": [
     {
       "at": 400,
-      "text": "Archív vám spracujeme na kľúč. Začneme obhliadkou skladu a pilotom na jednej krabici.",
+      "text": "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč.",
       "parts": [
-        "Archív vám spracujeme na kľúč.",
-        "Začneme obhliadkou skladu a pilotom na jednej krabici."
+        "Buď katalogizujete sami,",
+        "alebo vám archív spracujeme na kľúč."
       ],
-      "dur": 6000,
+      "dur": 4400,
       "partAt": [
         0,
-        2433
-      ]
-    },
-    {
-      "at": 6700,
-      "text": "Alebo ho katalogizujete vlastnými silami a licenciu zaobstaráme podľa rozsahu.",
-      "parts": [
-        "Alebo ho katalogizujete vlastnými silami",
-        "a licenciu zaobstaráme podľa rozsahu."
+        1920
       ],
-      "dur": 5200,
-      "partAt": [
-        0,
-        2400
-      ]
+      "src": {
+        "file": "public/vo-kratka/lines/K46-Kto-0.wav"
+      }
     },
     {
-      "at": 12100,
+      "at": 5300,
       "text": "V oboch prípadoch určíte rozsah nasadenia: len identifikačné strany, alebo skenovanie celých dokumentov s fulltextovým vyhľadávaním.",
       "parts": [
         "V oboch prípadoch určíte rozsah nasadenia: len identifikačné strany,",
@@ -299,7 +336,10 @@
       "partAt": [
         0,
         4380
-      ]
+      ],
+      "src": {
+        "file": "public/vo/orig54/C8-Pilot-2.wav"
+      }
     }
   ],
   "C8b-Technika": [
@@ -322,12 +362,34 @@
       ]
     }
   ],
+  "C8c-Vyzva": [
+    {
+      "at": 400,
+      "text": "Začnime jednou krabicou, zadarmo a nezáväzne.",
+      "src": {
+        "file": "public/vo-kratka/lines/K-C8-Ponuka-3.wav"
+      },
+      "dur": 3800,
+      "parts": [
+        "Začnime jednou krabicou,",
+        "zadarmo a nezáväzne."
+      ],
+      "partAt": [
+        0,
+        1960
+      ]
+    }
+  ],
   "C9-Outro": [
     {
       "at": 700,
-      "text": "Assetin Archives. Zistíte, čo máte v archíve a kde presne to leží.",
-      "say": "Asetyn Árkajvs. Zistíte, čo máte v archíve a kde presne to leží.",
-      "dur": 5680
+      "text": "Assetin Archives.",
+      "src": {
+        "file": "public/vo/orig54/C9-Outro-0.wav",
+        "start": 0,
+        "end": 1.6
+      },
+      "dur": 1600
     }
   ]
 }

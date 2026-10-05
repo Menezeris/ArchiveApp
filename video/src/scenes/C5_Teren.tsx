@@ -80,7 +80,8 @@ const H_ROW = { left: C5_TITLE_LEFT - 20, top: 330, item: 205, icon: 112 };
 const C5Hierarchy: React.FC = () => {
   const of = useOutputFrame();
   const line = voAt('C5-Teren', 1);
-  const out = tween(of, voAt('C5-Teren', 2) - 650, 350);
+  // kolo 54: rad odide tesne pred prichodom mobilu (vystup 12,45 s; mobil by ho na 16:9 prekryl), veta "Staci bezny mobil." od 12,27 s
+  const out = tween(of, voAt('C5-Teren', 2) - 300, 350);
   if (out >= 1) return null;
   const at = (s: number) => line + s * 1000;
   const wa = tween(of, at(H_ARRANGE.a) - 80, 260) * (1 - tween(of, at(H_ARRANGE.b) - 80, 260));
@@ -109,13 +110,15 @@ const C5Hierarchy: React.FC = () => {
  * `steps`, `phase`: ine kroky a nazov fazy vpravo (experiment kratkej verzie), predvolene hlavna verzia.
  * `hierarchy` (kolo 52, len dlha verzia): rad ikon Polica, Krabica, Sanon, Zlozka vpravo od krabice.
  */
-export const C5_Teren: React.FC<{ steps?: C5Step[]; phase?: string; hierarchy?: boolean }> = ({ steps = STEPS, phase = phases.teren, hierarchy = false }) => {
+export const C5_Teren: React.FC<{ steps?: C5Step[]; phase?: string; hierarchy?: boolean; enter?: boolean }> = ({ steps = STEPS, phase = phases.teren, hierarchy = false, enter = false }) => {
   const frame = useCurrentFrame();
   const showCap = useCaptions();
   const tw = (s: number, d: number) => tween(frame, s, d);
   const boxLeft = C5_BOX_LEFT;
   const boxTop = SAFE.illoTop - 40;
-  const appear = 1; // krabica je na scene od zaciatku (usadila sa uz na konci C4)
+  // krabica je na scene od zaciatku (usadila sa uz na konci C4); kolo 54 (`enter`, dlha verzia): pred C5 je hacik na bielej,
+  // krabica sa usadi zdola ako predtym na konci C4
+  const appear = enter ? settle(frame, 0) : 1;
   const sheet = settle(frame, 900);
   // lety nalepiek: z bunky harku (r, c) na ciel v krabici (suradnice viewBox 240); dolet = pop QR
   // skew = sklon plochy, na ktoru nalepka doleta (krabica: prava stena -26,6 stupna; zlozky: predna plocha +26,6 stupna)
@@ -342,5 +345,6 @@ export const C5_Teren: React.FC<{ steps?: C5Step[]; phase?: string; hierarchy?: 
   );
 };
 
-/** Hlavna (dlha) verzia C5 s radom ikon hierarchie (kolo 52). */
-export const C5_TerenMain: React.FC = () => <C5_Teren hierarchy />;
+/** Hlavna (dlha) verzia C5 s radom ikon hierarchie (kolo 52). Kolo 54: krabica pride zdola (pred C5 je hacik), veta
+ * "Staci bezny mobil." (nadpis kroku ostava "Odfotit identifikacnu stranu", dlhsi z kratkej sa do stlpca vpravo nezmesti). */
+export const C5_TerenMain: React.FC = () => <C5_Teren hierarchy enter />;

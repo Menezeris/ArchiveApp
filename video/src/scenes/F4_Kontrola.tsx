@@ -29,7 +29,8 @@ const F4_TAPS: Tap[] = [
   tapAt(ID, 66.6, 855, 442), // Odoslat
 ];
 const F4_MARKS: Mark[] = [
-  markAt(ID, segStart(ID, 2) + 0.15, cutTime(ID, 12.1), 824, 654, 428, 32, { spot: true }), // spravna hodnota "Novostavba bytoveho domu SLNECNA 12, BRATISLAVA"
+  // kolo 54 (ako kolo 51 kratkej: ramik na navrhnutej hodnote dlhsie): drzi cez prijatie (12,15 s) az tesne pred montaz (12,4 s zdroja)
+  markAt(ID, segStart(ID, 2) + 0.15, cutTime(ID, 12.38), 824, 654, 428, 32, { spot: true }), // spravna hodnota "Novostavba bytoveho domu SLNECNA 12, BRATISLAVA"
   markAt(ID, vo(1, 1) / 1000, vo(1, 1) / 1000 + 2.4, 286, 523, 331, 443, { spot: true }), // "Fotka je dokaz": ramik okolo fotky
   markAt(ID, cutTime(ID, 44.0), cutTime(ID, 48.2), 828, 668, 967, 40, { spot: true, color: 'amber' }), // oprava: pole Hodnota pri Cislo zmeny (1 -> 2); kolo 40: konci pred prijatim (48,23 s), inak ostal zlty ramik po prekliknuti
 ];
