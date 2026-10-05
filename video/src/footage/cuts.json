@@ -107,7 +107,7 @@
       },
       {
         "from": 42.4,
-        "to": 50.0,
+        "to": 50,
         "speed": 1.6,
         "note": "oprava Cislo zmeny 1 -> 2 (ceruzka 43,6 s, pole Hodnota 44-48 s, Prijat upravu 48,15 s)"
       },
@@ -127,12 +127,12 @@
     "segs": [
       {
         "from": 0.45,
-        "to": 1.0,
+        "to": 1,
         "after": 6.65,
         "note": "kolo 34: rovno obrazovka Vybrat typ jednotky (KR_01 a klik Pridat do tejto jednotky vypadli), drzi pokojnu obrazovku typu pocas vety o type a hierarchii"
       },
       {
-        "from": 1.0,
+        "from": 1,
         "to": 1.71,
         "note": "Dalej (1,70 s); koniec pred obrazovkou Priradit QR (1,72 s)"
       },
@@ -216,6 +216,64 @@
         "to": 7.4,
         "after": 5.35,
         "note": "vysledok ZL_03 a detail v pokoji, drobcek PL_01 / KR_01 / ZL_03; kolo 4: drzi o 0,8 s dlhsie, aby sa dala docitat cesta polica -> krabica -> zlozka -> dokument; kolo 10: o 1,2 s dlhsie (pauza pred \"aj cestu k nej\", karta najdenej zlozky sa da docitat); kolo 12: o 0,3 s kratsie (pauza pred \"aj cestu k nej\" 0,7 s namiesto 1,0 s, ticho na konci ostava)"
+      }
+    ]
+  },
+  "k46-f24-review": {
+    "src": "src/review2.mp4",
+    "vf": "crop=1764:882:98:150",
+    "note": "Kolo 33 (K46): kratsi pokoj na fotke, prijatie hned; kolo 37 (Samuel: lupa nad dokumentom nemusi byt): segment s lupou vypadol, po fotke s navrhom ide rovno prijatie; veta \"Aplikacia z fotky sama vycita udaje a clovek ich potvrdi alebo upravi.\" (5 s od 0,8 s).",
+    "segs": [
+      {
+        "from": 0.5,
+        "to": 2.5,
+        "before": 0.4,
+        "after": 0.6,
+        "note": "fotka a navrhnute udaje v pokoji (3,0 s): \"z fotky sama vycita udaje\"; kolo 37: drzi o 0,6 s dlhsie, aby prijatie sadlo na \"potvrdi\""
+      },
+      {
+        "from": 11.3,
+        "to": 12.8,
+        "fade": 0.25,
+        "after": 2.0,
+        "before": 0.25,
+        "note": "spravna hodnota, prijatie 12,15 s pri \"potvrdi\", zelena ciara schvaleneho navrhu; drzi do konca vety (upravi)"
+      }
+    ]
+  },
+  "k46-f3-search": {
+    "src": "src/search2.mp4",
+    "vf": "crop=1764:882:96:150",
+    "note": "Kolo 34 (K46): ako k-f3-search; kolo 42 (Samuel: v zazname nie je vidiet udaje o polozke): doplneny posun k zhode v metadatach (7,4 az 12,8 s, 3x) a zlta zhoda (12,8 az 13,2 s), karta drzi kratsie. Kolo 44: posun k zhode skor (od \"aj vsetky\"), zhoda drzi dlhsie (8,05 s). Kolo 47 (Samuel: hladanie neiste a sekave, preblikuje mys): cakanie 1x, posun 3x, po zostrihu scripts/hide-cursor.py zakryje kurzor (delogo podla stopy).",
+    "segs": [
+      {
+        "from": 3.5,
+        "to": 5.1,
+        "before": 0.2,
+        "note": "pisanie slova vodovod (3,9-5,0 s)"
+      },
+      {
+        "from": 5.1,
+        "to": 6.2,
+        "note": "cakanie, vysledok 6,05 s (kolo 47: 1x, predtym 2x; vysledok pride pri \"Aplikacia ukaze\")"
+      },
+      {
+        "from": 6.2,
+        "to": 7.4,
+        "after": 0.7,
+        "note": "vysledok ZL_03 a detail v pokoji (drobcek PL_01 / KR_01 / ZL_03, Priloha, zaciatok tabulky metadat); kolo 47: posun od 4,8 s"
+      },
+      {
+        "from": 7.4,
+        "to": 12.8,
+        "speed": 3,
+        "note": "posun stranky k zhode v metadatach (kolo 47: 3x namiesto 4x, 1,8 s pocas \"aj vsetky vycitane\", kamera stoji)"
+      },
+      {
+        "from": 12.8,
+        "to": 13.2,
+        "after": 1.2,
+        "note": "automaticky zvyraznena zhoda v metadatach (Popis zmeny: Doplnenie vodovodnej pripojky...), drzi do konca klipu (kolo 48: 2,0 s; kolo 54: 1,6 s, kratsie ticho pred Vysledkom, karta polozky od \"udaje\")"
       }
     ]
   }
