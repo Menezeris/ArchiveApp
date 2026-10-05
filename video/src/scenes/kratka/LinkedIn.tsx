@@ -1476,8 +1476,8 @@ const C2_46_CLIP = 'K46-C2-Hladanie';
 const C2_46_LINE = voAt(C2_46_CLIP, 1); // kolo 44 (Samuel: skratit pod minutu): veta "V kancelarii ci v archive." vypadla, "Hladanie..." je druha
 /** Kolo 34: kratsia chodza (start 0,5 ako v kole 10, ~1,05 s) a navrat zloziek 1,25x; `at` vety o hodinach v JSON = upAt - ~100.
  * Kolo 44: prestrih dole do skladu uz pocas otazky (1500 ms klipu, K 3450), zlozky hore ~4,5 s, veta o hodinach hned po otazke. */
-const C2_46_PAN_AT = 1900; // kolo 48 (Samuel: uvod niekde rychlo, niekde pomaly): kancelaria o 0,4 s dlhsie
-const C2_46_GEO = c2Geo(0.5, C2_46_PAN_AT);
+const C2_46_PAN_AT = 3300; // kolo 48: 1900; kolo 50 (Samuel: kancelaria prikratka, nestihne povyhadzovat): prestrih az po dopade tretej veci (3 200 ms) a otazniku
+const C2_46_GEO = c2Geo(0.6, C2_46_PAN_AT); // kolo 50: kratsia chodza v sklade (p0 0,6, ~0,7 s), aby uvod nenarastol o celu kancelariu
 const C2_46 = c2Plan(Math.max(C2_46_LINE + 150, C2_46_GEO.upAt + 100), C2_46_LINE + (voLines(C2_46_CLIP)[1].dur ?? 1780), C2_46_GEO, 1.25);
 const LI_C2_46: React.FC = () => <LI_C2Base wmap={C2_46.wmap} panAt={C2_46_PAN_AT} />;
 /** C4: len "Predstavujeme vam Assetin Archives." (bez vety o katalogu), logo s pilulkou odide 0,6 s po vete (5,7 s klipu), bez ikon archiv -> katalog. */

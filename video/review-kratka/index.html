@@ -154,6 +154,16 @@
       <h2>LinkedIn verzia</h2>
       <p>Hore je kolo 34 (52 s), pod ním kolo 33 (50 s), kolo 32 (56 s), plná LinkedIn verzia 77 s (kolo 31, bez zmeny) a na porovnanie kolo 15. Staršie kolá sú nižšie v zbalenej časti.</p>
     </div>
+    <article class="film tallfilm" id="film-K50">
+      <div data-video="K50" data-shape="v45"></div>
+      <div class="info">
+        <div class="head"><h3>Kolo 50: kancelária v úvode celá (57 s)</h3><span class="len" data-len="K50"></span></div>
+        <ul>
+          <li>0:00 až 0:03: prestrih do skladu príde až keď panáčik povyhadzuje všetko zo skrine a objaví sa otáznik (3,3 s, predtým 1,9 s). Chôdza v sklade je o 0,4 s kratšia, "Hľadanie môže trvať hodiny." od 5,8 s. Dĺžka 57,5 s (+1,1 s), hudba doladená.</li>
+        </ul>
+        <div class="composer"><button type="button" data-role="compose" disabled>Pridať pripomienku</button><span class="result" aria-live="polite"></span></div>
+      </div>
+    </article>
     <article class="film tallfilm" id="film-K49">
       <div data-video="K49" data-shape="v45"></div>
       <div class="info">
@@ -641,9 +651,10 @@
 <div class="tip" id="tip" hidden></div>
 
 <script>
-  const BUILD = { renderedAt: "2026-10-05T08:40:00Z" };
+  const BUILD = { renderedAt: "2026-10-05T09:20:00Z" };
   // id assetov (videa a plagaty); prazdne = este sa nahrava
   const VIDEOS = {
+    K50: { cap: "3b00ae3805e243694323fe5ef1a32301", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 57.5 },
     K49: { cap: "2455e140109331204407df11d2f855fd", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 56.4 },
     K48: { cap: "6ae487d7d6acb37ee69381ca3e20e158", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 56.4 },
     K47: { cap: "5e37ae86d584abedeef42c6d46723993", poster: "ef8e11ceb4068fec1fed8a7658fd8ab7", len: 56.4 },
@@ -707,7 +718,8 @@
     "Kolo 46 (56 s)": [7.19, 9.33, 11.91, 7.63, 19.87],
     "Kolo 47 (56 s)": [7.19, 9.53, 11.91, 7.9, 19.87],
     "Kolo 48 (56 s)": [7.59, 9.26, 10.77, 8.2, 20.6],
-    "Kolo 49 (56 s)": [7.59, 9.26, 10.77, 8.2, 20.6]
+    "Kolo 49 (56 s)": [7.59, 9.26, 10.77, 8.2, 20.6],
+    "Kolo 50 (57 s)": [8.62, 9.26, 10.77, 8.2, 20.6]
   };
   const SCRIPT = [
     ["C2", "Kedy ste naposledy nevedeli nájsť nejaký dokument?", "old", "C2, prvá veta"],
@@ -767,8 +779,8 @@
   ];
   const ASKS = [
     [
-        "Háčik 0:10",
-        "List na výške stohu, cenovka na rohu listu. Sedí zarovnanie?"
+        "Úvod",
+        "Kancelária celá (3,3 s), sklad kratší. Sedí tempo úvodu?"
     ],
     [
         "Logo 0:06 až 0:10",
