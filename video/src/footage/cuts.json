@@ -301,25 +301,25 @@
       {
         "from": 5.1,
         "to": 6.2,
-        "speed": 2,
-        "note": "cakanie, vysledok 6,05 s"
+        "speed": 4,
+        "note": "cakanie, vysledok 6,05 s (kolo 58: 4x, web bez hlasu)"
       },
       {
         "from": 6.2,
         "to": 7.4,
-        "after": 8.05,
+        "after": 3.6,
         "note": "vysledok ZL_03 a detail v pokoji (pred posunom 7,5 s): drobcek PL_01 / KR_01 / ZL_03, odznaky Najdene v: Metadata | OCR; kolo 41: pokoj len do 12,0 s (posun k zhode pocas vety o metadatach)"
       },
       {
         "from": 7.4,
         "to": 12.8,
-        "speed": 3,
-        "note": "posun k zhode"
+        "speed": 4,
+        "note": "posun k zhode (kolo 58: 4x)"
       },
       {
         "from": 12.8,
         "to": 13.2,
-        "before": 1.9,
+        "before": 1.5,
         "note": "automaticky zvyraznena zhoda v metadatach (kolo 41: koniec klipu, spot na hodnote)"
       }
     ],

@@ -1,7 +1,7 @@
 {
   "$comment": "Generuje `npm run export:web` (video/scripts/export-web.mjs) - needitovat rucne.",
   "schema": 1,
-  "updated": "2026-10-05",
+  "updated": "2026-10-08",
   "video": {
     "width": 1920,
     "height": 1080,
@@ -734,12 +734,12 @@
       "id": "F3-Vyhladavanie-Web",
       "order": 17,
       "title": "F3-Vyhladavanie-Web",
-      "seconds": 16.1,
+      "seconds": 10.53,
       "file": {
         "path": "out/mp4/F3-Vyhladavanie-Web.mp4",
-        "bytes": 2971528,
-        "sha256": "d6476e03a0447db768f72188c88ae2d7818e452950377d30e44b1e8a04d6891c",
-        "changed": "2026-10-02"
+        "bytes": 2817530,
+        "sha256": "b2738abbd25d0f6abb54a7d9feff5f02132d836937e1207ae594c7a34a32ebeb",
+        "changed": "2026-10-08"
       },
       "stills": [
         {
@@ -750,21 +750,21 @@
         },
         {
           "path": "out/stills/F3-Vyhladavanie-Web_2.png",
-          "bytes": 420649,
-          "sha256": "732f416403349c0db3bb50c74cfe1b95444ed7737673a3a25a5b1f82a138f5ae",
-          "changed": "2026-10-02"
+          "bytes": 445027,
+          "sha256": "bb748d8d2816b14ee1c26e2760ebfb17a5e6a4266c2ab926f21c59493bbf2562",
+          "changed": "2026-10-08"
         },
         {
           "path": "out/stills/F3-Vyhladavanie-Web_3.png",
-          "bytes": 389550,
-          "sha256": "f0187677ce135c4443cd260a4a595307187ac0984d66195b8d376b70a97042f5",
-          "changed": "2026-10-02"
+          "bytes": 414728,
+          "sha256": "2bbff2e316d52db11fd61aae008cdaee41aa874da1ede248de2b33bf84b6470f",
+          "changed": "2026-10-08"
         },
         {
           "path": "out/stills/F3-Vyhladavanie-Web_4.png",
-          "bytes": 180035,
-          "sha256": "9834cb4b893cb370a32c1218894ab3b6417349d85ca9c6b1228aa2778eb25db3",
-          "changed": "2026-10-02"
+          "bytes": 189392,
+          "sha256": "ad359e3f53e3b281b228ea0a412af0f3227c4cb66862e91c0c7cffb8fb751246",
+          "changed": "2026-10-08"
         }
       ],
       "steps": [
