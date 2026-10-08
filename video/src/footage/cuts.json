@@ -295,35 +295,28 @@
       {
         "from": 3.5,
         "to": 5.1,
-        "before": 0.6,
-        "note": "pisanie slova vodovod (3,9-5,0 s); kolo 36: uvod o praci s databazou je samostatna scena C10"
+        "speed": 1.25,
+        "before": 0.3,
+        "note": "pisanie slova vodovod (3,9-5,0 s); kolo 59: 1,25x"
       },
       {
-        "from": 5.1,
-        "to": 6.2,
-        "speed": 4,
-        "note": "cakanie, vysledok 6,05 s (kolo 58: 4x, web bez hlasu)"
-      },
-      {
-        "from": 6.2,
+        "from": 6.1,
         "to": 7.4,
-        "after": 3.6,
-        "note": "vysledok ZL_03 a detail v pokoji (pred posunom 7,5 s): drobcek PL_01 / KR_01 / ZL_03, odznaky Najdene v: Metadata | OCR; kolo 41: pokoj len do 12,0 s (posun k zhode pocas vety o metadatach)"
+        "fade": 0.3,
+        "after": 2.2,
+        "note": "kolo 59 (Samuel: klip sekany): cakanie na vysledok vynechane, prelinacka do vysledku ZL_03 a detailu (drobcek PL_01 / KR_01 / ZL_03, odznaky Najdene v: Metadata | OCR)"
       },
       {
-        "from": 7.4,
-        "to": 12.8,
-        "speed": 4,
-        "note": "posun k zhode (kolo 58: 4x)"
-      },
-      {
-        "from": 12.8,
-        "to": 13.2,
-        "before": 1.5,
-        "note": "automaticky zvyraznena zhoda v metadatach (kolo 41: koniec klipu, spot na hodnote)"
+        "from": 7.45,
+        "to": 12.95,
+        "smooth": {
+          "dur": 1.7
+        },
+        "after": 1.6,
+        "note": "kolo 59: plynuly posun k automaticky zvyraznenej zhode v metadatach (scripts/smooth-scroll.py, ako k46-f3-search), namiesto 4x posunu a zmrazenej zhody"
       }
     ],
-    "note": "Webovy klip (PR #21): zostrih f3-search zo stavu v main pred zlucenim s dlhou verziou (kola 54 a 56 zmenili f3-search pre dlhe video), aby sa webovy klip nezmenil. Kolo 58: po zostrihu `python3 scripts/hide-cursor.py public/footage/f3-search-web.mp4` (sipka) a snimky 100 az 110 (textovy kurzor a ruka pri presune mysi, 3,33 az 3,67 s) prekryte cistou snimkou 111 (ffmpeg overlay)."
+    "note": "Webovy klip (PR #21): zostrih f3-search zo stavu v main pred zlucenim s dlhou verziou (kola 54 a 56 zmenili f3-search pre dlhe video), aby sa webovy klip nezmenil. Kolo 58: po zostrihu `python3 scripts/hide-cursor.py public/footage/f3-search-web.mp4` (sipka) a snimky 100 az 110 (textovy kurzor a ruka pri presune mysi, 3,33 az 3,67 s) prekryte cistou snimkou 111 (ffmpeg overlay). Kolo 59 (Samuel: klip sekany, este rychlejsie): bez 4x usekov, prelinacka do vysledku a plynuly posun; po zostrihu znova hide-cursor.py a prekrytie snimok s textovym kurzorom / rukou."
   },
   "f4-review-web": {
     "src": "src/review2.mp4",

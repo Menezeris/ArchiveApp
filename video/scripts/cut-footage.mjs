@@ -40,7 +40,7 @@ for (const id of ids) {
   const si = segs.findIndex((q) => q.smooth);
   if (si >= 0) {
     const files = parts.map((p) => p.slice(6, -1));
-    const t0 = files.slice(0, si).reduce((acc, f) => acc + measure(f), 0);
+    const t0 = files.slice(0, si).reduce((acc, f, j) => acc + measure(f) - (j > 0 ? segs[j].fade ?? 0 : 0), 0) - (segs[si].fade ?? 0); // kolo 59: prelinacky skracuju zostrih
     const jf = `src/footage/${id}.scroll.json`;
     const j = JSON.parse(readFileSync(jf, 'utf8'));
     j.t0 = Math.round(t0 * 10000) / 10000;

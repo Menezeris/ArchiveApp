@@ -7,7 +7,7 @@ import { cutDuration, cutTime, srcFrac } from '../../lib/cuts';
 import { voAt } from '../../components/Subtitles';
 import { settle, tween } from '../../lib/anim';
 import { loadFonts } from '../../lib/fonts';
-import { BRAND } from '../../theme';
+import { BRAND, FPS } from '../../theme';
 
 /**
  * Webove klipy (PR #21, produktova stranka assetin.sk): zmrazena kopia DesktopFootageClip zo stavu pred kolom 49
@@ -29,9 +29,15 @@ export type Tap = { t: number; x: number; y: number }; // s, podiel sirky/vysky 
 export type ZoomKey = { ms: number; x: number; y: number; scale: number };
 export type Mark = { from: number; to: number; x: number; y: number; w: number; h: number; sweep?: number; color?: 'green' | 'amber'; outline?: boolean; spot?: boolean; pad?: number }; // pad = okraj spotu okolo oblasti (px, predvolene 8) // s, podiely obsahu okna; sweep = s, za ktore sa zvyraznenie "nakresli" zlava (ako fixkou)
 
+/** Kolo 59: korekcia plynuleho posunu stranky (src/footage/<id>.scroll.json zo scripts/smooth-scroll.py, ako LinkedIn.tsx). */
+type ScrollFix = { t0: number; fps: number; dy: number[] };
+const FOOT_W = 1764,
+  FOOT_H = 882; // orez desktopovych zaznamov (cuts.json vf)
+const scrollDy = (sc: ScrollFix, t: number) => (t < sc.t0 ? 0 : sc.dy[Math.min(sc.dy.length - 1, Math.round((t - sc.t0) * sc.fps))]);
+
 const MARK_FILL = { green: 'rgba(79,168,90,0.28)', amber: 'rgba(245,158,11,0.34)' };
 
-export const DesktopFootageClip: React.FC<{ src: string; seconds: number; steps: Step[]; phase?: string; taps?: Tap[]; marks?: Mark[]; enter?: boolean; win?: Rect; panelLeft?: number; panelWidth?: number; zoom?: ZoomKey[] }> = ({ src, seconds, steps, phase = phases.app, taps = [], marks = [], enter = false, win = FOOTAGE_WINDOW, panelLeft, panelWidth, zoom = [] }) => {
+export const DesktopFootageClip: React.FC<{ src: string; seconds: number; steps: Step[]; phase?: string; taps?: Tap[]; marks?: Mark[]; enter?: boolean; win?: Rect; panelLeft?: number; panelWidth?: number; zoom?: ZoomKey[]; scroll?: ScrollFix }> = ({ src, seconds, steps, phase = phases.app, taps = [], marks = [], enter = false, win = FOOTAGE_WINDOW, panelLeft, panelWidth, zoom = [], scroll }) => {
   const frame = useCurrentFrame();
   const tw = (s: number, d: number) => tween(frame, s, d);
   const winIn = enter ? tw(0, 400) : 1; // okno sa objavi z bielej (ked predchadzajuca scena nekonci oknom)
@@ -65,7 +71,7 @@ export const DesktopFootageClip: React.FC<{ src: string; seconds: number; steps:
         <WindowFrame at={win}>
           <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#fff' }}>
             <div style={camStyle}>
-            <OffthreadVideo src={staticFile(src)} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <OffthreadVideo src={staticFile(src)} muted style={{ width: '100%', height: '100%', objectFit: 'cover', transform: scroll ? `translateY(${-scrollDy(scroll, frame / FPS) * Math.max(cw / FOOT_W, ch / FOOT_H)}px)` : undefined }} />
             {/* zvyraznenie ako fixkou (polopriehladna plocha, nakresli sa zlava doprava) alebo ramik */}
             {marks.map((m, i) => {
               const a = tw(m.from * 1000, 200) * (1 - tw(m.to * 1000 - 250, 250));
