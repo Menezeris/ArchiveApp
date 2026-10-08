@@ -20,7 +20,10 @@ import { cutDuration, segStart, srcFrac } from '../../lib/cuts';
 const ID = 'f3-search-web'; // zostrih f3-search zo stavu pred kolom 54 (src/footage/cuts.json), webovy klip sa nemeni
 export const F3_WEB_SECONDS = cutDuration(ID);
 const F3_SECONDS = F3_WEB_SECONDS;
-const VO_AT = [400, 2700, 6450, 10700]; // casy viet F3 pred kolom 54 (vo.json mainu, PR #21); dlha verzia ma od kola 54 ine vety
+// Kolo 58 (Samuel 8. 10.: klip na webe je prilis pomaly): web hra bez hlasu, preto casy uz nie su podla viet;
+// pokoj po vysledku 8,05 -> 3,6 s, cakanie a posun k zhode 4x, koniec 1,5 s. Klip 15,1 -> 10,5 s.
+// Povodne casy viet (PR #21): [400, 2700, 6450, 10700].
+const VO_AT = [400, 2500, 3800, 5300];
 const vo = (i: number) => VO_AT[i];
 const F3_STEPS: Step[] = [
   { from: 0, title: 'Kľúčové slovo' },
