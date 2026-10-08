@@ -323,7 +323,7 @@
         "note": "automaticky zvyraznena zhoda v metadatach (kolo 41: koniec klipu, spot na hodnote)"
       }
     ],
-    "note": "Webovy klip (PR #21): zostrih f3-search zo stavu v main pred zlucenim s dlhou verziou (kola 54 a 56 zmenili f3-search pre dlhe video), aby sa webovy klip nezmenil."
+    "note": "Webovy klip (PR #21): zostrih f3-search zo stavu v main pred zlucenim s dlhou verziou (kola 54 a 56 zmenili f3-search pre dlhe video), aby sa webovy klip nezmenil. Kolo 58: po zostrihu `python3 scripts/hide-cursor.py public/footage/f3-search-web.mp4` (sipka) a snimky 100 az 110 (textovy kurzor a ruka pri presune mysi, 3,33 az 3,67 s) prekryte cistou snimkou 111 (ffmpeg overlay)."
   },
   "f4-review-web": {
     "src": "src/review2.mp4",

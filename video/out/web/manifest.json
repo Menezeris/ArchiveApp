@@ -737,33 +737,33 @@
       "seconds": 10.53,
       "file": {
         "path": "out/mp4/F3-Vyhladavanie-Web.mp4",
-        "bytes": 2817530,
-        "sha256": "b2738abbd25d0f6abb54a7d9feff5f02132d836937e1207ae594c7a34a32ebeb",
+        "bytes": 2825287,
+        "sha256": "f63983e0d417328488d9ac62389fdaf190b622e7091010ee1336c74f529634dc",
         "changed": "2026-10-08"
       },
       "stills": [
         {
           "path": "out/stills/F3-Vyhladavanie-Web_1.png",
-          "bytes": 462225,
-          "sha256": "5ccf79cad7ec4ef2965862ec75ca202bfec3658c1d82cc2e6cb6af69ab46152b",
-          "changed": "2026-10-02"
+          "bytes": 461258,
+          "sha256": "ce2adfbd5e466a96197bb8bc609f79ba2e6a49a5a48ad7a90a2f7e959fe0657e",
+          "changed": "2026-10-08"
         },
         {
           "path": "out/stills/F3-Vyhladavanie-Web_2.png",
-          "bytes": 445027,
-          "sha256": "bb748d8d2816b14ee1c26e2760ebfb17a5e6a4266c2ab926f21c59493bbf2562",
+          "bytes": 445453,
+          "sha256": "8fc3d368385264c35cbecd74f5479171af33b34ab41c597b5780bf668d475548",
           "changed": "2026-10-08"
         },
         {
           "path": "out/stills/F3-Vyhladavanie-Web_3.png",
-          "bytes": 414728,
-          "sha256": "2bbff2e316d52db11fd61aae008cdaee41aa874da1ede248de2b33bf84b6470f",
+          "bytes": 422558,
+          "sha256": "8da5f800dc6e5976685543ce9c816ffa4726bce2d7bdbf520ef81da045ce05e9",
           "changed": "2026-10-08"
         },
         {
           "path": "out/stills/F3-Vyhladavanie-Web_4.png",
-          "bytes": 189392,
-          "sha256": "ad359e3f53e3b281b228ea0a412af0f3227c4cb66862e91c0c7cffb8fb751246",
+          "bytes": 187260,
+          "sha256": "d4e9cd615454bce8d207b74f0d2f20af0270395fdcaab4db20c480165fc6d7b0",
           "changed": "2026-10-08"
         }
       ],
