@@ -4,6 +4,7 @@ import { FOOTAGE_WINDOW_WIDE } from '../../components/Device';
 import { DesktopFootageClip, Mark, Tap, ZoomKey, markAt } from './WebFootage';
 import { phases } from '../../copy/sk';
 import { cutDuration, segStart, srcFrac } from '../../lib/cuts';
+import f3Scroll from '../../footage/f3-search-web.scroll.json';
 
 /**
  * Webovy klip F3-Vyhladavanie-Web (PR #21) ako bol pred zlucenim s dlhou verziou (kola 49 az 56): vlastny zostrih
@@ -20,10 +21,11 @@ import { cutDuration, segStart, srcFrac } from '../../lib/cuts';
 const ID = 'f3-search-web'; // zostrih f3-search zo stavu pred kolom 54 (src/footage/cuts.json), webovy klip sa nemeni
 export const F3_WEB_SECONDS = cutDuration(ID);
 const F3_SECONDS = F3_WEB_SECONDS;
-// Kolo 58 (Samuel 8. 10.: klip na webe je prilis pomaly): web hra bez hlasu, preto casy uz nie su podla viet;
-// pokoj po vysledku 8,05 -> 3,6 s, cakanie a posun k zhode 4x, koniec 1,5 s. Klip 15,1 -> 10,5 s.
+// Kolo 58 (Samuel 8. 10.: klip na webe je prilis pomaly): web hra bez hlasu, preto casy uz nie su podla viet.
+// Kolo 59 (Samuel: klip je sekany, este rychlejsie): bez 4x usekov; prelinacka do vysledku, plynuly posun k zhode
+// (scroll.json), segmenty 0 pisanie, 1 vysledok, 2 posun a zhoda. Klip 10,5 -> 8,1 s.
 // Povodne casy viet (PR #21): [400, 2700, 6450, 10700].
-const VO_AT = [400, 2500, 3800, 5300];
+const VO_AT = [300, 1400, 2500, 3700];
 const vo = (i: number) => VO_AT[i];
 const F3_STEPS: Step[] = [
   { from: 0, title: 'Kľúčové slovo' },
@@ -33,11 +35,12 @@ const F3_STEPS: Step[] = [
 ];
 const F3_TAPS: Tap[] = []; // detail zlozky sa otvara sam s vysledkom, klik v zazname nie je
 const spot = { spot: true };
+const ZHODA = segStart(ID, 2) + 1.7; // koniec plynuleho posunu (cuts.json smooth.dur)
 const F3_MARKS: Mark[] = [
   markAt(ID, vo(0) / 1000 + 0.2, segStart(ID, 1), 190, 578, 1638, 62, spot), // pole vyhladavania (pisanie slova)
   markAt(ID, vo(2) / 1000 + 0.4, vo(3) / 1000 - 0.1, 596, 783, 246, 28, spot), // drobcek PL_01 / KR_01 / ZL_03
-  markAt(ID, vo(3) / 1000 + 0.3, segStart(ID, 3) - 0.05, 226, 879, 154, 28, spot), // Najdene v: Metadata | OCR
-  markAt(ID, segStart(ID, 4) + 0.1, F3_SECONDS - 0.4, 998, 632, 496, 24, { ...spot, pad: 4 }), // kolo 41: zvyraznena zhoda v metadatach (Popis zmeny); kolo 42: tesne okolo zltej zhody (ramik bol privelky)
+  markAt(ID, vo(3) / 1000 + 0.3, segStart(ID, 2) - 0.05, 226, 879, 154, 28, spot), // Najdene v: Metadata | OCR
+  markAt(ID, ZHODA + 0.1, F3_SECONDS - 0.3, 998, 632, 496, 24, { ...spot, pad: 4 }), // kolo 41: zvyraznena zhoda v metadatach (Popis zmeny); kolo 42: tesne okolo zltej zhody (ramik bol privelky)
 ];
 
 /**
@@ -51,16 +54,16 @@ const F3_ZOOM: ZoomKey[] = [
   FULL(0),
   FULL(0.4),
   f(640, 609, 1.5, 1.2), // pole vyhladavania: lava cast, kde sa pise slovo
-  f(640, 609, 1.5, segStart(ID, 2)),
-  f(700, 790, 1.45, segStart(ID, 2) + 0.8), // vysledok ZL_03 a detail
+  f(640, 609, 1.5, segStart(ID, 1)),
+  f(700, 790, 1.45, segStart(ID, 1) + 0.7), // vysledok ZL_03 a detail
   f(700, 790, 1.45, vo(2) / 1000),
   f(720, 797, 1.9, vo(2) / 1000 + 0.7), // drobcek PL_01 / KR_01 / ZL_03
   f(720, 797, 1.9, vo(3) / 1000),
   f(330, 870, 1.9, vo(3) / 1000 + 0.6), // odznaky Najdene v: Metadata | OCR
-  f(330, 870, 1.9, segStart(ID, 3)),
-  FULL(segStart(ID, 3) + 0.6), // posun k zhode
-  FULL(segStart(ID, 4)),
-  f(1246, 644, 1.6, segStart(ID, 4) + 0.7), // zvyraznena zhoda v metadatach
+  f(330, 870, 1.9, segStart(ID, 2)),
+  FULL(segStart(ID, 2) + 0.5), // posun k zhode
+  FULL(ZHODA),
+  f(1246, 644, 1.6, ZHODA + 0.6), // zvyraznena zhoda v metadatach
   f(1246, 644, 1.6, F3_SECONDS),
 ];
-export const F3_VyhladavanieWeb: React.FC = () => <DesktopFootageClip src="footage/f3-search-web.mp4" seconds={F3_SECONDS} steps={F3_STEPS} phase={phases.search} taps={F3_TAPS} marks={F3_MARKS} zoom={F3_ZOOM} win={FOOTAGE_WINDOW_WIDE} panelLeft={1460} panelWidth={430} />;
+export const F3_VyhladavanieWeb: React.FC = () => <DesktopFootageClip src="footage/f3-search-web.mp4" seconds={F3_SECONDS} steps={F3_STEPS} phase={phases.search} taps={F3_TAPS} marks={F3_MARKS} zoom={F3_ZOOM} scroll={f3Scroll} win={FOOTAGE_WINDOW_WIDE} panelLeft={1460} panelWidth={430} />;

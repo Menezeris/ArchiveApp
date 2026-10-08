@@ -87,7 +87,7 @@ export const WEB_EXTRA_LIST: [string, SceneDef][] = [
   paced('C7-Hierarchia', { scene: C7_Hierarchia, seconds: 5.6, vo: true, stills: [15, 75, 165] }),
   paced('F4-Navrh', { scene: F4_Navrh, seconds: F4_NAVRH_SECONDS, stills: [5, 60, 150] }),
   paced('F4-Kontrola-Web', { scene: F4_KontrolaWeb, seconds: F4_WEB_SECONDS, skip: F4_WEB_SKIP, stills: [10, 150, 400] }),
-  paced('F3-Vyhladavanie-Web', { scene: F3_VyhladavanieWeb, seconds: F3_WEB_SECONDS, stills: [30, 70, 100, 300] }), // kolo 58: kratsi klip (10,5 s); _3 (web) = vysledok s detailom bez stmavenia
+  paced('F3-Vyhladavanie-Web', { scene: F3_VyhladavanieWeb, seconds: F3_WEB_SECONDS, stills: [20, 45, 70, 225] }), // kolo 59: plynuly klip (8,1 s); _3 (web) = vysledok s detailom bez stmavenia
 ];
 
 /** Verzia 1 (dlha): samostatna kancelaria a sklad, nahradene klipom C2-Hladanie. */
