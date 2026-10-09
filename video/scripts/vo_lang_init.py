@@ -152,6 +152,7 @@ def build(src, lang, keep):
              "Casy `at` su slovenske (obraz sa nemeni); `sk` = povodna veta (len pre kontrolu). Kym je `_voice` false, `dur` a `partAt` su zastupne "
              "slovenske hodnoty a video sa renderuje bez hlasu. Hlas: node scripts/vo.mjs --engine gemini --script <tento subor> --dir public/<vo|vo-kratka>-" + lang + ", potom `_voice: true`.",
         "_voice": False,
+        "_lang": lang,
         "_style": STYLE[lang],
     }
     for k, v in d.items():

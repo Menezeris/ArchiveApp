@@ -1,6 +1,7 @@
 {
   "_": "Scenar nahovoru EN (src/copy/vo.en.json), vyrobeny scripts/vo_lang_init.py z src/copy/vo.json. Casy `at` su slovenske (obraz sa nemeni); `sk` = povodna veta (len pre kontrolu). Kym je `_voice` false, `dur` a `partAt` su zastupne slovenske hodnoty a video sa renderuje bez hlasu. Hlas: node scripts/vo.mjs --engine gemini --script <tento subor> --dir public/<vo|vo-kratka>-en, potom `_voice: true`.",
   "_voice": false,
+  "_lang": "en",
   "_style": "calm, matter-of-fact corporate narrator; neutral, clear British English; fluent and connected, a bit brisker than a documentary narrator; only a short breath at commas, a longer pause only at the end of a sentence; no extra emotion. Pronunciation: the brand name Assetin is read as written, a-se-tin with a hard t; Archives as in English. Say QR as 'cue are'. Codes like PL_01, KR_01, ZL_03 are read as English letter names plus the plain number, without the underscore and the leading zero: 'P L one, K R one, Z L three'.",
   "C2-Hladanie": [
     {

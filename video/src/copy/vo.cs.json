@@ -1,6 +1,7 @@
 {
   "_": "Scenar nahovoru CS (src/copy/vo.cs.json), vyrobeny scripts/vo_lang_init.py z src/copy/vo.json. Casy `at` su slovenske (obraz sa nemeni); `sk` = povodna veta (len pre kontrolu). Kym je `_voice` false, `dur` a `partAt` su zastupne slovenske hodnoty a video sa renderuje bez hlasu. Hlas: node scripts/vo.mjs --engine gemini --script <tento subor> --dir public/<vo|vo-kratka>-cs, potom `_voice: true`.",
   "_voice": false,
+  "_lang": "cs",
   "_style": "klidný, věcný firemní vypravěč, rodilý mluvčí češtiny; plynulý, souvislý projev, o něco svižnější tempo; u čárek jen krátký nádech, delší pauza až na konci věty; zřetelná výslovnost; bez emocí navíc. Language: Czech, native Czech pronunciation, no Slovak accent. Pace: fluent and connected, a bit brisker than a documentary narrator, no long pauses inside a sentence. Pronunciation: the brand name Assetin is read as written with a HARD t (a-se-tyn), never esetin; Archives is English: árkajvs. Say the abbreviation QR in English, like 'cue are' (kjú ár). Codes like PL_01, KR_01, ZL_03 are read as Czech letter names plus the plain number, without the underscore and without the leading zero (never say 'nula' or 'podtržítko'): 'pé el jedna, ká er jedna, zet el tři'.",
   "C2-Hladanie": [
     {

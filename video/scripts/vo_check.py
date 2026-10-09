@@ -27,8 +27,16 @@ from google import genai
 from google.genai import types
 
 MODEL = "gemini-3.8-flash"
-PROMPT = ('Prepis presne, co zaznie v nahravke, foneticky slovenskym pravopisom (anglicke slova a skratky '
-          'napis tak, ako ich hovoriaca vyslovila). Len prepis, nic ine.')
+PROMPTS = {  # jazyk podla `_lang` v scenari (CZ/EN verzia), predvolene slovencina
+    "sk": ('Prepis presne, co zaznie v nahravke, foneticky slovenskym pravopisom (anglicke slova a skratky '
+           'napis tak, ako ich hovoriaca vyslovila). Len prepis, nic ine.'),
+    "cs": ('Prepis presne, co zazni v nahravce, foneticky ceskym pravopisem (anglicka slova a zkratky '
+           'napis tak, jak je mluvci vyslovila). Jen prepis, nic jineho.'),
+    "en": ('Transcribe exactly what is said in the recording. Write abbreviations as the speaker pronounced them '
+           '(for example "cue are" for QR). Only the transcript, nothing else.'),
+}
+PROMPT = PROMPTS["sk"]
+LANG = "sk"
 SKIP = {"assetin", "archives", "qr"}
 
 
@@ -39,10 +47,11 @@ def words(s: str) -> list[str]:
 
 
 def transcribe(client, path: str) -> str:
+    prompt = PROMPTS.get(LANG, PROMPT)
     data = open(path, "rb").read()
     for attempt in range(6):
         try:
-            r = client.models.generate_content(model=MODEL, contents=[types.Part.from_bytes(data=data, mime_type="audio/wav"), PROMPT])
+            r = client.models.generate_content(model=MODEL, contents=[types.Part.from_bytes(data=data, mime_type="audio/wav"), prompt])
             return (r.text or "").strip()
         except Exception as e:  # kvota alebo docasna chyba
             m = re.search(r"retry in ([\d.]+)s", str(e))
@@ -55,9 +64,9 @@ def check(text: str, heard: str) -> list[str]:
     h = " ".join(words(heard))
     if "transkript" in h or "transcript" in h:
         why.append("hlavicka")
-    if "QR" in text and not re.search(r"kj|kiu|kju|cue", h):
+    if "QR" in text and not re.search(r"kj|kiu|kju|cue" + (r"|q r|\bqr\b" if LANG == "en" else ""), h):
         why.append("QR")
-    if re.search(r"[A-Z]{2}_\d", text) and re.search(r"nula|pomlck|podciark", h):
+    if re.search(r"[A-Z]{2}_\d", text) and re.search(r"nula|pomlck|podciark|podtrz|zero|underscore|dash", h):
         why.append("kody")
     tw = [w for w in words(text) if w not in SKIP]
     hw = [w for w in words(heard) if w not in SKIP and not w.startswith(("aset", "arka", "arch", "kju", "kjua"))]
@@ -98,6 +107,8 @@ def main():
     a = ap.parse_args()
     client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY") or "proxy-injected")
     vo = json.load(open(a.script))
+    global LANG
+    LANG = vo.get("_lang", "sk")
     bad = run(client, vo, set(a.keys), a.dir)
     for n in range(a.regen):
         if not bad:

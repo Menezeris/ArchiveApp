@@ -130,7 +130,7 @@ for (const [clip, lines] of Object.entries(vo)) {
     const size = statSync(file).size;
     const c = existsSync(cache) ? JSON.parse(readFileSync(cache, 'utf8')) : null;
     if (c && c.text === l.text && c.size === size) cached[file] = c.words;
-    else todo.push({ file, text: l.text, cache, size });
+    else todo.push({ file, text: l.text, cache, size, lang: vo._lang ?? 'sk' }); // CZ/EN: `_lang` v scenari (vo.cs.json ...)
   });
 }
 if (todo.length) {

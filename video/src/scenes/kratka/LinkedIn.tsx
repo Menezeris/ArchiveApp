@@ -27,7 +27,7 @@ import { offer, phases, sk } from '../../copy';
 import { voAt } from '../../components/Subtitles';
 import { BRAND, FONT, FPS, INK, NAVY } from '../../theme';
 import { pagesLabel, tr } from '../../copy/i18n';
-import { footageSrc } from '../../lib/lang';
+import { cue, footageSrc } from '../../lib/lang';
 
 /**
  * Experiment: kratka verzia pre LinkedIn na vysku 4:5 (1080 x 1350). Kolo 2 (Samuel): jedina kratka verzia,
@@ -799,7 +799,7 @@ const clipEndSeconds = (clip: string, tail = 0.6) => {
 };
 /** Casy slov (ms od zaciatku vety, public/vo-kratka/lines/K-C8-Ponuka-2/3.words.json). */
 const C8_W2 = { bezpecne: 1360, online: 4000, na: 5440 }; // kolo 13: nova veta, "v sulade", "online", "na vasej"
-const C8_W3 = { krabicou: 1120, zadarmo: 2040 };
+const C8_W3 = cue('C8_W3', { krabicou: 1120, zadarmo: 2040 });
 /** Kolo 13: prvy slide je hotovy uz na zaciatku klipu, prelinacka z F3 (C8_XFADE) ho odhali naraz s nadpisom. */
 const C8_XFADE = 500;
 /** Kolo 22: prelinanie mobilu (F1) do okna aplikacie (F24), 12 snimok; F1 drzi posledny zaber o tolko dlhsie (cuts.json). */
@@ -1519,7 +1519,7 @@ const C4Top46: React.FC = () => <C4TopBase clip={C4_46_CLIP} h={K_C4_H46} promis
  * dokumenty, pri "az to" sa jeden zvyrazni s ikonou skenu, ostatne zblednu, pri "potrebujete" fajka.
  */
 const HOOK_CLIP = 'K46-Hook';
-const HOOK_W = { drahe: 2.32, foti: 1.0, identifikacnu: 1.5 }; // s od zaciatku viet (K46-Hook-0 a -1 words); kolo 43: ramik pri "foti", zelena cenovka pri "identifikacnu"; kolo 46 (Samuel: veta "Nas pristup katalogizacie je hospodarnejsi:" zdvojena s grafikou): druha veta je len "Nasa aplikacia foti len identifikacnu stranu." (strih z nahravky kola 43), katalogizacia v nadpise kroku
+const HOOK_W = cue('HOOK_W', { drahe: 2.32, foti: 1.0, identifikacnu: 1.5 }); // s od zaciatku viet (K46-Hook-0 a -1 words); kolo 43: ramik pri "foti", zelena cenovka pri "identifikacnu"; kolo 46 (Samuel: veta "Nas pristup katalogizacie je hospodarnejsi:" zdvojena s grafikou): druha veta je len "Nasa aplikacia foti len identifikacnu stranu." (strih z nahravky kola 43), katalogizacia v nadpise kroku
 const HOOK_SECONDS = (voAt(HOOK_CLIP, 1) + (voLines(HOOK_CLIP)[1].dur ?? 3840)) / 1000 + 0.25;
 const HOOK_LOGO = { h0: 168, h1: BRAND_H, right: 48, ms: 450 }; // kolo 47: 450 ms, logo je v rohu skor, nez pride prvy titulok (600 ms), inak by cez neho preslo // kolo 40: logo z C4 sa zmensi a vysunie ako hlavicka; kolo 47 (Samuel): do praveho dolneho rohu, presne na miesto rohoveho loga ostatnych zaberov (BrandRow)
 const HOOK_STEPS: Step[] = [
@@ -1660,7 +1660,7 @@ const C5_46_SPEED = 1.4;
  * po najazde na mobil scena stoji (8400) len do konca vety o identifikacnej strane, hned nasleduje aplikacia. */
 /** Kolo 44 (Samuel: "fotime len identifikacnu stranu" znelo v haciku aj tu): druha veta "Staci bezny mobil." (netreba skener);
  * mobil prichadza 1:1 tak, aby blesk (scena 4900) sadol na slovo "mobil", dosadnutie (4900 -> 8400) 2x, klip konci 250 ms po vete. */
-const C5_46_W1 = { mobil: 0.88 }; // s od zaciatku vety "Staci bezny mobil." (words)
+const C5_46_W1 = cue('C5_46_W1', { mobil: 0.88 }); // s od zaciatku vety "Staci bezny mobil." (words)
 const C5_46_FLASH = voAt(C5_46_CLIP, 1) + C5_46_W1.mobil * 1000 - 100; // ms klipu: blesk
 const C5_46_LAND = C5_46_FLASH + 3500 / 2.2; // mobil dosadol (scena 8400), dosadnutie 2,2x
 const C5_46_END = Math.max(voAt(C5_46_CLIP, 1) + (voLines(C5_46_CLIP)[1].dur ?? 1500) + 250, C5_46_LAND + 100); // kolo 48: 100 ms po dosadnuti
@@ -1681,7 +1681,7 @@ const C5_46_Scene: React.FC = () => {
     </Freeze>
   );
 };
-const C5_46_W0 = { kod: 1.6 }; // s od zaciatku vety "Kazda polozka dostane QR kod." (words): "kod"
+const C5_46_W0 = cue('C5_46_W0', { kod: 1.6 }); // s od zaciatku vety "Kazda polozka dostane QR kod." (words): "kod"
 const C5_46_STEPS: C5Step[] = [
   { from: 300, title: tr('Prilepiť QR kód') },
   { from: voAt(C5_46_CLIP, 1) - 100, title: tr('Mobilom odfotiť identifikačnú stranu') },
@@ -1691,7 +1691,7 @@ const C5Hierarchy46: React.FC = () => <C5HierarchyBase clip={C5_46_CLIP} outAt={
 const KF24_46 = 'k46-f24-review';
 const F24_46_CLIP = 'K46-F24-Aplikacia';
 const F24_46_L0 = voAt(F24_46_CLIP, 0) / 1000;
-const F24_46_W = { udaje: 2.04, clovek: 2.74, potvrdi: 3.24, upravi: 4.14 }; // s od zaciatku vety "Aplikacia z fotky sama vycita udaje a clovek ich potvrdi alebo upravi." (words)
+const F24_46_W = cue('F24_46_W', { udaje: 2.04, clovek: 2.74, potvrdi: 3.24, upravi: 4.14 }); // s od zaciatku vety "Aplikacia z fotky sama vycita udaje a clovek ich potvrdi alebo upravi." (words)
 const F24_46_UDAJE = F24_46_L0 + F24_46_W.udaje;
 const F24_46_POTVRDI = F24_46_L0 + F24_46_W.potvrdi;
 const F24_46_TAPS: Tap[] = [tapAt(KF24_46, 12.15, 1734, 764)]; // prijat spravnu hodnotu (Nazov projektu)
@@ -1736,7 +1736,7 @@ const F3_46_SECONDS = cutDuration(KF3_46);
  * slovo, cesta (DocPath) pri "cestu", najdena polozka (ItemCard) pri "udaje". Klip K-F3-Vyhladavanie ostava pre K. */
 const F3_46_CLIP = 'K46-F3-Vyhladavanie';
 const F3_46_SCROLL = f3Scroll46 as ScrollFix; // kolo 57: korekcia vyrezu pri plynulom posune stranky
-const F3_46_W = { aplikacia: 2.6, cestu: 3.82, udaje: 6.14 }; // s od zaciatku vety (K46-F3-Vyhladavanie-0 words)
+const F3_46_W = cue('F3_46_W', { aplikacia: 2.6, cestu: 3.82, udaje: 6.14 }); // s od zaciatku vety (K46-F3-Vyhladavanie-0 words)
 const F3_46_L0 = voAt(F3_46_CLIP, 0) / 1000;
 const F3_46_CESTU = F3_46_L0 + F3_46_W.cestu;
 const F3_46_UDAJE = F3_46_L0 + F3_46_W.udaje; // kolo 48: karta polozky pri "udaje" (so zltou zhodou)
@@ -1790,7 +1790,7 @@ const C8_46_CLIP = 'K46-C8-Ponuka';
  * sluzbu na kluc." s dvoma kartami (Vlastnymi silami / Sluzba na kluc) pri slovach, pred vyzvou.
  */
 const KTO_CLIP = 'K46-Kto';
-const KTO_W = { sami: 1.3, alebo: 2.0, archiv: 2.62 }; // s od zaciatku vety "Bud katalogizujete sami, alebo vam archiv spracujeme na kluc." (K46-Kto-0 words); kolo 44 kratsia veta
+const KTO_W = cue('KTO_W', { sami: 1.3, alebo: 2.0, archiv: 2.62 }); // s od zaciatku vety "Bud katalogizujete sami, alebo vam archiv spracujeme na kluc." (K46-Kto-0 words); kolo 44 kratsia veta
 const KTO_L0 = voAt(KTO_CLIP, 0);
 const KTO_SECONDS = (KTO_L0 + (voLines(KTO_CLIP)[0].dur ?? 4500)) / 1000 + 0.2; // kolo 44: 0,2 s po vete
 /** Kolo 43 (Samuel: zavery su plane, zapracovat tmavomodru): karta Vlastnymi silami biela s tmavomodrym obrysom, karta Sluzba na
@@ -1830,7 +1830,7 @@ const VYS_CLIP = 'K46-Vysledok';
 /** Kolo 36 (Samuel): "Vysledok katalogizacie je, ze viete, co mate, kde to je a ako s tym dalej nalozit." (tri zelene riadky pri
  * slovach); kolo 38: "Vysledok je, ze spolahlivo viete, co presne mate a kde to je." (dva riadky) a "Na zaklade toho viete rozhodnut, napriklad co uchovat, skartovat alebo plnohodnotne skenovat." (dlazdice v obrysoch
  * od zaciatku vety, rozsvietia sa pri slovach). Casy slov z K46-Vysledok-0 a -1 words. */
-const VYS_W = { co: 2.38, kde: 3.86, uchovat: 1.48, skartovat: 2.2, skenovat: 3.86 }; // kolo 55: prva veta "Vysledok: spolahlivo viete, ake dokumenty mate a kde sa nachadzaju." (co = "ake", kde = "kde") // kolo 44: "Vysledok: spolahlivo viete, co presne mate a kde to je." a "Potom viete rozhodnut, co uchovat, skartovat alebo plnohodnotne skenovat." (words)
+const VYS_W = cue('VYS_W', { co: 2.38, kde: 3.86, uchovat: 1.48, skartovat: 2.2, skenovat: 3.86 }); // kolo 55: prva veta "Vysledok: spolahlivo viete, ake dokumenty mate a kde sa nachadzaju." (co = "ake", kde = "kde") // kolo 44: "Vysledok: spolahlivo viete, co presne mate a kde to je." a "Potom viete rozhodnut, co uchovat, skartovat alebo plnohodnotne skenovat." (words)
 const VYS_L0 = voAt(VYS_CLIP, 0);
 const VYS_L1 = voAt(VYS_CLIP, 1);
 const VYS_SECONDS = (VYS_L1 + (voLines(VYS_CLIP)[1].dur ?? 6240)) / 1000 + 0.3;

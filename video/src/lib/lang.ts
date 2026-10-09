@@ -1,5 +1,6 @@
 import { getInputProps } from 'remotion';
 import localized from '../footage/localized.json';
+import cues from '../copy/cues.json';
 
 /**
  * Jazyk videa (CZ a EN verzia, oktober 2026): prop `lang` kompozicie, napr. `--props='{"lang":"cs"}'`.
@@ -26,3 +27,13 @@ export const footageSrc = (path: string) => {
 
 /** Hodnota podla jazyka (cisla, casy slov a pod.); chybajuci jazyk = slovenska hodnota. */
 export const byLang = <T,>(v: { sk: T } & Partial<Record<Lang, T>>): T => v[LANG] ?? v.sk;
+
+/**
+ * Casy slov, na ktore su viazane animacie (karta, ikona, nalepka pri vyslovenom slove): slovenske hodnoty v kode,
+ * pre cs/en prepis zo src/copy/cues.json (scripts/vo_cues.py z nahravok daneho jazyka). Chybajuci kluc = slovenska hodnota.
+ */
+export const cue = <T extends Record<string, number>>(name: string, sk: T): T => {
+  if (LANG === 'sk') return sk;
+  const over = (cues as unknown as Record<string, Record<string, Partial<T>> | string>)[LANG];
+  return { ...sk, ...(typeof over === 'object' ? over[name] ?? {} : {}) };
+};

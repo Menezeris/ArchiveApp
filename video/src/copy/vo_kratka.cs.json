@@ -1,13 +1,18 @@
 {
   "_": "Scenar nahovoru CS (src/copy/vo_kratka.cs.json), vyrobeny scripts/vo_lang_init.py z src/copy/vo_kratka.json. Casy `at` su slovenske (obraz sa nemeni); `sk` = povodna veta (len pre kontrolu). Kym je `_voice` false, `dur` a `partAt` su zastupne slovenske hodnoty a video sa renderuje bez hlasu. Hlas: node scripts/vo.mjs --engine gemini --script <tento subor> --dir public/<vo|vo-kratka>-cs, potom `_voice: true`.",
-  "_voice": false,
+  "_voice": true,
+  "_lang": "cs",
   "_style": "klidný, věcný firemní vypravěč, rodilý mluvčí češtiny; plynulý, souvislý projev, o něco svižnější tempo; u čárek jen krátký nádech, delší pauza až na konci věty; zřetelná výslovnost; bez emocí navíc. Language: Czech, native Czech pronunciation, no Slovak accent. Pace: fluent and connected, a bit brisker than a documentary narrator, no long pauses inside a sentence. Pronunciation: the brand name Assetin is read as written with a HARD t (a-se-tyn), never esetin; Archives is English: árkajvs. Say the abbreviation QR in English, like 'cue are' (kjú ár). Codes like PL_01, KR_01, ZL_03 are read as Czech letter names plus the plain number, without the underscore and without the leading zero (never say 'nula' or 'podtržítko'): 'pé el jedna, ká er jedna, zet el tři'.",
   "K-C9-Outro": [
     {
       "at": 400,
       "text": "Assetin Archives.",
       "sk": "Assetin Archives.",
-      "dur": 1600
+      "dur": 1600,
+      "src": {
+        "file": "public/vo-kratka/lines/K-C9-Outro-0.wav"
+      },
+      "_note": "Nazov znie vo vsetkych jazykoch rovnako: slovenska nahravka (Gemini v CZ hovori 'Eset')."
     }
   ],
   "K46-C2-Hladanie": [
@@ -15,13 +20,13 @@
       "at": 250,
       "text": "Kdy jste naposledy nemohli najít nějaký dokument?",
       "sk": "Kedy ste naposledy nevedeli nájsť nejaký dokument?",
-      "dur": 3400
+      "dur": 3120
     },
     {
       "at": 5660,
       "text": "Hledání může trvat hodiny.",
       "sk": "Hľadanie môže trvať hodiny.",
-      "dur": 1780
+      "dur": 2080
     }
   ],
   "K46-C5-Teren": [
@@ -30,14 +35,14 @@
       "text": "Každá položka dostane QR kód.",
       "sk": "Každá položka dostane QR kód.",
       "styleExtra": "Calm, clear, falling intonation at the end; QR is English (kjú ár), kód with a long ó.",
-      "dur": 2320
+      "dur": 2520
     },
     {
-      "at": 2850,
+      "at": 3050,
       "text": "Stačí běžný mobil.",
       "sk": "Stačí bežný mobil.",
       "styleExtra": "Calm, clear, short statement in one breath; a gentle emphasis on běžný; falling intonation at the end.",
-      "dur": 1600
+      "dur": 1720
     }
   ],
   "K46-F24-Aplikacia": [
@@ -49,10 +54,10 @@
         "a člověk je potvrdí nebo upraví."
       ],
       "sk": "Aplikácia z fotky sama vyčíta údaje a človek ich potvrdí alebo upraví.",
-      "dur": 5040,
+      "dur": 4200,
       "partAt": [
         0,
-        2420
+        1900
       ]
     }
   ],
@@ -66,10 +71,10 @@
       ],
       "sk": "Začnime jednou krabicou, zadarmo a nezáväzne.",
       "styleExtra": "Tone for this sentence: warm, confident and inviting, a clear call to action.",
-      "dur": 3800,
+      "dur": 3320,
       "partAt": [
         0,
-        1960
+        1756
       ]
     }
   ],
@@ -79,7 +84,7 @@
       "text": "Představujeme Assetin Archives.",
       "sk": "Predstavujeme Assetin Archives.",
       "styleExtra": "Warm, confident introduction, falling intonation at the end.",
-      "dur": 2920
+      "dur": 2560
     }
   ],
   "K46-Hook": [
@@ -88,13 +93,13 @@
       "text": "Naskenovat celý archiv může být drahé.",
       "sk": "Naskenovať celý archív môže byť drahé.",
       "styleExtra": "Calm, matter-of-fact statement; a gentle emphasis on drahé; falling intonation at the end.",
-      "dur": 3120
+      "dur": 3080
     },
     {
       "at": 3900,
       "text": "Naše aplikace fotí jen identifikační stranu.",
       "sk": "Naša aplikácia fotí len identifikačnú stranu.",
-      "dur": 3010
+      "dur": 3200
     }
   ],
   "K46-Vysledok": [
@@ -106,14 +111,14 @@
         "jaké dokumenty máte a kde se nacházejí."
       ],
       "sk": "Výsledok: spoľahlivo viete, aké dokumenty máte a kde sa nachádzajú.",
-      "dur": 4900,
+      "dur": 4920,
       "partAt": [
         0,
-        2280
+        2180
       ]
     },
     {
-      "at": 5250,
+      "at": 5350,
       "text": "Pak se můžete rozhodnout, co uchovat, co skartovat a co plně naskenovat.",
       "parts": [
         "Pak se můžete rozhodnout,",
@@ -121,11 +126,11 @@
         "a co plně naskenovat."
       ],
       "sk": "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať.",
-      "dur": 4760,
+      "dur": 4720,
       "partAt": [
         0,
-        1260,
-        2780
+        1280,
+        3040
       ]
     }
   ],
@@ -138,10 +143,10 @@
         "nebo vám archiv zpracujeme na klíč."
       ],
       "sk": "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč.",
-      "dur": 4400,
+      "dur": 4320,
       "partAt": [
         0,
-        1920
+        1780
       ]
     }
   ],
@@ -155,11 +160,11 @@
         "i všechny vyčtené údaje."
       ],
       "sk": "Potom stačí napísať kľúčové slovo. Aplikácia ukáže cestu k položke aj všetky vyčítané údaje.",
-      "dur": 6840,
+      "dur": 5800,
       "partAt": [
         0,
-        2520,
-        4600
+        2060,
+        3940
       ]
     }
   ]

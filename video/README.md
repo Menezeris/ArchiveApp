@@ -158,8 +158,15 @@ meni sa hlas, titulky a texty v obraze. Jazyk je prop `lang` (`src/lib/lang.ts`)
 - **Kontrola:** `node scripts/i18n-check.mjs` (chybajuci preklad, zmenena slovenska veta, iny pocet casti titulkov).
 - **Hlas:** `node scripts/vo.mjs --engine gemini --script src/copy/vo_kratka.cs.json --dir public/vo-kratka-cs`
   (dlha: `--script src/copy/vo.cs.json --dir public/vo-cs`), potom `python3 scripts/vo_check.py --script ... --dir ...`
-  a v scenari `_voice: true`. Casy slov, na ktore su viazane animacie (konstanty `W`, `W0`, `*_WORDS` v scenach,
-  `VO_AT` vo web klipoch), su zatial slovenske; po nahrati ich treba doplnit podla `<veta>.words.json` daneho jazyka.
+  a v scenari `_voice: true`. Scenare CZ/EN maju `_lang` (jazyk prepisu vo `vo_check.py` a casov slov vo `vo_words.py`).
+  Nazov "Assetin Archives." v zavere je vo vsetkych jazykoch slovenska nahravka (Gemini ho v CZ/EN vyslovuje zle).
+- **Casy slov pre animacie** (karta, ikona, nalepka pri vyslovenom slove): v kode `cue('KTO_W', { ...slovenske hodnoty })`
+  (`src/lib/lang.ts`), CZ/EN hodnoty v `src/copy/cues.json` z `python3 scripts/vo_cues.py` (mapa slov v skripte). Hotove
+  pre K-LinkedIn-46; v dlhom videu (konstanty `W`, `W0`, `*_WORDS` v scenach, `VO_AT` vo web klipoch) zatial slovenske.
+- **Hudba LinkedIn:** varianty `K46_cs` (tempo 1,0174) a `K46_en` (takt 14 dvakrat, tempo 0,9912) v `src/copy/music_kratka.json`,
+  zaverecny akord 70 ms pred logom ako v SK: `python3 scripts/music_edit.py --cfg src/copy/music_kratka.json --variant K46_en`, potom
+  `node scripts/mix-music.mjs --video out/kratka/en/K-LinkedIn_voice.mp4 --out out/kratka/en/K-LinkedIn_EN_1080p.mp4 --cfg src/copy/music_kratka.json --variant K46_en --music public/music/bed_kratka46_en_edit.wav --gain -7 --range 0`
+  (CZ: `--variant K46_cs --music public/music/bed_kratka46_edit.wav`). Pri inej dlzke filmu prepocitat tempo.
 - **Render:** `VIDEO_LANG=cs npm run render` -> `out/mp4/cs/`, stills `VIDEO_LANG=cs node scripts/stills-fast.mjs ...`
   -> `out/stills/cs/`; Full s hudbou `node scripts/mix-music.mjs --variant F --clips out/mp4/cs --out out/mp4/cs/Full_1080p.mp4 ...`.
   LinkedIn: `npx remotion render K-LinkedIn-46 out/kratka/cs/K-LinkedIn_voice.mp4 --props='{"lang":"cs"}'`, potom mix ako pri SK.
