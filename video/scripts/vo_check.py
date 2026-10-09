@@ -83,8 +83,8 @@ def run(client, vo, keys, vdir="public/vo") -> list[str]:
             continue
         for i, line in enumerate(lines):
             key = f"{clip}-{i}"
-            if keys and key not in keys:
-                continue
+            if (keys and key not in keys) or line.get("src"):
+                continue  # vety so `src` su vystrihnute z inej nahravky (napr. nazov v zavere CZ/EN), negeneruju sa
             path = f"{vdir}/lines/{key}.wav"
             if not os.path.exists(path):
                 print(f"{key:20} CHYBA  subor {path} neexistuje")

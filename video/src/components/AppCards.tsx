@@ -44,7 +44,7 @@ export const ValueCard: React.FC<{ approveAt?: number; authorAt: number; yearAt:
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 16, height: 40 }}>
         <div style={{ fontFamily: APP_FONT, fontWeight: 500, fontSize: 29, color: green ? BRAND[700] : INK[500] }}>{tr('Názov projektu')}</div>
-        <div style={{ display: 'flex', alignItems: 'center', height: 38, padding: '0 16px', borderRadius: 19, background: BRAND[500], fontFamily: APP_FONT, fontWeight: 700, fontSize: 23, color: '#fff', opacity: ok, transform: `scale(${0.85 + 0.15 * ok})` }}>Potvrdené</div>
+        <div style={{ display: 'flex', alignItems: 'center', height: 38, padding: '0 16px', borderRadius: 19, background: BRAND[500], fontFamily: APP_FONT, fontWeight: 700, fontSize: 23, color: '#fff', opacity: ok, transform: `scale(${0.85 + 0.15 * ok})` }}>{tr('Potvrdené')}</div>
       </div>
       <div style={{ marginTop: 6, fontFamily: APP_FONT, fontWeight: 700, fontSize: 50, lineHeight: 1.12, letterSpacing: '-0.01em', color: INK[900], whiteSpace: 'nowrap' }}>Novostavba bytového domu SLNEČNÁ 12, BRATISLAVA</div>
       <div style={{ marginTop: 14, display: 'flex', gap: 56 }}>

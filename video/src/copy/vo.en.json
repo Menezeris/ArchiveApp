@@ -30,7 +30,10 @@
       "at": 400,
       "text": "Searching can take hours.",
       "sk": "Hľadanie môže trvať hodiny.",
-      "dur": 1780
+      "dur": 1780,
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-C2-Hladanie-1.wav"
+      }
     },
     {
       "at": 3350,
@@ -57,7 +60,10 @@
       "text": "Introducing Assetin Archives.",
       "sk": "Predstavujeme Assetin Archives.",
       "styleExtra": "Warm, confident introduction, falling intonation at the end.",
-      "dur": 2920
+      "dur": 2920,
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-C4-Cena-0.wav"
+      }
     },
     {
       "at": 15830,
@@ -72,13 +78,19 @@
       "text": "Scanning an entire archive can be expensive.",
       "sk": "Naskenovať celý archív môže byť drahé.",
       "styleExtra": "Calm, matter-of-fact statement; a gentle emphasis on expensive; falling intonation at the end.",
-      "dur": 3120
+      "dur": 3120,
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-Hook-0.wav"
+      }
     },
     {
       "at": 3900,
       "text": "Our app photographs only the title page.",
       "sk": "Naša aplikácia fotí len identifikačnú stranu.",
-      "dur": 3010
+      "dur": 3010,
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-Hook-1.wav"
+      }
     }
   ],
   "C5-Teren": [
@@ -108,7 +120,10 @@
       "text": "An ordinary phone is all you need.",
       "sk": "Stačí bežný mobil.",
       "styleExtra": "Calm, clear, short statement in one breath; a gentle emphasis on ordinary; falling intonation at the end.",
-      "dur": 1600
+      "dur": 1600,
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-C5-Teren-1.wav"
+      }
     }
   ],
   "F1-Sken": [
@@ -154,7 +169,11 @@
       "at": 300,
       "text": "The app then processes the photo.",
       "sk": "Fotku ďalej spracuje aplikácia.",
-      "dur": 2440
+      "dur": 2440,
+      "src": {
+        "file": "public/vo/lines/C6-Spracovanie-0.wav"
+      },
+      "_note": "Klip sa v dlhom videu nepouziva (C6 bez hlasu, C10 vypadol); bez generovania."
     }
   ],
   "F2-Metadata": [
@@ -222,7 +241,11 @@
       "partAt": [
         0,
         5960
-      ]
+      ],
+      "src": {
+        "file": "public/vo/lines/C10-Databaza-0.wav"
+      },
+      "_note": "Klip sa v dlhom videu nepouziva (C6 bez hlasu, C10 vypadol); bez generovania."
     }
   ],
   "F3-Vyhladavanie": [
@@ -240,7 +263,10 @@
         0,
         2520,
         4600
-      ]
+      ],
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-F3-Vyhladavanie-0.wav"
+      }
     },
     {
       "at": 7400,
@@ -278,7 +304,10 @@
         0,
         1260,
         2780
-      ]
+      ],
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-Vysledok-1.wav"
+      }
     }
   ],
   "C8-Pilot": [
@@ -294,7 +323,10 @@
       "partAt": [
         0,
         1920
-      ]
+      ],
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-Kto-0.wav"
+      }
     }
   ],
   "C8b-Technika": [
@@ -329,7 +361,10 @@
       "partAt": [
         0,
         1960
-      ]
+      ],
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-C8-Ponuka-0.wav"
+      }
     }
   ],
   "C9-Outro": [
@@ -337,7 +372,11 @@
       "at": 700,
       "text": "Assetin Archives.",
       "sk": "Assetin Archives.",
-      "dur": 1600
+      "dur": 1600,
+      "src": {
+        "file": "public/vo/lines/C9-Outro-0.wav"
+      },
+      "_note": "Nazov znie vo vsetkych jazykoch rovnako: slovenska nahravka."
     }
   ]
 }

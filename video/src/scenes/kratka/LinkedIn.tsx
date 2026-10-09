@@ -291,7 +291,7 @@ const ValueField: React.FC<{ approveAt: number; authorAt: number; yearAt: number
       ) : null}
       <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
         <div style={{ fontFamily: APP_FONT, fontWeight: 500, fontSize: 28, color: mix(INK[500], BRAND[700]) }}>{tr('Názov projektu')}</div>
-        <div style={{ display: 'flex', alignItems: 'center', height: 40, padding: '0 16px', borderRadius: 20, background: BRAND[500], fontFamily: APP_FONT, fontWeight: 700, fontSize: 24, color: '#fff', opacity: ok, transform: `scale(${0.85 + 0.15 * ok})` }}>Potvrdené</div>
+        <div style={{ display: 'flex', alignItems: 'center', height: 40, padding: '0 16px', borderRadius: 20, background: BRAND[500], fontFamily: APP_FONT, fontWeight: 700, fontSize: 24, color: '#fff', opacity: ok, transform: `scale(${0.85 + 0.15 * ok})` }}>{tr('Potvrdené')}</div>
       </div>
       <div style={{ marginTop: 4, fontFamily: APP_FONT, fontWeight: 700, fontSize: 43, lineHeight: 1.14, letterSpacing: '-0.01em', color: INK[900] }}>
         Novostavba bytového domu

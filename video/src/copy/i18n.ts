@@ -136,6 +136,7 @@ export const UI: Record<string, Entry> = {
   'Názov projektu': { cs: 'Název projektu', en: 'Project name' },
   'NÁZOV PROJEKTU': { cs: 'NÁZEV PROJEKTU', en: 'PROJECT NAME' },
   Typ: { cs: 'Typ', en: 'Type' },
+  Potvrdené: { cs: 'Potvrzeno', en: 'Confirmed' },
   Autor: { cs: 'Autor', en: 'Author' },
   Rok: { cs: 'Rok', en: 'Year' },
   'Časti slov, "presné slová" alebo frázy': { cs: 'Části slov, "přesná slova" nebo fráze', en: 'Parts of words, "exact words" or phrases' },

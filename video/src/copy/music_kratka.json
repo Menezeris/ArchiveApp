@@ -367,7 +367,7 @@
     "tempo": 1.0014
   },
   "K46_cs": {
-    "_": "CZ verzia (film 56,3 s): strih ako K46, tempo auto (koniec skladby 0,4 s pred koncom filmu). Tempo 1.0174: zaverecny akord 70 ms pred logom (film 56.27 s, logo 54.07 s).",
+    "_": "CZ verzia (film 56,3 s): strih ako K46, tempo auto (koniec skladby 0,4 s pred koncom filmu). Tempo 1.0257: zaverecny akord 70 ms pred logom (film 55.83 s, logo 53.63 s).",
     "edit": {
       "src": "public/music/bed.wav",
       "out": "public/music/bed_kratka46_edit.wav",
@@ -417,10 +417,10 @@
     },
     "end": 54,
     "delay": 0.086,
-    "tempo": 1.0174
+    "tempo": 1.0257
   },
   "K46_en": {
-    "_": "EN verzia (film 60,0 s, o 2,9 s dlhsia): strih ako K46 s jednym taktom navyse v groove (takt 14 dvakrat), tempo auto. Tempo 0.9912: zaverecny akord 70 ms pred logom (film 60.0 s, logo 57.80 s).",
+    "_": "EN verzia (film 60,0 s, o 2,9 s dlhsia): strih ako K46 s jednym taktom navyse v groove (takt 14 dvakrat), tempo auto. Tempo 0.9883: zaverecny akord 70 ms pred logom (film 60.17 s, logo 57.97 s).",
     "edit": {
       "src": "public/music/bed.wav",
       "out": "public/music/bed_kratka46_en_edit.wav",
@@ -471,6 +471,6 @@
     },
     "end": 56.286,
     "delay": 0.086,
-    "tempo": 0.9912
+    "tempo": 0.9883
   }
 }

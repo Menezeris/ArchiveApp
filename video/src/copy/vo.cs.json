@@ -15,14 +15,14 @@
       "dur": 6320,
       "partAt": [
         0,
-        3320
+        3040
       ]
     },
     {
       "at": 6870,
       "text": "Ve skladu, na polici, v krabici, nebo ve složce.",
       "sk": "V sklade, na polici, v krabici alebo v zložke.",
-      "dur": 3330
+      "dur": 3920
     }
   ],
   "C4-Cena": [
@@ -30,7 +30,7 @@
       "at": 400,
       "text": "Hledání může trvat hodiny.",
       "sk": "Hľadanie môže trvať hodiny.",
-      "dur": 1780
+      "dur": 1960
     },
     {
       "at": 3350,
@@ -40,30 +40,30 @@
         "A tak se může stát, že zaplatíte dvakrát za totéž."
       ],
       "sk": "Niekedy je rýchlejšie dať dokumentáciu vyhotoviť nanovo. A tak sa môže stať, že zaplatíte dvakrát za to isté.",
-      "dur": 6750,
+      "dur": 6400,
       "partAt": [
         0,
-        3617
+        3120
       ]
     },
     {
       "at": 10350,
       "text": "S námi ho najdete za pár sekund.",
       "sk": "S nami ho nájdete za pár sekúnd.",
-      "dur": 2090
+      "dur": 2120
     },
     {
       "at": 12750,
       "text": "Představujeme Assetin Archives.",
       "sk": "Predstavujeme Assetin Archives.",
       "styleExtra": "Warm, confident introduction, falling intonation at the end.",
-      "dur": 2920
+      "dur": 3120
     },
     {
-      "at": 15830,
+      "at": 16050,
       "text": "Z vašeho archivu vytvoříme přehledný digitální katalog.",
       "sk": "Z vášho archívu urobíme prehľadný digitálny katalóg.",
-      "dur": 3800
+      "dur": 3640
     }
   ],
   "C4b-Hacik": [
@@ -72,13 +72,16 @@
       "text": "Naskenovat celý archiv může být drahé.",
       "sk": "Naskenovať celý archív môže byť drahé.",
       "styleExtra": "Calm, matter-of-fact statement; a gentle emphasis on drahé; falling intonation at the end.",
-      "dur": 3120
+      "dur": 3080,
+      "src": {
+        "file": "public/vo-kratka-cs/lines/K46-Hook-0.wav"
+      }
     },
     {
       "at": 3900,
       "text": "Naše aplikace fotí jen identifikační stranu.",
       "sk": "Naša aplikácia fotí len identifikačnú stranu.",
-      "dur": 3010
+      "dur": 3200
     }
   ],
   "C5-Teren": [
@@ -96,19 +99,20 @@
         "dostane QR kód, podle toho, jak máte archiv uspořádaný."
       ],
       "sk": "Každá položka, či už polica, krabica, šanón alebo zložka, dostane QR kód, podľa toho, ako máte archív usporiadaný.",
-      "styleExtra": "Pace for this sentence: calm and unhurried; a short clear pause after each item of the list and after QR kód.",
-      "dur": 8640,
+      "styleExtra": "Pace for this sentence: calm and unhurried; a short clear pause after each item of the list and after QR kód. Pronunciation: the abbreviation QR in 'QR kód' is English: say 'kjú ár' (like cue are), NEVER the Czech letter names 'kvé er'; kód with a long ó.",
+      "dur": 8160,
       "partAt": [
         0,
-        4680
-      ]
+        4140
+      ],
+      "ttsText": "Každá položka, ať už police, krabice, šanon, nebo složka, dostane kjú ár kód, podle toho, jak máte archiv uspořádaný."
     },
     {
       "at": 12270,
       "text": "Stačí běžný mobil.",
       "sk": "Stačí bežný mobil.",
       "styleExtra": "Calm, clear, short statement in one breath; a gentle emphasis on běžný; falling intonation at the end.",
-      "dur": 1600
+      "dur": 1800
     }
   ],
   "F1-Sken": [
@@ -123,13 +127,13 @@
         "Položka tím získá svůj digitální záznam."
       ],
       "sk": "V mobile vyberieme typ položky, ako napríklad zložka alebo dokument, a zaradíme ju do hierarchie podľa skutočnosti. Potom odfotíme jej identifikačnú stranu. Položka tým dostane svoj digitálny záznam.",
-      "dur": 13760,
+      "dur": 13200,
       "partAt": [
         0,
-        2120,
-        4700,
-        8080,
-        10940
+        2240,
+        4560,
+        7380,
+        10200
       ]
     }
   ],
@@ -142,10 +146,10 @@
         "například police, krabice, složka nebo dokument."
       ],
       "sk": "Každá položka má presné miesto v hierarchii, ako napríklad polica, krabica, zložka alebo dokument.",
-      "dur": 7120,
+      "dur": 6200,
       "partAt": [
         0,
-        2900
+        2760
       ]
     }
   ],
@@ -154,7 +158,7 @@
       "at": 300,
       "text": "Fotku dál zpracuje aplikace.",
       "sk": "Fotku ďalej spracuje aplikácia.",
-      "dur": 2440
+      "dur": 2040
     }
   ],
   "F2-Metadata": [
@@ -167,11 +171,11 @@
         "například název projektu, autora nebo rok."
       ],
       "sk": "Aplikácia z fotky sama prečíta text a navrhne údaje, ktoré na nej nájde, napríklad názov projektu, autora alebo rok.",
-      "dur": 7840,
+      "dur": 7960,
       "partAt": [
         0,
-        2180,
-        4500
+        2140,
+        4540
       ]
     }
   ],
@@ -180,7 +184,7 @@
       "at": 500,
       "text": "Návrh ale není konečný záznam.",
       "sk": "Návrh ale nie je finálny záznam.",
-      "dur": 2680
+      "dur": 2600
     },
     {
       "at": 3350,
@@ -190,23 +194,23 @@
         "Fotka je důkaz a zůstává u záznamu."
       ],
       "sk": "Človek každú hodnotu overí a potvrdí. Fotka je dôkaz a ostáva pri zázname.",
-      "dur": 5440,
+      "dur": 5800,
       "partAt": [
         0,
-        2840
+        3000
       ]
     },
     {
-      "at": 8950,
+      "at": 9300,
       "text": "Případné opravy a doplnění probíhají přímo v návrhu.",
       "sk": "Prípadné opravy a doplnenia prebiehajú priamo v návrhu.",
-      "dur": 4000
+      "dur": 3640
     },
     {
       "at": 13300,
       "text": "Tím vznikne ověřený a dohledatelný záznam fyzického dokumentu.",
       "sk": "Tým vznikne overený a dohľadateľný záznam fyzického dokumentu.",
-      "dur": 4840
+      "dur": 4520
     }
   ],
   "C10-Databaza": [
@@ -218,10 +222,10 @@
         "Nejjednodušší je vyhledávání."
       ],
       "sk": "Vytvorenú databázu katalógu archívu vieme exportovať, analyzovať alebo prehľadávať. Najjednoduchšie je vyhľadávanie.",
-      "dur": 8000,
+      "dur": 7840,
       "partAt": [
         0,
-        5960
+        5600
       ]
     }
   ],
@@ -235,18 +239,18 @@
         "i všechny vyčtené údaje."
       ],
       "sk": "Potom stačí napísať kľúčové slovo. Aplikácia ukáže cestu k položke aj všetky vyčítané údaje.",
-      "dur": 6840,
+      "dur": 5680,
       "partAt": [
         0,
-        2520,
-        4600
+        1920,
+        3780
       ]
     },
     {
       "at": 7400,
       "text": "Klíčové slovo se zvýrazní v metadatech záznamu.",
       "sk": "Kľúčové slovo sa zvýrazní v metadátach záznamu.",
-      "dur": 3320
+      "dur": 3200
     }
   ],
   "C8a-Vysledok": [
@@ -276,8 +280,8 @@
       "dur": 4760,
       "partAt": [
         0,
-        1260,
-        2780
+        1300,
+        3100
       ]
     }
   ],
@@ -290,10 +294,10 @@
         "nebo vám archiv zpracujeme na klíč."
       ],
       "sk": "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč.",
-      "dur": 4400,
+      "dur": 4240,
       "partAt": [
         0,
-        1920
+        1760
       ]
     }
   ],
@@ -307,11 +311,11 @@
         "online u nás nebo na vaší infrastruktuře."
       ],
       "sk": "Aplikácia funguje v súlade s vašimi bezpečnostnými požiadavkami, online u nás alebo na vašej infraštruktúre.",
-      "dur": 7000,
+      "dur": 6640,
       "partAt": [
         0,
-        1700,
-        3920
+        1580,
+        3680
       ]
     }
   ],
@@ -325,10 +329,10 @@
       ],
       "sk": "Začnime jednou krabicou, zadarmo a nezáväzne.",
       "styleExtra": "Tone for this sentence: warm, confident and inviting, a clear call to action.",
-      "dur": 3800,
+      "dur": 3720,
       "partAt": [
         0,
-        1960
+        1800
       ]
     }
   ],
@@ -337,7 +341,11 @@
       "at": 700,
       "text": "Assetin Archives.",
       "sk": "Assetin Archives.",
-      "dur": 1600
+      "dur": 1600,
+      "src": {
+        "file": "public/vo/lines/C9-Outro-0.wav"
+      },
+      "_note": "Nazov znie vo vsetkych jazykoch rovnako: slovenska nahravka."
     }
   ]
 }

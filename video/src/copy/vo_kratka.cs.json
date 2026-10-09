@@ -99,7 +99,7 @@
       "at": 3900,
       "text": "Naše aplikace fotí jen identifikační stranu.",
       "sk": "Naša aplikácia fotí len identifikačnú stranu.",
-      "dur": 3200
+      "dur": 3120
     }
   ],
   "K46-Vysledok": [
@@ -143,10 +143,10 @@
         "nebo vám archiv zpracujeme na klíč."
       ],
       "sk": "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč.",
-      "dur": 4320,
+      "dur": 4000,
       "partAt": [
         0,
-        1780
+        1740
       ]
     }
   ],

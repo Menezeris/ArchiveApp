@@ -3,8 +3,8 @@
   "cs": {
     "HOOK_W": {
       "drahe": 2.38,
-      "foti": 1.02,
-      "identifikacnu": 1.68
+      "foti": 0.98,
+      "identifikacnu": 1.54
     },
     "C5_46_W0": {
       "kod": 1.68
@@ -24,9 +24,9 @@
       "udaje": 5.08
     },
     "KTO_W": {
-      "sami": 1.28,
-      "alebo": 1.86,
-      "archiv": 2.42
+      "sami": 1.26,
+      "alebo": 1.82,
+      "archiv": 2.36
     },
     "VYS_W": {
       "co": 2.26,
@@ -71,9 +71,9 @@
     "VYS_W": {
       "co": 2.28,
       "kde": 4.14,
-      "uchovat": 1.46,
-      "skartovat": 2.38,
-      "skenovat": 3.88
+      "uchovat": 1.36,
+      "skartovat": 2.34,
+      "skenovat": 3.86
     },
     "C8_W3": {
       "krabicou": 1260,
