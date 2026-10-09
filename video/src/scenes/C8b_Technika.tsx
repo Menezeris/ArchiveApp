@@ -7,6 +7,7 @@ import { voAt } from '../components/Subtitles';
 import { settle } from '../lib/anim';
 import { BRAND, FONT, INK } from '../theme';
 import { tr } from '../copy/i18n';
+import { cue } from '../lib/lang';
 
 /**
  * C8b - Technicke riesenie (kolo 52, Samuel: slide z kratkej LinkedIn verzie aj do dlhej). Za ponukou (C8), pred zaverom.
@@ -18,9 +19,10 @@ import { tr } from '../copy/i18n';
  */
 const LEFT = 120,
   W = 1680;
-const W_SAFE = 1360, // "v sulade"
-  W_ONLINE = 4000, // "online"
-  W_YOURS = 5440; // "na vasej"
+const C8B_W = cue('C8B_W', { safe: 1360, online: 4000, yours: 5440 }); // ms od vety: "v sulade", "online", "na vasej" (CZ/EN: src/copy/cues.json)
+const W_SAFE = C8B_W.safe,
+  W_ONLINE = C8B_W.online,
+  W_YOURS = C8B_W.yours;
 export const C8B_SECONDS = 8.6;
 const OPT_W = 770; // dve moznosti vedla seba v sivom ramci, medzi nimi "alebo"
 

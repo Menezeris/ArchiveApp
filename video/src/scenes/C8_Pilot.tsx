@@ -5,6 +5,7 @@ import { StepLabel } from '../components/Frame16';
 import { KtoCard } from '../components/ArchivesClose';
 import { voAt, voLines } from '../components/Subtitles';
 import { tr } from '../copy/i18n';
+import { cue } from '../lib/lang';
 
 /**
  * C8 - Kto archiv spracuje a v akom rozsahu (kolo 54, Samuel: dlhu verziu zladit s kratkou K46; veta kratkej, licencia na
@@ -25,7 +26,7 @@ const LEFT = 120;
 const RIGHT = LEFT + COL.w + COL.gap;
 const TOP = 330; // kolo 56: karty v strede plochy (bez riadku rozsahu pod nimi)
 const L0 = voAt('C8-Pilot', 0);
-const W0 = { alebo: 2.0 }; // K46-Kto-0 words
+const W0 = cue('C8_W0', { alebo: 2.0 }); // K46-Kto-0 words
 export const C8_SECONDS = (L0 + (voLines('C8-Pilot')[0].dur ?? 4400) + 900) / 1000; // karty este 0,9 s po vete
 
 export const C8_Pilot: React.FC = () => {

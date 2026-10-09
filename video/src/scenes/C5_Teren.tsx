@@ -13,6 +13,7 @@ import { pop, settle, tween } from '../lib/anim';
 import { captions, phases } from '../copy';
 import { BRAND, CM, FONT, INK, ISO, SAFE } from '../theme';
 import { tr } from '../copy/i18n';
+import { cue } from '../lib/lang';
 
 /**
  * C5 - V sklade. Dlazdica z webu ako hrdina; harok nalepiek (A4) a mobil
@@ -68,8 +69,9 @@ const STEPS: C5Step[] = [
  * a "archiv" dva priklady usporiadania (ostatne polozky stlmene). Scena v tom case stoji v pauze, casy su v case
  * vystupu (useOutputFrame), slova z public/vo/lines/C5-Teren-1.words.json. Rad odide pred vetou o mobile.
  */
-const H_WORDS = [1.52, 2.3, 3.02, 3.88]; // polica, krabica, sanon, zlozka
-const H_QR = 4.76; // "dostane QR kod"
+const C5_H = cue('C5_H', { polica: 1.52, krabica: 2.3, sanon: 3.02, zlozka: 3.88, qr: 4.76 }); // CZ/EN: src/copy/cues.json
+const H_WORDS = [C5_H.polica, C5_H.krabica, C5_H.sanon, C5_H.zlozka]; // polica, krabica, sanon, zlozka
+const H_QR = C5_H.qr; // "dostane QR kod"
 const H_ARRANGE = { a: 6.16, b: 7.18, all: 8.36 }; // "podla toho", "archiv", koniec "usporiadany"
 const H_ITEMS: { kind: HKind; label: string; a: boolean; b: boolean }[] = [
   { kind: 'shelf', label: tr('Polica'), a: true, b: true },

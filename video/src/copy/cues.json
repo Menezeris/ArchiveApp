@@ -38,6 +38,51 @@
     "C8_W3": {
       "krabicou": 1100,
       "zadarmo": 1740
+    },
+    "C2_W0": {
+      "spravu": 3.58,
+      "vykres": 4.52,
+      "protokol": 5.34,
+      "koniec": 5.82
+    },
+    "C4B_W": {
+      "drahe": 2.38,
+      "foti": 1.0,
+      "identifikacnu": 1.66
+    },
+    "C5_H": {
+      "polica": 1.48,
+      "krabica": 2.22,
+      "sanon": 2.8,
+      "zlozka": 3.44,
+      "qr": 4.22
+    },
+    "F3_W": {
+      "aplikacia": 2.0,
+      "cestu": 3.02,
+      "k": 3.34,
+      "polozke": 3.38,
+      "aj": 3.86,
+      "udaje": 4.94
+    },
+    "C8_W0": {
+      "alebo": 1.84
+    },
+    "C8A_W": {
+      "co": 2.22,
+      "kde": 3.86,
+      "uchovat": 1.58,
+      "skartovat": 2.48,
+      "skenovat": 3.88
+    },
+    "C8B_W": {
+      "safe": 1220,
+      "online": 3760,
+      "yours": 5120
+    },
+    "C8C_W": {
+      "krabicou": 1100,
+      "zadarmo": 1880
     }
   },
   "en": {

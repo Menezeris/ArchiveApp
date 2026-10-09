@@ -11,6 +11,7 @@ import { voAt } from '../components/Subtitles';
 import { BRAND, CM, FPS, ISO, NAVY, SAFE } from '../theme';
 import { CAM_END, PALLETS, SEARCH_QMS, SHELF_LEVEL, SHELVES, SV, SearchCarton, TARGET_SHELF, VB } from './C3_Sklad';
 import { tr } from '../copy/i18n';
+import { cue } from '../lib/lang';
 
 /**
  * C2 - Hladanie (verzia 2: spojene C2 Kancelaria + C3 Sklad, 10,5 s).
@@ -267,7 +268,7 @@ export const Warehouse: React.FC<{ frame: number; floor?: boolean }> = ({ frame,
  * predtym), navrat zloziek a krabic 1,25x (ako K46); koniec v tom istom stave skladu (C4 nadvazuje kamerou CAM_END).
  */
 const L0 = voAt('C2-Hladanie', 0);
-const W0 = { spravu: 3.72, vykres: 4.48, protokol: 5.38, koniec: 5.84 }; // s od zaciatku vety (C2-Hladanie-0.words.json)
+const W0 = cue('C2_W0', { spravu: 3.72, vykres: 4.48, protokol: 5.38, koniec: 5.84 }); // s od zaciatku vety (C2-Hladanie-0.words.json)
 const TAGS: OfficeTag[] = [
   { item: 0, at: L0 + W0.spravu * 1000 - 80, text: tr('Správa') },
   { item: 1, at: L0 + W0.vykres * 1000 - 80, text: tr('Výkres') },

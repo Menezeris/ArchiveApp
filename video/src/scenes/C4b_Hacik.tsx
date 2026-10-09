@@ -11,6 +11,7 @@ import { easeInOut, pop, settle, tween } from '../lib/anim';
 import { captions } from '../copy';
 import { BRAND, FONT, FPS, INK } from '../theme';
 import { pagesLabel, tr } from '../copy/i18n';
+import { cue } from '../lib/lang';
 
 /**
  * C4b - hacik (kolo 54, Samuel: dlhu verziu zladit s hotovou kratkou K-LinkedIn-46). Prenesene z `LI_Hook`
@@ -24,7 +25,7 @@ import { pagesLabel, tr } from '../copy/i18n';
  * a ikony Vas archiv -> Digitalny katalog zblednu. Na konci klipu obsah zbledne do bielej, C5 zacne krabicou zdola.
  */
 const CLIP = 'C4b-Hacik';
-const W = { drahe: 2.32, foti: 1.0, identifikacnu: 1.5 }; // s od zaciatku viet (K46-Hook-0 a -1, ako HOOK_W v kratkej)
+const W = cue('C4B_W', { drahe: 2.32, foti: 1.0, identifikacnu: 1.5 }); // s od zaciatku viet (K46-Hook-0 a -1, ako HOOK_W v kratkej)
 const L0 = voAt(CLIP, 0);
 const L1 = voAt(CLIP, 1);
 const FADE = 300; // dobeh do bielej pred C5

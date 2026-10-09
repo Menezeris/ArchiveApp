@@ -6,6 +6,7 @@ import { VysKind, VysRow, VysTile } from '../components/ArchivesClose';
 import { voAt, voLines } from '../components/Subtitles';
 import { tween } from '../lib/anim';
 import { tr } from '../copy/i18n';
+import { cue } from '../lib/lang';
 
 /**
  * C8a - Vysledok katalogizacie (kolo 54, Samuel: dlhu verziu zladit s kratkou K46; scena LI_Vysledok tam, kola 34 az 53).
@@ -18,8 +19,8 @@ import { tr } from '../copy/i18n';
 const CLIP = 'C8a-Vysledok';
 const L0 = voAt(CLIP, 0);
 const L1 = voAt(CLIP, 1);
-const W = { co: 2.22, kde: 3.86, // kolo 56: nova veta "...ake dokumenty mate a kde presne sa nachadzaju." (slova ake a kde, faster-whisper)
-  uchovat: 1.48, skartovat: 2.2, skenovat: 3.86 }; // s od zaciatku viet (ako VYS_W v kratkej)
+const W = cue('C8A_W', { co: 2.22, kde: 3.86, // kolo 56: nova veta "...ake dokumenty mate a kde presne sa nachadzaju." (slova ake a kde, faster-whisper)
+  uchovat: 1.48, skartovat: 2.2, skenovat: 3.86 }); // s od zaciatku viet (ako VYS_W v kratkej)
 const FADE = 300;
 export const C8A_SECONDS = (L1 + (voLines(CLIP)[1].dur ?? 4760) + 300 + FADE) / 1000;
 const STEPS = [

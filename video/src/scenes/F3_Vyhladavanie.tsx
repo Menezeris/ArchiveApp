@@ -6,6 +6,7 @@ import { DesktopFootageClip, Mark, Panel, Tap, markAt } from './F2_Metadata';
 import { DocPath, ItemCard, SearchCard } from '../components/AppCards';
 import { cutDuration, segStart } from '../lib/cuts';
 import { tr } from '../copy/i18n';
+import { cue } from '../lib/lang';
 
 /**
  * F3 - Vyhladavanie: zostrih noveho zaznamu (search2.mp4) podla src/footage/cuts.json.
@@ -22,7 +23,7 @@ const ID = 'f3-search';
 export const F3_SECONDS = cutDuration(ID);
 const L0 = voAt('F3-Vyhladavanie', 0) / 1000;
 const L1 = voAt('F3-Vyhladavanie', 1) / 1000;
-const W = { aplikacia: 2.6, cestu: 3.82, k: 4.16, polozke: 4.2, aj: 4.68, udaje: 6.14 }; // s od zaciatku vety (K46-F3-Vyhladavanie-0 words)
+const W = cue('F3_W', { aplikacia: 2.6, cestu: 3.82, k: 4.16, polozke: 4.2, aj: 4.68, udaje: 6.14 }); // s od zaciatku vety (K46-F3-Vyhladavanie-0 words)
 const at = (w: number) => L0 + w;
 const F3_STEPS: Step[] = [
   { from: 0, title: tr('Napísať kľúčové slovo') },
