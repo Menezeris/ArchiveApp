@@ -2,11 +2,21 @@ import React from 'react';
 import { getInputProps, useCurrentFrame } from 'remotion';
 import vo from '../copy/vo.json';
 import voKratka from '../copy/vo_kratka.json';
+import voCs from '../copy/vo.cs.json';
+import voKratkaCs from '../copy/vo_kratka.cs.json';
+import voEn from '../copy/vo.en.json';
+import voKratkaEn from '../copy/vo_kratka.en.json';
+import { LANG } from '../lib/lang';
 import { FONT, INK } from '../theme';
 
 type Line = { at: number; text: string; dur?: number; parts?: string[]; partAt?: number[] };
-/** Hlavny scenar + experiment kratkej verzie (klipy K-*, T-*; ID sa neprekryvaju). */
-const script = { ...(voKratka as object), ...(vo as object) } as unknown as Record<string, Line[] | string>;
+/** Hlavny scenar + experiment kratkej verzie (klipy K-*, T-*; ID sa neprekryvaju); CZ/EN podla prop `lang` (src/lib/lang.ts). */
+const SCRIPTS = { sk: [voKratka, vo], cs: [voKratkaCs, voCs], en: [voKratkaEn, voEn] } as const;
+// klipy bez prekladu (stara K-LinkedIn, ktora sa neprekladá) ostanu so slovenskym scenarom, aby casy krokov existovali
+const script = { ...(voKratka as object), ...(vo as object), ...(SCRIPTS[LANG][0] as object), ...(SCRIPTS[LANG][1] as object) } as unknown as Record<string, Line[] | string | boolean>;
+
+/** CZ/EN: hlas je az po vygenerovani (`_voice: true` v scenari); dovtedy sa renderuje bez zvuku, titulky ostavaju. */
+export const hasVoice = (kratka: boolean) => LANG === 'sk' || (SCRIPTS[LANG][kratka ? 0 : 1] as { _voice?: boolean })._voice === true;
 
 export const voLines = (clip: string): Line[] => {
   const v = script[clip];

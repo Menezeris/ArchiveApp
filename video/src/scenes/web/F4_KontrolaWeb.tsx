@@ -3,6 +3,7 @@ import { Step } from '../../components/Steps';
 import { FOOTAGE_WINDOW_WIDE } from '../../components/Device';
 import { DesktopFootageClip, Mark, Tap, ZoomKey, markAt, tapAt } from './WebFootage';
 import { cutDuration, cutTime, segStart, srcFrac } from '../../lib/cuts';
+import { tr } from '../../copy/i18n';
 
 /**
  * Webovy klip F4-Kontrola-Web (PR #21) ako bol pred zlucenim s dlhou verziou (kola 49 az 56): vlastny zostrih
@@ -19,10 +20,10 @@ const F4_SECONDS = F4_WEB_SECONDS;
 const VO_AT = [500, 3350, 8950, 13300]; // casy viet F4 (vo.json mainu, PR #21)
 const vo = (i: number, k = 0) => VO_AT[i] + (i === 1 && k === 1 ? 2840 : 0); // druha cast vety 1 ("Fotka je dokaz") o 2,84 s
 const F4_STEPS: Step[] = [
-  { from: 0, title: 'Návrh metadát' },
-  { from: vo(1), title: 'Overiť a potvrdiť' },
-  { from: vo(2), title: 'Opraviť v návrhu' },
-  { from: vo(3), title: 'Overený záznam' },
+  { from: 0, title: tr('Návrh metadát') },
+  { from: vo(1), title: tr('Overiť a potvrdiť') },
+  { from: vo(2), title: tr('Opraviť v návrhu') },
+  { from: vo(3), title: tr('Overený záznam') },
 ];
 const F4_TAPS: Tap[] = [
   tapAt(ID, 12.15, 1734, 764), // prijat prvy navrh (Nazov projektu)

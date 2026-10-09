@@ -1,6 +1,7 @@
 import React from 'react';
 import { Hold, Paced, holdsSeconds } from './components/Paced';
 import type { SceneDef } from './scenesList';
+import { voDir } from './lib/lang';
 
 /**
  * Experiment kratkej verzie (vetva claude/video-assets-archives-exp-la1hts), ~74 s. Hlavna verzia (SCENE_LIST
@@ -13,6 +14,6 @@ export type PacedDef = { scene: React.FC; seconds: number; stills: number[]; hol
 export const paced = (id: string, d: PacedDef): [string, SceneDef] => {
   const Scene = d.scene;
   const component: React.FC = () =>
-    React.createElement(Paced, { id, holds: d.holds, skip: d.skip, vo: d.vo ?? true, dark: d.dark, darkUntil: d.darkUntil, subtitleLeft: d.subtitleLeft, subtitles: d.subtitles, audio: `vo-kratka/${id}.wav`, children: React.createElement(Scene) });
+    React.createElement(Paced, { id, holds: d.holds, skip: d.skip, vo: d.vo ?? true, dark: d.dark, darkUntil: d.darkUntil, subtitleLeft: d.subtitleLeft, subtitles: d.subtitles, audio: `${voDir('vo-kratka')}/${id}.wav`, children: React.createElement(Scene) });
   return [id, { component, seconds: d.seconds + holdsSeconds(d.holds) - (d.skip ?? 0) / 1000, stills: d.stills }];
 };

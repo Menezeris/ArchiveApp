@@ -7,6 +7,7 @@ import { Step } from '../../components/Steps';
 import type { Hold } from '../../components/Paced';
 import { voAt } from '../../components/Subtitles';
 import { cutDuration, cutTime, segStart } from '../../lib/cuts';
+import { tr } from '../../copy/i18n';
 
 /**
  * Experiment kratkej verzie: spolocne data pre LinkedIn 4:5 (LinkedIn.tsx), jedinu kratku verziu (kolo 2). Scény hlavnej
@@ -18,7 +19,7 @@ import { cutDuration, cutTime, segStart } from '../../lib/cuts';
  * Kolo 3 (Samuel): jednoduchsi slogan namiesto "Digitalna katalogizacia archivovanej dokumentacie" (laikom znie uradnicky);
  * rovnaky pod logom v C4 aj na zaverecnom logu.
  */
-export const SLOGAN = 'Digitálny poriadok v papierovom archíve';
+export const SLOGAN = tr('Digitálny poriadok v papierovom archíve');
 /**
  * C4 v kratkej verzii: znacka drzi pocas vety o katalogu (h). Kolo 4: bez lockupu assetin.space z C4 (Samuel: zatial
  * bez .space), logo kresli ramec LinkedIn (domcek, assetin | Archives). Kolo 5 (Samuel: dvojite platenie netreba, staci
@@ -48,12 +49,12 @@ export const K_C4 = K_C4For(K_C4_H);
 export const c4End = (d: number, h: number) => (8200 + d + h + 900) / 1000;
 
 /** Nazov fazy pre pracu so skutocnymi krabicami: "V terene" divakom v teste evokovalo stavbu, "V archive" je jasne. */
-export const PHASE_ARCHIV = 'V archíve';
+export const PHASE_ARCHIV = tr('V archíve');
 
 /** C5: dva kroky (QR na krabicu aj zlozky, fotka titulnej strany). Kolo 8: veta o foteni je samostatna (pauza pred nou). */
 export const C5_STEPS = (clip: string): C5Step[] => [
-  { from: 600, title: 'Prilepiť QR kód' },
-  { from: voAt(clip, 1), title: 'Odfotiť titulnú stranu' },
+  { from: 600, title: tr('Prilepiť QR kód') },
+  { from: voAt(clip, 1), title: tr('Odfotiť titulnú stranu') },
 ];
 /**
  * Kolo 7 (Samuel: QR dostane kazda polozka, nie je to pevne dane): dlhsia prva veta, scena C5 stoji po dopade poslednej
@@ -82,9 +83,9 @@ export const KF24 = 'k-f24-review';
 export const K_F24_SECONDS = cutDuration(KF24);
 const kv = (i: number, k = 0) => voAt('K-F24-Aplikacia', i, k);
 export const K_F24_STEPS: Step[] = [
-  { from: 0, title: 'Prečítať text' },
-  { from: kv(0, 1), title: 'Návrh údajov' },
-  { from: kv(1), title: 'Overiť a potvrdiť' },
+  { from: 0, title: tr('Prečítať text') },
+  { from: kv(0, 1), title: tr('Návrh údajov') },
+  { from: kv(1), title: tr('Overiť a potvrdiť') },
 ];
 export const K_F24_TAPS: Tap[] = [tapAt(KF24, 12.15, 1734, 764)]; // prijat spravnu hodnotu (Nazov projektu)
 /**
@@ -103,9 +104,9 @@ export const KF3 = 'k-f3-search';
 export const K_F3_SECONDS = cutDuration(KF3);
 /** F3: kroky a zvyraznenia podla vety klipu (16:9 aj LinkedIn). */
 export const f3Steps = (clip: string): Step[] => [
-  { from: 0, title: 'Napísať kľúčové slovo' }, // kolo 21 (Samuel): "napísať kľúčové slovo"
-  { from: voAt(clip, 0, 1), title: 'Údaje o položke' }, // kolo 7 (Samuel): "aplikacia ukaze udaje o konkretnej polozke aj cestu k nej"
-  { from: voAt(clip, 1), title: 'Cesta k položke' }, // kolo 10: "aj cestu k nej." je samostatna veta po pauze
+  { from: 0, title: tr('Napísať kľúčové slovo') }, // kolo 21 (Samuel): "napísať kľúčové slovo"
+  { from: voAt(clip, 0, 1), title: tr('Údaje o položke') }, // kolo 7 (Samuel): "aplikacia ukaze udaje o konkretnej polozke aj cestu k nej"
+  { from: voAt(clip, 1), title: tr('Cesta k položke') }, // kolo 10: "aj cestu k nej." je samostatna veta po pauze
 ];
 /** `seconds` = dlzka klipu (K46 kolo 33 ma kratsi zostrih k46-f3-search s rovnakym orezom a segmentmi, len kratsim dobehom). */
 export const f3Marks = (clip: string, seconds = K_F3_SECONDS): Mark[] => {
@@ -118,4 +119,4 @@ export const f3Marks = (clip: string, seconds = K_F3_SECONDS): Mark[] => {
   ];
 };
 /** Popis karty softveru (LinkedIn C8). */
-export const SOFTWARE_DESC = 'Spracujete sami v našej aplikácii.';
+export const SOFTWARE_DESC = tr('Spracujete sami v našej aplikácii.');

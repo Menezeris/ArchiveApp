@@ -3,7 +3,7 @@ import { AbsoluteFill, useCurrentFrame } from 'remotion';
 import { Lockup } from '../components/ArchivesBrand';
 import { loadFonts } from '../lib/fonts';
 import { settle } from '../lib/anim';
-import { captions, sk } from '../copy/sk';
+import { captions, sk } from '../copy';
 import { BRAND, FONT } from '../theme';
 
 /**

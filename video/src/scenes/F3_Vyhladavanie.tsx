@@ -5,6 +5,7 @@ import type { FootView } from '../components/Frame16';
 import { DesktopFootageClip, Mark, Panel, Tap, markAt } from './F2_Metadata';
 import { DocPath, ItemCard, SearchCard } from '../components/AppCards';
 import { cutDuration, segStart } from '../lib/cuts';
+import { tr } from '../copy/i18n';
 
 /**
  * F3 - Vyhladavanie: zostrih noveho zaznamu (search2.mp4) podla src/footage/cuts.json.
@@ -24,10 +25,10 @@ const L1 = voAt('F3-Vyhladavanie', 1) / 1000;
 const W = { aplikacia: 2.6, cestu: 3.82, k: 4.16, polozke: 4.2, aj: 4.68, udaje: 6.14 }; // s od zaciatku vety (K46-F3-Vyhladavanie-0 words)
 const at = (w: number) => L0 + w;
 const F3_STEPS: Step[] = [
-  { from: 0, title: 'Napísať kľúčové slovo' },
-  { from: (at(W.aplikacia) + 0.35) * 1000, title: 'Cesta k položke' },
-  { from: (at(W.udaje) - 0.45) * 1000, title: 'Vyčítané údaje' },
-  { from: L1 * 1000 - 100, title: 'Zvýraznené v metadátach' },
+  { from: 0, title: tr('Napísať kľúčové slovo') },
+  { from: (at(W.aplikacia) + 0.35) * 1000, title: tr('Cesta k položke') },
+  { from: (at(W.udaje) - 0.45) * 1000, title: tr('Vyčítané údaje') },
+  { from: L1 * 1000 - 100, title: tr('Zvýraznené v metadátach') },
 ];
 const F3_TAPS: Tap[] = []; // detail zlozky sa otvara sam s vysledkom, klik v zazname nie je
 const spot = { spot: true };

@@ -4,6 +4,7 @@ import { APP_WIN } from './Frame16';
 import { HIcon, HKind } from './ArchivesIcons';
 import { pop, settle, tween } from '../lib/anim';
 import { BRAND, FONT, FPS, INK } from '../theme';
+import { tr } from '../copy/i18n';
 
 /**
  * Karty pod oknom aplikacie (kolo 52, Samuel: preniest do dlhej aj zvysok obrazu kratkej verzie). Prekreslene detaily
@@ -42,13 +43,13 @@ export const ValueCard: React.FC<{ approveAt?: number; authorAt: number; yearAt:
         </svg>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 16, height: 40 }}>
-        <div style={{ fontFamily: APP_FONT, fontWeight: 500, fontSize: 29, color: green ? BRAND[700] : INK[500] }}>Názov projektu</div>
+        <div style={{ fontFamily: APP_FONT, fontWeight: 500, fontSize: 29, color: green ? BRAND[700] : INK[500] }}>{tr('Názov projektu')}</div>
         <div style={{ display: 'flex', alignItems: 'center', height: 38, padding: '0 16px', borderRadius: 19, background: BRAND[500], fontFamily: APP_FONT, fontWeight: 700, fontSize: 23, color: '#fff', opacity: ok, transform: `scale(${0.85 + 0.15 * ok})` }}>Potvrdené</div>
       </div>
       <div style={{ marginTop: 6, fontFamily: APP_FONT, fontWeight: 700, fontSize: 50, lineHeight: 1.12, letterSpacing: '-0.01em', color: INK[900], whiteSpace: 'nowrap' }}>Novostavba bytového domu SLNEČNÁ 12, BRATISLAVA</div>
       <div style={{ marginTop: 14, display: 'flex', gap: 56 }}>
-        {meta(au, 'Autor', 'DOMINIS PROJEKT, s.r.o.')}
-        {meta(yr, 'Rok', '2018')}
+        {meta(au, tr('Autor'), 'DOMINIS PROJEKT, s.r.o.')}
+        {meta(yr, tr('Rok'), '2018')}
       </div>
     </div>
   );
@@ -73,7 +74,7 @@ export const SearchCard: React.FC<{ typeFrom: number; typeTo: number }> = ({ typ
       <div style={{ flex: 1, margin: 18, border: `3px solid ${BRAND[500]}`, borderRadius: 10, display: 'flex', alignItems: 'center', padding: '0 28px', overflow: 'hidden', whiteSpace: 'nowrap' }}>
         {n > 0 ? <span style={{ fontFamily: APP_FONT, fontWeight: 500, fontSize: 56, color: INK[900] }}>{SEARCH_WORD.slice(0, n)}</span> : null}
         <span style={{ display: 'inline-block', flex: 'none', width: 3, height: 50, margin: n > 0 ? '0 0 0 3px' : '0 6px 0 0', background: INK[900], opacity: caret ? 1 : 0 }} />
-        {n > 0 ? null : <span style={{ fontFamily: APP_FONT, fontSize: 32, color: INK[400] }}>Časti slov, "presné slová" alebo frázy</span>}
+        {n > 0 ? null : <span style={{ fontFamily: APP_FONT, fontSize: 32, color: INK[400] }}>{tr('Časti slov, "presné slová" alebo frázy')}</span>}
       </div>
     </div>
   );
@@ -93,7 +94,7 @@ export const ItemCard: React.FC = () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
       <HIcon kind="folder" size={60} on />
       <span style={{ fontFamily: APP_FONT, fontWeight: 700, fontSize: 40, lineHeight: 1, color: INK[900] }}>ZL_03</span>
-      <Chip>Zložka</Chip>
+      <Chip>{tr('Zložka')}</Chip>
       <span style={{ marginLeft: 14, fontFamily: APP_FONT, fontWeight: 700, fontSize: 36, color: INK[900], whiteSpace: 'nowrap' }}>Novostavba bytového domu SLNEČNÁ 12, BRATISLAVA</span>
     </div>
     <div style={{ marginTop: 22, display: 'flex', alignItems: 'center', gap: 24 }}>
@@ -113,9 +114,9 @@ export const ItemCard: React.FC = () => (
  */
 const PATH_WORDS = { cestu: 0.26, k: 0.6, nej: 0.66 }; // s od zaciatku vety (ta ista nahravka ako v kratkej verzii)
 const PATH_STEPS: { kind: HKind; label: string; code: string; at: number }[] = [
-  { kind: 'shelf', label: 'Polica', code: 'PL_01', at: PATH_WORDS.cestu - 0.06 },
-  { kind: 'box', label: 'Krabica', code: 'KR_01', at: PATH_WORDS.k - 0.1 },
-  { kind: 'folder', label: 'Zložka', code: 'ZL_03', at: PATH_WORDS.nej + 0.06 },
+  { kind: 'shelf', label: tr('Polica'), code: 'PL_01', at: PATH_WORDS.cestu - 0.06 },
+  { kind: 'box', label: tr('Krabica'), code: 'KR_01', at: PATH_WORDS.k - 0.1 },
+  { kind: 'folder', label: tr('Zložka'), code: 'ZL_03', at: PATH_WORDS.nej + 0.06 },
 ];
 /** Kolo 54: `stepsAt` = s klipu pre Policu, Krabicu a Zlozku (veta kratkej "Aplikacia ukaze cestu k polozke..."); inak `lineAt` + PATH_WORDS. */
 export const DocPath: React.FC<{ lineAt?: number; stepsAt?: [number, number, number] }> = ({ lineAt = 0, stepsAt }) => {

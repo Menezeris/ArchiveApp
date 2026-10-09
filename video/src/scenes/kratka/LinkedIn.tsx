@@ -23,9 +23,11 @@ import { ARCHIVES_LOGO } from './archivesLogo';
 import type { SceneDef } from '../../scenesList';
 import { easeInOut, easeOut, pop, settle, tween } from '../../lib/anim';
 import { loadFonts } from '../../lib/fonts';
-import { offer, phases, sk } from '../../copy/sk';
+import { offer, phases, sk } from '../../copy';
 import { voAt } from '../../components/Subtitles';
 import { BRAND, FONT, FPS, INK, NAVY } from '../../theme';
+import { pagesLabel, tr } from '../../copy/i18n';
+import { footageSrc } from '../../lib/lang';
 
 /**
  * Experiment: kratka verzia pre LinkedIn na vysku 4:5 (1080 x 1350). Kolo 2 (Samuel): jedina kratka verzia,
@@ -246,7 +248,7 @@ const APP_FONT = FONT.body; // aplikacia Assetin Archives pouziva Inter
 const PHOTO_TITLE = { src: 'footage/k-photo-title.png', w: 510, h: 114 };
 const PhotoTitle: React.FC<{ width: number }> = ({ width }) => (
   <div style={{ ...BOX, width, height: (width * PHOTO_TITLE.h) / PHOTO_TITLE.w + 6 }}>
-    <Img src={staticFile(PHOTO_TITLE.src)} style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }} />
+    <Img src={staticFile(footageSrc(PHOTO_TITLE.src))} style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover' }} />
   </div>
 );
 
@@ -288,7 +290,7 @@ const ValueField: React.FC<{ approveAt: number; authorAt: number; yearAt: number
         </div>
       ) : null}
       <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-        <div style={{ fontFamily: APP_FONT, fontWeight: 500, fontSize: 28, color: mix(INK[500], BRAND[700]) }}>Názov projektu</div>
+        <div style={{ fontFamily: APP_FONT, fontWeight: 500, fontSize: 28, color: mix(INK[500], BRAND[700]) }}>{tr('Názov projektu')}</div>
         <div style={{ display: 'flex', alignItems: 'center', height: 40, padding: '0 16px', borderRadius: 20, background: BRAND[500], fontFamily: APP_FONT, fontWeight: 700, fontSize: 24, color: '#fff', opacity: ok, transform: `scale(${0.85 + 0.15 * ok})` }}>Potvrdené</div>
       </div>
       <div style={{ marginTop: 4, fontFamily: APP_FONT, fontWeight: 700, fontSize: 43, lineHeight: 1.14, letterSpacing: '-0.01em', color: INK[900] }}>
@@ -299,8 +301,8 @@ const ValueField: React.FC<{ approveAt: number; authorAt: number; yearAt: number
       {/* riadok s autorom a rokom sa vysunie pri slove "autora" (karta plynulo narastie) */}
       <div style={{ height: 96 * au, overflow: 'hidden' }}>
         <div style={{ marginTop: 12, paddingTop: 12, borderTop: `2px solid ${ok > 0.5 ? BRAND[200] : INK[100]}`, display: 'flex', gap: 28 }}>
-          {cell(au, 'Autor', 'DOMINIS PROJEKT, s.r.o.')}
-          <div style={{ flex: 'none', width: 220 }}>{cell(yr, 'Rok', '2018')}</div>
+          {cell(au, tr('Autor'), 'DOMINIS PROJEKT, s.r.o.')}
+          <div style={{ flex: 'none', width: 220 }}>{cell(yr, tr('Rok'), '2018')}</div>
         </div>
       </div>
     </div>
@@ -326,7 +328,7 @@ const SearchField: React.FC<{ typeFrom: number; typeTo: number }> = ({ typeFrom,
       <div style={{ flex: 1, margin: 16, border: `3px solid ${BRAND[500]}`, borderRadius: 10, display: 'flex', alignItems: 'center', padding: '0 26px', overflow: 'hidden', whiteSpace: 'nowrap' }}>
         {n > 0 ? <span style={{ fontFamily: APP_FONT, fontWeight: 500, fontSize: 54, color: INK[900] }}>{SEARCH_WORD.slice(0, n)}</span> : null}
         <span style={{ display: 'inline-block', flex: 'none', width: 3, height: 48, margin: n > 0 ? '0 0 0 3px' : '0 6px 0 0', background: INK[900], opacity: caret ? 1 : 0 }} />
-        {n > 0 ? null : <span style={{ fontFamily: APP_FONT, fontSize: 30, color: INK[400] }}>Časti slov, "presné slová" alebo frázy</span>}
+        {n > 0 ? null : <span style={{ fontFamily: APP_FONT, fontSize: 30, color: INK[400] }}>{tr('Časti slov, "presné slová" alebo frázy')}</span>}
       </div>
     </div>
   );
@@ -399,10 +401,10 @@ const C5_WORDS = [1.52, 2.3, 3.02, 3.88]; // s od zaciatku vety (K-C5-Teren-0.wo
 const C5_QR = 4.76; // "dostane QR kod"
 const C5_ARRANGE = { a: 6.16, b: 7.18, all: 8.36 }; // "podla toho", "archiv", koniec "usporiadany"
 const C5_ITEMS: { kind: HKind; label: string; a: boolean; b: boolean }[] = [
-  { kind: 'shelf', label: 'Polica', a: true, b: true },
-  { kind: 'box', label: 'Krabica', a: true, b: false },
-  { kind: 'binder', label: 'Šanón', a: false, b: true },
-  { kind: 'folder', label: 'Zložka', a: true, b: false },
+  { kind: 'shelf', label: tr('Polica'), a: true, b: true },
+  { kind: 'box', label: tr('Krabica'), a: true, b: false },
+  { kind: 'binder', label: tr('Šanón'), a: false, b: true },
+  { kind: 'folder', label: tr('Zložka'), a: true, b: false },
 ];
 /** Kolo 33 (K46): `iconsAt` = ms klipu, kedy pride ktora ikona (predvolene slova vety K), `qrAt` = ms prvej nalepky QR, `arrange` = priklady usporiadania. */
 const C5HierarchyBase: React.FC<{ clip: string; outAt: number; iconsAt?: number[]; qrAt?: number; arrange?: boolean }> = ({ clip, outAt, iconsAt, qrAt, arrange = true }) => {
@@ -477,7 +479,7 @@ const LI_F1: React.FC = () => {
       <PhoneFrame at={at} screenBg="#000">
         <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#000' }}>
           <div style={{ position: 'absolute', left: 0, top: -REC_PHONE.cropTop * videoH, width: videoW, height: videoH }}>
-            <OffthreadVideo src={staticFile('footage/k-f1-sken.mp4')} muted style={{ width: '100%', height: '100%', objectFit: 'fill' }} />
+            <OffthreadVideo src={staticFile(footageSrc('footage/k-f1-sken.mp4'))} muted style={{ width: '100%', height: '100%', objectFit: 'fill' }} />
             {K_F1_TAPS.map((tp, i) => {
               const t = tween(frame, tp.t * 1000, 550);
               if (t <= 0 || t >= 1) return null;
@@ -540,7 +542,7 @@ const LiFootage: React.FC<{ src: string; views: FootView[]; marks?: Mark[]; taps
       <WindowFrame at={WIN}>
         <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#fff' }}>
           <div style={{ position: 'absolute', left: 0, top: 0, width: FOOT_SRC.w, height: FOOT_SRC.h, transformOrigin: '0 0', transform: `translate(${-v.x * k}px, ${-v.y * k}px) scale(${k})` }}>
-            <OffthreadVideo src={staticFile(src)} muted style={{ width: '100%', height: '100%', objectFit: 'fill' }} />
+            <OffthreadVideo src={staticFile(footageSrc(src))} muted style={{ width: '100%', height: '100%', objectFit: 'fill' }} />
           </div>
           {marks.map((m, i) => {
             const a = tw(m.from * 1000, 200) * (1 - tw(m.to * 1000 - 250, 250));
@@ -598,11 +600,11 @@ const LI_F24Base: React.FC<{ src: string; views: FootView[]; taps: Tap[]; marks:
   <AbsoluteFill>
     {/* kolo 3: okno na konci nevybledne do bielej, F3 nadvazuje v tom istom okne; kolo 13: priblizeny vyrez */}
     <LiFootage src={src} views={views} taps={taps} marks={marks} dimAt={focusAt} />
-    <Panel from={0.5} to={L01 + 0.1} label="Na fotke" width={720} middle={middle}>
+    <Panel from={0.5} to={L01 + 0.1} label={tr('Na fotke')} width={720} middle={middle}>
       <PhotoTitle width={720} />
     </Panel>
     {/* navrh ostava az po potvrdenie (klik na slove "potvrdi"); kolo 9: panel s fotkou pri zazname vypadol (duplicita) */}
-    <Panel from={L01 + 0.35} to={end} label="Návrh aplikácie: názov projektu" width={WIN.w} lift={focusAt !== undefined ? CALL_Y + 20 - 300 : 0} liftAt={focusAt} middle={middle}>
+    <Panel from={L01 + 0.35} to={end} label={tr('Návrh aplikácie: názov projektu')} width={WIN.w} lift={focusAt !== undefined ? CALL_Y + 20 - 300 : 0} liftAt={focusAt} middle={middle}>
       <ValueField approveAt={approveAt ?? taps[0].t} authorAt={L0 + F24_W0.autora - 0.1} yearAt={L0 + F24_W0.rok - 0.1} editAt={editAt} />
     </Panel>
   </AbsoluteFill>
@@ -619,9 +621,9 @@ const F3_CLIP = 'K-F3-Vyhladavanie';
 const F3_SRC = 'footage/k-f3-search.mp4';
 const F3_WORDS = { cestu: 0.26, k: 0.6, nej: 0.66 }; // s od zaciatku vety "aj cestu k nej." (kolo 12: nova nahravka s prirodzenou pauzou za "polozke", rez v tichu 70 ms pred "aj")
 const PATH_STEPS: { kind: HKind; label: string; code: string; at: number }[] = [
-  { kind: 'shelf', label: 'Polica', code: 'PL_01', at: F3_WORDS.cestu - 0.06 },
-  { kind: 'box', label: 'Krabica', code: 'KR_01', at: F3_WORDS.k - 0.1 },
-  { kind: 'folder', label: 'Zložka', code: 'ZL_03', at: F3_WORDS.nej + 0.06 },
+  { kind: 'shelf', label: tr('Polica'), code: 'PL_01', at: F3_WORDS.cestu - 0.06 },
+  { kind: 'box', label: tr('Krabica'), code: 'KR_01', at: F3_WORDS.k - 0.1 },
+  { kind: 'folder', label: tr('Zložka'), code: 'ZL_03', at: F3_WORDS.nej + 0.06 },
 ];
 const DocPath: React.FC<{ lineAt: number }> = ({ lineAt }) => {
   const frame = useCurrentFrame();
@@ -676,7 +678,7 @@ const ItemCard: React.FC = () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
       <HIcon kind="folder" size={64} on />
       <span style={{ fontFamily: APP_FONT, fontWeight: 700, fontSize: 40, lineHeight: 1, color: INK[900] }}>ZL_03</span>
-      <Chip tone="green">Zložka</Chip>
+      <Chip tone="green">{tr('Zložka')}</Chip>
       <span style={{ marginLeft: 'auto', fontFamily: APP_FONT, fontSize: 24, color: INK[500], whiteSpace: 'nowrap' }}>Projekt pre stavebné povolenie · 05/2018</span>
     </div>
     <div style={{ marginTop: 14, fontFamily: APP_FONT, fontWeight: 700, fontSize: 34, lineHeight: 1.15, color: INK[900], whiteSpace: 'nowrap' }}>Novostavba bytového domu SLNEČNÁ 12, BRATISLAVA</div>
@@ -715,14 +717,14 @@ const LI_F3Base: React.FC<{ src: string; seconds: number; marks: Mark[]; focus?:
     <AbsoluteFill>
       {/* kolo 3: bez `enter` (okno je na rovnakom mieste ako v F24, test: 0:45 biela diera pred vyhladavanim) */}
       <LiFootage src={src} views={views} marks={marks} dimAt={focus ? v(1) + 0.3 : undefined} />
-      <Panel from={0.25} to={v(1) + 0.25} label="Hľadané slovo" width={WIN.w} middle={middle}>
+      <Panel from={0.25} to={v(1) + 0.25} label={tr('Hľadané slovo')} width={WIN.w} middle={middle}>
         <SearchField typeFrom={0.8} typeTo={1.9} />
       </Panel>
       {/* kolo 12: karta o 0,15 s skor (pauza pred "aj cestu k nej" je kratsia), vidno ju 3,6 s */}
-      <Panel from={v(1) + 0.3} to={path + 0.05} label="Nájdená položka" width={WIN.w} lift={lift} middle={middle}>
+      <Panel from={v(1) + 0.3} to={path + 0.05} label={tr('Nájdená položka')} width={WIN.w} lift={lift} middle={middle}>
         <ItemCard />
       </Panel>
-      <Panel from={path + 0.1} to={seconds + 1} label="Cesta k položke" width={WIN.w} lift={lift} liftAt={path - 9} middle={middle}>
+      <Panel from={path + 0.1} to={seconds + 1} label={tr('Cesta k položke')} width={WIN.w} lift={lift} liftAt={path - 9} middle={middle}>
         <DocPath lineAt={path} />
       </Panel>
     </AbsoluteFill>
@@ -803,9 +805,9 @@ const C8_XFADE = 500;
 /** Kolo 22: prelinanie mobilu (F1) do okna aplikacie (F24), 12 snimok; F1 drzi posledny zaber o tolko dlhsie (cuts.json). */
 const F1_XFADE = 400;
 const C8_STEPS = [
-  { from: -9999, title: 'Spracovanie archívu' }, // kolo 25 (Samuel): namiesto hovoroveho "Kto to spracuje"
-  { from: C8_SLIDE[0], title: 'Technické riešenie' }, // kolo 24 (Samuel: nadpis "Kde to bezi" je infantilny, napr. technicka specifikacia)
-  { from: C8_SLIDE[1], title: 'Prvý krok' },
+  { from: -9999, title: tr('Spracovanie archívu') }, // kolo 25 (Samuel): namiesto hovoroveho "Kto to spracuje"
+  { from: C8_SLIDE[0], title: tr('Technické riešenie') }, // kolo 24 (Samuel: nadpis "Kde to bezi" je infantilny, napr. technicka specifikacia)
+  { from: C8_SLIDE[1], title: tr('Prvý krok') },
 ];
 const C8W = 976,
   C8X = (LI.w - C8W) / 2;
@@ -828,8 +830,8 @@ const SafeBanner: React.FC<{ top: number; on: boolean }> = ({ top, on }) => (
   <div style={{ position: 'absolute', left: C8X, top, width: C8W, height: 150, boxSizing: 'border-box', borderRadius: 26, background: on ? BRAND[100] : BRAND[50], border: `2px solid ${on ? BRAND[500] : BRAND[200]}`, boxShadow: on ? `0 0 0 2px ${BRAND[500]}, 0 18px 44px rgba(31,122,51,0.16)` : 'none', display: 'flex', alignItems: 'center', gap: 28, padding: '0 40px' }}>
     <OfferIcon kind="shield" on size={100} />
     <div>
-      <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 56, lineHeight: 1.05, letterSpacing: '-0.02em', color: BRAND[700] }}>Bezpečne</div>
-      <div style={{ marginTop: 8, fontFamily: FONT.body, fontSize: 31, lineHeight: 1.2, color: INK[600], whiteSpace: 'nowrap' }}>V súlade s vašimi bezpečnostnými požiadavkami</div>
+      <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 56, lineHeight: 1.05, letterSpacing: '-0.02em', color: BRAND[700] }}>{tr('Bezpečne')}</div>
+      <div style={{ marginTop: 8, fontFamily: FONT.body, fontSize: 31, lineHeight: 1.2, color: INK[600], whiteSpace: 'nowrap' }}>{tr('V súlade s vašimi bezpečnostnými požiadavkami')}</div>
     </div>
   </div>
 );
@@ -849,7 +851,7 @@ const FreePill: React.FC<{ text: string; size?: number }> = ({ text, size = 54 }
   );
 };
 const OrPill: React.FC<{ top: number; t: number }> = ({ top, t }) => (
-  <div style={{ position: 'absolute', left: (LI.w - 104) / 2, top, width: 104, height: 50, borderRadius: 25, background: '#fff', border: `2px solid ${INK[200]}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: FONT.body, fontWeight: 600, fontSize: 26, color: INK[500], opacity: t }}>alebo</div>
+  <div style={{ position: 'absolute', left: (LI.w - 104) / 2, top, width: 104, height: 50, borderRadius: 25, background: '#fff', border: `2px solid ${INK[200]}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: FONT.body, fontWeight: 600, fontSize: 26, color: INK[500], opacity: t }}>{tr('alebo')}</div>
 );
 /**
  * Slide "Prvy krok": krabica, nalepka QR pri slove "krabicou", pilulka pri "zadarmo", web 0,45 s po nom. `lineAt` = zaciatok
@@ -866,10 +868,10 @@ const C8FirstStep: React.FC<{ lineAt: number; who?: string }> = ({ lineAt, who }
     <>
       <ArchiveBox state={{ lid: 0, binders: [0, 0, 0], qr: [0, 0, 0, sticker] }} size={700} style={{ position: 'absolute', left: (LI.w - 700) / 2, top: 156 }} />
       <div style={{ position: 'absolute', left: 0, right: 0, top: 832, textAlign: 'center', fontFamily: FONT.display, fontWeight: 800, fontSize: 76, lineHeight: 1.05, letterSpacing: '-0.02em', color: INK[900], opacity: head, transform: `translateY(${(1 - head) * 24}px)` }}>
-        Začnime <span style={{ color: BRAND[600] }}>jednou krabicou</span>
+        {tr('Začnime')} <span style={{ color: BRAND[600] }}>{tr('jednou krabicou')}</span>
       </div>
       <div style={{ position: 'absolute', left: 0, right: 0, top: who ? 950 : 966, display: 'flex', justifyContent: 'center', opacity: Math.min(1, free * 1.5), transform: `scale(${0.85 + 0.15 * free})` }}>
-        <FreePill text="Zadarmo a nezáväzne" />
+        <FreePill text={tr('Zadarmo a nezáväzne')} />
       </div>
       {who ? (
         <div style={{ position: 'absolute', left: 0, right: 0, top: 1052, textAlign: 'center', fontFamily: FONT.body, fontWeight: 500, fontSize: 34, color: INK[600], opacity: web, transform: `translateY(${(1 - web) * 10}px)` }}>{who}</div>
@@ -900,9 +902,9 @@ const LI_C8: React.FC = () => {
       {slide(
         0,
         <>
-          <OptionCard icon="box" title={offer.service.title} desc="Spracujeme za vás" top={220} h={260} t={1} on={ms >= C8_XFADE && ms < C8L(1)} />
+          <OptionCard icon="box" title={offer.service.title} desc={tr('Spracujeme za vás')} top={220} h={260} t={1} on={ms >= C8_XFADE && ms < C8L(1)} />
           <OrPill top={500} t={settle(frame, C8L(1) - 150)} />
-          <OptionCard icon="app" title="Vlastnými silami" desc="V našej aplikácii" top={570} h={260} t={settle(frame, C8L(1) - 150)} on={ms >= C8L(1) - 150} />
+          <OptionCard icon="app" title={tr('Vlastnými silami')} desc={tr('V našej aplikácii')} top={570} h={260} t={settle(frame, C8L(1) - 150)} on={ms >= C8L(1) - 150} />
         </>,
       )}
       {slide(
@@ -910,9 +912,9 @@ const LI_C8: React.FC = () => {
         <>
           <SafeBanner top={190} on={ms >= safeAt && ms < onlineAt} />
           <div style={{ position: 'absolute', left: C8X, top: 380, width: C8W, height: 520, boxSizing: 'border-box', borderRadius: 30, background: INK[50], border: `1px solid ${INK[100]}`, opacity: opts }} />
-          <OptionCard icon="cloud" title="Online u nás" desc="Bez vlastných serverov" top={400} h={190} t={opts} on={ms >= onlineAt && ms < yoursAt} inset={20} />
+          <OptionCard icon="cloud" title={tr('Online u nás')} desc={tr('Bez vlastných serverov')} top={400} h={190} t={opts} on={ms >= onlineAt && ms < yoursAt} inset={20} />
           <OrPill top={615} t={opts} />
-          <OptionCard icon="server" title="Na vašej infraštruktúre" desc="Na vašich serveroch" top={690} h={190} t={opts} on={ms >= yoursAt} size={52} inset={20} />
+          <OptionCard icon="server" title={tr('Na vašej infraštruktúre')} desc={tr('Na vašich serveroch')} top={690} h={190} t={opts} on={ms >= yoursAt} size={52} inset={20} />
         </>,
       )}
       {slide(2, <C8FirstStep lineAt={C8L(3)} />)}
@@ -1268,12 +1270,12 @@ const C4Promise: React.FC<{ out: number }> = ({ out }) => {
   if (arch <= 0.001 || out >= 1) return null;
   return (
     <div style={{ position: 'absolute', left: 0, right: 0, top: C4_Y.promise, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', opacity: 1 - out }}>
-      {item('box', 'Váš archív', arch)}
+      {item('box', tr('Váš archív'), arch)}
       <svg width={150} height={124} viewBox="0 0 150 124" style={{ flex: 'none' }}>
         <path d="M14 62 H128" fill="none" stroke={BRAND[500]} strokeWidth={7} strokeLinecap="round" strokeDasharray={114} strokeDashoffset={114 * (1 - arrow)} />
         <path d="M108 42 L132 62 L108 82" fill="none" stroke={BRAND[500]} strokeWidth={7} strokeLinecap="round" strokeLinejoin="round" opacity={arrow > 0.85 ? 1 : 0} />
       </svg>
-      {item('catalog', 'Digitálny katalóg', cat)}
+      {item('catalog', tr('Digitálny katalóg'), cat)}
     </div>
   );
 };
@@ -1320,7 +1322,7 @@ const C4TopBase: React.FC<{ clip: string; h: number; promise: boolean; pill?: bo
       ) : null}
       {withPill && pill > 0 && out < 1 ? (
         <div style={{ position: 'absolute', left: 0, right: 0, top: C4_Y.pill, display: 'flex', justifyContent: 'center', opacity: Math.min(1, pill * 1.5) * (1 - out), transform: `scale(${0.85 + 0.15 * pill})` }}>
-          <FreePill text="Prvé dokumenty zadarmo a nezáväzne" size={40} />
+          <FreePill text={tr('Prvé dokumenty zadarmo a nezáväzne')} size={40} />
         </div>
       ) : null}
       {promise ? <C4Promise out={out} /> : null}
@@ -1359,8 +1361,8 @@ const LI_C9: React.FC = () => {
 
 /** F1 pokracuje krokom z konca C5 (2. z 2, uz usadeny), aby nadpis na strihu neblikol. */
 const F1_STEPS = [
-  { from: -9999, title: 'Prilepiť QR kód' },
-  { from: -2000, title: 'Odfotiť titulnú stranu' },
+  { from: -9999, title: tr('Prilepiť QR kód') },
+  { from: -2000, title: tr('Odfotiť titulnú stranu') },
 ];
 /** Klipy verzie 4:5 (rovnake ID a casy hlasu ako kratka verzia 16:9, titulky kresli ramec). */
 const noSubs = { subtitles: false };
@@ -1521,11 +1523,11 @@ const HOOK_W = { drahe: 2.32, foti: 1.0, identifikacnu: 1.5 }; // s od zaciatku 
 const HOOK_SECONDS = (voAt(HOOK_CLIP, 1) + (voLines(HOOK_CLIP)[1].dur ?? 3840)) / 1000 + 0.25;
 const HOOK_LOGO = { h0: 168, h1: BRAND_H, right: 48, ms: 450 }; // kolo 47: 450 ms, logo je v rohu skor, nez pride prvy titulok (600 ms), inak by cez neho preslo // kolo 40: logo z C4 sa zmensi a vysunie ako hlavicka; kolo 47 (Samuel): do praveho dolneho rohu, presne na miesto rohoveho loga ostatnych zaberov (BrandRow)
 const HOOK_STEPS: Step[] = [
-  { from: 0, title: 'Skenovať všetko je drahé' },
-  { from: voAt(HOOK_CLIP, 1) - 100, title: 'Katalogizácia: len identifikačná strana' }, // kolo 46: kratsie (nadpis isiel pod logo v hlavicke); kolo 47: logo je v rohu dole, nadpis cely
+  { from: 0, title: tr('Skenovať všetko je drahé') },
+  { from: voAt(HOOK_CLIP, 1) - 100, title: tr('Katalogizácia: len identifikačná strana') }, // kolo 46: kratsie (nadpis isiel pod logo v hlavicke); kolo 47: logo je v rohu dole, nadpis cely
 ];
 const HOOK_PAGES = 328; // pocitadlo stran pri skenovani celeho archivu (kolo 37: 328 namiesto 1 240)
-const fmtPages = (n: number) => `${Math.round(n).toLocaleString('sk-SK').replace(/\u00a0/g, ' ')} strán`;
+const fmtPages = (n: number) => pagesLabel(n, 'gen');
 /**
  * Kolo 36 (Samuel: animacia, ze sken prebehne strasne vela stran a my fotime len jednu): krok 1 "Naskenovat cely archiv moze byt
  * drahe.": stoh, cez ktory stale prebieha skenovacia ciara, pocitadlo stran rychlo rastie (0 -> 1 240 stran), pri "drahe" cenovka
@@ -1590,7 +1592,7 @@ const LI_Hook: React.FC = () => {
                   {/* kolo 37 (Samuel: graficky rozlisit identifikacnu stranu): vrchny list ma hlavicku s nazvom a kratke polia, nie plny text */}
                   <Sheet w={w} h={h} lines={0} title={false} qr stamp qrAt={[0.16, 0.72]} /> {/* kolo 52 (Samuel): QR vlavo dole, mimo peciatky */}
                   <div style={{ position: 'absolute', left: w * 0.12, top: h * 0.09, width: w * 0.76 }}>
-                    <div style={{ fontFamily: APP_FONT, fontWeight: 600, fontSize: 13, letterSpacing: '0.08em', color: INK[400] }}>NÁZOV PROJEKTU</div>
+                    <div style={{ fontFamily: APP_FONT, fontWeight: 600, fontSize: 13, letterSpacing: '0.08em', color: INK[400] }}>{tr('NÁZOV PROJEKTU')}</div>
                     <div style={{ position: 'relative', marginTop: 6, padding: '6px 8px', borderRadius: 6, background: `rgba(234,245,235,${Math.min(1, frameT * 1.5)})`, fontFamily: FONT.display, fontWeight: 800, fontSize: 24, lineHeight: 1.12, letterSpacing: '-0.01em', color: INK[900] }}>
                       Novostavba bytového domu
                       <br />
@@ -1598,9 +1600,9 @@ const LI_Hook: React.FC = () => {
                     </div>
                     <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
                       {[
-                        ['Autor', 'DOMINIS PROJEKT, s.r.o.'],
-                        ['Rok', '2018'],
-                        ['Typ', 'Projekt pre stavebné povolenie'],
+                        [tr('Autor'), 'DOMINIS PROJEKT, s.r.o.'],
+                        [tr('Rok'), '2018'],
+                        [tr('Typ'), 'Projekt pre stavebné povolenie'],
                       ].map(([k, v]) => (
                         <div key={k} style={{ display: 'flex', gap: 8, fontFamily: APP_FONT, fontSize: 14, lineHeight: 1.2 }}>
                           <span style={{ width: 44, flex: 'none', fontWeight: 500, color: INK[400] }}>{k}</span>
@@ -1631,7 +1633,7 @@ const LI_Hook: React.FC = () => {
       ) : null}
       {/* stitok "1 strana" pod zdvihnutym listom */}
       {one > 0 ? (
-        <div style={{ position: 'absolute', left: cx + 212 - 220, top: 800, width: 440, textAlign: 'center', fontFamily: FONT.display, fontWeight: 800, fontSize: 48, letterSpacing: '-0.01em', color: BRAND[600], opacity: one, transform: `translateY(${(1 - one) * 12}px)`, whiteSpace: 'nowrap' }}>1 strana</div>
+        <div style={{ position: 'absolute', left: cx + 212 - 220, top: 800, width: 440, textAlign: 'center', fontFamily: FONT.display, fontWeight: 800, fontSize: 48, letterSpacing: '-0.01em', color: BRAND[600], opacity: one, transform: `translateY(${(1 - one) * 12}px)`, whiteSpace: 'nowrap' }}>{pagesLabel(1)}</div>
       ) : null}
       {/* cenovka EUR EUR EUR pri "drahe"; pri "hospodarnejsi" zbledne a pri liste je zelena cenovka s jednym EUR */}
       {tag > 0 && tagOut < 1 ? (
@@ -1681,8 +1683,8 @@ const C5_46_Scene: React.FC = () => {
 };
 const C5_46_W0 = { kod: 1.6 }; // s od zaciatku vety "Kazda polozka dostane QR kod." (words): "kod"
 const C5_46_STEPS: C5Step[] = [
-  { from: 300, title: 'Prilepiť QR kód' },
-  { from: voAt(C5_46_CLIP, 1) - 100, title: 'Mobilom odfotiť identifikačnú stranu' },
+  { from: 300, title: tr('Prilepiť QR kód') },
+  { from: voAt(C5_46_CLIP, 1) - 100, title: tr('Mobilom odfotiť identifikačnú stranu') },
 ];
 const C5Hierarchy46: React.FC = () => <C5HierarchyBase clip={C5_46_CLIP} outAt={C5_46_FLASH + 300} iconsAt={[0, 1, 2, 3].map((i) => voAt(C5_46_CLIP, 0) + 150 + i * 90)} qrAt={voAt(C5_46_CLIP, 0) + C5_46_W0.kod * 1000 - 150} arrange={false} />;
 /** F24: zostrih k46-f24-review (pokoj na fotke 2,4 s, lupa 1,6x, prijatie hned), veta "Aplikacia z fotky sama vycita udaje a clovek ich len potvrdi.", klik 0,3 s po "potvrdi". */
@@ -1718,9 +1720,9 @@ const F24_46_VIEWS: FootView[] = (() => {
   ];
 })();
 const F24_46_STEPS: Step[] = [
-  { from: 0, title: 'Prečítať text' },
-  { from: (F24_46_L0 + 1.58) * 1000 - 100, title: 'Návrh údajov' }, // kolo 54: od "vycita" (1,6 s namiesto 1 s)
-  { from: F24_46_POTVRDI * 1000 - 150, title: 'Človek potvrdí alebo upraví' },
+  { from: 0, title: tr('Prečítať text') },
+  { from: (F24_46_L0 + 1.58) * 1000 - 100, title: tr('Návrh údajov') }, // kolo 54: od "vycita" (1,6 s namiesto 1 s)
+  { from: F24_46_POTVRDI * 1000 - 150, title: tr('Človek potvrdí alebo upraví') },
 ];
 /** Kolo 34: okno zbledlo a karta sa vysunula na jeho miesto. Kolo 36 (Samuel: rychlo to preblikne, karta ma byt rovno pod oknom):
  * okno ostava, karta pod nim ako v K, pri "potvrdi" fajka, pri "upravi" ceruzka. */
@@ -1758,9 +1760,9 @@ const F3_46_VIEWS: FootView[] = (() => {
   ];
 })();
 const F3_46_STEPS: Step[] = [
-  { from: 0, title: 'Napísať kľúčové slovo' },
-  { from: F3_46_APLIKACIA * 1000 + 350, title: 'Cesta k položke' }, // kolo 54: spolu s kartou cesty (predtym ~1 s po nej)
-  { from: F3_46_UDAJE * 1000 - 450, title: 'Vyčítané údaje' },
+  { from: 0, title: tr('Napísať kľúčové slovo') },
+  { from: F3_46_APLIKACIA * 1000 + 350, title: tr('Cesta k položke') }, // kolo 54: spolu s kartou cesty (predtym ~1 s po nej)
+  { from: F3_46_UDAJE * 1000 - 450, title: tr('Vyčítané údaje') },
 ];
 const F3_46_MARKS: Mark[] = [
   markAt(KF3_46, 0.3, 1.9, 190, 578, 1638, 62, { spot: true }), // pole vyhladavania (pisanie slova)
@@ -1769,13 +1771,13 @@ const F3_46_MARKS: Mark[] = [
 const LI_F3_46: React.FC = () => (
   <AbsoluteFill>
     <LiFootage src={`footage/${KF3_46}.mp4`} views={F3_46_VIEWS} marks={F3_46_MARKS} scroll={F3_46_SCROLL} />
-    <Panel from={0.25} to={F3_46_APLIKACIA + 0.3} label="Hľadané slovo" width={WIN.w} middle>
+    <Panel from={0.25} to={F3_46_APLIKACIA + 0.3} label={tr('Hľadané slovo')} width={WIN.w} middle>
       <SearchField typeFrom={0.5} typeTo={1.7} />
     </Panel>
-    <Panel from={F3_46_APLIKACIA + 0.35} to={F3_46_UDAJE - 0.4} label="Cesta k položke" width={WIN.w} middle>
+    <Panel from={F3_46_APLIKACIA + 0.35} to={F3_46_UDAJE - 0.4} label={tr('Cesta k položke')} width={WIN.w} middle>
       <DocPath lineAt={F3_46_CESTU - F3_WORDS.cestu} />
     </Panel>
-    <Panel from={F3_46_UDAJE - 0.35} to={F3_46_SECONDS + 1} label="Nájdená položka" width={WIN.w} middle>
+    <Panel from={F3_46_UDAJE - 0.35} to={F3_46_SECONDS + 1} label={tr('Nájdená položka')} width={WIN.w} middle>
       <ItemCard />
     </Panel>
   </AbsoluteFill>
@@ -1811,8 +1813,8 @@ const LI_Kto: React.FC = () => (
   <AbsoluteFill style={{ background: '#fff' }}>
     {/* kolo 45 (simulovani divaci z malych firiem: "je to pre velke sklady"): podtitulky s rozsahom od par sanonov po cely sklad */}
     {/* kolo 54 (prehliadka: 1,3 s prazdnej bielej): prva karta hned so zaciatkom vety, druha pri "alebo" */}
-    <KtoCard kind="app" title="Vlastnými silami" sub="s našou aplikáciou, od pár šanónov" at={KTO_L0 - 150} left={60} />
-    <KtoCard kind="catalog" title="Služba na kľúč" sub="archív spracujeme my, aj celý sklad" at={KTO_L0 + KTO_W.alebo * 1000 - 150} left={560} dark />
+    <KtoCard kind="app" title={tr('Vlastnými silami')} sub={tr('s našou aplikáciou, od pár šanónov')} at={KTO_L0 - 150} left={60} />
+    <KtoCard kind="catalog" title={tr('Služba na kľúč')} sub={tr('archív spracujeme my, aj celý sklad')} at={KTO_L0 + KTO_W.alebo * 1000 - 150} left={560} dark />
   </AbsoluteFill>
 );
 const LI_C8_46: React.FC = () => (
@@ -1833,8 +1835,8 @@ const VYS_L0 = voAt(VYS_CLIP, 0);
 const VYS_L1 = voAt(VYS_CLIP, 1);
 const VYS_SECONDS = (VYS_L1 + (voLines(VYS_CLIP)[1].dur ?? 6240)) / 1000 + 0.3;
 const VYS_STEPS: Step[] = [
-  { from: -9999, title: 'Výsledok katalogizácie' },
-  { from: VYS_L1 - 150, title: 'Čo ďalej' },
+  { from: -9999, title: tr('Výsledok katalogizácie') },
+  { from: VYS_L1 - 150, title: tr('Čo ďalej') },
 ];
 const VysRow: React.FC<{ text: string; at: number; top: number; showAt?: number }> = ({ text, at, top, showAt }) => {
   const frame = useCurrentFrame();
@@ -1876,9 +1878,9 @@ const VysIcon: React.FC<{ kind: VysKind; light?: boolean }> = ({ kind, light = f
   </svg>
 );
 const VYS_TILES: { kind: VysKind; label: string; sub: string; at: number }[] = [
-  { kind: 'keep', label: 'Uchovať', sub: 'dlhodobo', at: VYS_W.uchovat },
-  { kind: 'shred', label: 'Skartovať', sub: 'menší sklad', at: VYS_W.skartovat },
-  { kind: 'scan', label: 'Plnohodnotne skenovať', sub: 'fulltextové vyhľadávanie', at: VYS_W.skenovat },
+  { kind: 'keep', label: tr('Uchovať'), sub: tr('dlhodobo'), at: VYS_W.uchovat },
+  { kind: 'shred', label: tr('Skartovať'), sub: tr('menší sklad'), at: VYS_W.skartovat },
+  { kind: 'scan', label: tr('Plnohodnotne skenovať'), sub: tr('fulltextové vyhľadávanie'), at: VYS_W.skenovat },
 ];
 const VysTile: React.FC<{ kind: VysKind; label: string; sub: string; at: number; showAt: number; left: number }> = ({ kind, label, sub, at, showAt, left }) => {
   const frame = useCurrentFrame();
@@ -1898,8 +1900,8 @@ const LI_Vysledok: React.FC = () => (
   <AbsoluteFill style={{ background: '#fff' }}>
     {/* kolo 37 (Samuel): riadok "Ako s tym dalej" prec, ostavaju dva */}
     {/* kolo 53 (Samuel): "Ake dokumenty mate" / "Kde sa nachadzaju" namiesto "Co presne mate" / "Kde to je" (hlas ostava) */}
-    <VysRow text="Aké dokumenty máte" at={VYS_L0 + VYS_W.co * 1000 - 100} top={250} showAt={VYS_L0 + 150} />
-    <VysRow text="Kde sa nachádzajú" at={VYS_L0 + VYS_W.kde * 1000 - 100} top={420} showAt={VYS_L0 + 240} />
+    <VysRow text={tr('Aké dokumenty máte')} at={VYS_L0 + VYS_W.co * 1000 - 100} top={250} showAt={VYS_L0 + 150} />
+    <VysRow text={tr('Kde sa nachádzajú')} at={VYS_L0 + VYS_W.kde * 1000 - 100} top={420} showAt={VYS_L0 + 240} />
     {VYS_TILES.map((t, i) => (
       <VysTile key={t.kind} {...t} at={VYS_L1 + t.at * 1000 - 120} showAt={VYS_L1 - 100 + i * 90} left={C8X + i * (300 + (C8W - 900) / 2)} />
     ))}
@@ -1914,9 +1916,9 @@ const LI_LIST_46: LiDef[] = [
   { def: paced(F24_46_CLIP, { scene: LI_F24_46, seconds: F24_46_END, stills: [], ...noSubs }), tone: () => 'light', steps: F24_46_STEPS, phase: phases.app, xfadeIn: F1_XFADE, stepsAfterXfade: true },
   { def: paced(F3_46_CLIP, { scene: LI_F3_46, seconds: F3_46_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: F3_46_STEPS, phase: phases.search }, // kolo 43: vlastny klip hlasu
   { def: paced(VYS_CLIP, { scene: LI_Vysledok, seconds: VYS_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: VYS_STEPS, phase: offer.kicker, xfadeIn: F1_XFADE, stepsAfterXfade: true }, // kolo 45: prelinacka z hladania (tvrdy strih z okna na prazdnu bielu preblesol; v kole 36 bola prec)
-  { def: paced(KTO_CLIP, { scene: LI_Kto, seconds: KTO_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Vlastnými silami, alebo na kľúč' }], phase: offer.kicker, xfadeIn: C8_XFADE, stepsAfterXfade: true }, // kolo 40
+  { def: paced(KTO_CLIP, { scene: LI_Kto, seconds: KTO_SECONDS, stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: tr('Vlastnými silami, alebo na kľúč') }], phase: offer.kicker, xfadeIn: C8_XFADE, stepsAfterXfade: true }, // kolo 40
   // kolo 48: dobeh vyzvy 0,5 s (bolo 0,2)
-  { def: paced(C8_46_CLIP, { scene: LI_C8_46, seconds: clipEndSeconds(C8_46_CLIP, 0.5), stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: 'Prvý krok' }], phase: offer.kicker, subsOut: [0, 1e9], xfadeIn: C8_XFADE, stepsAfterXfade: true },
+  { def: paced(C8_46_CLIP, { scene: LI_C8_46, seconds: clipEndSeconds(C8_46_CLIP, 0.5), stills: [], ...noSubs }), tone: () => 'light', steps: [{ from: -9999, title: tr('Prvý krok') }], phase: offer.kicker, subsOut: [0, 1e9], xfadeIn: C8_XFADE, stepsAfterXfade: true },
   { def: paced('K-C9-Outro', { scene: LI_C9, seconds: 2.2, stills: [], ...noSubs }), tone: () => 'dark', chrome: false, subs: false }, // kolo 43: 2,2 s, aby akord doznel pod logom
 ];
 export const liFrames46 = () => liFramesOf(LI_LIST_46);

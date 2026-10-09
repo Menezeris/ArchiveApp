@@ -3,6 +3,13 @@
 Tento súbor je pre novú session. Všetko dôležité je v gite na vetve `claude/progress-preview-vo1ocm`,
 od 27. 9. 2026 (po kole 48) aj so všetkými podkladmi: zdrojové záznamy `public/footage/`, vygenerované vety hlasu `public/vo/` a hudba Lyria `public/music/bed.wav`. Hlavná verzia je zlúčená aj do `main`. Jediný odvodený súbor mimo gitu je `public/music/bed_level.wav` (vytvorí ho `mix-music.mjs` cez `scripts/music_level.py`).
 
+## CZ a EN verzia (9. 10. 2026, vetva `claude/preklad-cz-en`)
+
+- Jazyk je prop `lang` (sk / cs / en), postup v README.md (sekcia Jazyky). SK render je po zmene pixel po pixeli rovnaky (88 kontrolnych snimok).
+- Hotove: texty v obraze (`src/copy/i18n.ts`), navrh hlasu a titulkov (`src/copy/vo.cs.json`, `vo.en.json`, `vo_kratka.cs.json`, `vo_kratka.en.json`), render a stills s `VIDEO_LANG`, kontrola `scripts/i18n-check.mjs`.
+- Caka sa na schvalenie prekladu rodenymi hovorcami: https://claude.ai/code/artifact/90bb2e4c-fcad-43fc-bc37-ccc1ba38473e (otazky: QR v cestine, britska / americka anglictina, "title page", "certificate", "turnkey").
+- Potom: hlas Gemini (najprv K-LinkedIn-46 CZ, EN, potom dlha), casy slov pre animacie podla nahravok CZ/EN, render s hudbou, review rodenym hovorcom. Zaznamy aplikacie v CZ/EN dodaju neskor (`src/footage/localized.json`).
+
 ## Posledná verzia (5. 10. 2026)
 
 - **Dlhé video: kolo 56, 150,6 s** (`out/mp4/Full_1080p.mp4`, review stránka https://claude.ai/artifact/R2aK5Ms7zxVvtKM4SjHCJa kolo 56), zlúčené do `main`. História kôl 49 až 56 je vo `FEEDBACK.md`.

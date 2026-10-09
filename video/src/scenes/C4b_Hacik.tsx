@@ -8,8 +8,9 @@ import { voAt, voLines } from '../components/Subtitles';
 import { ARCHIVES_LOGO } from './kratka/archivesLogo';
 import { C4Promise, LOGO_H, LOGO_TOP, SLOGAN_GAP } from './C4_Cena';
 import { easeInOut, pop, settle, tween } from '../lib/anim';
-import { captions } from '../copy/sk';
+import { captions } from '../copy';
 import { BRAND, FONT, FPS, INK } from '../theme';
+import { pagesLabel, tr } from '../copy/i18n';
 
 /**
  * C4b - hacik (kolo 54, Samuel: dlhu verziu zladit s hotovou kratkou K-LinkedIn-46). Prenesene z `LI_Hook`
@@ -29,14 +30,11 @@ const L1 = voAt(CLIP, 1);
 const FADE = 300; // dobeh do bielej pred C5
 export const C4B_SECONDS = (L1 + (voLines(CLIP)[1].dur ?? 3010) + 250 + FADE) / 1000;
 const STEPS = [
-  { from: 700, title: 'Skenovať všetko je drahé' }, // kolo 55: az ked je logo v rohu (LOGO.at + LOGO.ms)
-  { from: L1 - 100, title: 'Katalogizácia: len identifikačná strana' },
+  { from: 700, title: tr('Skenovať všetko je drahé') }, // kolo 55: az ked je logo v rohu (LOGO.at + LOGO.ms)
+  { from: L1 - 100, title: tr('Katalogizácia: len identifikačná strana') },
 ];
 const PAGES = 328;
-const fmtPages = (n: number) => {
-  const k = Math.round(n);
-  return `${k.toLocaleString('sk-SK').replace(/ /g, ' ')} ${k === 1 ? 'strana' : k >= 2 && k <= 4 ? 'strany' : 'strán'}`; // kolo 54: sklonovanie pocas pocitania
-};
+const fmtPages = (n: number) => pagesLabel(n); // kolo 54: sklonovanie pocas pocitania (CZ/EN: src/copy/i18n.ts)
 const LOGO = { at: 250, ms: 450 }; // kolo 55: slogan a ikony zmiznu najprv (0 az 250 ms), logo sa pohne az potom
 const CLEAR = 250;
 /** Javisko v suradniciach kratkej verzie (stred stohu 540, 560), na 16:9 zvacsene STAGE_K a posunute na (960, STAGE_Y). */
@@ -104,7 +102,7 @@ export const C4b_Hacik: React.FC = () => {
                     <>
                       <Sheet w={w} h={h} lines={0} title={false} qr stamp qrAt={[0.16, 0.72]} />
                       <div style={{ position: 'absolute', left: w * 0.12, top: h * 0.09, width: w * 0.76 }}>
-                        <div style={{ fontFamily: FONT.body, fontWeight: 600, fontSize: 13, letterSpacing: '0.08em', color: INK[400] }}>NÁZOV PROJEKTU</div>
+                        <div style={{ fontFamily: FONT.body, fontWeight: 600, fontSize: 13, letterSpacing: '0.08em', color: INK[400] }}>{tr('NÁZOV PROJEKTU')}</div>
                         <div style={{ marginTop: 6, padding: '6px 8px', borderRadius: 6, background: `rgba(234,245,235,${Math.min(1, frameT * 1.5)})`, fontFamily: FONT.display, fontWeight: 800, fontSize: 24, lineHeight: 1.12, letterSpacing: '-0.01em', color: INK[900] }}>
                           Novostavba bytového domu
                           <br />
@@ -112,9 +110,9 @@ export const C4b_Hacik: React.FC = () => {
                         </div>
                         <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
                           {[
-                            ['Autor', 'DOMINIS PROJEKT, s.r.o.'],
-                            ['Rok', '2018'],
-                            ['Typ', 'Projekt pre stavebné povolenie'],
+                            [tr('Autor'), 'DOMINIS PROJEKT, s.r.o.'],
+                            [tr('Rok'), '2018'],
+                            [tr('Typ'), 'Projekt pre stavebné povolenie'],
                           ].map(([k, v]) => (
                             <div key={k} style={{ display: 'flex', gap: 8, fontFamily: FONT.body, fontSize: 14, lineHeight: 1.2 }}>
                               <span style={{ width: 44, flex: 'none', fontWeight: 500, color: INK[400] }}>{k}</span>
@@ -135,7 +133,7 @@ export const C4b_Hacik: React.FC = () => {
             {scanning ? <div style={{ position: 'absolute', left: cx - w / 2 - 40 + stackDx, top: cy - h / 2 - 70 + scanY * (h + 60), width: w + 80, height: 6, borderRadius: 3, background: INK[500], opacity: 0.75 * (1 - split * 2), boxShadow: '0 0 18px 6px rgba(71,85,105,0.35)' }} /> : null}
           </div>
           {PAGES * count >= 4.5 ? <div style={{ position: 'absolute', left: cx - 220 + stackDx, top: 800, width: 440, textAlign: 'center', fontFamily: FONT.display, fontWeight: 800, fontSize: 48, letterSpacing: '-0.01em', color: INK[500], opacity: 1 - stackDim, whiteSpace: 'nowrap' }}>{fmtPages(PAGES * count)}</div> : null}
-          {one > 0 ? <div style={{ position: 'absolute', left: sheetCx - 220, top: 800, width: 440, textAlign: 'center', fontFamily: FONT.display, fontWeight: 800, fontSize: 48, letterSpacing: '-0.01em', color: BRAND[600], opacity: one, transform: `translateY(${(1 - one) * 12}px)`, whiteSpace: 'nowrap' }}>1 strana</div> : null}
+          {one > 0 ? <div style={{ position: 'absolute', left: sheetCx - 220, top: 800, width: 440, textAlign: 'center', fontFamily: FONT.display, fontWeight: 800, fontSize: 48, letterSpacing: '-0.01em', color: BRAND[600], opacity: one, transform: `translateY(${(1 - one) * 12}px)`, whiteSpace: 'nowrap' }}>{pagesLabel(1)}</div> : null}
           {tag > 0 && tagOut < 1 ? (
             <div style={{ position: 'absolute', left: 690 + 1.6 * stackDx, top: 300, opacity: 1 - tagOut, transform: `rotate(8deg) scale(${1.9 * (0.7 + 0.3 * Math.min(1, tag))})`, transformOrigin: 'left center' }}>
               <PriceTag text="€€€" s={Math.min(1, tag)} size={26} />

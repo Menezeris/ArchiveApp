@@ -143,3 +143,28 @@ Potom v repe Assetin.sk `npm run sync:archives` stiahne presne to, co manifest p
 (z `main`, alebo `-- --ref <vetva>`). Manifest cita `SCENE_LIST` v `src/scenesList.ts`,
 nazvy krokov `{ from, title }` v scenach, nahovor `src/copy/vo.json` a dlzky priamo
 z MP4. Ak manifest nesedi s rendrom (SHA), sync skonci chybou a treba export spustit znova.
+
+## Jazyky: CZ a EN (od oktobra 2026)
+
+Ta ista kompozicia sa renderuje v slovencine, cestine alebo anglictine; obraz, strih, pauzy a hudba ostavaju rovnake,
+meni sa hlas, titulky a texty v obraze. Jazyk je prop `lang` (`src/lib/lang.ts`), bez neho slovencina (SK vystup sa nemeni).
+
+- **Texty v obraze:** v kode `tr('slovensky text')`, preklady v `src/copy/i18n.ts` (kluc = slovensky text). Objekty
+  zo `sk.ts` (captions, phases, offer ...) sceny beru zo `src/copy/index.ts` uz prelozene. Udaje dokumentov
+  (nazov stavby, typ, text so slovom "vodovod") sa neprekladaju, zodpovedaju zaznamom z aplikacie.
+- **Hlas a titulky:** `src/copy/vo.<lang>.json` (dlha) a `vo_kratka.<lang>.json` (len K-LinkedIn-46), rovnake klipy a `at`
+  ako slovensky scenar, `sk` = povodna veta. Prvy navrh vyrobil `python3 scripts/vo_lang_init.py` (bez `--force`
+  neprepise upravene subory). Kym je `_voice: false`, video sa renderuje bez hlasu a `dur`/`partAt` su slovenske.
+- **Kontrola:** `node scripts/i18n-check.mjs` (chybajuci preklad, zmenena slovenska veta, iny pocet casti titulkov).
+- **Hlas:** `node scripts/vo.mjs --engine gemini --script src/copy/vo_kratka.cs.json --dir public/vo-kratka-cs`
+  (dlha: `--script src/copy/vo.cs.json --dir public/vo-cs`), potom `python3 scripts/vo_check.py --script ... --dir ...`
+  a v scenari `_voice: true`. Casy slov, na ktore su viazane animacie (konstanty `W`, `W0`, `*_WORDS` v scenach,
+  `VO_AT` vo web klipoch), su zatial slovenske; po nahrati ich treba doplnit podla `<veta>.words.json` daneho jazyka.
+- **Render:** `VIDEO_LANG=cs npm run render` -> `out/mp4/cs/`, stills `VIDEO_LANG=cs node scripts/stills-fast.mjs ...`
+  -> `out/stills/cs/`; Full s hudbou `node scripts/mix-music.mjs --variant F --clips out/mp4/cs --out out/mp4/cs/Full_1080p.mp4 ...`.
+  LinkedIn: `npx remotion render K-LinkedIn-46 out/kratka/cs/K-LinkedIn_voice.mp4 --props='{"lang":"cs"}'`, potom mix ako pri SK.
+- **Zaznamy aplikacie v CZ/EN** (dodaju sa neskor): `public/footage/<lang>/<subor>` a nazov suboru do
+  `src/footage/localized.json`; bez zapisu sa pouzije slovensky zaznam. Zostrih na rovnaku dlzku ako SK.
+- **Web v zavere:** CZ `www.assetin.cz`, EN `www.assetin.sk`.
+- Preklad na schvalenie rodenymi hovorcami: dokument "Preklad videa SK / CZ / EN"
+  (https://claude.ai/code/artifact/90bb2e4c-fcad-43fc-bc37-ccc1ba38473e).

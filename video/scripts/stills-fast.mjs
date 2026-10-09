@@ -1,6 +1,7 @@
 // Kontrolne stills viacerych klipov jednym bundlom (rychlejsie ako scripts/stills.sh, ktory bundluje pre kazdy frame).
 // Pouzitie: node scripts/stills-fast.mjs C4-Cena:300,420 C9-Outro:40 ...   -> out/stills/<ID>_f<frame>.png
 // Bez argumentov: frame-y zo `stills` v src/scenesList.ts pre vsetky klipy SCENE_LIST.
+// Jazyk: VIDEO_LANG=cs|en (props lang, vystup out/stills/<lang>/), iny priecinok: OUT=cesta.
 import { bundle } from '@remotion/bundler';
 import { renderStill, selectComposition } from '@remotion/renderer';
 import { mkdirSync, readFileSync } from 'node:fs';
@@ -17,15 +18,17 @@ if (!jobs.length) {
   let m;
   while ((m = re.exec(list))) jobs.push({ id: m[1], frames: m[2].split(',').map((x) => Number(x.trim())) });
 }
-const out = 'out/stills';
+const lang = process.env.VIDEO_LANG && ['cs', 'en'].includes(process.env.VIDEO_LANG) ? process.env.VIDEO_LANG : 'sk';
+const inputProps = lang === 'sk' ? {} : { lang };
+const out = process.env.OUT ?? (lang === 'sk' ? 'out/stills' : `out/stills/${lang}`);
 mkdirSync(out, { recursive: true });
 const serveUrl = await bundle({ entryPoint: path.resolve('src/index.ts') });
 const browserExecutable = process.env.REMOTION_CHROME ?? null;
 for (const { id, frames } of jobs) {
-  const composition = await selectComposition({ serveUrl, id, browserExecutable });
+  const composition = await selectComposition({ serveUrl, id, browserExecutable, inputProps });
   for (const f of frames) {
     const frame = Math.min(composition.durationInFrames - 1, f);
-    await renderStill({ serveUrl, composition, frame, output: `${out}/${id}_f${frame}.png`, browserExecutable, overwrite: true });
+    await renderStill({ serveUrl, composition, frame, inputProps, output: `${out}/${id}_f${frame}.png`, browserExecutable, overwrite: true });
   }
   console.log(`${id}: ${frames.join(', ')} (${(composition.durationInFrames / composition.fps).toFixed(2)} s)`);
 }

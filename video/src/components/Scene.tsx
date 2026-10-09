@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { AbsoluteFill, Img, getInputProps, staticFile } from 'remotion';
 import { BRAND, FONT, Mode, modeColors, W } from '../theme';
 import { loadFonts } from '../lib/fonts';
+import { tr } from '../copy/i18n';
 
 /**
  * Spolocny obal scen: pozadie podla rezimu, zeleny pas dole na tmavych, patka s logom a www (`footer`) len pre webove klipy.
@@ -59,7 +60,7 @@ export const Scene: React.FC<{ mode?: Mode; footer?: boolean; footerOpacity?: nu
         >
           {/* Nove logo Assetin Archives (kolo 49): jednoriadkova verzia z public/brand, na tmavom podklade inverzna. */}
           <Img src={staticFile(fm === 'dark' ? 'brand/archives-logo-line-inverse.svg' : 'brand/archives-logo-line.svg')} style={{ height: 34, width: 'auto', display: 'block' }} />
-          <div>www.assetin.sk</div>
+          <div>{tr('www.assetin.sk')}</div>
         </div>
       ) : null}
       {band ? (

@@ -1,0 +1,166 @@
+{
+  "_": "Scenar nahovoru EN (src/copy/vo_kratka.en.json), vyrobeny scripts/vo_lang_init.py z src/copy/vo_kratka.json. Casy `at` su slovenske (obraz sa nemeni); `sk` = povodna veta (len pre kontrolu). Kym je `_voice` false, `dur` a `partAt` su zastupne slovenske hodnoty a video sa renderuje bez hlasu. Hlas: node scripts/vo.mjs --engine gemini --script <tento subor> --dir public/<vo|vo-kratka>-en, potom `_voice: true`.",
+  "_voice": false,
+  "_style": "calm, matter-of-fact corporate narrator; neutral, clear British English; fluent and connected, a bit brisker than a documentary narrator; only a short breath at commas, a longer pause only at the end of a sentence; no extra emotion. Pronunciation: the brand name Assetin is read as written, a-se-tin with a hard t; Archives as in English. Say QR as 'cue are'. Codes like PL_01, KR_01, ZL_03 are read as English letter names plus the plain number, without the underscore and the leading zero: 'P L one, K R one, Z L three'.",
+  "K-C9-Outro": [
+    {
+      "at": 400,
+      "text": "Assetin Archives.",
+      "sk": "Assetin Archives.",
+      "dur": 1600
+    }
+  ],
+  "K46-C2-Hladanie": [
+    {
+      "at": 250,
+      "text": "When did you last struggle to find a document?",
+      "sk": "Kedy ste naposledy nevedeli nájsť nejaký dokument?",
+      "dur": 3400
+    },
+    {
+      "at": 5660,
+      "text": "Searching can take hours.",
+      "sk": "Hľadanie môže trvať hodiny.",
+      "dur": 1780
+    }
+  ],
+  "K46-C5-Teren": [
+    {
+      "at": 300,
+      "text": "Every item gets a QR code.",
+      "sk": "Každá položka dostane QR kód.",
+      "styleExtra": "Calm, clear, falling intonation at the end.",
+      "dur": 2320
+    },
+    {
+      "at": 2850,
+      "text": "An ordinary phone is all you need.",
+      "sk": "Stačí bežný mobil.",
+      "styleExtra": "Calm, clear, short statement in one breath; a gentle emphasis on ordinary; falling intonation at the end.",
+      "dur": 1600
+    }
+  ],
+  "K46-F24-Aplikacia": [
+    {
+      "at": 300,
+      "text": "The app reads the data from the photo by itself and a person confirms or corrects it.",
+      "parts": [
+        "The app reads the data from the photo by itself",
+        "and a person confirms or corrects it."
+      ],
+      "sk": "Aplikácia z fotky sama vyčíta údaje a človek ich potvrdí alebo upraví.",
+      "dur": 5040,
+      "partAt": [
+        0,
+        2420
+      ]
+    }
+  ],
+  "K46-C8-Ponuka": [
+    {
+      "at": 400,
+      "text": "Let's start with one box, free and with no obligation.",
+      "parts": [
+        "Let's start with one box,",
+        "free and with no obligation."
+      ],
+      "sk": "Začnime jednou krabicou, zadarmo a nezáväzne.",
+      "styleExtra": "Tone for this sentence: warm, confident and inviting, a clear call to action.",
+      "dur": 3800,
+      "partAt": [
+        0,
+        1960
+      ]
+    }
+  ],
+  "K46-C4-Cena": [
+    {
+      "at": 300,
+      "text": "Introducing Assetin Archives.",
+      "sk": "Predstavujeme Assetin Archives.",
+      "styleExtra": "Warm, confident introduction, falling intonation at the end.",
+      "dur": 2920
+    }
+  ],
+  "K46-Hook": [
+    {
+      "at": 600,
+      "text": "Scanning an entire archive can be expensive.",
+      "sk": "Naskenovať celý archív môže byť drahé.",
+      "styleExtra": "Calm, matter-of-fact statement; a gentle emphasis on expensive; falling intonation at the end.",
+      "dur": 3120
+    },
+    {
+      "at": 3900,
+      "text": "Our app photographs only the title page.",
+      "sk": "Naša aplikácia fotí len identifikačnú stranu.",
+      "dur": 3010
+    }
+  ],
+  "K46-Vysledok": [
+    {
+      "at": 200,
+      "text": "The result: you know for certain which documents you have and where they are.",
+      "parts": [
+        "The result: you know for certain",
+        "which documents you have and where they are."
+      ],
+      "sk": "Výsledok: spoľahlivo viete, aké dokumenty máte a kde sa nachádzajú.",
+      "dur": 4900,
+      "partAt": [
+        0,
+        2280
+      ]
+    },
+    {
+      "at": 5250,
+      "text": "Then you can decide what to keep, what to shred and what to fully scan.",
+      "parts": [
+        "Then you can decide",
+        "what to keep, what to shred",
+        "and what to fully scan."
+      ],
+      "sk": "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať.",
+      "dur": 4760,
+      "partAt": [
+        0,
+        1260,
+        2780
+      ]
+    }
+  ],
+  "K46-Kto": [
+    {
+      "at": 400,
+      "text": "Either you catalogue it yourselves, or we process your archive for you, turnkey.",
+      "parts": [
+        "Either you catalogue it yourselves,",
+        "or we process your archive for you, turnkey."
+      ],
+      "sk": "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč.",
+      "dur": 4400,
+      "partAt": [
+        0,
+        1920
+      ]
+    }
+  ],
+  "K46-F3-Vyhladavanie": [
+    {
+      "at": 200,
+      "text": "Then just type a keyword. The app shows the path to the item and all the extracted data.",
+      "parts": [
+        "Then just type a keyword.",
+        "The app shows the path to the item",
+        "and all the extracted data."
+      ],
+      "sk": "Potom stačí napísať kľúčové slovo. Aplikácia ukáže cestu k položke aj všetky vyčítané údaje.",
+      "dur": 6840,
+      "partAt": [
+        0,
+        2520,
+        4600
+      ]
+    }
+  ]
+}

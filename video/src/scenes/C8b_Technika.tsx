@@ -6,6 +6,7 @@ import { OfferIcon, OfferIconKind } from '../components/ArchivesIcons';
 import { voAt } from '../components/Subtitles';
 import { settle } from '../lib/anim';
 import { BRAND, FONT, INK } from '../theme';
+import { tr } from '../copy/i18n';
 
 /**
  * C8b - Technicke riesenie (kolo 52, Samuel: slide z kratkej LinkedIn verzie aj do dlhej). Za ponukou (C8), pred zaverom.
@@ -27,8 +28,8 @@ const Banner: React.FC<{ t: number; on: boolean }> = ({ t, on }) => (
   <div style={{ position: 'absolute', left: LEFT, top: 168, width: W, height: 196, boxSizing: 'border-box', borderRadius: 26, background: on ? BRAND[100] : BRAND[50], border: `2px solid ${on ? BRAND[500] : BRAND[200]}`, boxShadow: on ? `0 0 0 2px ${BRAND[500]}, 0 18px 44px rgba(31,122,51,0.16)` : 'none', display: 'flex', alignItems: 'center', gap: 36, padding: '0 48px', opacity: t, transform: `translateY(${(1 - t) * 24}px)` }}>
     <OfferIcon kind="shield" on size={124} />
     <div>
-      <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 60, lineHeight: 1.05, letterSpacing: '-0.02em', color: BRAND[700] }}>Bezpečne</div>
-      <div style={{ marginTop: 10, fontFamily: FONT.body, fontSize: 34, lineHeight: 1.2, color: INK[600], whiteSpace: 'nowrap' }}>V súlade s vašimi bezpečnostnými požiadavkami</div>
+      <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 60, lineHeight: 1.05, letterSpacing: '-0.02em', color: BRAND[700] }}>{tr('Bezpečne')}</div>
+      <div style={{ marginTop: 10, fontFamily: FONT.body, fontSize: 34, lineHeight: 1.2, color: INK[600], whiteSpace: 'nowrap' }}>{tr('V súlade s vašimi bezpečnostnými požiadavkami')}</div>
     </div>
   </div>
 );
@@ -54,13 +55,13 @@ export const C8b_Technika: React.FC = () => {
   const opts = settle(frame, onlineAt);
   return (
     <Scene mode="light">
-      <StepLabel frame={frame} steps={[{ from: 0, title: 'Technické riešenie' }]} />
+      <StepLabel frame={frame} steps={[{ from: 0, title: tr('Technické riešenie') }]} />
       <div style={{ position: 'absolute', inset: 0 }}>
         <Banner t={banner} on={ms >= safeAt && ms < onlineAt} />
         <div style={{ position: 'absolute', left: LEFT, top: 414, width: W, height: 328, boxSizing: 'border-box', borderRadius: 30, background: INK[50], border: `1px solid ${INK[100]}`, opacity: opts }} />
-        <Option x={LEFT + 30} icon="cloud" title="Online u nás" desc="Bez vlastných serverov" t={opts} on={ms >= onlineAt && ms < yoursAt} />
-        <div style={{ position: 'absolute', left: 960 - 45, top: 444 + 134 - 25, width: 90, height: 50, borderRadius: 25, background: '#fff', border: `2px solid ${INK[200]}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: FONT.body, fontWeight: 600, fontSize: 26, color: INK[500], opacity: opts }}>alebo</div>
-        <Option x={LEFT + W - 30 - OPT_W} icon="server" title="Na vašej infraštruktúre" desc="Na vašich serveroch" t={opts} on={ms >= yoursAt} />
+        <Option x={LEFT + 30} icon="cloud" title={tr('Online u nás')} desc={tr('Bez vlastných serverov')} t={opts} on={ms >= onlineAt && ms < yoursAt} />
+        <div style={{ position: 'absolute', left: 960 - 45, top: 444 + 134 - 25, width: 90, height: 50, borderRadius: 25, background: '#fff', border: `2px solid ${INK[200]}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: FONT.body, fontWeight: 600, fontSize: 26, color: INK[500], opacity: opts }}>{tr('alebo')}</div>
+        <Option x={LEFT + W - 30 - OPT_W} icon="server" title={tr('Na vašej infraštruktúre')} desc={tr('Na vašich serveroch')} t={opts} on={ms >= yoursAt} />
       </div>
     </Scene>
   );

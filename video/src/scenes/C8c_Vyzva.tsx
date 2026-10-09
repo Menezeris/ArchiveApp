@@ -4,6 +4,7 @@ import { Scene } from '../components/Scene';
 import { StepLabel } from '../components/Frame16';
 import { FirstStep } from '../components/ArchivesClose';
 import { voAt, voLines } from '../components/Subtitles';
+import { tr } from '../copy/i18n';
 
 /**
  * C8c - Prvy krok (kolo 54, Samuel: vyzva ako v kratkej K46, aj so "zadarmo a nezavazne"; meni rozhodnutie kola 52 o pilulke).
@@ -17,7 +18,7 @@ export const C8c_Vyzva: React.FC = () => {
   const frame = useCurrentFrame();
   return (
     <Scene mode="light">
-      <StepLabel frame={frame} steps={[{ from: 0, title: 'Prvý krok' }]} />
+      <StepLabel frame={frame} steps={[{ from: 0, title: tr('Prvý krok') }]} />
       <FirstStep lineAt={L0} w={{ krabicou: 1120, zadarmo: 2040 }} />
     </Scene>
   );

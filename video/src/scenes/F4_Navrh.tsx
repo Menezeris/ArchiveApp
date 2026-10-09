@@ -2,6 +2,7 @@ import React from 'react';
 import { cutDuration, srcFrac } from '../lib/cuts';
 import { FOOTAGE_WINDOW_WIDE } from '../components/Device';
 import { DesktopFootageClip, Mark, ZoomKey, markAt } from './web/WebFootage';
+import { tr } from '../copy/i18n';
 
 /**
  * F4-Navrh - klip len pre web (krok 3 produktovej stranky "Aplikacia precita
@@ -35,8 +36,8 @@ export const F4_Navrh: React.FC = () => (
     src="footage/f4-navrh.mp4"
     seconds={F4_NAVRH_SECONDS}
     steps={[
-      { from: 0, title: 'Fotka identifikačnej strany' },
-      { from: 3400, title: 'Navrhnuté údaje sa zhodujú' },
+      { from: 0, title: tr('Fotka identifikačnej strany') },
+      { from: 3400, title: tr('Navrhnuté údaje sa zhodujú') },
     ]}
     marks={MARKS}
     zoom={ZOOM}

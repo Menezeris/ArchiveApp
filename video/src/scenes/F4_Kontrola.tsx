@@ -3,6 +3,7 @@ import { Step } from '../components/Steps';
 import { voAt } from '../components/Subtitles';
 import { DesktopFootageClip, Mark, Tap, markAt, tapAt } from './F2_Metadata';
 import { cutDuration, cutTime, segStart } from '../lib/cuts';
+import { tr } from '../copy/i18n';
 
 /**
  * F4 - Kontrola metadat: zostrih noveho zaznamu (review2.mp4, 70 s) podla src/footage/cuts.json.
@@ -15,10 +16,10 @@ const ID = 'f4-review';
 export const F4_SECONDS = cutDuration(ID);
 const vo = (i: number, k = 0) => voAt('F4-Kontrola', i, k);
 const F4_STEPS: Step[] = [
-  { from: 0, title: 'Návrh údajov' }, // kolo 51: "udaje" ako v kratkej verzii
-  { from: vo(1), title: 'Overiť a potvrdiť' },
-  { from: vo(2), title: 'Opraviť v návrhu' },
-  { from: vo(3), title: 'Overený záznam' },
+  { from: 0, title: tr('Návrh údajov') }, // kolo 51: "udaje" ako v kratkej verzii
+  { from: vo(1), title: tr('Overiť a potvrdiť') },
+  { from: vo(2), title: tr('Opraviť v návrhu') },
+  { from: vo(3), title: tr('Overený záznam') },
 ];
 /** Kolo 53 (Samuel: dotyky mimo): kruzok konci pred strihom do montaze (5,77 s) a pred zmenou rozlozenia po "Prijat upravu". */
 const F4_TAPS: Tap[] = [

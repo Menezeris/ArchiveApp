@@ -4,6 +4,7 @@ import { Scene } from '../components/Scene';
 import { StepLabel } from '../components/Frame16';
 import { KtoCard } from '../components/ArchivesClose';
 import { voAt, voLines } from '../components/Subtitles';
+import { tr } from '../copy/i18n';
 
 /**
  * C8 - Kto archiv spracuje a v akom rozsahu (kolo 54, Samuel: dlhu verziu zladit s kratkou K46; veta kratkej, licencia na
@@ -31,9 +32,9 @@ export const C8_Pilot: React.FC = () => {
   const frame = useCurrentFrame();
   return (
     <Scene mode="light">
-      <StepLabel frame={frame} steps={[{ from: 0, title: 'Vlastnými silami, alebo na kľúč' }]} />
-      <KtoCard kind="app" title="Vlastnými silami" subs={['s našou aplikáciou, od pár šanónov', 'licencia podľa rozsahu']} at={L0 - 150} left={LEFT} top={TOP} w={COL.w} h={270} />
-      <KtoCard kind="catalog" title="Služba na kľúč" subs={['archív spracujeme my, aj celý sklad']} at={L0 + W0.alebo * 1000 - 150} left={RIGHT} top={TOP} w={COL.w} h={270} dark />
+      <StepLabel frame={frame} steps={[{ from: 0, title: tr('Vlastnými silami, alebo na kľúč') }]} />
+      <KtoCard kind="app" title={tr('Vlastnými silami')} subs={[tr('s našou aplikáciou, od pár šanónov'), tr('licencia podľa rozsahu')]} at={L0 - 150} left={LEFT} top={TOP} w={COL.w} h={270} />
+      <KtoCard kind="catalog" title={tr('Služba na kľúč')} subs={[tr('archív spracujeme my, aj celý sklad')]} at={L0 + W0.alebo * 1000 - 150} left={RIGHT} top={TOP} w={COL.w} h={270} dark />
     </Scene>
   );
 };

@@ -10,8 +10,9 @@ import { useOutputFrame } from '../components/Paced';
 import { voAt } from '../components/Subtitles';
 import { Camera } from '../lib/camera';
 import { pop, settle, tween } from '../lib/anim';
-import { captions, phases } from '../copy/sk';
+import { captions, phases } from '../copy';
 import { BRAND, CM, FONT, INK, ISO, SAFE } from '../theme';
+import { tr } from '../copy/i18n';
 
 /**
  * C5 - V sklade. Dlazdica z webu ako hrdina; harok nalepiek (A4) a mobil
@@ -55,9 +56,9 @@ const PHONE_END = {
 /** Nas pristup v troch krokoch (text vpravo, rovnaky jazyk ako pri footage). */
 export type C5Step = { from: number; title: string; line?: string };
 const STEPS: C5Step[] = [
-  { from: 900, title: 'Fyzické dokumenty' },
-  { from: 1450, title: 'Prilepiť QR kód' }, // kolo 32: po pauze na prvu vetu (hold 1400)
-  { from: 4350, title: 'Odfotiť identifikačnú stranu' }, // kolo 32: pred pauzou (hold 4750, po dopade poslednej nalepky), aby bol na zmrazenom obraze cely
+  { from: 900, title: tr('Fyzické dokumenty') },
+  { from: 1450, title: tr('Prilepiť QR kód') }, // kolo 32: po pauze na prvu vetu (hold 1400)
+  { from: 4350, title: tr('Odfotiť identifikačnú stranu') }, // kolo 32: pred pauzou (hold 4750, po dopade poslednej nalepky), aby bol na zmrazenom obraze cely
 ];
 
 /**
@@ -71,10 +72,10 @@ const H_WORDS = [1.52, 2.3, 3.02, 3.88]; // polica, krabica, sanon, zlozka
 const H_QR = 4.76; // "dostane QR kod"
 const H_ARRANGE = { a: 6.16, b: 7.18, all: 8.36 }; // "podla toho", "archiv", koniec "usporiadany"
 const H_ITEMS: { kind: HKind; label: string; a: boolean; b: boolean }[] = [
-  { kind: 'shelf', label: 'Polica', a: true, b: true },
-  { kind: 'box', label: 'Krabica', a: true, b: false },
-  { kind: 'binder', label: 'Šanón', a: false, b: true },
-  { kind: 'folder', label: 'Zložka', a: true, b: false },
+  { kind: 'shelf', label: tr('Polica'), a: true, b: true },
+  { kind: 'box', label: tr('Krabica'), a: true, b: false },
+  { kind: 'binder', label: tr('Šanón'), a: false, b: true },
+  { kind: 'folder', label: tr('Zložka'), a: true, b: false },
 ];
 const H_ROW = { left: C5_TITLE_LEFT - 20, top: 330, item: 205, icon: 112 };
 const C5Hierarchy: React.FC = () => {

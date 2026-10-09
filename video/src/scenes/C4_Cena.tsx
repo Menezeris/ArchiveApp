@@ -11,10 +11,11 @@ import { Camera } from '../lib/camera';
 import { Carton, ShelfFrame, iso } from '../lib/iso';
 import { PriceTag, QuestionMark, Sheet } from '../components/Illustrations';
 import { drawProps, pop, settle, tween } from '../lib/anim';
-import { captions } from '../copy/sk';
+import { captions } from '../copy';
 import { useOutputFrame } from '../components/Paced';
 import { BRAND, CM, FONT, INK, NAVY, SAFE } from '../theme';
 import { CAM_END, SV, TARGET_SHELF, VB } from './C3_Sklad';
+import { tr } from '../copy/i18n';
 
 /**
  * C4 - Cena. Zacina rovnakym zaberom ako koniec C3. Regal sa odsunie
@@ -132,13 +133,13 @@ export const C4_Cena: React.FC<{ d?: number; h?: number; brand?: boolean; cost?:
       {cost ? (
         <>
       <div style={{ position: 'absolute', left: 300, top: 720, opacity: out }}>
-        <PriceTag text="skladovanie" s={tagA} color={BRAND[700]} size={36} />
+        <PriceTag text={tr('skladovanie')} s={tagA} color={BRAND[700]} size={36} />
       </div>
       <div style={{ position: 'absolute', left: 1395, top: 300, opacity: sheet * out, transform: `translateY(${(1 - sheet) * 30}px) rotate(-4deg)` }}>
         <Sheet w={280} h={390} lines={7} stamp />
       </div>
       <div style={{ position: 'absolute', left: 1395, top: 720, opacity: out }}>
-        <PriceTag text="nové vyhotovenie" s={tagB} color={BRAND[700]} size={36} />
+        <PriceTag text={tr('nové vyhotovenie')} s={tagB} color={BRAND[700]} size={36} />
       </div>
         </>
       ) : null}
@@ -201,12 +202,12 @@ export const C4Promise: React.FC<{ out: number; full?: boolean }> = ({ out, full
   );
   return (
     <div style={{ position: 'absolute', left: 0, right: 0, top: PROMISE_TOP, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', opacity: 1 - out }}>
-      {item('box', 'Váš archív', arch)}
+      {item('box', tr('Váš archív'), arch)}
       <svg width={170} height={124} viewBox="0 0 170 124" style={{ flex: 'none' }}>
         <path d="M16 62 H146" fill="none" stroke={BRAND[500]} strokeWidth={7} strokeLinecap="round" strokeDasharray={130} strokeDashoffset={130 * (1 - arrow)} />
         <path d="M126 42 L150 62 L126 82" fill="none" stroke={BRAND[500]} strokeWidth={7} strokeLinecap="round" strokeLinejoin="round" opacity={arrow > 0.85 ? 1 : 0} />
       </svg>
-      {item('catalog', 'Digitálny katalóg', cat)}
+      {item('catalog', tr('Digitálny katalóg'), cat)}
     </div>
   );
 };

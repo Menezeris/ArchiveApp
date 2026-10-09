@@ -6,8 +6,9 @@ import { PhotoCard } from '../components/Illustrations';
 import { WindowFrame } from '../components/Device';
 import { APP_WIN, StepLabel } from '../components/Frame16';
 import { settle, tween } from '../lib/anim';
-import { captions } from '../copy/sk';
+import { captions } from '../copy';
 import { BRAND, FONT, INK, SAFE } from '../theme';
+import { tr } from '../copy/i18n';
 
 /**
  * Kolo 42: okno hned v rozmere a polohe okna footage F2 (Samuel: nezacinat v mensom ramiku, ktory sa zvacsi).
@@ -45,7 +46,7 @@ export const C6_Spracovanie: React.FC = () => {
         </div>
       </WindowFrame>
       {/* kolo 50: nadpis kroku hore vlavo ako v celom filme (predtym text vpravo s nazvom fazy a riadkom) */}
-      <StepLabel frame={frame} steps={[{ from: 0, title: 'Fotka je v aplikácii' }]} opacity={1 - tw(1650, 300)} />
+      <StepLabel frame={frame} steps={[{ from: 0, title: tr('Fotka je v aplikácii') }]} opacity={1 - tw(1650, 300)} />
       {showCap ? <Caption text={captions.C6} t={settle(frame, 1200)} out={tw(1900, 300)} y={SAFE.captionY} /> : null}
     </Scene>
   );

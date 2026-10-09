@@ -3,12 +3,14 @@ import { AbsoluteFill, OffthreadVideo, staticFile, useCurrentFrame } from 'remot
 import { FOOTAGE_PHONE, PHONE_BEZEL, PhoneFrame } from '../components/Device';
 import { settle, tween } from '../lib/anim';
 import { loadFonts } from '../lib/fonts';
-import { phases } from '../copy/sk';
+import { phases } from '../copy';
 import { cutDuration, cutTime } from '../lib/cuts';
 import { voAt } from '../components/Subtitles';
 import { BRAND } from '../theme';
 import { StepLabel } from '../components/Frame16';
 import { C5_TITLE_LEFT } from './C5_Teren';
+import { tr } from '../copy/i18n';
+import { footageSrc } from '../lib/lang';
 
 /**
  * F1 - Footage: sken prveho stitku v appke (screen recording z mobilu).
@@ -43,10 +45,10 @@ const F1_TAPS: Tap[] = [
 /** Kroky podla hlasu (casti vety vo vo.json): typ, zaradenie do hierarchie, fotka, zaznam. */
 const voS = (k: number) => voAt('F1-Sken', 0, k) / 1000;
 const F1_STEPS: Step[] = [
-  { from: 0, title: 'Vybrať typ položky' },
-  { from: voS(2), title: 'Zaradiť do hierarchie' },
-  { from: voS(3), title: 'Odfotiť identifikačnú stranu' },
-  { from: voS(4), title: 'Digitálny záznam' },
+  { from: 0, title: tr('Vybrať typ položky') },
+  { from: voS(2), title: tr('Zaradiť do hierarchie') },
+  { from: voS(3), title: tr('Odfotiť identifikačnú stranu') },
+  { from: voS(4), title: tr('Digitálny záznam') },
 ];
 const F1_MARKS: PhoneMark[] = [
   { from: voS(1) + 0.2, to: voS(2), x: 0.09, y: 0.299, w: 0.25, h: 0.027, sweep: 0.5 }, // Zlozka (ZL): "ako napriklad zlozka alebo dokument"
@@ -64,7 +66,7 @@ export const FootageClip: React.FC<{ src: string; seconds: number; taps?: Tap[];
   const screenIn = tw(0, 300); // displej: z bielej (koniec C5) do zaznamu
   const fadeOut = tw(seconds * 1000 - 500, 400);
   const textIn = settle(frame, 300);
-  const file = staticFile(src);
+  const file = staticFile(footageSrc(src));
 
   React.useEffect(() => {
     loadFonts();

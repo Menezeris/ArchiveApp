@@ -6,10 +6,11 @@ import { Camera } from '../lib/camera';
 import { Binder, Cabinet, Carton, Chair, Desk, IsoBox, Pallet, Roll, ShelfFrame, iso } from '../lib/iso';
 import { Floor, Person, QuestionMark } from '../components/Illustrations';
 import { pop, settle, tween } from '../lib/anim';
-import { captions } from '../copy/sk';
+import { captions } from '../copy';
 import { voAt } from '../components/Subtitles';
 import { BRAND, CM, FPS, ISO, NAVY, SAFE } from '../theme';
 import { CAM_END, PALLETS, SEARCH_QMS, SHELF_LEVEL, SHELVES, SV, SearchCarton, TARGET_SHELF, VB } from './C3_Sklad';
+import { tr } from '../copy/i18n';
 
 /**
  * C2 - Hladanie (verzia 2: spojene C2 Kancelaria + C3 Sklad, 10,5 s).
@@ -88,7 +89,7 @@ export const Office: React.FC<{ frame: number; floor?: boolean; qmOutAt?: number
       {floor ? <Floor x={-40} y={-40} w={520} d={420} fill="#263246" edge="#131F31" /> : null}
       <Desk x={40} y={160} />
       <Chair x={90} y={248} />
-      <Lying x={60} y={170} z={75} label={['FAKTÚRY', '2021']} />
+      <Lying x={60} y={170} z={75} label={[tr('FAKTÚRY'), '2021']} />
       <Papers x={104} y={168} z={75} h={5} />
       <Papers x={112} y={186} z={80} h={3} />
       <Cabinet x={CAB.x} y={CAB.y} open={open}>
@@ -268,9 +269,9 @@ export const Warehouse: React.FC<{ frame: number; floor?: boolean }> = ({ frame,
 const L0 = voAt('C2-Hladanie', 0);
 const W0 = { spravu: 3.72, vykres: 4.48, protokol: 5.38, koniec: 5.84 }; // s od zaciatku vety (C2-Hladanie-0.words.json)
 const TAGS: OfficeTag[] = [
-  { item: 0, at: L0 + W0.spravu * 1000 - 80, text: 'Správa' },
-  { item: 1, at: L0 + W0.vykres * 1000 - 80, text: 'Výkres' },
-  { item: 2, at: L0 + W0.protokol * 1000 - 80, text: 'Protokol' },
+  { item: 0, at: L0 + W0.spravu * 1000 - 80, text: tr('Správa') },
+  { item: 1, at: L0 + W0.vykres * 1000 - 80, text: tr('Výkres') },
+  { item: 2, at: L0 + W0.protokol * 1000 - 80, text: tr('Protokol') },
 ];
 const PAN_OUT = L0 + W0.koniec * 1000 - 100; // ms klipu: prestrih dole do skladu
 const WH_SHIFT = PAN_OUT - PAN_AT; // sklad o tolko neskor ako v povodnom case sceny
