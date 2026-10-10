@@ -1,6 +1,6 @@
 {
   "_": "Scenar nahovoru EN (src/copy/vo.en.json), vyrobeny scripts/vo_lang_init.py z src/copy/vo.json. Casy `at` su slovenske (obraz sa nemeni); `sk` = povodna veta (len pre kontrolu). Kym je `_voice` false, `dur` a `partAt` su zastupne slovenske hodnoty a video sa renderuje bez hlasu. Hlas: node scripts/vo.mjs --engine gemini --script <tento subor> --dir public/<vo|vo-kratka>-en, potom `_voice: true`.",
-  "_voice": false,
+  "_voice": true,
   "_lang": "en",
   "_style": "calm, matter-of-fact corporate narrator; neutral, clear British English; fluent and connected, a bit brisker than a documentary narrator; only a short breath at commas, a longer pause only at the end of a sentence; no extra emotion. Pronunciation: the brand name Assetin is read as written, a-se-tin with a hard t; Archives as in English. Say QR as 'cue are'. Codes like PL_01, KR_01, ZL_03 are read as English letter names plus the plain number, without the underscore and the leading zero: 'P L one, K R one, Z L three'.",
   "C2-Hladanie": [
@@ -43,10 +43,10 @@
         "So you may pay twice for the same thing."
       ],
       "sk": "Niekedy je rýchlejšie dať dokumentáciu vyhotoviť nanovo. A tak sa môže stať, že zaplatíte dvakrát za to isté.",
-      "dur": 7200,
+      "dur": 5520,
       "partAt": [
         0,
-        3860
+        2940
       ],
       "styleExtra": "Brisk, fluent pace, no long pauses inside the sentence."
     },
@@ -54,11 +54,11 @@
       "at": 10350,
       "text": "With us, you find it in seconds.",
       "sk": "S nami ho nájdete za pár sekúnd.",
-      "dur": 3040,
+      "dur": 2840,
       "styleExtra": "Brisk, fluent pace, no long pauses inside the sentence."
     },
     {
-      "at": 12750,
+      "at": 13340,
       "text": "Introducing Assetin Archives.",
       "sk": "Predstavujeme Assetin Archives.",
       "styleExtra": "Warm, confident introduction, falling intonation at the end.",
@@ -68,7 +68,7 @@
       }
     },
     {
-      "at": 15830,
+      "at": 16130,
       "text": "We turn your archive into a clear digital catalogue.",
       "sk": "Z vášho archívu urobíme prehľadný digitálny katalóg.",
       "dur": 3880
@@ -188,11 +188,11 @@
         "such as the project name, author or year."
       ],
       "sk": "Aplikácia z fotky sama prečíta text a navrhne údaje, ktoré na nej nájde, napríklad názov projektu, autora alebo rok.",
-      "dur": 8880,
+      "dur": 7080,
       "partAt": [
         0,
-        2660,
-        5340
+        1840,
+        3960
       ],
       "styleExtra": "Brisk, fluent pace, no long pauses inside the sentence."
     }
@@ -202,29 +202,29 @@
       "at": 500,
       "text": "But a suggestion isn't a final record.",
       "sk": "Návrh ale nie je finálny záznam.",
-      "dur": 3360,
+      "dur": 3080,
       "styleExtra": "Brisk, fluent pace, no long pauses inside the sentence."
     },
     {
-      "at": 3350,
+      "at": 3730,
       "text": "A person checks and confirms each value. The photo is proof and stays with the record.",
       "parts": [
         "A person checks and confirms each value.",
         "The photo is proof and stays with the record."
       ],
       "sk": "Človek každú hodnotu overí a potvrdí. Fotka je dôkaz a ostáva pri zázname.",
-      "dur": 6680,
+      "dur": 6000,
       "partAt": [
         0,
-        3360
+        3100
       ],
       "styleExtra": "Brisk, fluent pace, no long pauses inside the sentence."
     },
     {
-      "at": 8950,
+      "at": 9880,
       "text": "Any corrections are made right in the suggestion.",
       "sk": "Prípadné opravy a doplnenia prebiehajú priamo v návrhu.",
-      "dur": 3680,
+      "dur": 2880,
       "styleExtra": "Brisk, fluent pace, no long pauses inside the sentence."
     },
     {

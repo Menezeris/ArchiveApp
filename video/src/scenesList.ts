@@ -23,6 +23,7 @@ import { C9_Outro } from './scenes/C9_Outro';
 import { S04_Pokusy } from './scenes/optional/S04_Pokusy';
 import { S10_Nasadenie } from './scenes/optional/S10_Nasadenie';
 import { BrandDef, Hold, Paced, holdsSeconds } from './components/Paced';
+import { byLang } from './lib/lang';
 import { F2_SECONDS } from './scenes/F2_Metadata';
 import { F3_SECONDS } from './scenes/F3_Vyhladavanie';
 import { F4_SECONDS } from './scenes/F4_Kontrola';
@@ -47,7 +48,7 @@ export const SCENE_LIST: [string, SceneDef][] = [
   paced('C2-Hladanie', { scene: C2_Hladanie, seconds: C2_SECONDS, vo: true, dark: true, brand: { dark: true }, stills: [80, 150, 290, 340] }), // kolo 55: bez zastavenia obrazu (predtym holds 1700/2420 a 3600/500)
   // kolo 54: logo s tvrdym t "Predstavujeme Assetin Archives." + veta o katalogu, logo ostava a prevezme ho hacik (bez krabice);
   // klip konci 0,3 s po vete (vystup 19,55 s = scena 15,28 s + pauzy 4,27 s)
-  paced('C4-Cena', { scene: C4_CenaMain, seconds: 15.28, vo: true, darkUntil: 11400, brand: { darkUntil: C4_WIPE_AT, hide: [C4_WIPE_AT, 1e9] }, holds: [{ at: 3000, hold: 2500 }, { at: 4390, hold: 1770 }], stills: [80, 170, 280, 370, 500] }),
+  paced('C4-Cena', { scene: C4_CenaMain, seconds: 15.28, vo: true, darkUntil: 11400, brand: { darkUntil: C4_WIPE_AT, hide: [C4_WIPE_AT, 1e9] }, holds: [{ at: 3000, hold: 2500 }, { at: 4390, hold: 1770 }, ...byLang<Hold[]>({ sk: [], en: [{ at: 15200, hold: 450 }] })], stills: [80, 170, 280, 370, 500] }), // EN: posledna veta je dlhsia, na konci 0,45 s zastaveny obraz (slide s logom)
   // kolo 54: hacik z kratkej K46 (drahy sken celeho archivu proti 1 identifikacnej strane), rohove logo kresli scena sama
   paced('C4b-Hacik', { scene: C4b_Hacik, seconds: C4B_SECONDS, vo: true, stills: [20, 80, 150, 200] }),
   // kolo 51: dlhsia veta o QR (nalepky pri "sanon alebo zlozka, dostane QR kod"); kolo 54: "Staci bezny mobil." (blesk pri "mobil", bez pauzy na konci)
