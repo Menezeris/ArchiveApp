@@ -172,6 +172,10 @@ meni sa hlas, titulky a texty v obraze. Jazyk je prop `lang` (`src/lib/lang.ts`)
   LinkedIn: `npx remotion render K-LinkedIn-46 out/kratka/cs/K-LinkedIn_voice.mp4 --props='{"lang":"cs"}'`, potom mix ako pri SK.
 - **Zaznamy aplikacie v CZ/EN** (dodaju sa neskor): `public/footage/<lang>/<subor>` a nazov suboru do
   `src/footage/localized.json`; bez zapisu sa pouzije slovensky zaznam. Zostrih na rovnaku dlzku ako SK.
+- **Dlhe video:** `VIDEO_LANG=cs bash scripts/render.sh` (+ webove klipy), `node scripts/clip-fit.mjs cs` (zmesti sa hlas do klipov),
+  Full `node scripts/mix-music.mjs --variant F --music public/music/bed_dlha_edit_f.wav --clips out/mp4/cs --out out/mp4/cs/Full_CS_1080p.mp4`;
+  EN `--variant F_en --music public/music/bed_dlha_edit_f_en.wav` (najprv `music_edit.py --cfg src/copy/music.json --variant F_en`).
+  Kontrola prednesu viet: `python3 scripts/vo_judge.py --script ... --dir ...`; foneticky text len pre hlas: `ttsText` vo vete.
 - **Web v zavere:** CZ `www.assetin.cz`, EN `www.assetin.sk`.
 - Preklad na schvalenie rodenymi hovorcami: dokument "Preklad videa SK / CZ / EN"
   (https://claude.ai/code/artifact/90bb2e4c-fcad-43fc-bc37-ccc1ba38473e).
