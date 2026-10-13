@@ -4,8 +4,9 @@ import { Scene } from '../components/Scene';
 import { WindowFrame } from '../components/Device';
 import { APP_WIN, StepLabel } from '../components/Frame16';
 import { pop, settle, tween } from '../lib/anim';
-import { phases } from '../copy/sk';
+import { phases } from '../copy';
 import { BRAND, FONT, INK } from '../theme';
+import { tr } from '../copy/i18n';
 
 /**
  * C10 - Praca s databazou (kolo 36): uvod k F3 podany ako ostatne funkcie (ako C6), nie zvyraznenim menu v zazname.
@@ -49,9 +50,9 @@ const Icon: React.FC<{ kind: 'search' | 'chart' | 'export' }> = ({ kind }) => (
 
 // kolo 40: poradie a slova podla vety "...vieme exportovat, analyzovat alebo prehladavat" (casy slov + 300 ms)
 const CARDS = [
-  { kind: 'export', label: 'Export', at: 3000 },
-  { kind: 'chart', label: 'Analýza', at: 4100 },
-  { kind: 'search', label: 'Vyhľadávanie', at: 5200 },
+  { kind: 'export', label: tr('Export'), at: 3000 },
+  { kind: 'chart', label: tr('Analýza'), at: 4100 },
+  { kind: 'search', label: tr('Vyhľadávanie'), at: 5200 },
 ] as const;
 const MAIN = 2; // zostane vyhladavanie
 
@@ -98,7 +99,7 @@ export const C10_Databaza: React.FC = () => {
         </div>
       </WindowFrame>
       {/* kolo 50: nadpis kroku hore vlavo (predtym vpravo s nazvom fazy a riadkom) */}
-      <StepLabel frame={frame} steps={[{ from: 700, title: 'Práca s databázou' }]} opacity={1 - tw(7900, 300)} />
+      <StepLabel frame={frame} steps={[{ from: 700, title: tr('Práca s databázou') }]} opacity={1 - tw(7900, 300)} />
     </Scene>
   );
 };

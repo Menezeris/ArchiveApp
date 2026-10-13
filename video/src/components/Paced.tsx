@@ -1,6 +1,7 @@
 import React from 'react';
 import { Audio, Freeze, Sequence, getInputProps, staticFile, useCurrentFrame } from 'remotion';
-import { Subtitles } from './Subtitles';
+import { Subtitles, hasVoice } from './Subtitles';
+import { voDir } from '../lib/lang';
 import { CornerBrand } from './ArchivesBrand';
 import { FPS } from '../theme';
 
@@ -76,7 +77,7 @@ export const Paced: React.FC<{ id: string; holds?: Hold[]; skip?: number; vo?: b
     <OutputFrameContext.Provider value={frame}>
       {inner}
       {brand ? <CornerBrand dark={brand.darkUntil !== undefined ? sceneMs < brand.darkUntil : brand.dark} opacity={brandOpacity(sceneMs, brand.hide)} /> : null}
-      {vo && p.voice !== false ? <Audio src={staticFile(audio ?? `vo/${id}.wav`)} /> : null}
+      {vo && p.voice !== false && hasVoice(!!audio) ? <Audio src={staticFile(audio ?? `${voDir('vo')}/${id}.wav`)} /> : null}
       {vo && subtitles && p.subtitles !== false ? <Subtitles clip={id} dark={dark} darkUntil={darkUntil} left={subtitleLeft} /> : null}
     </OutputFrameContext.Provider>
   );

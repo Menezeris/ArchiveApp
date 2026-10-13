@@ -10,6 +10,8 @@ import { voAt } from '../components/Subtitles';
 import { settle, tween } from '../lib/anim';
 import { loadFonts } from '../lib/fonts';
 import { BRAND } from '../theme';
+import { tr } from '../copy/i18n';
+import { footageSrc } from '../lib/lang';
 
 /**
  * Desktop footage (screen recording z prehliadaca) v okne aplikacie (do kola 49 vlavo v FOOTAGE_WINDOW a vpravo
@@ -80,7 +82,7 @@ export const DesktopFootageClip: React.FC<{ src: string; seconds: number; steps:
         <WindowFrame at={win}>
           <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#fff' }}>
             <div style={{ position: 'absolute', left: 0, top: 0, width: size.w, height: size.h, transformOrigin: '0 0', transform: `translate(${-v.x * k}px, ${-v.y * k}px) scale(${k})` }}>
-              <OffthreadVideo src={staticFile(src)} muted style={{ width: '100%', height: '100%', objectFit: 'fill' }} />
+              <OffthreadVideo src={staticFile(footageSrc(src))} muted style={{ width: '100%', height: '100%', objectFit: 'fill' }} />
             </div>
             {/* zvyraznenie: spot (ramik + stmavene okolie), ramik alebo fixka; v px okna, ramik ma stale rovnaku hrubku */}
             {marks.map((m, i) => {
@@ -142,8 +144,8 @@ export const markAt = (id: string, from: number, to: number, x: number, y: numbe
  */
 export const F2_SECONDS = cutDuration('f2-metadata');
 const F2_STEPS: Step[] = [
-  { from: 0, title: 'Prečítať text' }, // kolo 51: nazvy krokov ako v kratkej verzii
-  { from: voAt('F2-Metadata', 0, 1), title: 'Návrh údajov' },
+  { from: 0, title: tr('Prečítať text') }, // kolo 51: nazvy krokov ako v kratkej verzii
+  { from: voAt('F2-Metadata', 0, 1), title: tr('Návrh údajov') },
 ];
 /** Kolo 53: kruzky kratsie, aby neprechadzali cez prelinacku do dalsieho useku zostrihu. */
 const F2_TAPS: Tap[] = [

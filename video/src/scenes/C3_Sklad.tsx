@@ -6,7 +6,7 @@ import { Camera } from '../lib/camera';
 import { Binder, Carton, IsoBox, OpenCarton, Pallet, ShelfFrame, iso } from '../lib/iso';
 import { Floor, Person, QuestionMark } from '../components/Illustrations';
 import { pop, settle, tween } from '../lib/anim';
-import { captions } from '../copy/sk';
+import { captions } from '../copy';
 import { BRAND, CM, SAFE } from '../theme';
 
 /**

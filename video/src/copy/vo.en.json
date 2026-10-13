@@ -1,0 +1,388 @@
+{
+  "_": "Scenar nahovoru EN (src/copy/vo.en.json), vyrobeny scripts/vo_lang_init.py z src/copy/vo.json. Casy `at` su slovenske (obraz sa nemeni); `sk` = povodna veta (len pre kontrolu). Kym je `_voice` false, `dur` a `partAt` su zastupne slovenske hodnoty a video sa renderuje bez hlasu. Hlas: node scripts/vo.mjs --engine gemini --script <tento subor> --dir public/<vo|vo-kratka>-en, potom `_voice: true`.",
+  "_voice": true,
+  "_lang": "en",
+  "_style": "calm, matter-of-fact corporate narrator; neutral, clear British English; fluent and connected, a bit brisker than a documentary narrator; only a short breath at commas, a longer pause only at the end of a sentence; no extra emotion. Pronunciation: the brand name Assetin is read as written, a-se-tin with a hard t; Archives as in English. Say QR as 'cue are'. Codes like PL_01, KR_01, ZL_03 are read as English letter names plus the plain number, without the underscore and the leading zero: 'P L one, K R one, Z L three'.",
+  "C2-Hladanie": [
+    {
+      "at": 400,
+      "text": "When did you last struggle to find a document? A report, a drawing or a certificate?",
+      "parts": [
+        "When did you last struggle to find a document?",
+        "A report, a drawing or a certificate?"
+      ],
+      "sk": "Kedy ste naposledy nevedeli nájsť nejaký dokument? Či už správu, výkres alebo protokol?",
+      "dur": 6320,
+      "partAt": [
+        0,
+        3200
+      ]
+    },
+    {
+      "at": 6870,
+      "text": "In storage, on a shelf, in a box or in a folder.",
+      "sk": "V sklade, na polici, v krabici alebo v zložke.",
+      "dur": 4720
+    }
+  ],
+  "C4-Cena": [
+    {
+      "at": 400,
+      "text": "Searching can take hours.",
+      "sk": "Hľadanie môže trvať hodiny.",
+      "dur": 2160,
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-C2-Hladanie-1.wav"
+      }
+    },
+    {
+      "at": 3350,
+      "text": "Sometimes it's faster to have documents made again. So you may pay twice for the same thing.",
+      "parts": [
+        "Sometimes it's faster to have documents made again.",
+        "So you may pay twice for the same thing."
+      ],
+      "sk": "Niekedy je rýchlejšie dať dokumentáciu vyhotoviť nanovo. A tak sa môže stať, že zaplatíte dvakrát za to isté.",
+      "dur": 5520,
+      "partAt": [
+        0,
+        2940
+      ],
+      "styleExtra": "Brisk, fluent pace, no long pauses inside the sentence."
+    },
+    {
+      "at": 10350,
+      "text": "With us, you find it in seconds.",
+      "sk": "S nami ho nájdete za pár sekúnd.",
+      "dur": 2840,
+      "styleExtra": "Brisk, fluent pace, no long pauses inside the sentence."
+    },
+    {
+      "at": 13340,
+      "text": "Introducing Assetin Archives.",
+      "sk": "Predstavujeme Assetin Archives.",
+      "styleExtra": "Warm, confident introduction, falling intonation at the end.",
+      "dur": 2640,
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-C4-Cena-0.wav"
+      }
+    },
+    {
+      "at": 16130,
+      "text": "We turn your archive into a clear digital catalogue.",
+      "sk": "Z vášho archívu urobíme prehľadný digitálny katalóg.",
+      "dur": 3880
+    }
+  ],
+  "C4b-Hacik": [
+    {
+      "at": 600,
+      "text": "Scanning an entire archive can be expensive.",
+      "sk": "Naskenovať celý archív môže byť drahé.",
+      "styleExtra": "Calm, matter-of-fact statement; a gentle emphasis on expensive; falling intonation at the end.",
+      "dur": 3400,
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-Hook-0.wav"
+      }
+    },
+    {
+      "at": 4150,
+      "text": "Our app photographs only the title page.",
+      "sk": "Naša aplikácia fotí len identifikačnú stranu.",
+      "dur": 2920,
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-Hook-1.wav"
+      }
+    }
+  ],
+  "C5-Teren": [
+    {
+      "at": 300,
+      "text": "The solution starts with the physical documents.",
+      "sk": "Riešenie začína fyzickými dokumentami.",
+      "dur": 3200
+    },
+    {
+      "at": 3650,
+      "text": "Every item, whether a shelf, a box, a binder or a folder, gets a QR code, matching how your archive is organised.",
+      "parts": [
+        "Every item, whether a shelf, a box, a binder or a folder,",
+        "gets a QR code, matching how your archive is organised."
+      ],
+      "sk": "Každá položka, či už polica, krabica, šanón alebo zložka, dostane QR kód, podľa toho, ako máte archív usporiadaný.",
+      "styleExtra": "Pace for this sentence: calm and unhurried; a short clear pause after each item of the list and after QR code.",
+      "dur": 9520,
+      "partAt": [
+        0,
+        5160
+      ]
+    },
+    {
+      "at": 13320,
+      "text": "An ordinary phone is all you need.",
+      "sk": "Stačí bežný mobil.",
+      "styleExtra": "Calm, clear, short statement in one breath; a gentle emphasis on ordinary; falling intonation at the end.",
+      "dur": 2320,
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-C5-Teren-1.wav"
+      }
+    }
+  ],
+  "F1-Sken": [
+    {
+      "at": 400,
+      "text": "On the phone, we choose the item type, for example a folder or a document, and place it in the hierarchy as it really is. Then we photograph its title page. This gives the item its own digital record.",
+      "parts": [
+        "On the phone, we choose the item type,",
+        "for example a folder or a document,",
+        "and place it in the hierarchy as it really is.",
+        "Then we photograph its title page.",
+        "This gives the item its own digital record."
+      ],
+      "sk": "V mobile vyberieme typ položky, ako napríklad zložka alebo dokument, a zaradíme ju do hierarchie podľa skutočnosti. Potom odfotíme jej identifikačnú stranu. Položka tým dostane svoj digitálny záznam.",
+      "dur": 13880,
+      "partAt": [
+        0,
+        2700,
+        4960,
+        8380,
+        10880
+      ]
+    }
+  ],
+  "C7-Hierarchia": [
+    {
+      "at": 500,
+      "text": "Every item has an exact place in the hierarchy, such as a shelf, a box, a folder or a document.",
+      "parts": [
+        "Every item has an exact place in the hierarchy,",
+        "such as a shelf, a box, a folder or a document."
+      ],
+      "sk": "Každá položka má presné miesto v hierarchii, ako napríklad polica, krabica, zložka alebo dokument.",
+      "dur": 7160,
+      "partAt": [
+        0,
+        3200
+      ]
+    }
+  ],
+  "C6-Spracovanie": [
+    {
+      "at": 300,
+      "text": "The app then processes the photo.",
+      "sk": "Fotku ďalej spracuje aplikácia.",
+      "dur": 2440,
+      "src": {
+        "file": "public/vo/lines/C6-Spracovanie-0.wav"
+      },
+      "_note": "Klip sa v dlhom videu nepouziva (C6 bez hlasu, C10 vypadol); bez generovania."
+    }
+  ],
+  "F2-Metadata": [
+    {
+      "at": 300,
+      "text": "The app reads the text in the photo and suggests the data it finds, such as the project name, author or year.",
+      "parts": [
+        "The app reads the text in the photo",
+        "and suggests the data it finds,",
+        "such as the project name, author or year."
+      ],
+      "sk": "Aplikácia z fotky sama prečíta text a navrhne údaje, ktoré na nej nájde, napríklad názov projektu, autora alebo rok.",
+      "dur": 7080,
+      "partAt": [
+        0,
+        1840,
+        3960
+      ],
+      "styleExtra": "Brisk, fluent pace, no long pauses inside the sentence."
+    }
+  ],
+  "F4-Kontrola": [
+    {
+      "at": 500,
+      "text": "But a suggestion isn't a final record.",
+      "sk": "Návrh ale nie je finálny záznam.",
+      "dur": 3080,
+      "styleExtra": "Brisk, fluent pace, no long pauses inside the sentence."
+    },
+    {
+      "at": 3730,
+      "text": "A person checks and confirms each value. The photo is proof and stays with the record.",
+      "parts": [
+        "A person checks and confirms each value.",
+        "The photo is proof and stays with the record."
+      ],
+      "sk": "Človek každú hodnotu overí a potvrdí. Fotka je dôkaz a ostáva pri zázname.",
+      "dur": 6000,
+      "partAt": [
+        0,
+        3100
+      ],
+      "styleExtra": "Brisk, fluent pace, no long pauses inside the sentence."
+    },
+    {
+      "at": 9880,
+      "text": "Any corrections are made right in the suggestion.",
+      "sk": "Prípadné opravy a doplnenia prebiehajú priamo v návrhu.",
+      "dur": 2880,
+      "styleExtra": "Brisk, fluent pace, no long pauses inside the sentence."
+    },
+    {
+      "at": 13300,
+      "text": "The result is a verified, traceable record of the physical document.",
+      "sk": "Tým vznikne overený a dohľadateľný záznam fyzického dokumentu.",
+      "dur": 4720
+    }
+  ],
+  "C10-Databaza": [
+    {
+      "at": 300,
+      "text": "The archive catalogue database can be exported, analysed or searched. The simplest way is search.",
+      "parts": [
+        "The archive catalogue database can be exported, analysed or searched.",
+        "The simplest way is search."
+      ],
+      "sk": "Vytvorenú databázu katalógu archívu vieme exportovať, analyzovať alebo prehľadávať. Najjednoduchšie je vyhľadávanie.",
+      "dur": 8000,
+      "partAt": [
+        0,
+        6038
+      ],
+      "src": {
+        "file": "public/vo/lines/C10-Databaza-0.wav"
+      },
+      "_note": "Klip sa v dlhom videu nepouziva (C6 bez hlasu, C10 vypadol); bez generovania."
+    }
+  ],
+  "F3-Vyhladavanie": [
+    {
+      "at": 400,
+      "text": "Then just type a keyword. The app shows the path to the item and all the extracted data.",
+      "parts": [
+        "Then just type a keyword.",
+        "The app shows the path to the item",
+        "and all the extracted data."
+      ],
+      "sk": "Potom stačí napísať kľúčové slovo. Aplikácia ukáže cestu k položke aj všetky vyčítané údaje.",
+      "dur": 6200,
+      "partAt": [
+        0,
+        2120,
+        3840
+      ],
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-F3-Vyhladavanie-0.wav"
+      }
+    },
+    {
+      "at": 7400,
+      "text": "The keyword is highlighted in the record's metadata.",
+      "sk": "Kľúčové slovo sa zvýrazní v metadátach záznamu.",
+      "dur": 3320
+    }
+  ],
+  "C8a-Vysledok": [
+    {
+      "at": 200,
+      "text": "The result: you know for certain which documents you have and exactly where they are.",
+      "parts": [
+        "The result: you know for certain",
+        "which documents you have and exactly where they are."
+      ],
+      "sk": "Výsledok: spoľahlivo viete, aké dokumenty máte a kde presne sa nachádzajú.",
+      "dur": 5800,
+      "partAt": [
+        0,
+        2200
+      ]
+    },
+    {
+      "at": 6150,
+      "text": "Then you can decide what to keep, what to shred and what to fully scan.",
+      "parts": [
+        "Then you can decide",
+        "what to keep, what to shred",
+        "and what to fully scan."
+      ],
+      "sk": "Potom viete rozhodnúť, čo uchovať, skartovať alebo plnohodnotne skenovať.",
+      "dur": 4840,
+      "partAt": [
+        0,
+        920,
+        2480
+      ],
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-Vysledok-1.wav"
+      }
+    }
+  ],
+  "C8-Pilot": [
+    {
+      "at": 400,
+      "text": "Either you catalogue it yourselves, or we process your archive for you, turnkey.",
+      "parts": [
+        "Either you catalogue it yourselves,",
+        "or we process your archive for you, turnkey."
+      ],
+      "sk": "Buď katalogizujete sami, alebo vám archív spracujeme na kľúč.",
+      "dur": 5320,
+      "partAt": [
+        0,
+        2100
+      ],
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-Kto-0.wav"
+      }
+    }
+  ],
+  "C8b-Technika": [
+    {
+      "at": 500,
+      "text": "The app works in line with your security requirements, online with us or on your own infrastructure.",
+      "parts": [
+        "The app works in line",
+        "with your security requirements,",
+        "online with us or on your own infrastructure."
+      ],
+      "sk": "Aplikácia funguje v súlade s vašimi bezpečnostnými požiadavkami, online u nás alebo na vašej infraštruktúre.",
+      "dur": 6160,
+      "partAt": [
+        0,
+        1120,
+        3040
+      ]
+    }
+  ],
+  "C8c-Vyzva": [
+    {
+      "at": 400,
+      "text": "Let's start with one box, free and with no obligation.",
+      "parts": [
+        "Let's start with one box,",
+        "free and with no obligation."
+      ],
+      "sk": "Začnime jednou krabicou, zadarmo a nezáväzne.",
+      "styleExtra": "Tone for this sentence: warm, confident and inviting, a clear call to action.",
+      "dur": 4240,
+      "partAt": [
+        0,
+        1900
+      ],
+      "src": {
+        "file": "public/vo-kratka-en/lines/K46-C8-Ponuka-0.wav"
+      }
+    }
+  ],
+  "C9-Outro": [
+    {
+      "at": 700,
+      "text": "Assetin Archives.",
+      "sk": "Assetin Archives.",
+      "dur": 1600,
+      "src": {
+        "file": "public/vo/lines/C9-Outro-0.wav"
+      },
+      "_note": "Nazov znie vo vsetkych jazykoch rovnako: slovenska nahravka."
+    }
+  ]
+}

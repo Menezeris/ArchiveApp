@@ -2,12 +2,13 @@ import React from 'react';
 import { AbsoluteFill, OffthreadVideo, staticFile, useCurrentFrame } from 'remotion';
 import { FOOTAGE_WINDOW, Rect, WindowFrame } from '../../components/Device';
 import { Step, StepsPanel } from '../../components/Steps';
-import { phases } from '../../copy/sk';
+import { phases } from '../../copy';
 import { cutDuration, cutTime, srcFrac } from '../../lib/cuts';
 import { voAt } from '../../components/Subtitles';
 import { settle, tween } from '../../lib/anim';
 import { loadFonts } from '../../lib/fonts';
 import { BRAND, FPS } from '../../theme';
+import { footageSrc } from '../../lib/lang';
 
 /**
  * Webove klipy (PR #21, produktova stranka assetin.sk): zmrazena kopia DesktopFootageClip zo stavu pred kolom 49
@@ -71,7 +72,7 @@ export const DesktopFootageClip: React.FC<{ src: string; seconds: number; steps:
         <WindowFrame at={win}>
           <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#fff' }}>
             <div style={camStyle}>
-            <OffthreadVideo src={staticFile(src)} muted style={{ width: '100%', height: '100%', objectFit: 'cover', transform: scroll ? `translateY(${-scrollDy(scroll, frame / FPS) * Math.max(cw / FOOT_W, ch / FOOT_H)}px)` : undefined }} />
+            <OffthreadVideo src={staticFile(footageSrc(src))} muted style={{ width: '100%', height: '100%', objectFit: 'cover', transform: scroll ? `translateY(${-scrollDy(scroll, frame / FPS) * Math.max(cw / FOOT_W, ch / FOOT_H)}px)` : undefined }} />
             {/* zvyraznenie ako fixkou (polopriehladna plocha, nakresli sa zlava doprava) alebo ramik */}
             {marks.map((m, i) => {
               const a = tw(m.from * 1000, 200) * (1 - tw(m.to * 1000 - 250, 250));

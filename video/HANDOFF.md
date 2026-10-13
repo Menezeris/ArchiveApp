@@ -3,6 +3,16 @@
 Tento súbor je pre novú session. Všetko dôležité je v gite na vetve `claude/progress-preview-vo1ocm`,
 od 27. 9. 2026 (po kole 48) aj so všetkými podkladmi: zdrojové záznamy `public/footage/`, vygenerované vety hlasu `public/vo/` a hudba Lyria `public/music/bed.wav`. Hlavná verzia je zlúčená aj do `main`. Jediný odvodený súbor mimo gitu je `public/music/bed_level.wav` (vytvorí ho `mix-music.mjs` cez `scripts/music_level.py`).
 
+## CZ a EN verzia (9. 10. 2026, vetva `claude/preklad-cz-en`)
+
+- Jazyk je prop `lang` (sk / cs / en), postup v README.md (sekcia Jazyky). SK render je po zmene pixel po pixeli rovnaky (88 kontrolnych snimok).
+- Hotove: texty v obraze (`src/copy/i18n.ts`), navrh hlasu a titulkov (`src/copy/vo.cs.json`, `vo.en.json`, `vo_kratka.cs.json`, `vo_kratka.en.json`), render a stills s `VIDEO_LANG`, kontrola `scripts/i18n-check.mjs`.
+- Caka sa na schvalenie prekladu rodenymi hovorcami: https://claude.ai/code/artifact/90bb2e4c-fcad-43fc-bc37-ccc1ba38473e (otazky: QR v cestine, britska / americka anglictina, "title page", "certificate", "turnkey").
+- Kolo 2 (9. 10.): Samuel rozhodol: skusobny hlas hned, QR v cestine "kju ar", britska anglictina, preklad kontroluje vlastny tim. Hotove skusobne LinkedIn videa `out/kratka/cs/K-LinkedIn_CS_1080p.mp4` (56,4 s) a `out/kratka/en/K-LinkedIn_EN_1080p.mp4` (60,1 s), -16 LUFS, prepis celeho mixu sedi so scenarom. Animacie LinkedIn podla casov slov CZ/EN (`src/copy/cues.json`).
+- Kolo 3 (9. 10.): kontrola prednesu `scripts/vo_judge.py`, v LinkedIn CZ/EN nahradene 3 slabsie vety. Dlhe CZ hotove: `out/mp4/cs/Full_CS_1080p.mp4` (150,5 s, -15,9 LUFS, prepis sedi), klipy `out/mp4/cs/`. Pozor: v scenari CZ/EN musi byt `_voice: true`, inak sa klipy renderuju bez hlasu. Dlhe EN: chybaju F4-Kontrola-1 a -2 (denna kvota Gemini), styri vety skratene (zmestia sa do klipov).
+- Kolo 4 (10. 10.): dlhe EN hotove: `out/mp4/en/Full_EN_1080p.mp4` (152,9 s, -16,0 LUFS, prepis sedi), hudba variant `F_en` (takty 46-47 dvakrat, tempo 0,987), C4-Cena v EN s 0,45 s zastavenim na konci (`byLang` v scenesList.ts). Pat EN viet skratenych (zapisane v dokumente). Pozor na dennu kvotu Gemini TTS (100): pri 429 opakovane pokusy mozno tiez minaju kvotu.
+- Potom: dlhe video rovnako (hlas `vo.cs.json` / `vo.en.json`, casy slov do `cue()` v scenach dlhej, hudba variant F), casy slov pre animacie podla nahravok CZ/EN, render s hudbou, review rodenym hovorcom. Zaznamy aplikacie v CZ/EN dodaju neskor (`src/footage/localized.json`).
+
 ## Posledná verzia (5. 10. 2026)
 
 - **Dlhé video: kolo 56, 150,6 s** (`out/mp4/Full_1080p.mp4`, review stránka https://claude.ai/artifact/R2aK5Ms7zxVvtKM4SjHCJa kolo 56), zlúčené do `main`. História kôl 49 až 56 je vo `FEEDBACK.md`.

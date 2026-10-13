@@ -4,6 +4,7 @@ import { PhoneFrame, WindowFrame } from '../components/Device';
 import { tween } from '../lib/anim';
 import { loadFonts } from '../lib/fonts';
 import { FONT, INK } from '../theme';
+import { footageSrc } from '../lib/lang';
 
 /**
  * FootageFrame: footage z aplikacie v ramiku zariadenia v style videa.
@@ -32,7 +33,7 @@ export const FootageFrame: React.FC<FootageProps> = ({ src, device, enter, exit,
   const outT = exit ? tween(frame, ((durationInFrames - Math.round(1.3 * fps)) / fps) * 1000, 900) : 0;
   const fill = Math.max(inT, outT);
   const content = src ? (
-    <OffthreadVideo src={src.startsWith('http') ? src : staticFile(src)} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+    <OffthreadVideo src={src.startsWith('http') ? src : staticFile(footageSrc(src))} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
   ) : (
     <div style={{ position: 'absolute', inset: 0, background: INK[100], display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: FONT.body, fontSize: 40, color: INK[500] }}>
       footage · {seconds} s

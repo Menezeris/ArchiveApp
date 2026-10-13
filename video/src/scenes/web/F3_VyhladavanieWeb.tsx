@@ -2,9 +2,10 @@ import React from 'react';
 import { Step } from '../../components/Steps';
 import { FOOTAGE_WINDOW_WIDE } from '../../components/Device';
 import { DesktopFootageClip, Mark, Tap, ZoomKey, markAt } from './WebFootage';
-import { phases } from '../../copy/sk';
+import { phases } from '../../copy';
 import { cutDuration, segStart, srcFrac } from '../../lib/cuts';
 import f3Scroll from '../../footage/f3-search-web.scroll.json';
+import { tr } from '../../copy/i18n';
 
 /**
  * Webovy klip F3-Vyhladavanie-Web (PR #21) ako bol pred zlucenim s dlhou verziou (kola 49 az 56): vlastny zostrih
@@ -28,10 +29,10 @@ const F3_SECONDS = F3_WEB_SECONDS;
 const VO_AT = [300, 1400, 2500, 3700];
 const vo = (i: number) => VO_AT[i];
 const F3_STEPS: Step[] = [
-  { from: 0, title: 'Kľúčové slovo' },
-  { from: vo(1), title: 'Záznam a podrobnosti' },
-  { from: vo(2), title: 'Cesta v hierarchii' },
-  { from: vo(3), title: 'Zvýraznené v metadátach' }, // kolo 41: bez vety o povodnom texte a bez QR (Samuel)
+  { from: 0, title: tr('Kľúčové slovo') },
+  { from: vo(1), title: tr('Záznam a podrobnosti') },
+  { from: vo(2), title: tr('Cesta v hierarchii') },
+  { from: vo(3), title: tr('Zvýraznené v metadátach') }, // kolo 41: bez vety o povodnom texte a bez QR (Samuel)
 ];
 const F3_TAPS: Tap[] = []; // detail zlozky sa otvara sam s vysledkom, klik v zazname nie je
 const spot = { spot: true };

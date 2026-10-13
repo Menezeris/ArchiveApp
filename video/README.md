@@ -143,3 +143,39 @@ Potom v repe Assetin.sk `npm run sync:archives` stiahne presne to, co manifest p
 (z `main`, alebo `-- --ref <vetva>`). Manifest cita `SCENE_LIST` v `src/scenesList.ts`,
 nazvy krokov `{ from, title }` v scenach, nahovor `src/copy/vo.json` a dlzky priamo
 z MP4. Ak manifest nesedi s rendrom (SHA), sync skonci chybou a treba export spustit znova.
+
+## Jazyky: CZ a EN (od oktobra 2026)
+
+Ta ista kompozicia sa renderuje v slovencine, cestine alebo anglictine; obraz, strih, pauzy a hudba ostavaju rovnake,
+meni sa hlas, titulky a texty v obraze. Jazyk je prop `lang` (`src/lib/lang.ts`), bez neho slovencina (SK vystup sa nemeni).
+
+- **Texty v obraze:** v kode `tr('slovensky text')`, preklady v `src/copy/i18n.ts` (kluc = slovensky text). Objekty
+  zo `sk.ts` (captions, phases, offer ...) sceny beru zo `src/copy/index.ts` uz prelozene. Udaje dokumentov
+  (nazov stavby, typ, text so slovom "vodovod") sa neprekladaju, zodpovedaju zaznamom z aplikacie.
+- **Hlas a titulky:** `src/copy/vo.<lang>.json` (dlha) a `vo_kratka.<lang>.json` (len K-LinkedIn-46), rovnake klipy a `at`
+  ako slovensky scenar, `sk` = povodna veta. Prvy navrh vyrobil `python3 scripts/vo_lang_init.py` (bez `--force`
+  neprepise upravene subory). Kym je `_voice: false`, video sa renderuje bez hlasu a `dur`/`partAt` su slovenske.
+- **Kontrola:** `node scripts/i18n-check.mjs` (chybajuci preklad, zmenena slovenska veta, iny pocet casti titulkov).
+- **Hlas:** `node scripts/vo.mjs --engine gemini --script src/copy/vo_kratka.cs.json --dir public/vo-kratka-cs`
+  (dlha: `--script src/copy/vo.cs.json --dir public/vo-cs`), potom `python3 scripts/vo_check.py --script ... --dir ...`
+  a v scenari `_voice: true`. Scenare CZ/EN maju `_lang` (jazyk prepisu vo `vo_check.py` a casov slov vo `vo_words.py`).
+  Nazov "Assetin Archives." v zavere je vo vsetkych jazykoch slovenska nahravka (Gemini ho v CZ/EN vyslovuje zle).
+- **Casy slov pre animacie** (karta, ikona, nalepka pri vyslovenom slove): v kode `cue('KTO_W', { ...slovenske hodnoty })`
+  (`src/lib/lang.ts`), CZ/EN hodnoty v `src/copy/cues.json` z `python3 scripts/vo_cues.py` (mapa slov v skripte). Hotove
+  pre K-LinkedIn-46; v dlhom videu (konstanty `W`, `W0`, `*_WORDS` v scenach, `VO_AT` vo web klipoch) zatial slovenske.
+- **Hudba LinkedIn:** varianty `K46_cs` (tempo 1,0174) a `K46_en` (takt 14 dvakrat, tempo 0,9912) v `src/copy/music_kratka.json`,
+  zaverecny akord 70 ms pred logom ako v SK: `python3 scripts/music_edit.py --cfg src/copy/music_kratka.json --variant K46_en`, potom
+  `node scripts/mix-music.mjs --video out/kratka/en/K-LinkedIn_voice.mp4 --out out/kratka/en/K-LinkedIn_EN_1080p.mp4 --cfg src/copy/music_kratka.json --variant K46_en --music public/music/bed_kratka46_en_edit.wav --gain -7 --range 0`
+  (CZ: `--variant K46_cs --music public/music/bed_kratka46_edit.wav`). Pri inej dlzke filmu prepocitat tempo.
+- **Render:** `VIDEO_LANG=cs npm run render` -> `out/mp4/cs/`, stills `VIDEO_LANG=cs node scripts/stills-fast.mjs ...`
+  -> `out/stills/cs/`; Full s hudbou `node scripts/mix-music.mjs --variant F --clips out/mp4/cs --out out/mp4/cs/Full_1080p.mp4 ...`.
+  LinkedIn: `npx remotion render K-LinkedIn-46 out/kratka/cs/K-LinkedIn_voice.mp4 --props='{"lang":"cs"}'`, potom mix ako pri SK.
+- **Zaznamy aplikacie v CZ/EN** (dodaju sa neskor): `public/footage/<lang>/<subor>` a nazov suboru do
+  `src/footage/localized.json`; bez zapisu sa pouzije slovensky zaznam. Zostrih na rovnaku dlzku ako SK.
+- **Dlhe video:** `VIDEO_LANG=cs bash scripts/render.sh` (+ webove klipy), `node scripts/clip-fit.mjs cs` (zmesti sa hlas do klipov),
+  Full `node scripts/mix-music.mjs --variant F --music public/music/bed_dlha_edit_f.wav --clips out/mp4/cs --out out/mp4/cs/Full_CS_1080p.mp4`;
+  EN `--variant F_en --music public/music/bed_dlha_edit_f_en.wav` (najprv `music_edit.py --cfg src/copy/music.json --variant F_en`).
+  Kontrola prednesu viet: `python3 scripts/vo_judge.py --script ... --dir ...`; foneticky text len pre hlas: `ttsText` vo vete.
+- **Web v zavere:** CZ `www.assetin.cz`, EN `www.assetin.sk`.
+- Preklad na schvalenie rodenymi hovorcami: dokument "Preklad videa SK / CZ / EN"
+  (https://claude.ai/code/artifact/90bb2e4c-fcad-43fc-bc37-ccc1ba38473e).

@@ -4,8 +4,9 @@ import { ArchiveBox } from './ArchiveBox';
 import { FreePill } from './ArchivesBrand';
 import { OfferIcon, OfferIconKind } from './ArchivesIcons';
 import { pop, settle } from '../lib/anim';
-import { sk } from '../copy/sk';
+import { sk } from '../copy';
 import { BRAND, FONT, INK, NAVY } from '../theme';
+import { tr } from '../copy/i18n';
 
 /**
  * Zaverecne prvky kratkej verzie K46 (kola 34 az 54, scenes/kratka/LinkedIn.tsx: VysRow, VysTile, VysIcon, KtoCard,
@@ -112,12 +113,12 @@ export const FirstStep: React.FC<{ lineAt: number; w: { krabicou: number; zadarm
     <>
       <ArchiveBox state={{ lid: 0, binders: [0, 0, 0], qr: [0, 0, 0, sticker] }} size={640} style={{ position: 'absolute', left: 230, top: 170, opacity: box, transform: `translateY(${(1 - box) * 30}px)` }} />
       <div style={{ position: 'absolute', left: 980, top: 250, fontFamily: FONT.display, fontWeight: 800, fontSize: 92, lineHeight: 1.04, letterSpacing: '-0.02em', color: INK[900], opacity: head, transform: `translateY(${(1 - head) * 24}px)` }}>
-        Začnime
+        {tr('Začnime')}
         <br />
-        <span style={{ color: BRAND[600] }}>jednou krabicou</span>
+        <span style={{ color: BRAND[600] }}>{tr('jednou krabicou')}</span>
       </div>
       <div style={{ position: 'absolute', left: 980, top: 500, display: 'flex', opacity: Math.min(1, free * 1.5), transform: `scale(${0.85 + 0.15 * free})`, transformOrigin: 'left center' }}>
-        <FreePill text="Zadarmo a nezáväzne" />
+        <FreePill text={tr('Zadarmo a nezáväzne')} />
       </div>
       <div style={{ position: 'absolute', left: 980, top: 650, display: 'flex', opacity: web, transform: `translateY(${(1 - web) * 12}px)` }}>
         <div style={{ padding: '12px 32px', borderRadius: 40, border: `2px solid ${INK[200]}`, fontFamily: FONT.display, fontWeight: 700, fontSize: 44, letterSpacing: '0.01em', color: INK[800] }}>{sk.S12.web}</div>

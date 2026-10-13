@@ -6,8 +6,9 @@ import { Camera } from '../lib/camera';
 import { Binder, Cabinet, Chair, Desk, IsoBox, Roll, iso } from '../lib/iso';
 import { Floor, Person, QuestionMark } from '../components/Illustrations';
 import { pop, settle, tween } from '../lib/anim';
-import { captions } from '../copy/sk';
+import { captions } from '../copy';
 import { BRAND, CM, ISO, SAFE } from '../theme';
+import { tr } from '../copy/i18n';
 
 /**
  * C2 - Kancelaria: stol so stolickou, skrina. Panacik pride ku skrini,
@@ -83,7 +84,7 @@ export const C2_Kancelaria: React.FC = () => {
           <Floor x={-40} y={-40} w={520} d={420} fill="#263246" edge="#131F31" />
           <Desk x={40} y={160} />
           <Chair x={90} y={248} />
-          <Lying x={60} y={170} z={75} label={['FAKTÚRY', '2021']} />
+          <Lying x={60} y={170} z={75} label={[tr('FAKTÚRY'), '2021']} />
           <Papers x={104} y={168} z={75} h={5} />
           <Papers x={112} y={186} z={80} h={3} />
 

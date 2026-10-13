@@ -91,7 +91,8 @@ for (const [clip, lines] of Object.entries(vo)) {
   lines.forEach((l, i) => {
     const file = `${DIR}/lines/${clip}-${i}.wav`;
     if (!reuse || !existsSync(file)) {
-      const say = engine === 'gemini' ? l.text : (l.say ?? l.text);
+      // `ttsText` (CZ/EN): foneticky text len pre Gemini, ked model inak vyslovi skratku zle (titulky ostavaju z `text`)
+      const say = engine === 'gemini' ? (l.ttsText ?? l.text) : (l.say ?? l.text);
       if (engine === 'gemini') {
         const gv = args.includes('--voice') ? voice : 'voice_7ws1j8pd39cu';
         // kolo 47: veta moze mat vlastny doplnok pokynu (`styleExtra`, napr. vyslovnost nazvu), prida sa k `_style`
@@ -130,7 +131,7 @@ for (const [clip, lines] of Object.entries(vo)) {
     const size = statSync(file).size;
     const c = existsSync(cache) ? JSON.parse(readFileSync(cache, 'utf8')) : null;
     if (c && c.text === l.text && c.size === size) cached[file] = c.words;
-    else todo.push({ file, text: l.text, cache, size });
+    else todo.push({ file, text: l.text, cache, size, lang: vo._lang ?? 'sk' }); // CZ/EN: `_lang` v scenari (vo.cs.json ...)
   });
 }
 if (todo.length) {

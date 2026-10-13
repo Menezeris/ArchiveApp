@@ -9,8 +9,9 @@ import { Camera } from '../lib/camera';
 import { Binder, Carton, IsoBox, QrOnLeftFace, QrOnTopFace, ShelfFrame, iso, pts } from '../lib/iso';
 import { drawProps, pop, settle, tween } from '../lib/anim';
 import { Check } from '../components/Illustrations';
-import { captions, phases } from '../copy/sk';
+import { captions, phases } from '../copy';
 import { BRAND, FONT, INK, ISO, SAFE } from '../theme';
+import { tr } from '../copy/i18n';
 
 /**
  * C7 - Hierarchia + sken. Zacina tou istou krabicou ako C5 (zatvorena, s QR,
@@ -42,7 +43,7 @@ const SVG_AT = { x: 260, y: SAFE.illoTop };
 const SHELF_C = { x: SVG_AT.x + NODE_X - 3, y: SVG_AT.y + NODES_Y[0] + 20 - 47 };
 /** Kroky vpravo (rovnaky jazyk ako v C5 a pri footage). */
 const C7_STEPS = [
-  { from: 600, title: 'Miesto v hierarchii' },
+  { from: 600, title: tr('Miesto v hierarchii') },
 ];
 
 export const C7_Hierarchia: React.FC = () => {
@@ -172,7 +173,7 @@ export const C7_Hierarchia: React.FC = () => {
           {NODES_Y.map((ny, i) => (
             <g key={`t${i}`}>
               <text x={NODE_X + 380} y={ny + 62 + (i === 0 ? 0 : i === 1 ? 20 : -10)} fontFamily={FONT.body} fontSize={30} fontWeight={600} fill={INK[700]} opacity={(i === 1 ? zoomOut : lvl(i)) * zoomOut}>
-                {['Polica', 'Krabica', 'Zložka', 'Dokument'][i]}
+                {[tr('Polica'), tr('Krabica'), tr('Zložka'), tr('Dokument')][i]}
               </text>
               <text x={NODE_X + 380} y={ny + 98 + (i === 0 ? 0 : i === 1 ? 20 : -10)} fontFamily="ui-monospace, Menlo, monospace" fontSize={22} fill={INK[500]} opacity={qr(i) * zoomOut}>
                 {['PO_01', 'KR_01', 'ZL_12', 'DK_01'][i]}

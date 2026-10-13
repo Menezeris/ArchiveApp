@@ -1,0 +1,5 @@
+{
+  "_": "Zaznamy z aplikacie v cestine / anglictine (public/footage/<lang>/<subor>). Po dodani a zostrihu sem zapisat nazov suboru, napr. \"cs\": [\"f3-search.mp4\"]; bez zapisu sa pouzije slovensky zaznam (src/lib/lang.ts footageSrc).",
+  "cs": [],
+  "en": []
+}
