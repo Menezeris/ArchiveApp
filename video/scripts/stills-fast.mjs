@@ -2,6 +2,7 @@
 // Pouzitie: node scripts/stills-fast.mjs C4-Cena:300,420 C9-Outro:40 ...   -> out/stills/<ID>_f<frame>.png
 // Bez argumentov: frame-y zo `stills` v src/scenesList.ts pre vsetky klipy SCENE_LIST.
 // Jazyk: VIDEO_LANG=cs|en (props lang, vystup out/stills/<lang>/), iny priecinok: OUT=cesta.
+// NAMED=1: nazvy ako scripts/stills.sh (<ID>_1.png, _2 ...) - stills pre web v CZ/EN (export-web.mjs --lang).
 import { bundle } from '@remotion/bundler';
 import { renderStill, selectComposition } from '@remotion/renderer';
 import { mkdirSync, readFileSync } from 'node:fs';
@@ -26,9 +27,10 @@ const serveUrl = await bundle({ entryPoint: path.resolve('src/index.ts') });
 const browserExecutable = process.env.REMOTION_CHROME ?? null;
 for (const { id, frames } of jobs) {
   const composition = await selectComposition({ serveUrl, id, browserExecutable, inputProps });
-  for (const f of frames) {
+  for (const [i, f] of frames.entries()) {
     const frame = Math.min(composition.durationInFrames - 1, f);
-    await renderStill({ serveUrl, composition, frame, inputProps, output: `${out}/${id}_f${frame}.png`, browserExecutable, overwrite: true });
+    const name = process.env.NAMED ? `${id}_${i + 1}` : `${id}_f${frame}`;
+    await renderStill({ serveUrl, composition, frame, inputProps, output: `${out}/${name}.png`, browserExecutable, overwrite: true });
   }
   console.log(`${id}: ${frames.join(', ')} (${(composition.durationInFrames / composition.fps).toFixed(2)} s)`);
 }

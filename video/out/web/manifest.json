@@ -1,6 +1,7 @@
 {
   "$comment": "Generuje `npm run export:web` (video/scripts/export-web.mjs) - needitovat rucne.",
   "schema": 1,
+  "lang": "sk",
   "updated": "2026-10-08",
   "video": {
     "width": 1920,
