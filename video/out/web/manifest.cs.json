@@ -26,6 +26,23 @@
       }
     }
   },
+  "short": {
+    "seconds": 55.9,
+    "files": {
+      "1080p": {
+        "path": "out/kratka/cs/K-LinkedIn_CS_1080p.mp4",
+        "bytes": 7643559,
+        "sha256": "e759e71263fb3e3aa71f37e317aa07980fb8946e2ddc054c2892214fc00a0546",
+        "changed": "2026-10-09"
+      },
+      "540p": {
+        "path": "out/kratka/cs/K-LinkedIn_CS_preview_540p.mp4",
+        "bytes": 1973951,
+        "sha256": "d17ef8d8448a3bd3bc39d492ab24688ad4fadc1cdffe1d9ebef71014c41514d0",
+        "changed": "2026-10-09"
+      }
+    }
+  },
   "clips": [
     {
       "id": "C1-Intro",

@@ -203,6 +203,13 @@ const full = {
   '1080p': file(`out/mp4${SUB}/${FULL}_1080p.mp4`),
   '540p': file(`out/mp4${SUB}/${FULL}_preview_540p.mp4`, { optional: true }),
 };
+// kratke video (LinkedIn, 4:5) pre prepinac Rychly prehlad / Cele video na webe; SK K-LinkedIn-46, CZ/EN K-LinkedIn_<LANG>
+const SHORT = LANG === 'sk' ? 'out/kratka/K-LinkedIn-46' : `out/kratka/${LANG}/K-LinkedIn_${LANG.toUpperCase()}`;
+const shortHd = file(`${SHORT}_1080p.mp4`, { optional: true });
+const short = shortHd
+  ? { seconds: mp4Seconds(shortHd.path), files: Object.fromEntries(Object.entries({ '1080p': shortHd, '540p': file(`${SHORT}_preview_540p.mp4`, { optional: true }) }).filter(([, f]) => f)) }
+  : null;
+
 const manifest = {
   $comment: 'Generuje `npm run export:web` (video/scripts/export-web.mjs) - needitovat rucne.',
   schema: SCHEMA,
@@ -216,6 +223,7 @@ const manifest = {
     seconds: mp4Seconds(full['1080p'].path),
     files: Object.fromEntries(Object.entries(full).filter(([, f]) => f)),
   },
+  ...(short ? { short } : {}),
   clips,
   transcript,
 };
@@ -223,7 +231,7 @@ const manifest = {
 mkdirSync(dirname(OUT), { recursive: true });
 writeFileSync(OUT, `${JSON.stringify(manifest, null, 2)}\n`);
 console.log(
-  `export-web: ${clips.length} klipov, plne video ${manifest.full.seconds} s${manifest.video.sound ? ' s nahovorom' : ''}, ` +
+  `export-web: ${clips.length} klipov, plne video ${manifest.full.seconds} s${manifest.video.sound ? ' s nahovorom' : ''}${short ? `, kratke ${short.seconds} s` : ''}, ` +
     `${transcript.length} sekcii prepisu -> ${OUT.slice(ROOT.length + 1)}`,
 );
 if (missing.length) console.log(`  bez klipu v jazyku ${LANG}: ${missing.join(', ')}`);
