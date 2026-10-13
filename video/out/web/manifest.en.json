@@ -1,0 +1,875 @@
+{
+  "$comment": "Generuje `npm run export:web` (video/scripts/export-web.mjs) - needitovat rucne.",
+  "schema": 1,
+  "lang": "en",
+  "updated": "2026-10-13",
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "sound": true
+  },
+  "full": {
+    "seconds": 152.93,
+    "files": {
+      "1080p": {
+        "path": "out/mp4/en/Full_EN_1080p.mp4",
+        "bytes": 20544497,
+        "sha256": "411fb31c2de81c3da0e61fb770a750eb967332829398f41da0c6851ecbf2bb1f",
+        "changed": "2026-10-10"
+      },
+      "540p": {
+        "path": "out/mp4/en/Full_EN_preview_540p.mp4",
+        "bytes": 5848335,
+        "sha256": "ac60c2c37e73fd705106e7f0532eafffc99c2eda34a1e97dbad1c5f80721c904",
+        "changed": "2026-10-10"
+      }
+    }
+  },
+  "short": {
+    "seconds": 60.3,
+    "files": {
+      "1080p": {
+        "path": "out/kratka/en/K-LinkedIn_EN_1080p.mp4",
+        "bytes": 7581160,
+        "sha256": "716276e43c79da466e283477619c7f4d48395a7f3c9db79d29bdbd1819f5e47b",
+        "changed": "2026-10-09"
+      },
+      "540p": {
+        "path": "out/kratka/en/K-LinkedIn_EN_preview_540p.mp4",
+        "bytes": 2026669,
+        "sha256": "d8145f2badb641fe1eaba2c4b2d0e4c3eb44b1447f6e833a318367a6ec1a28a8",
+        "changed": "2026-10-09"
+      }
+    }
+  },
+  "clips": [
+    {
+      "id": "C1-Intro",
+      "order": 1,
+      "title": "Intro",
+      "seconds": 3.6,
+      "file": {
+        "path": "out/mp4/en/C1-Intro.mp4",
+        "bytes": 264266,
+        "sha256": "2685cd5336bfae8bbec967118c6378926c77bcd780be6607e6cdd0e73f619d33",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/C1-Intro_1.png",
+          "bytes": 937083,
+          "sha256": "23edc16b3047abcf47b206c3e3c06385ab63e1d359e18dbeb9b94b783322af09",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C1-Intro_2.png",
+          "bytes": 937348,
+          "sha256": "b9a5e361c088eef94da1331fce8d86d2ce0ff631ea778de15d98669c8bc9fcc2",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C1-Intro_3.png",
+          "bytes": 1045985,
+          "sha256": "8543537278c14c5567b4cd41e623ab0768c3c5de473ede34b3d91b5016d398d1",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": []
+    },
+    {
+      "id": "C2-Hladanie",
+      "order": 2,
+      "title": "Searching",
+      "seconds": 11.82,
+      "file": {
+        "path": "out/mp4/en/C2-Hladanie.mp4",
+        "bytes": 1901507,
+        "sha256": "536a276c17538c8e19d3a11228143a83b5f360f66540ef78cafbc754f6cf47ce",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/C2-Hladanie_1.png",
+          "bytes": 669732,
+          "sha256": "ec4f86579d8277ad98819995b9302a8351269c46e96441de0eb6c65987fb55ab",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C2-Hladanie_2.png",
+          "bytes": 669139,
+          "sha256": "019d80e676c3c439f7bc8cc3060f0ed0d8418ccd50652298a541edeeb9b5bcf0",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C2-Hladanie_3.png",
+          "bytes": 919081,
+          "sha256": "e9f1c2cc50a496ff1174530bbcd3d85a9be5c8c70aeab00e0bef4baf01c671d8",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C2-Hladanie_4.png",
+          "bytes": 916416,
+          "sha256": "12134e68a3afd1c175ccb957e9aea1d97675e712e7277a494fc9161f2c79404b",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": []
+    },
+    {
+      "id": "C4-Cena",
+      "order": 3,
+      "title": "The cost of the problem",
+      "seconds": 20.05,
+      "file": {
+        "path": "out/mp4/en/C4-Cena.mp4",
+        "bytes": 1977032,
+        "sha256": "d8f3b00da6e17893a5379276ae9916afe90b9d1b5bcf8dd7cf67db8f3e353077",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/C4-Cena_1.png",
+          "bytes": 924590,
+          "sha256": "a51f7d76209b93c711aa63bd26c613e341d71b8edeb73a84cbf7e13bfdc8ffc3",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C4-Cena_2.png",
+          "bytes": 940145,
+          "sha256": "eebae56be57e69628d23c7fdddce0b9a73dcaf738d4541164f47d8d5c6f6381b",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C4-Cena_3.png",
+          "bytes": 891403,
+          "sha256": "1a6071c4599aaf5db5c8ef53a1dafe92c4a61e1962665b4f4fb25118716b3af6",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C4-Cena_4.png",
+          "bytes": 80603,
+          "sha256": "6c4b14232eb26191907abdf7d7245125264715d6a472bc74de3a886807878c77",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C4-Cena_5.png",
+          "bytes": 108360,
+          "sha256": "0499ec927ac847a7f1f314adff70152440305a0d5e82b1dc1a137fd9aab7e1f0",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": []
+    },
+    {
+      "id": "C4b-Hacik",
+      "order": 4,
+      "title": "C4b-Hacik",
+      "seconds": 7.68,
+      "file": {
+        "path": "out/mp4/en/C4b-Hacik.mp4",
+        "bytes": 1286437,
+        "sha256": "49df2c99b3821d64e27bd185055b9107846ccf443c9e61bb869085ac82177af8",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/C4b-Hacik_1.png",
+          "bytes": 59111,
+          "sha256": "7ac327cf8ad6c77a1c9539521a3fa5f2972350b3bd21a5ab60bbbe8099f21061",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C4b-Hacik_2.png",
+          "bytes": 288093,
+          "sha256": "9d26e0b859da24010c02fa3d2e0b515334b22411e921e10fcd134a10c8149c26",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C4b-Hacik_3.png",
+          "bytes": 298103,
+          "sha256": "49281fc93e9514699a4edfe07a6639304b13a95b2bbb1c22db97e00864b770db",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C4b-Hacik_4.png",
+          "bytes": 310206,
+          "sha256": "c892411d1206a0860b4200d1d4bc5357955e46a43b6853a59a478cd64de24eec",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Scanning everything is costly",
+          "line": ""
+        },
+        {
+          "title": "Cataloguing: title page only",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "C5-Teren",
+      "order": 5,
+      "title": "On site",
+      "seconds": 16.62,
+      "file": {
+        "path": "out/mp4/en/C5-Teren.mp4",
+        "bytes": 2020888,
+        "sha256": "fe1cbe19ca5fdb0b600d7dfe298af0127f4c494f34942e0d401d1b27421b7522",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/C5-Teren_1.png",
+          "bytes": 130413,
+          "sha256": "f3dec50b9781aeef8185115c6f784e156814e682a90e333c9086ab40f55ec9b3",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C5-Teren_2.png",
+          "bytes": 161812,
+          "sha256": "ecb1bee7ca135772cf8a98e5ff7bf665550ea8b5811c4fd4e13c3ee3fcff02b2",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C5-Teren_3.png",
+          "bytes": 205764,
+          "sha256": "88635f968d108a20638a24cafd62eedde7ac9bb0a9fadd658f550702423ea129",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C5-Teren_4.png",
+          "bytes": 401598,
+          "sha256": "b70ea11f1daac4334975c6648e5556d520ac3c2214d13b740e4f8fd1bb2b6a79",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Physical documents",
+          "line": ""
+        },
+        {
+          "title": "Attach a QR code",
+          "line": ""
+        },
+        {
+          "title": "Photograph the title page",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "F1-Sken",
+      "order": 6,
+      "title": "On the phone",
+      "seconds": 14.76,
+      "file": {
+        "path": "out/mp4/en/F1-Sken.mp4",
+        "bytes": 2541324,
+        "sha256": "ab0606e122c079270f07297442779167c5720c2f9b7556ec3786ec675e186269",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/F1-Sken_1.png",
+          "bytes": 290623,
+          "sha256": "4ae0a22408e60a94fdc109130546e04faecabea0c3ad32588d4e3deed5fd8393",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F1-Sken_2.png",
+          "bytes": 295930,
+          "sha256": "f4658da6636123859d7e2e9acfe06e49fe6d15bd62d30db8d0111b960e82e13d",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F1-Sken_3.png",
+          "bytes": 472903,
+          "sha256": "df0cfc0b9307d043ba6b290abd7764f968ddb4ed448c0d1703812139452e34d5",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Choose the item type",
+          "line": ""
+        },
+        {
+          "title": "Place in the hierarchy",
+          "line": ""
+        },
+        {
+          "title": "Photograph the title page",
+          "line": ""
+        },
+        {
+          "title": "Digital record",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "F4-Kontrola",
+      "order": 7,
+      "title": "Review",
+      "seconds": 19.39,
+      "file": {
+        "path": "out/mp4/en/F4-Kontrola.mp4",
+        "bytes": 5112567,
+        "sha256": "c868b5133bc63bae7a8e9b17fa955d4821d51739ce3452f37244ae3effe0a429",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/F4-Kontrola_1.png",
+          "bytes": 178502,
+          "sha256": "cde0c9ba44051461b21b115e75bfb30c32e4cdf1cc917750789a3db4eb796db1",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F4-Kontrola_2.png",
+          "bytes": 518847,
+          "sha256": "d2464c94a8b39d32ebf2088393f353de065df52cce0428ba79983c5978d6db95",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F4-Kontrola_3.png",
+          "bytes": 606177,
+          "sha256": "7088c95d8dd8f86398ac005b2527ac9a8742b73391643561956e95075a5b88a9",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Suggested data",
+          "line": ""
+        },
+        {
+          "title": "Check and confirm",
+          "line": ""
+        },
+        {
+          "title": "Correct the suggestion",
+          "line": ""
+        },
+        {
+          "title": "Verified record",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "F3-Vyhladavanie",
+      "order": 8,
+      "title": "Search",
+      "seconds": 11.16,
+      "file": {
+        "path": "out/mp4/en/F3-Vyhladavanie.mp4",
+        "bytes": 2748841,
+        "sha256": "40a2c5fc634bc93ecd4e2cef9e5ba3362760363f9dfee7e80d5f837ae251a50a",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/F3-Vyhladavanie_1.png",
+          "bytes": 398733,
+          "sha256": "4d4043d835f9d59f300c04cdc0a46f9527b7425ef7daac3ec6f36457c0c10f29",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F3-Vyhladavanie_2.png",
+          "bytes": 299702,
+          "sha256": "46a771b8dec1f635f25f9eedf5b7845f00269dc06ddab4a738dfabe654628fa6",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F3-Vyhladavanie_3.png",
+          "bytes": 371021,
+          "sha256": "5c8f88d00d98795f403b0c3c382f799785d9385e8a1686ce61fb4dabc5340a5c",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F3-Vyhladavanie_4.png",
+          "bytes": 383582,
+          "sha256": "a23376c862a21ef1d2ef70a0506e443904486d545de12b3e32cc3f8a1533fe60",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Type a keyword",
+          "line": ""
+        },
+        {
+          "title": "Path to the item",
+          "line": ""
+        },
+        {
+          "title": "Extracted data",
+          "line": ""
+        },
+        {
+          "title": "Highlighted in the metadata",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "C8a-Vysledok",
+      "order": 9,
+      "title": "C8a-Vysledok",
+      "seconds": 11.65,
+      "file": {
+        "path": "out/mp4/en/C8a-Vysledok.mp4",
+        "bytes": 939403,
+        "sha256": "7d3e24b4b8f6bfcddeb52d86fe17e9bdf5a3f94c7e685c3449d4de3391def866",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/C8a-Vysledok_1.png",
+          "bytes": 93775,
+          "sha256": "3dfe2d7bac6baad5f66d91c9a0d274ac61f9a4b93df4a7556ff7d3c511cbf794",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C8a-Vysledok_2.png",
+          "bytes": 120245,
+          "sha256": "0e47553185620fc6ec3878674c962bf507d6a0300fdabc2dadca7769db278d13",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C8a-Vysledok_3.png",
+          "bytes": 149711,
+          "sha256": "bcf537401883512cc676d24242a5b3c6772b89778836e3e5b0040cb3b96535f7",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C8a-Vysledok_4.png",
+          "bytes": 169270,
+          "sha256": "db8d9777aa5c40dc335246a7e55db24b7343dd945b2c6574469a74edc0744d93",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Cataloguing result",
+          "line": ""
+        },
+        {
+          "title": "What next",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "C8-Pilot",
+      "order": 10,
+      "title": "How to start",
+      "seconds": 6.68,
+      "file": {
+        "path": "out/mp4/en/C8-Pilot.mp4",
+        "bytes": 548879,
+        "sha256": "d750a52b3a407c02d98573399cfe352dbdd2a017bbbb0fcbadb8b65e63ab571b",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/C8-Pilot_1.png",
+          "bytes": 114228,
+          "sha256": "8f0b9d503490efe8d131bebf2c40458fdf4ce17278e28e4db40d7b8a09872f7a",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C8-Pilot_2.png",
+          "bytes": 114329,
+          "sha256": "27b71a1503da1ca550532a1c193562b3c8d62a27fa72cc5d8a499d01974f5d30",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C8-Pilot_3.png",
+          "bytes": 155766,
+          "sha256": "faa1cf512409757b0cc2dad7da19cbcea5972265a0972a048f92b17dabf0034a",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C8-Pilot_4.png",
+          "bytes": 155512,
+          "sha256": "3ba4d5f291a30617ed261426c9c8532028f336081d2b0342649e2016ac6e2d70",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C8-Pilot_5.png",
+          "bytes": 155512,
+          "sha256": "3ba4d5f291a30617ed261426c9c8532028f336081d2b0342649e2016ac6e2d70",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": [
+        {
+          "title": "On your own, or turnkey",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "C8b-Technika",
+      "order": 11,
+      "title": "C8b-Technika",
+      "seconds": 8.66,
+      "file": {
+        "path": "out/mp4/en/C8b-Technika.mp4",
+        "bytes": 725314,
+        "sha256": "a68f51b74aae1eb21d5dffc0ef6b0942c37c94de97b9bf10615a1cf73939b428",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/C8b-Technika_1.png",
+          "bytes": 102622,
+          "sha256": "60b02a2fd8301accf888b92762e5ee8ce2a9120cbd72eb53524d048ccc0f9b8c",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C8b-Technika_2.png",
+          "bytes": 160923,
+          "sha256": "821982541fa4fbf7d76b046877da1a190d4c1ad6d0dee4654750e1f083f1b21e",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C8b-Technika_3.png",
+          "bytes": 144274,
+          "sha256": "690645aac7529df089ea89ce40eab07f36b097b89c38b596b64120881f7e48f2",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Technical solution",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "C8c-Vyzva",
+      "order": 12,
+      "title": "C8c-Vyzva",
+      "seconds": 5.18,
+      "file": {
+        "path": "out/mp4/en/C8c-Vyzva.mp4",
+        "bytes": 454218,
+        "sha256": "50c93f4ce0f7cb87c562165efd909f62851b46bc2d8bae93c6f2978f207d04d2",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/C8c-Vyzva_1.png",
+          "bytes": 93832,
+          "sha256": "a9894492d7ba66290e033ccbef495f53d1134c92e531394877befab2ad3ebe8b",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C8c-Vyzva_2.png",
+          "bytes": 96547,
+          "sha256": "149e9f9e9e5b55e26d37a585ef64807ad60bc7fc61f7e66b5606666a9479c5fa",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C8c-Vyzva_3.png",
+          "bytes": 183340,
+          "sha256": "5b74a9037985234762a7d568767db972c76f034035f30dcb045c9f22420a275e",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": [
+        {
+          "title": "First step",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "C9-Outro",
+      "order": 13,
+      "title": "Conclusion",
+      "seconds": 4.84,
+      "file": {
+        "path": "out/mp4/en/C9-Outro.mp4",
+        "bytes": 527320,
+        "sha256": "8d523d8b69e2e40ea6a5b38d9e88adcf907a72c344ad90b58ed6c1b23de82b6a",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/C9-Outro_1.png",
+          "bytes": 1444618,
+          "sha256": "b4e55b1824d15428c8edb01985b131a3acf77481e7fb44286a17f8d1ad189993",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C9-Outro_2.png",
+          "bytes": 1427555,
+          "sha256": "c4fe524b56186241f14b78f0aee8afbb1229c413bb934daaa8afac42eead6a1b",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": []
+    },
+    {
+      "id": "C7-Hierarchia",
+      "order": 14,
+      "title": "C7-Hierarchia",
+      "seconds": 5.65,
+      "file": {
+        "path": "out/mp4/en/C7-Hierarchia.mp4",
+        "bytes": 753374,
+        "sha256": "90830310391c3247c69ea9a6335c10a88c3a7d9463f8a6214edbc10f1467aa29",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/C7-Hierarchia_1.png",
+          "bytes": 67973,
+          "sha256": "2b2797cd4e3f721300d396049436f9fb865129da33e020f983fe211c477f909c",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C7-Hierarchia_2.png",
+          "bytes": 132865,
+          "sha256": "5f245de41bb82d2ee11794723ed9b929348c964cb76d4c9749817101174cedbc",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/C7-Hierarchia_3.png",
+          "bytes": 121045,
+          "sha256": "f078cb662d3799520be454e2e1f03816933d468ff7ba708078f5b970615367d1",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Place in the hierarchy",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "F4-Navrh",
+      "order": 15,
+      "title": "F4-Navrh",
+      "seconds": 5.8,
+      "file": {
+        "path": "out/mp4/en/F4-Navrh.mp4",
+        "bytes": 1371450,
+        "sha256": "39ee016df90d1e8e1e3b97459971a265976585ba2ffe8eef33388fa195772c8c",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/F4-Navrh_1.png",
+          "bytes": 483291,
+          "sha256": "413b84a3e34eaa65c3afe3d5d0275b96d48e4820797e7452eef6fd9130ff70d7",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F4-Navrh_2.png",
+          "bytes": 459020,
+          "sha256": "7d8a998ccb10fe833515521b62acf35222d22ea1c132451dbe6b2d799e5a954e",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F4-Navrh_3.png",
+          "bytes": 366903,
+          "sha256": "7b2944f437664b46e54442fef6887a574957578b60acfe586cd7eb4b120e869f",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Photo of the title page",
+          "line": ""
+        },
+        {
+          "title": "The suggested data match",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "F4-Kontrola-Web",
+      "order": 16,
+      "title": "F4-Kontrola-Web",
+      "seconds": 15.53,
+      "file": {
+        "path": "out/mp4/en/F4-Kontrola-Web.mp4",
+        "bytes": 2850690,
+        "sha256": "2cbc6effc8a34809eef1edfe49dafa69eb706a42c6196b014d17166569c0aaef",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/F4-Kontrola-Web_1.png",
+          "bytes": 536700,
+          "sha256": "5a14c5b1b01326976e423bc0f87d05ef1e07a521139cd3d830a8ef8c879759eb",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F4-Kontrola-Web_2.png",
+          "bytes": 542356,
+          "sha256": "6cb373efe2aaa9793ef47c6cdc86a6e4f8d66c14afc51b537af6bac3108d5fcb",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F4-Kontrola-Web_3.png",
+          "bytes": 499449,
+          "sha256": "6e229b591944e12c4a50739a9541ac832a21beb5060e328695cbfb27e29bd759",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Suggested metadata",
+          "line": ""
+        },
+        {
+          "title": "Check and confirm",
+          "line": ""
+        },
+        {
+          "title": "Correct the suggestion",
+          "line": ""
+        },
+        {
+          "title": "Verified record",
+          "line": ""
+        }
+      ]
+    },
+    {
+      "id": "F3-Vyhladavanie-Web",
+      "order": 17,
+      "title": "F3-Vyhladavanie-Web",
+      "seconds": 8.07,
+      "file": {
+        "path": "out/mp4/en/F3-Vyhladavanie-Web.mp4",
+        "bytes": 2631999,
+        "sha256": "2cf9cebc014efb5b60b23b8d18bbf167763184c9eba443399d42cce11eb56e86",
+        "changed": "2026-10-10"
+      },
+      "stills": [
+        {
+          "path": "out/stills/en/F3-Vyhladavanie-Web_1.png",
+          "bytes": 542957,
+          "sha256": "e9f27bef1740a2db24ccdd02dffbafd7d360ef59a9c871945097c01f379669fe",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F3-Vyhladavanie-Web_2.png",
+          "bytes": 412279,
+          "sha256": "8b7c9264234eeaeaf99230ac36f6d237b5b862ac912939b9c4222221dc9dc4d6",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F3-Vyhladavanie-Web_3.png",
+          "bytes": 413783,
+          "sha256": "5cf8a693dd78e4f316d441b2677b4868f527a7fd9028801b37f1d01a924a4000",
+          "changed": "2026-10-13"
+        },
+        {
+          "path": "out/stills/en/F3-Vyhladavanie-Web_4.png",
+          "bytes": 178529,
+          "sha256": "da6aab4266738b052e6286255bff260d5d3b22644868bf0f0fb99cf0a98c701d",
+          "changed": "2026-10-13"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Keyword",
+          "line": ""
+        },
+        {
+          "title": "Record and details",
+          "line": ""
+        },
+        {
+          "title": "Path in the hierarchy",
+          "line": ""
+        },
+        {
+          "title": "Highlighted in the metadata",
+          "line": ""
+        }
+      ]
+    }
+  ],
+  "transcript": [
+    {
+      "clip": "C2-Hladanie",
+      "title": "Searching",
+      "text": "When did you last struggle to find a document? A report, a drawing or a certificate? In storage, on a shelf, in a box or in a folder."
+    },
+    {
+      "clip": "C4-Cena",
+      "title": "The cost of the problem",
+      "text": "Searching can take hours. Sometimes it's faster to have documents made again. So you may pay twice for the same thing. With us, you find it in seconds. Introducing Assetin Archives. We turn your archive into a clear digital catalogue."
+    },
+    {
+      "clip": "C4b-Hacik",
+      "title": "C4b-Hacik",
+      "text": "Scanning an entire archive can be expensive. Our app photographs only the title page."
+    },
+    {
+      "clip": "C5-Teren",
+      "title": "On site",
+      "text": "The solution starts with the physical documents. Every item, whether a shelf, a box, a binder or a folder, gets a QR code, matching how your archive is organised. An ordinary phone is all you need."
+    },
+    {
+      "clip": "F1-Sken",
+      "title": "On the phone",
+      "text": "On the phone, we choose the item type, for example a folder or a document, and place it in the hierarchy as it really is. Then we photograph its title page. This gives the item its own digital record."
+    },
+    {
+      "clip": "F4-Kontrola",
+      "title": "Review",
+      "text": "But a suggestion isn't a final record. A person checks and confirms each value. The photo is proof and stays with the record. Any corrections are made right in the suggestion. The result is a verified, traceable record of the physical document."
+    },
+    {
+      "clip": "F3-Vyhladavanie",
+      "title": "Search",
+      "text": "Then just type a keyword. The app shows the path to the item and all the extracted data. The keyword is highlighted in the record's metadata."
+    },
+    {
+      "clip": "C8a-Vysledok",
+      "title": "C8a-Vysledok",
+      "text": "The result: you know for certain which documents you have and exactly where they are. Then you can decide what to keep, what to shred and what to fully scan."
+    },
+    {
+      "clip": "C8-Pilot",
+      "title": "How to start",
+      "text": "Either you catalogue it yourselves, or we process your archive for you, turnkey."
+    },
+    {
+      "clip": "C8b-Technika",
+      "title": "C8b-Technika",
+      "text": "The app works in line with your security requirements, online with us or on your own infrastructure."
+    },
+    {
+      "clip": "C8c-Vyzva",
+      "title": "C8c-Vyzva",
+      "text": "Let's start with one box, free and with no obligation."
+    },
+    {
+      "clip": "C9-Outro",
+      "title": "Conclusion",
+      "text": "Assetin Archives."
+    },
+    {
+      "clip": "C7-Hierarchia",
+      "title": "C7-Hierarchia",
+      "text": "Every item has an exact place in the hierarchy, such as a shelf, a box, a folder or a document."
+    }
+  ]
+}

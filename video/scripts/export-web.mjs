@@ -6,6 +6,8 @@
  *
  * Pouzitie (po `npm run render`, `node scripts/mix-music.mjs` a `npm run stills`):
  *   npm run export:web
+ *   npm run export:web -- --lang cs   # CZ/EN verzia: out/mp4/<lang>/, out/stills/<lang>/ (VIDEO_LANG=cs NAMED=1
+ *                                      # node scripts/stills-fast.mjs), vo.<lang>.json -> out/web/manifest.<lang>.json
  *
  * Manifest neobsahuje kopie suborov, len cesty (relativne k video/), velkost
  * a SHA-256. Web tak vie overit, ze stiahol presne to, co manifest popisuje,
@@ -25,7 +27,15 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const OUT = join(ROOT, 'out/web/manifest.json');
+const argLang = process.argv.includes('--lang') ? process.argv[process.argv.indexOf('--lang') + 1] : 'sk';
+if (!['sk', 'cs', 'en'].includes(argLang)) {
+  console.error(`export-web: neznamy jazyk ${argLang} (sk, cs, en)`);
+  process.exit(1);
+}
+const LANG = argLang;
+/** Podpriecinok vystupov CZ/EN verzie (`out/mp4/cs/...`); slovencina bez neho. */
+const SUB = LANG === 'sk' ? '' : `/${LANG}`;
+const OUT = join(ROOT, `out/web/manifest${LANG === 'sk' ? '' : `.${LANG}`}.json`);
 const SCHEMA = 1;
 
 const fail = (msg) => {
@@ -62,13 +72,20 @@ const sceneFile = (symbol) => {
   const m = listSrc.match(new RegExp(`import \\{[^}]*\\b${symbol}\\b[^}]*\\} from '\\./scenes/([^']+)'`));
   return m ? join(ROOT, 'src/scenes', `${m[1]}.tsx`) : null;
 };
+// preklady textov v obraze (src/copy/i18n.ts, kluc = slovensky text): nazvy krokov v CZ/EN
+const UI = {};
+for (const m of readFileSync(join(ROOT, 'src/copy/i18n.ts'), 'utf8').matchAll(/^\s*(?:'((?:[^'\\]|\\.)*)'|"([^"]*)"|([A-Za-z\u00C0-\u017F]+)):\s*\{\s*cs:\s*(?:'((?:[^'\\]|\\.)*)'|"([^"]*)"),\s*en:\s*(?:'((?:[^'\\]|\\.)*)'|"([^"]*)")\s*\}/gm)) {
+  UI[m[1] ?? m[2] ?? m[3]] = { cs: m[4] ?? m[5], en: m[6] ?? m[7] };
+}
+const tr = (sk) => (LANG === 'sk' ? sk : UI[sk]?.[LANG] ?? sk);
+
 const stepsOf = (symbol) => {
   const file = sceneFile(symbol);
   if (!file || !existsSync(file)) return [];
   const src = readFileSync(file, 'utf8');
   const steps = [];
-  for (const m of src.matchAll(/\{\s*from: [^{}]*?title: '([^']+)'(?:[^{}]*?line: '([^']*)')?[^{}]*\}/g)) {
-    steps.push({ title: m[1], line: m[2] ?? '' });
+  for (const m of src.matchAll(/\{\s*from: [^{}]*?title: (?:tr\()?'([^']+)'\)?(?:[^{}]*?line: (?:tr\()?'([^']*)')?[^{}]*\}/g)) {
+    steps.push({ title: tr(m[1]), line: m[2] ? tr(m[2]) : '' });
   }
   return steps;
 };
@@ -137,7 +154,7 @@ const mp4Seconds = (rel) => {
 };
 
 // --- nahovor (src/copy/vo.json: klip -> vety s casmi) ---
-const voPath = join(ROOT, 'src/copy/vo.json');
+const voPath = join(ROOT, `src/copy/vo${LANG === 'sk' ? '' : `.${LANG}`}.json`);
 const vo = existsSync(voPath) ? JSON.parse(readFileSync(voPath, 'utf8')) : {};
 const sentencesOf = (id) =>
   (Array.isArray(vo[id]) ? vo[id] : [])
@@ -145,30 +162,35 @@ const sentencesOf = (id) =>
     .filter(Boolean);
 /** Nazvy klipov pre prepis (v obraze ich nie je, video ich nepotrebuje). */
 const TITLES = {
-  'C1-Intro': 'Intro',
-  'C2-Hladanie': 'Hľadanie',
-  'C4-Cena': 'Cena problému',
-  'C5-Teren': 'V teréne',
-  'F1-Sken': 'V mobile',
-  'C6-Spracovanie': 'Spracovanie',
-  'F2-Metadata': 'Návrh metadát',
-  'F4-Kontrola': 'Kontrola',
-  'C10-Databaza': 'Práca s databázou',
-  'F3-Vyhladavanie': 'Vyhľadávanie',
-  'C8-Pilot': 'Ako začať',
-  'C9-Outro': 'Záver',
-};
+  'C1-Intro': ['Intro', 'Úvod', 'Intro'],
+  'C2-Hladanie': ['Hľadanie', 'Hledání', 'Searching'],
+  'C4-Cena': ['Cena problému', 'Cena problému', 'The cost of the problem'],
+  'C5-Teren': ['V teréne', 'V terénu', 'On site'],
+  'F1-Sken': ['V mobile', 'V mobilu', 'On the phone'],
+  'C6-Spracovanie': ['Spracovanie', 'Zpracování', 'Processing'],
+  'F2-Metadata': ['Návrh metadát', 'Návrh metadat', 'Suggested metadata'],
+  'F4-Kontrola': ['Kontrola', 'Kontrola', 'Review'],
+  'C10-Databaza': ['Práca s databázou', 'Práce s databází', 'Working with the database'],
+  'F3-Vyhladavanie': ['Vyhľadávanie', 'Vyhledávání', 'Search'],
+  'C8-Pilot': ['Ako začať', 'Jak začít', 'How to start'],
+  'C9-Outro': ['Záver', 'Závěr', 'Conclusion'],
+}; // sk, cs, en
 
 // --- manifest ---
-const clips = scenes.map((s, i) => {
-  const rel = `out/mp4/${s.id}.mp4`;
+const missing = [];
+const clips = scenes.filter((s) => {
+  // CZ/EN: klip, ktory sa v jazyku nerenderuje (napr. C10-Databaza), v manifeste nie je
+  if (SUB && !existsSync(join(ROOT, `out/mp4${SUB}/${s.id}.mp4`))) return missing.push(s.id), false;
+  return true;
+}).map((s, i) => {
+  const rel = `out/mp4${SUB}/${s.id}.mp4`;
   return {
     id: s.id,
     order: i + 1,
-    title: TITLES[s.id] ?? s.id,
+    title: TITLES[s.id]?.[['sk', 'cs', 'en'].indexOf(LANG)] ?? s.id,
     seconds: mp4Seconds(rel),
     file: file(rel),
-    stills: Array.from({ length: s.stillCount }, (_, k) => file(`out/stills/${s.id}_${k + 1}.png`)),
+    stills: Array.from({ length: s.stillCount }, (_, k) => file(`out/stills${SUB}/${s.id}_${k + 1}.png`)),
     steps: stepsOf(s.symbol),
   };
 });
@@ -176,22 +198,32 @@ const transcript = clips
   .map((c) => ({ clip: c.id, title: c.title, text: sentencesOf(c.id).join(' ') }))
   .filter((t) => t.text);
 
+const FULL = LANG === 'sk' ? 'Full' : `Full_${LANG.toUpperCase()}`; // out/mp4/cs/Full_CS_1080p.mp4
 const full = {
-  '1080p': file('out/mp4/Full_1080p.mp4'),
-  '540p': file('out/mp4/Full_preview_540p.mp4', { optional: true }),
+  '1080p': file(`out/mp4${SUB}/${FULL}_1080p.mp4`),
+  '540p': file(`out/mp4${SUB}/${FULL}_preview_540p.mp4`, { optional: true }),
 };
+// kratke video (LinkedIn, 4:5) pre prepinac Rychly prehlad / Cele video na webe; SK K-LinkedIn-46, CZ/EN K-LinkedIn_<LANG>
+const SHORT = LANG === 'sk' ? 'out/kratka/K-LinkedIn-46' : `out/kratka/${LANG}/K-LinkedIn_${LANG.toUpperCase()}`;
+const shortHd = file(`${SHORT}_1080p.mp4`, { optional: true });
+const short = shortHd
+  ? { seconds: mp4Seconds(shortHd.path), files: Object.fromEntries(Object.entries({ '1080p': shortHd, '540p': file(`${SHORT}_preview_540p.mp4`, { optional: true }) }).filter(([, f]) => f)) }
+  : null;
+
 const manifest = {
   $comment: 'Generuje `npm run export:web` (video/scripts/export-web.mjs) - needitovat rucne.',
   schema: SCHEMA,
+  lang: LANG,
   updated: [full['1080p'], ...clips.flatMap((c) => [c.file, ...c.stills])]
     .map((f) => f.changed)
     .sort()
     .at(-1),
   video: { width: W, height: H, fps: FPS, sound: transcript.length > 0 },
   full: {
-    seconds: mp4Seconds('out/mp4/Full_1080p.mp4'),
+    seconds: mp4Seconds(full['1080p'].path),
     files: Object.fromEntries(Object.entries(full).filter(([, f]) => f)),
   },
+  ...(short ? { short } : {}),
   clips,
   transcript,
 };
@@ -199,9 +231,10 @@ const manifest = {
 mkdirSync(dirname(OUT), { recursive: true });
 writeFileSync(OUT, `${JSON.stringify(manifest, null, 2)}\n`);
 console.log(
-  `export-web: ${clips.length} klipov, plne video ${manifest.full.seconds} s${manifest.video.sound ? ' s nahovorom' : ''}, ` +
-    `${transcript.length} sekcii prepisu -> out/web/manifest.json`,
+  `export-web: ${clips.length} klipov, plne video ${manifest.full.seconds} s${manifest.video.sound ? ' s nahovorom' : ''}${short ? `, kratke ${short.seconds} s` : ''}, ` +
+    `${transcript.length} sekcii prepisu -> ${OUT.slice(ROOT.length + 1)}`,
 );
+if (missing.length) console.log(`  bez klipu v jazyku ${LANG}: ${missing.join(', ')}`);
 for (const c of clips) {
   console.log(`  ${String(c.order).padStart(2)}. ${c.id.padEnd(16)} ${String(c.seconds).padStart(6)} s  stills ${c.stills.length}  kroky ${c.steps.length}`);
 }
